@@ -4,7 +4,7 @@
 ### 2. git remote add origin {SSH주소} 를 적어 gitLab과 연동시킨다.
 ### 3. git clone {SSH주소} 를 적어 gitLab의 파일을 다운 받는다.
 ### 4. git remote -v 를 적어 repository가 SSH주소와 잘 연결됐는지 본다.
-### 5. 자신의 파일을 변경하기 전에 branch 꼭 확인해 변경해야 합니다. (master NoNo) [Terminal의 위치가 프로젝트 폴더의 위치인지 잘 확인할 것.]
+### 5. 자신의 파일을 변경하기 전에 branch 꼭 확인해 변경해야 합니다. (master NoNo) [VScode의 폴더 위치가 gitLab프로젝트 폴더가 열려있는지 잘 확인할 것.]
 ### 6. git branch를 해서 자신이 사용할 branch가 있는지 확인한다.
 ### 7. 자신이 사용할 branch가 없을 경우 git branch {branch명} 을 이용해 branch를 생성한다.
 ### 8. git checkout {branch명}으로 branch를 선택한다.
