@@ -1,0 +1,88 @@
+h1{
+    color: rgb(43, 43, 43);   
+}
+
+.Login-Box{
+    display: flex;
+    flex-direction: column;
+}
+
+.Login-Box-Info h4{
+    padding-top: 10px;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+.Login-Box-Info input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 30px;
+    padding : 5px;
+    width: 320px;
+    height: 40px;
+    border-radius: 3px;
+    border: none;
+    outline : none;
+}
+
+.Login-Box-Info{
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    width: 400px;
+    height: 260px;
+    margin: 0, auto;
+}
+
+.Login-Box-Info i{
+    margin-left: 35px;
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+.fa-check-circle{
+    color: black;
+}
+
+.Login-Button-Align{
+    margin: 6% 10%;
+}
+
+.Login-Button-Align input{
+    width: 300px;
+    height: 40px;
+}
+
+.Login-Button{
+    text-align: center;
+    line-height: 39px;
+    font-size: 16px;
+    background-color: rgb(107, 107, 107); 
+    color: white;  
+    border-radius: 5px;
+    width: 300px;
+    height: 40px;
+    border-radius: 3px;
+    border : none;
+}
+
+.Login-Box-Bottom{
+    font-size: 15px;
+    margin-top: 5px;
+    margin-left: 10px;
+    display: flex;
+}
+
+a.Link{
+    text-decoration: none;  
+    color: gray;
+}
+
+a.Link:hover{
+    text-decoration: none;  
+    color: lightgray;
+}
+
+.find{
+   margin-left: 150px;
+}

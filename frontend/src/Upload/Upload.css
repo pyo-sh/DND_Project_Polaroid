@@ -1,0 +1,103 @@
+.App{
+  height: 1300px;
+}
+
+.Frame {
+  position: absolute;
+  height: 1000px;
+  width:1000px;
+  margin: 5% auto;
+  background-color: #E2E2E2;
+}
+
+.Letter{
+  font-size: 40px;
+  font-weight: bold;
+  text-align: left;
+  padding-bottom: 15px;
+  background-color: #FFFFFF;
+}
+
+.Frame-in{
+  text-align: left;
+  margin-left: 70px;
+}
+
+.Image{
+  text-align: center;
+  background-color: #FFFFFF;
+  margin-top: 50px;
+  width: 860px;
+  height: 500px;
+}
+
+.Category{
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.categoryDropBox{
+  font-size: 15px;
+  margin-left: 10px;
+  height:25px;
+  width: 200px;
+}
+
+.Tag{
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.TagExpl{
+  font-size: 13px;
+  margin-left: 95px;
+  margin-top: 10px;
+  color: #808080;
+}
+
+.TagInput{
+  margin-left: 50px;
+  height:25px;
+}
+
+.Distribute{
+  display: flex;
+  font-size: 17px;
+  margin-top: 30px;
+}
+
+.charge{
+  margin-left:100px;
+}
+
+.Caution{
+  font-size: 17px;
+  margin-top: 20px;
+}
+
+.Visibility{
+  display: flex;
+  font-size: 17px;
+  margin-top: 20px;
+}
+
+.private{
+  margin-left:130px;
+}
+
+.Btn{
+  font-size: 20px;
+  padding: .3rem 1rem;
+  line-height: 1.25rem;
+  background-color: #666;
+  width: 120px;
+  height: 50px;
+  margin-left: 410px;
+  margin-top:30px;
+  border-radius: 5px/5px;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  border: 0;
+  outline:0;
+}

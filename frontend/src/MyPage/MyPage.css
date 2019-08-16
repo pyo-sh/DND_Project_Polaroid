@@ -1,0 +1,53 @@
+.screen {
+    width: 960px;
+}
+
+.MyPage{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.null{
+    width: 960px;
+    height: 100%;
+    margin: auto;
+    background: rgb(131, 131, 131, 50%);
+}
+.MyPage-Menu-Selected{
+    background: rgb(131, 131, 131, 50%);
+}
+
+.loading-screen {
+    width : 100%;
+    height : 550px;
+    position:relative;
+    top:20px;
+    left : 30px;
+    z-index : 9999;
+    display: flex;
+    align-items: center;
+}
+.loading-screen::before{
+    content: "메뉴 선택메뉴 선택메뉴 선택메뉴 선택";
+    position : absolute;
+    width : 80px;
+    height : 80px;
+    background: #f8c291;
+    left : 20%;
+    transform : translateX(-50%) rotate(0);
+    border-radius: 20px;
+    animation : loading 4s infinite linear;
+}
+@keyframes loading {
+    from{
+        transform : translate(-50%) rotate(0deg);
+    }
+    50%{
+        left: 80%;
+    }
+    to {
+        transform : translate(-50%) rotate(1240deg);
+    }
+}

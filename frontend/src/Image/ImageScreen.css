@@ -1,0 +1,31 @@
+.App {
+  display : flex;
+  justify-content: center;
+  margin-top : 10px;
+}
+
+.App-Left{
+  width: 1200px;
+}
+
+.App-Right{
+  width: 380px;
+}
+
+@media screen and (max-width : 100%){
+  .App {
+    display : flex;
+  }
+}
+@media screen and (max-width : 1200px){
+  .App {
+    display : flex;
+    flex-direction: column;
+  }
+  .App-Left{
+    width: 100%;
+  }
+  .App-Right{
+    width: 100%;
+  }
+}

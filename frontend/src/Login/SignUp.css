@@ -1,0 +1,98 @@
+h1{
+    color: rgb(43, 43, 43);   
+    text-align: center;
+}
+
+.Sign-Up-Box{
+    display: flex;
+    flex-direction: column;
+}
+
+.ID{
+    display: flex;
+    height: 30px;
+}
+
+.ID input{
+    margin-left: 30px;
+    margin-bottom: 8px;
+    width: 270px;
+    height: 35px;
+}
+
+.ID button{
+    width: 100px;
+}
+
+.ID-Check{
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    background-color: rgb(107, 107, 107); 
+    float: center;
+    color: white;  
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+    margin: 0 9%;
+}
+
+.Sign-Up-Box-Info{
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;
+    width: 400px;
+    height: 600px;
+}
+
+.Sign-Up-Box-Info h4{
+    padding-top: 20px;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+.Sign-Up-Box-Info input{
+    margin-top: 8px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+    width: 330px;
+    height: 35px;
+}
+
+.Sign-Up-Button-Align{
+    margin: 5% 35%;
+}
+
+.Sign-Up-Button-Align input{
+    width: 150px;
+    height: 40px;
+}
+
+.Sign-Up-Button{
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px;
+    background-color: rgb(107, 107, 107); 
+    float: center;
+    color: white;  
+    border-radius: 5px;
+    width: 100px;
+    height: 40px;
+}
+
+.Sign-Up-Box-Bottom{
+    font-size: 15px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+a.Go-Login{
+    text-decoration: none;  
+    color: gray;
+}
+
+a.Go-Login:hover{
+    text-decoration: none;  
+    color: lightgray;
+}

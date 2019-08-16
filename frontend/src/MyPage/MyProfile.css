@@ -1,0 +1,60 @@
+.Profile{
+    width: 500px;
+    height: 200px;
+    display: flex;
+
+    margin: 50px auto;
+    padding: 0 10px;
+}
+
+.Profile .Profile-Status{
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Profile .Profile-Status .Profile-Photo{
+    width: 80%;
+    height: 80%;
+    background: gray;
+
+    border-radius: 50%;
+    border: 1px solid gray;
+    background: gray;
+}
+
+.Profile .Profile-Columns{
+    width: 55%;
+    height: 100%;
+    margin: 3%;
+
+    position:relative;
+}
+.Profile .Profile-Columns .Profile-Private .Profile-Name{
+    font-size: 30px;
+}
+.Profile .Profile-Columns .Profile-Private .Profile-Id{
+    color: gray;
+}
+.Profile .Profile-Columns .Profile-About{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 10px 5px;
+}
+.Profile .Profile-Columns .Profile-Service{
+    width: 100%;
+    position:absolute;
+    bottom: 10px; /*밑에 위치*/
+    display: flex;
+    justify-content: flex-end;
+}
+.Profile .Profile-Columns .Profile-Service .Profile-Following{
+    color: blue;
+}
+.Profile .Profile-Columns .Profile-Service .Profile-Follower{
+    color: gray;
+    margin-left: 5%
+}

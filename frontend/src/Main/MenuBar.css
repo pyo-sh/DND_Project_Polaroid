@@ -1,0 +1,56 @@
+
+.Menu{
+    display: flex;
+    justify-content: space-between;
+    background: #E0E0E0;
+    width : 100%;
+    height: 50px;
+    align-items: center;
+}
+.Menu-First{
+    display:flex;
+    margin-left: 10px;
+}
+.Menu-Title{
+    color : black;
+}
+.Menu-Logo{
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-size : 30px;
+    font-weight: bold;
+}
+
+.Search-Form{
+    display:flex;
+    align-items: center;
+    margin-left : 30px;
+}
+
+.Menu-Input {
+    width: 200px;
+}
+.Menu-Item{
+    display:flex;
+    margin-right: 10px;
+}
+
+.Login-Btn {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.Sign-Btn {
+    margin-left: 10px;
+    color : white;
+    background-color: #7F7F7F;
+    border: none;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 500;
+    cursor: pointer;
+}

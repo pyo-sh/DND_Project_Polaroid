@@ -1,0 +1,13 @@
+.Photo-Box {
+    margin-left : 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    align-items: center;
+}
+
+.Photo-Box-Img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}

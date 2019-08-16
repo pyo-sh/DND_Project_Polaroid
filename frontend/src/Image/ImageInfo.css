@@ -1,0 +1,108 @@
+.ImageInfo{
+    border: 1px solid rgb(230, 230, 230);
+    margin: 20px;
+    border-radius: 5px;
+}
+
+.ImageInfo-Column{
+    display: flex;
+    padding: 10px;
+}
+
+.ImageInfo-Column:nth-child(1){
+    margin-top : 10px;
+}
+
+.Profile-Image{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.Profile-Image img{    
+    width: 100px;
+    height: 100px;
+}
+
+.Profile-Info{
+    display: flex;
+    flex-direction: column;
+    margin-top : 20px;
+    margin-left : 20px;
+    text-align: left;
+}
+
+.Profile-Info .Nickname{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.Profile-Info .Id{
+    color : rgb(180, 180, 180);
+    margin-top : 2px;
+    margin-left : 10px;
+    font-size: 15px;
+}
+
+.Follow-Btn{
+    position: relative;
+    bottom: 12px;
+    right: 5px;
+    margin-left: auto;
+    margin-top: auto;
+}
+
+.Follow-Btn .Follow{
+    color : rgb(86, 149, 243);
+}
+
+.Follow-Btn button{
+    background: none;
+    color:  rgb(180, 180, 180);
+    border : none;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.Download{
+    margin-bottom: 3px;
+}
+
+.Download button{
+    color: white;
+    background:  rgb(86, 149, 243);
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.Download .Premium{
+    background:  rgb(181, 89, 243);
+}
+
+.ImageInfo-Column:last-child{
+    flex-direction: column;
+    background: rgb(240, 240, 240);
+    margin: 0 10px 10px 10px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+}
+
+
+table td:nth-child(1){
+    font-weight: 800;
+    text-align: left;
+}
+
+table td:nth-child(2){
+    text-align: right;
+}
+
+
+

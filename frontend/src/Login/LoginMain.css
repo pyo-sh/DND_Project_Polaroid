@@ -1,0 +1,14 @@
+.Main{
+    display: flex;
+}
+
+.Main-Left{
+    max-width: 600px;
+    max-height: 850px;
+    opacity: 0.7;
+    margin-right: 30px;
+}
+
+.Main-Right{
+    margin: auto auto;
+}
