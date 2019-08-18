@@ -167,25 +167,29 @@ users.get('/finduser', (req, res, next) => {  // 유저 찾기
     });
 });
 
-users.get('/reset', (req, res) => { // 패스워드 리셋
+users.post('/reset', (req, res) => { // 패스워드 리셋
+    const { ID, PASSWORD } = req.body; // id와 패스워드를 받아서 id를 찾아 패스워드를 바꿈
     User.findOne({
         where : {
-            resetPasswordToken: req.query.resetPasswordToken,
-            resetPasswordExpires: {
-                [Op.gt]: Date.now(),
-            },
-        },
+            ID : ID
+        }
     }).then((user) => {
         if (user == null) {
             console.error('password reset link is invalid or has expired');
             res.status(403).send('password reset link is invalid or has expired');
         } else {
-            res.status(200).send({
-                ID: user.ID,
-                message: 'password reset link a-ok',
-            });
+            bcrypt.hash(PASSWORD, 10, (err,hash) => {
+                const hashPassword = hash;
+                user.update({
+                    PASSWORD : hashPassword
+                })
+                res.status(200).send({
+                    ID: user.ID,
+                    message: 'password reset link a-ok',
+                });
+            })
         }
-    });
+    })
 });
 
 const BCRYPT_SALT_ROUNDS = 12;
@@ -254,18 +258,11 @@ users.put('/updateuser', (req, res, next) => {
     })(req, res, next);
 });
 
-users.delete('/deleteuser', (req, res, next) => {
-    passport.authenticate('jwt', { session: false }, (err, user, info) => {
-        if (err) {
-            console.error(err);
-        }
-        if(info !== undefined){
-            console.error(info.message);
-            res.status(403).send(info.message);
-        }else {
+users.delete('/delete/:userID', (req, res) => {
+            console.log(req.params.userID);
             User.destroy({
                 where : {
-                    ID: req.query.ID
+                    ID: req.params.userID
                 },
             })
             .then((userInfo) => {
@@ -281,12 +278,9 @@ users.delete('/deleteuser', (req, res, next) => {
                 console.error('problem communicating with db');
                 res.status(500).send(error);
             })
-        }
-    })(req, res, next);
-});
+})
 
-
-users.post('/forgotpassword', (req, res) => {
+users.post('/findpassword', (req, res) => { // 해당 주소로 들어왔을때만 ok하게 어떻게 하나.......
     if (req.body.ID === '') {
       res.status(400).send('ID required');
     }
@@ -300,17 +294,19 @@ users.post('/forgotpassword', (req, res) => {
         console.error('ID not in database');
         res.status(403).send('ID not in db');
       } else {
-        const token = crypto.randomBytes(20).toString('hex');
-        user.update({
-          resetPasswordToken: token,
-          resetPasswordExpires: Date.now() + 360000,
-        });
-
+        // const token = crypto.randomBytes(20).toString('hex');
+        const uservalue = {
+            ID : req.body.ID,
+            auth : true,
+        }
+        let token = jwt.sign(uservalue, jwtSecret.secret, {
+            expiresIn: 60 * 60,
+        })
         const transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
-            user: `${process.env.EMAIL_ADDRESS}`, // 바꾸자
-            pass: `${process.env.EMAIL_PASSWORD}`, // 바꾸자
+            user: 'ansejrrhkd@gmail.com', // 바꾸자
+            pass: 'dkelektm123!', // 바꾸자
           },
         });
 
@@ -321,7 +317,7 @@ users.post('/forgotpassword', (req, res) => {
           text:
             'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
             + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
-            + `http://localhost:3000/reset/${token}\n\n`
+            + `https://localhost:3000/user/reset/${req.body.ID}/${token}\n`
             + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
         };
 
