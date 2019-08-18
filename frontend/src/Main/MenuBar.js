@@ -9,8 +9,6 @@ class MenuBar extends Component {
     }
     logOut = (e) => {
         e.preventDefault();
-        this.onClick();
-        this.props.handleState();
         localStorage.removeItem('usertoken');
         alert('로그아웃 되었습니다.');
         this.props.history.push(`/`);
@@ -45,8 +43,8 @@ class MenuBar extends Component {
                                 <Dropdown.Item>Art Works</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                       {localStorage.usertoken === undefined ? <Link to="/user/login"> <button className = "Login-Btn" onClick={this.onClick}>Login</button></Link> : <button className = "Login-Btn" onClick={this.logOut}>LogOut</button>}
-                       {localStorage.usertoken === undefined ?  <Link to="/user/signup"><button className = "Sign-Btn" onClick={this.onClick}>Sign Up</button></Link>  : <Link to="/mypage"><button className = "Sign-Btn" onClick={this.onClick}>My Page</button></Link>} 
+                       {localStorage.usertoken === undefined ? <Link to="/user/login"> <button className = "Login-Btn">Login</button></Link> : <button className = "Login-Btn" onClick={this.logOut}>LogOut</button>}
+                       {localStorage.usertoken === undefined ?  <Link to="/user/signup"><button className = "Sign-Btn" >Sign Up</button></Link>  : <Link to="/mypage"><button className = "Sign-Btn" onClick={this.onClick}>My Page</button></Link>} 
                        {localStorage.usertoken === undefined ? "" : <Link to="/upload"><button className = "Sign-Btn">Upload</button></Link> } 
 
                     </div>
