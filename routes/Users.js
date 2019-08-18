@@ -6,7 +6,6 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
-const crypto = require('crypto');
 
 users.post('/fblogin', (req, res, next) => {
     passport.authenticate('facebook', (err, users, info) => {
