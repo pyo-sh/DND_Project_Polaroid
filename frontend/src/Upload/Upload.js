@@ -1,6 +1,5 @@
 import React from "react";
-import logo from './logo.svg';
-import "./App.css";
+import "./Upload.css";
 
 const Upload = ({AppEvent}) => {
   return (
@@ -39,10 +38,10 @@ const Upload = ({AppEvent}) => {
 }
 
 class ImportImage extends React.Component{
-  handleClick=()=>{
+  handleClick=(e)=>{
     return(
-      <img src={logo} className="App-logo" alt="logo" />
-    );
+      e.target.value
+    )
   }
   render(){
     return(
@@ -143,8 +142,8 @@ class StartPrice extends React.Component{
 
 class Distribute extends React.Component{
   buttonChecked = (e) =>{
-    if(e.target.value==='free'){price+=0; console.log('free');}
-    else{price+=100; console.log('charge');}
+    if(e.target.value==='free'){console.log('free');}
+    else{ console.log('charge');}
   }
   render(){
     return(
