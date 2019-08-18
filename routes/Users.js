@@ -6,7 +6,6 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
-const crypto = require('crypto');
 
 users.post('/fblogin', (req, res, next) => {
     passport.authenticate('facebook', (err, users, info) => {
@@ -313,12 +312,12 @@ users.post('/findpassword', (req, res) => { // 해당 주소로 들어왔을때�
         const mailOptions = {
           from: 'mySqlDemoEmail@gmail.com',
           to: `${user.email}`,
-          subject: 'Link To Reset Password',
+          subject: 'Polaroid 비밀번호 바꾸기 시스템',
           text:
-            'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
-            + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
+            `안녕하세요.${req.body.ID}님 Polaroid입니다. 비밀번호를 바꾸기 위해 요청을 하셨군요.\n\n`
+            + '아래의 링크를 클릭하시거나 브라우저 주소창에 붙여넣기 해주세요!\n\n'
             + `https://localhost:3000/user/reset/${req.body.ID}/${token}\n`
-            + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+            + '만약 패스워드를 바꾸고 싶지 않으시다면 이 링크를 무시하시면 당신의 비밀번호는 바뀌지 않을거에요!\n',
         };
 
         console.log('sending mail');
