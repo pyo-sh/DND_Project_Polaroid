@@ -8,11 +8,13 @@
   height: 1000px;
   width:1000px;
   left: 15%;
-  margin-top: 150px;
+  margin-top: 100px;
   background-color: #E2E2E2;
 }
 
 .Letter{
+  width : 1000px;
+  height : 26px;
   font-size: 40px;
   font-weight: bold;
   text-align: left;

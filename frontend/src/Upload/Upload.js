@@ -1,5 +1,6 @@
 import React from "react";
 import "./Upload.css";
+import {post} from 'axios';
 
 const Upload = ({AppEvent}) => {
   return (
@@ -7,10 +8,10 @@ const Upload = ({AppEvent}) => {
       <div className="Frame">
         <div className="Letter">UPLOAD</div>
         <div className="Frame-in">
-          <ImportImage></ImportImage>
+          <ImportImage/>
           <div className="CatTag">
             <div className="Category">카테고리
-              <Select></Select>
+              <Select/>
             </div>
             <div className="Tag">태그
               <input className="TagInput" type="text" name="태그" placeholder="쉼표로 구분"></input>
@@ -18,9 +19,9 @@ const Upload = ({AppEvent}) => {
           </div>
           <div className="TagExpl">3개 이상</div>
           <div className="Price">가격
-            <StartPrice></StartPrice>
+            <StartPrice/>
           </div>
-          <Distribute></Distribute>
+          <Distribute/>
            <div className="Copyright">
             <input className="CommercialAvailable" type='checkbox' name='Copyright' value='CommercialAvailable'/>상업적 이용 불가
             <input className="CopyrightNotice" type='checkbox' name='Copyright' value='CopyrightNotice'/>저작권 표시
@@ -30,22 +31,56 @@ const Upload = ({AppEvent}) => {
             <input className="public" type='radio' name='visibility' value='public'/>공개
             <input className="private" type='radio' name='visibility' value='private'/>비공개
           </div>
-          <LoggingButton></LoggingButton>
+          <LoggingButton/>
         </div>
       </div>
     </div>
   );
 }
 
-class ImportImage extends React.Component{
-  handleClick=(e)=>{
-    return(
-      e.target.value
-    )
+class ImportImage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      file: null, // 실제 byte 형태의 데이터
+      fileName: "" // 보내고자 하는 파일 이름
+    };
   }
-  render(){
-    return(
-      <button className="imageBtn" onClick={this.handleClick}>사진을 업로드 하려면 여기를 클릭하세요</button>
+
+  handleFormSubmit = e => {
+    e.preventDefault();
+    this.uploadImage().then(res => {
+      console.log(res.data);
+    });
+  };
+
+  handleFileChange = e => {
+    this.setState({
+      file: e.target.files[0],
+      fileName: e.target.value
+    });
+  };
+
+  uploadImage = () => {
+    const url = "/api/image";
+    const formData = new FormData();
+    formData.append("image", this.state.file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data"
+      }
+    };
+    return post(url, formData, config);
+  };
+
+  render() {
+    return (
+      <form onSubmit={this.handleFormSubmit}>
+        <button className="imageBtn">
+        <input type="file" name="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/>
+        </button><br/>
+        <button type="submit">Upload</button>
+      </form>
     );
   }
 }
