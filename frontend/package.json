@@ -7,6 +7,7 @@
     "count-files": "^2.6.2",
     "jwt-decode": "^2.2.0",
     "react": "^16.8.6",
+    "react-billboardjs": "^1.5.3",
     "react-dom": "^16.8.6",
     "react-facebook-login": "^4.1.1",
     "react-files": "^2.4.8",

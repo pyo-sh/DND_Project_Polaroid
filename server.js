@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 5000;
 const passport = require('passport');
 const Users = require('./routes/Users');
+const MyPage = require('./routes/MyPage');
 
 const optionsForHTTPS = {
     key: fs.readFileSync('config/key.pem','utf8'),
@@ -36,6 +37,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/user', Users);
+app.use('/mypage', MyPage);
 
 app.get('/file/photos', (req, res) => {
    let photos = [];

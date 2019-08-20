@@ -6,6 +6,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
+const Intro = require('../models/Intro');
 
 users.post('/fblogin', (req, res, next) => {
     passport.authenticate('facebook', (err, users, info) => {
@@ -119,6 +120,15 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                             console.log(userData);
                             User.create(userData)
                             .then(user => {
+                                const IntroData ={
+                                    ID: userData.ID,
+                                    introduce : '안녕하세요 처음뵙겠습니다.',
+                                    follow : 0,
+                                    floower : 0,
+                                    grade : '일반',
+                                    nickname : userData.nickname
+                                }
+                                Intro.create(IntroData);
                                 res.json({status : user.ID + 'registerd'})
                                 })
                             .catch(err => {
