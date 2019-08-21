@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getAllInfo = async userID => {
     return await axios
-    .get(`/mypage/${userID}`)
+    .get(`/api/mypage/${userID}`)
     .then(res => {
         console.log("가지고온다~")
         console.log(res);
@@ -15,7 +15,7 @@ export const getAllInfo = async userID => {
 
 export const editMyPage = async user => {
     return await axios
-    .post('/mypage/edit',{
+    .post('/api/mypage/edit',{
         ID : user.id,
         introduce : user.about,
         nickname : user.name

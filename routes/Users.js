@@ -343,7 +343,58 @@ users.post('/findpassword', (req, res) => { // 해당 주소로 들어왔을때�
       }
     });
   });
-
-
-
+users.post("/findid", (req, res) => {
+  // 해당 주소로 들어왔을때만 ok하게 어떻게 하나.......
+  if (req.body.email === "") {
+    res.status(400).send("email required");
+  }
+  console.error(req.body.email);
+  User.findAll({
+    where: {
+      email: req.body.email
+    }
+  }).then(user => {
+    if (user === null) {
+      console.error("email not in database");
+      res.status(403).send("email not in db");
+    } else {
+      // const token = crypto.randomBytes(20).toString('hex');
+      const jsonUser = JSON.stringify(user);
+      const parseUser = JSON.parse(jsonUser);
+      let array = []
+      parseUser.forEach(user => {
+            array = [...array, user.ID]
+      })
+      console.log(array);
+      
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "ansrjsdn9865@gmail.com", // 바꾸자
+          pass: "gkskenftpt123!" // 바꾸자
+        }
+      });
+      const mailOptions = {
+        from: "mySqlDemoEmail@gmail.com",
+        to: `${req.body.email}`,
+        subject: "Polaroid 아이디 찾기 시스템",
+        text:
+          `안녕하세요.${
+            req.body.email
+          }님 Polaroid입니다. 아이디를 찾기 위해 요청을 하셨군요.\n\n` +
+          `고객님의 아이디는 ${array} 입니다.\n\n` + 
+          "Polaroid를 이용해 주셔서 감사합니다.\n"
+      };
+      console.log("sending mail");
+      transporter.sendMail(mailOptions, (err, response) => {
+        if (err) {
+          console.error("there was an error: ", err);
+        } else {
+          console.log("here is the res: ", response);
+          res.status(200).json("recovery email sent");
+        }
+      });
+    }
+  });
+});
 module.exports = users;

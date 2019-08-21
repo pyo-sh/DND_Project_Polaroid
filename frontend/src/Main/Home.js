@@ -9,7 +9,7 @@ class Home extends Component {
         photos : [],
     }
    getPhotos = _ => {
-    fetch('/file/photos')
+    fetch('/api/file/photos')
     .then(response => response.json())
     .then(response => this.setState({ photos : response.photos}))
     .catch(err => console.error(err))
