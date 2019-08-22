@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import MyPageEdit from './MyPageEdit';
 import { getAllInfo } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
-import MyPageBenefit from './MyPageBenefit';
 
 class MyPage extends Component { // 프로필 값들을 setState로 업데이트 하기 위해서 state값으로 넣음.
     state ={
