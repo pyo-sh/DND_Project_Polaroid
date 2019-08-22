@@ -1,7 +1,7 @@
 import React , { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
-import { login } from './UserFunctions';
+import { sessionLogin, localLogin } from './UserFunctions';
 
 
 
@@ -31,11 +31,17 @@ class Login extends Component {
             PASSWORD: this.state.PASSWORD
         }
 
-        login(user).then(res => {
+        this.state.click ? 
+          localLogin(user).then(res => {
             if(res) {
-                this.props.history.push(`/user/profile`)
+                this.props.history.push(`/user/localprofile`)
             }
-        })
+          }) :
+          sessionLogin(user).then(res => {
+              if(res) {
+                  this.props.history.push(`/user/sessionprofile`)
+              }
+          })
     }
 
     render() {
