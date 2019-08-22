@@ -28,6 +28,9 @@ h1{
     width: 320px;
     height: 35px;
     margin-bottom: 20px;
+    border-radius: 3px;
+    border: none;
+    outline : none;
 }
 
 .Find-ID-Button-Align{

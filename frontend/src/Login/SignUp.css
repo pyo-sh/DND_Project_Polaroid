@@ -57,6 +57,9 @@ h1{
     margin-bottom: 20px;
     width: 330px;
     height: 35px;
+    border-radius: 3px;
+    border: none;
+    outline : none;
 }
 
 .Sign-Up-Button-Align{
@@ -78,6 +81,7 @@ h1{
     border-radius: 5px;
     width: 100px;
     height: 40px;
+    border : none;
 }
 
 .Sign-Up-Box-Bottom{
