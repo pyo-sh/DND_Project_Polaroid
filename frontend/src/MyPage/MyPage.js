@@ -89,13 +89,8 @@ class MyPage extends Component { // 프로필 값들을 setState로 업데이트
             case "DOWNLOADED" : return ;
             case "LIKED" : return;
             case "FAVORITE" : return;
-<<<<<<< HEAD
-            case "BENEFIT" : return <MyPageBenefit profile={profile}/>;
-            case "MY PAGE" : return ;
-=======
             case "BENEFIT" : return <MyPageBenefit profile={this.state.profile}/>;
             case "MY PAGE" : return;
->>>>>>> mun
             default : return <div className="loading-screen">
                 {/* <img className="MyPage" src="http://m.red.kia.com/kr/common/images/txt/error_txt1.png" alt="메롱!"/> */}
             </div>;
