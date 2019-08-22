@@ -4,14 +4,9 @@ import {Icon, Dropdown} from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
 class MenuBar extends Component {
-    componentDidMount(){
-        console.log(localStorage.usertoken);
-        console.log(localStorage.usertoken);
-    }
     logOut = (e) => {
         e.preventDefault();
-        localStorage.removeItem('usertoken');
-        sessionStorage.removeItem('usertoken');
+        localStorage.usertoken ? localStorage.removeItem('usertoken') :  sessionStorage.removeItem('usertoken');
         alert('로그아웃 되었습니다.');
         this.props.history.push(`/`);
 

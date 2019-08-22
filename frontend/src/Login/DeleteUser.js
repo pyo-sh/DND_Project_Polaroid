@@ -1,14 +1,17 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import { deleteUser } from "./UserFunctions";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 
 const id = () => {
-    const token = localStorage.usertoken;
-    const decodetoken = jwt_decode(token);
-    const id = decodetoken.ID;
-    console.log(id);
-    return id;
-}
+  let token = "";
+  localStorage.usertoken
+    ? (token = localStorage.getItem("usertoken"))
+    : (token = sessionStorage.getItem("usertoken"));
+  const decodetoken = jwt_decode(token);
+  const id = decodetoken.ID;
+  console.log(id);
+  return id;
+};
 
 class DeleteUser extends Component {
   onSubmit = e => {
@@ -21,7 +24,13 @@ class DeleteUser extends Component {
     deleteUser(userID).then(res => {
       console.log(res);
     });
-    localStorage.removeItem('usertoken');
+    if (localStorage.usertoken) {
+      localStorage.removeItem("usertoken");
+    } else if (sessionStorage.usertoken) {
+      sessionStorage.removeItem("usertoken");
+    } else {
+      console.log("에러가 났습니다");
+    }
   };
 
   render() {

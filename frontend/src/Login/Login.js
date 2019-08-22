@@ -44,7 +44,7 @@ class Login extends Component {
           }) :
           sessionLogin(user).then(res => {
               if(res) {
-                  this.props.history.push(`/user/sessionprofile`)
+                  this.props.history.push(`/mypage`)
               }
           })
     }

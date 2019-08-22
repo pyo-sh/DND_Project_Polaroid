@@ -11,14 +11,10 @@ import SignUp from '../Login/SignUp';
 import FindID from '../Login/FindID';
 import FindPassword from '../Login/FindPassword';
 import Facebook from '../Login/Facebook';
-import LocalProfile from '../Login/LocalProfile';
-import SessionProfile from '../Login/SessionProfile';
 import '../Login/LoginMain.css';
 import MainPhoto from '../Login/MainPhoto';
 import DeleteUser from '../Login/DeleteUser';
 import ResetPassword from '../Login/ResetPassword';
-import LocalProfile from '../Login/LocalProfile';
-import SessionProfile from '../Login/SessionProfile';
 
 const Main = () => {  // 출력 될 곳
         return (
@@ -58,8 +54,6 @@ const LoginPage = ({match}) => { // '/user' 로 들어 왔을 때.
                     <Route path={match.url+'/signup'}exact={true} component={SignUp} /> 
                     <Route path={match.url+'/findid'} exact={true} component={FindID} />  
                     <Route path={match.url + '/findpassword'} exact={true}  component={FindPassword} />
-                    <Route path={match.url +'/localprofile'} exact={true} component={LocalProfile} />
-                    <Route path={match.url +'/sessionprofile'} exact={true} component={SessionProfile} />
                     <Route path={match.url + '/facebook'} exact={true} component={Facebook}/>
                     <Route path={match.url + '/delete'} exact={true} component={DeleteUser}/>
                     <Route path={match.url + '/reset/:userID/:token'} exact={true} component={ResetPassword}/>

@@ -57,7 +57,8 @@ class MyPage extends Component { // 프로필 값들을 setState로 업데이트
         )
     }
     getInfo = () => {
-        const token = localStorage.getItem('usertoken');
+        let token = '';
+        localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
         const decode = jwt_decode(token);
         const ID = decode.ID;
         console.log(ID);
