@@ -34,11 +34,7 @@ class Login extends Component {
         this.state.click ? 
           localLogin(user).then(res => {
             if(res) {
-<<<<<<< HEAD
-                this.props.history.push(`/user/localprofile`)
-=======
                 this.props.history.push(`/mypage`)
->>>>>>> mun
             }
           }) :
           sessionLogin(user).then(res => {
