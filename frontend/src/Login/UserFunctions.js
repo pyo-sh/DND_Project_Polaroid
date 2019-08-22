@@ -16,8 +16,7 @@ export const register = async newUser => {
         console.log(err);
     })
 }
-
-export const login = async user => {
+export const localLogin = async user => {
     return await axios
     .post('/user/login', {
         ID: user.ID,
@@ -25,6 +24,21 @@ export const login = async user => {
     })
     .then(res => {
         localStorage.setItem('usertoken', res.data.token)
+        return res.data;
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+export const sessionLogin = async user => {
+    return await axios
+    .post('/user/login', {
+        ID: user.ID,
+        PASSWORD : user.PASSWORD
+    })
+    .then(res => {
+        sessionStorage.setItem('usertoken', res.data.token)
         return res.data;
     })
     .catch(err => {
