@@ -5,30 +5,6 @@ import React, { Component } from 'react';
 
 class MyProfile extends Component {
     state = this.props.profile;
-    componentDidMount(){
-        const {id, name, about, following, follower, grade} = this.props.profile;
-        this.setState({
-            id,
-            name,
-            about,
-            following,
-            follower,
-            grade
-        })
-    }
-    componentDidUpdate(prevProps, prevState) {
-        if(prevProps.profile !== this.props.profile){
-            const { profile } = this.props;
-            this.setState({
-                id: profile.id,
-                name : profile.name,
-                about : profile.about,
-                following : profile.following,
-                follower : profile.follower,
-                grade : profile.grade
-            })
-        }
-    }
     render() {
         return (
                 <Profile 
@@ -54,7 +30,7 @@ const Profile = ({photo, name, id, about, following, follower, grade}) => {
             <div className="Profile-Columns">
                 <div className="Profile-Private">
                     <strong className="Profile-Name">{name}</strong>
-                    <span className="Profile-Id">{"@" +id}</span>
+                    <span className="Profile-Id">{id}</span>
                 </div>
                 <div className="Profile-About">
                     <LinesEllipsis
