@@ -1,8 +1,8 @@
 {
-  "name": "dnd",
+  "name": "dnd_polo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "dnd_polo web project",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const register = async newUser => {
     return await axios
-    .post('/user/register', {
+    .post('/api/user/register', {
         ID : newUser.ID,
         PASSWORD : newUser.PASSWORD,
         email : newUser.email,
@@ -18,7 +18,7 @@ export const register = async newUser => {
 }
 export const localLogin = async user => {
     return await axios
-    .post('/user/login', {
+    .post('/api/user/login', {
         ID: user.ID,
         PASSWORD : user.PASSWORD
     })
@@ -48,7 +48,7 @@ export const sessionLogin = async user => {
 
 export const deleteUser = async userID => {
     return await axios 
-    .delete(`/user/delete/${userID}`)
+    .delete(`/api/user/delete/${userID}`)
     .then(res => {
         return res;
     })
@@ -59,7 +59,7 @@ export const deleteUser = async userID => {
 
 export const findPassword = async user => {
     return await axios
-    .post('/user/findpassword', {
+    .post('/api/user/findpassword', {
         ID : user.ID,
         email : user.email
     })
@@ -73,9 +73,23 @@ export const findPassword = async user => {
 
 export const ResetPwd = async user => {
     return await axios
-    .post('/user/reset', {
+    .post('/api/user/reset', {
         ID: user.userID,
         PASSWORD : user.PASSWORD
+    })
+    .then(res => {
+        console.log(res);
+        return res;
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+export const findId = async email => {
+    return await axios
+    .post('/api/user/findid',{
+        email : email
     })
     .then(res => {
         console.log(res);

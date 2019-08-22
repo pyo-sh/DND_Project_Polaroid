@@ -6,6 +6,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
+const Intro = require('../models/Intro');
 
 users.post('/fblogin', (req, res, next) => {
     passport.authenticate('facebook', (err, users, info) => {
@@ -119,6 +120,15 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                             console.log(userData);
                             User.create(userData)
                             .then(user => {
+                                const IntroData ={
+                                    ID: userData.ID,
+                                    introduce : '안녕하세요 처음뵙겠습니다.',
+                                    follow : 0,
+                                    follower : 0,
+                                    grade : '일반',
+                                    nickname : userData.nickname
+                                }
+                                Intro.create(IntroData);
                                 res.json({status : user.ID + 'registerd'})
                                 })
                             .catch(err => {
@@ -312,12 +322,12 @@ users.post('/findpassword', (req, res) => { // 해당 주소로 들어왔을때�
         const mailOptions = {
           from: 'mySqlDemoEmail@gmail.com',
           to: `${user.email}`,
-          subject: 'Link To Reset Password',
+          subject: 'Polaroid 비밀번호 바꾸기 시스템',
           text:
-            'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
-            + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
+            `안녕하세요.${req.body.ID}님 Polaroid입니다. 비밀번호를 바꾸기 위해 요청을 하셨군요.\n\n`
+            + '아래의 링크를 클릭하시거나 브라우저 주소창에 붙여넣기 해주세요!\n\n'
             + `https://localhost:3000/user/reset/${req.body.ID}/${token}\n`
-            + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+            + '만약 패스워드를 바꾸고 싶지 않으시다면 이 링크를 무시하시면 당신의 비밀번호는 바뀌지 않을거에요!\n',
         };
 
         console.log('sending mail');
@@ -333,7 +343,58 @@ users.post('/findpassword', (req, res) => { // 해당 주소로 들어왔을때�
       }
     });
   });
-
-
-
+users.post("/findid", (req, res) => {
+  // 해당 주소로 들어왔을때만 ok하게 어떻게 하나.......
+  if (req.body.email === "") {
+    res.status(400).send("email required");
+  }
+  console.error(req.body.email);
+  User.findAll({
+    where: {
+      email: req.body.email
+    }
+  }).then(user => {
+    if (user === null) {
+      console.error("email not in database");
+      res.status(403).send("email not in db");
+    } else {
+      // const token = crypto.randomBytes(20).toString('hex');
+      const jsonUser = JSON.stringify(user);
+      const parseUser = JSON.parse(jsonUser);
+      let array = []
+      parseUser.forEach(user => {
+            array = [...array, user.ID]
+      })
+      console.log(array);
+      
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "ansrjsdn9865@gmail.com", // 바꾸자
+          pass: "gkskenftpt123!" // 바꾸자
+        }
+      });
+      const mailOptions = {
+        from: "mySqlDemoEmail@gmail.com",
+        to: `${req.body.email}`,
+        subject: "Polaroid 아이디 찾기 시스템",
+        text:
+          `안녕하세요.${
+            req.body.email
+          }님 Polaroid입니다. 아이디를 찾기 위해 요청을 하셨군요.\n\n` +
+          `고객님의 아이디는 ${array} 입니다.\n\n` + 
+          "Polaroid를 이용해 주셔서 감사합니다.\n"
+      };
+      console.log("sending mail");
+      transporter.sendMail(mailOptions, (err, response) => {
+        if (err) {
+          console.error("there was an error: ", err);
+        } else {
+          console.log("here is the res: ", response);
+          res.status(200).json("recovery email sent");
+        }
+      });
+    }
+  });
+});
 module.exports = users;
