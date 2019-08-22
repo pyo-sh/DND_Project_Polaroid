@@ -33,7 +33,7 @@ export const localLogin = async user => {
 
 export const sessionLogin = async user => {
     return await axios
-    .post('/user/login', {
+    .post('/api/user/login', {
         ID: user.ID,
         PASSWORD : user.PASSWORD
     })
