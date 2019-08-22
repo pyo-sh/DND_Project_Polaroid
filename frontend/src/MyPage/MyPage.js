@@ -57,8 +57,6 @@ class MyPage extends Component {
         const ID = decode.ID;
         console.log(ID);
         getAllInfo(ID).then(res=> {
-            console.log(res);
-            console.log('여기 실행');
             this.setState({
                 profile: {
                     ...this.state.profile,
