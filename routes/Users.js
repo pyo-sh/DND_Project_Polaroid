@@ -124,7 +124,7 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                                     ID: userData.ID,
                                     introduce : '안녕하세요 처음뵙겠습니다.',
                                     follow : 0,
-                                    floower : 0,
+                                    follower : 0,
                                     grade : '일반',
                                     nickname : userData.nickname
                                 }
