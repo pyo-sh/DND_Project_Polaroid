@@ -5,6 +5,20 @@ import React, { Component } from 'react';
 
 class MyProfile extends Component {
     state = this.props.profile;
+    componentDidUpdate(prevProps, prevState){
+        if(prevProps.profile !== this.props.profile){
+            const {id, name, about, photo, follower, following, benefit} = this.props.profile;
+            this.setState({
+                id,
+                name,
+                about,
+                photo,
+                follower,
+                following,
+                benefit
+            })
+        }
+    }   
     render() {
         return (
                 <Profile 

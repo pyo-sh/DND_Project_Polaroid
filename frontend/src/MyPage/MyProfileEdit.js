@@ -74,8 +74,8 @@ class MyProfileEdit extends Component {
                         <MPEditInput name ="name" onChange = {this.onChange} value = {name}/>
                     </div>
                     <div className="MyProfile-Edit-Secend">
-                        <div className="MPEdit-Title" name ="about" onChange = {this.onChange} value = {about}>설명</div>
-                        <MPEditTextarea/>
+                        <div className="MPEdit-Title" >설명</div>
+                        <MPEditTextarea name ="about" onChange = {this.onChange} value = {about}/>
                     </div>
                     <div className="MyProfile-Edit-Secend">
                         <div className="MPEdit-Title"></div>
