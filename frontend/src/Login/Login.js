@@ -17,6 +17,11 @@ class Login extends Component {
         this.setState ({
             click: !this.state.click
         })
+
+        if(!this.state.click){
+          alert("로그인 상태 유지를 합니다.")
+        }
+          
     }
 
     onChange = (e) => {
@@ -46,16 +51,16 @@ class Login extends Component {
 
     render() {
 
-        const checkStyleOrigin = {
+        const checkStyleChange = {
             color:'black'
         }
 
-        const checkStyleChange = {
+        const checkStyleOrigin = {
             color: 'white'
         }
 
         let checkStyle = this.state.click ? checkStyleChange : checkStyleOrigin
- 
+      
         return (
           <div className="Login-Box">
             <div>

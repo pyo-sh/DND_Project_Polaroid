@@ -11,6 +11,8 @@ import SignUp from '../Login/SignUp';
 import FindID from '../Login/FindID';
 import FindPassword from '../Login/FindPassword';
 import Facebook from '../Login/Facebook';
+import LocalProfile from '../Login/LocalProfile';
+import SessionProfile from '../Login/SessionProfile';
 import '../Login/LoginMain.css';
 import MainPhoto from '../Login/MainPhoto';
 import DeleteUser from '../Login/DeleteUser';
