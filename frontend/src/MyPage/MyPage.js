@@ -2,7 +2,7 @@ import './MyPage.css';
 import MyProfile from './MyProfile';
 import MyPageMenuBar from './MyPageMenuBar';
 import MyPageBenefit from './MyPageBenefit';
-import MyProfileEdit from './MyProfileEdit';
+import MyInformation from './MyInformation';
 import React, { Component } from 'react';
 import { getAllInfo } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
@@ -10,7 +10,6 @@ import jwt_decode from 'jwt-decode';
 class MyPage extends Component {
     state ={
         selectedMenu: "UPLOAD",
-        editMode: false,
         profile: {
             photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
             name: "",
@@ -39,7 +38,7 @@ class MyPage extends Component {
         this.getInfo();
     }
     render() {
-        const {editMode, profile} = this.state;
+        const {profile} = this.state;
         return (
             <div className="MyPage">
                 <MyProfile profile={profile}/>
@@ -82,7 +81,7 @@ class MyPage extends Component {
             case "LIKED" : return ;
             case "FAVORITE" : return ;
             case "BENEFIT" : return <MyPageBenefit profile={this.state.profile}/>;
-            case "MY PAGE" : return <MyProfileEdit profile={this.state.profile} getInfo={this.getInfo} editOnClick={this.editOnClick}/>;
+            case "MY PAGE" : return <MyInformation profile={this.state.profile} getInfo={this.getInfo}/>;
             default : return <div className="loading-screen"></div>;
         }
     }
@@ -100,20 +99,6 @@ class MyPage extends Component {
             })
         }
         return null;
-    }
-    editOnClick = () => {
-        const { editMode } = this.state;
-        if( editMode === false){
-            this.setState({
-                editMode : true
-            })
-        }
-        else {
-            this.setState({
-                editMode : false
-            })
-        }
-     
     }
 }
 

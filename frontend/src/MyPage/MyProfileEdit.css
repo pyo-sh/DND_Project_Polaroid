@@ -15,6 +15,10 @@
 }
 .MyProfile-Edit-Secend2{
     border: 1px solid rgb(131, 131, 131, 80%);
+    background: none;
+    display:flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 .MPEdit-Title{
     width: 15%;
@@ -72,5 +76,22 @@
     width: 150px;
 }
 .MPEdit-TdCell-Textarea{
-    
+    width: 100%;
+}
+
+.MyProfile-Edit-Btn{
+    position: relative;
+    left: 85%;
+    margin: 10px;
+
+    width: 90px;
+    height: 28px;
+    border: 0;
+    outline: 0;
+    font-size: 17px;
+
+    cursor: pointer;
+}
+.MyProfile-Edit-Btn:active{
+    background: gray;
 }

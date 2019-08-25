@@ -47,7 +47,7 @@ class MyProfileEdit extends Component {
       }
       editMyPage(user)
       .then(res => {
-          console.log("에딧페이지후 " + res);
+        //   console.log("에딧페이지후 " + res);
           this.props.editOnClick();
           this.props.getInfo();
           return res;
@@ -77,10 +77,16 @@ class MyProfileEdit extends Component {
                         <div className="MPEdit-Title" >설명</div>
                         <MPEditTextarea name ="about" onChange = {this.onChange} value = {about}/>
                     </div>
+                    {/* 비밀번호는 바꾸는 방법 얻은 뒤 따로 함수를 만들어서 작업할 것. */}
                     <div className="MyProfile-Edit-Secend">
-                        <div className="MPEdit-Title"></div>
+                        <div className="MPEdit-Title">비밀번호</div>
+                        <MPEditInput name ="passwd" onChange = {this.onChange} value = {"***"}/>
                     </div>
-                    <button type="submit">수정</button>
+                    <div className="MyProfile-Edit-Secend2">
+                        <div className="MPEdit-Title">비밀번호 확인</div>
+                        <MPEditInput name ="passwd" onChange = {this.onChange} value = {"***"}/>
+                    </div>
+                    <button type="submit" className="MyProfile-Edit-Btn" onClick={this.props.editOnClick}>수정</button>
                 </form>
             </div>
         );
