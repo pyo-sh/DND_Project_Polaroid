@@ -50,7 +50,6 @@ class Login extends Component {
     }
 
     render() {
-
         const checkStyleChange = {
             color:'black'
         }
