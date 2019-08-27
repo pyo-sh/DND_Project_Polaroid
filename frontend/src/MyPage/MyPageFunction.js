@@ -29,3 +29,17 @@ export const editMyPage = async user => {
         console.error(err);
     })
 }
+
+export const checkPassword = async user => {
+    return await axios
+    .post('/api/user/login', {
+        ID: user.id,
+        PASSWORD : user.password
+    })
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}

@@ -61,7 +61,7 @@ const Profile = ({photo, name, id, about, following, follower, grade}) => {
                 <div className="Profile-Service">
                     {/* 팔로잉 페이지와 팔로워 페이지를 따로 놓아서 홈페이지를 푸쉬하는 방법으로 만들 것임 props로 onClick을 받았음
                     onClick={onClickFollowing}  onClick={onClickFollower}*/}
-    <button className="Profile-Following">{following} 팔로잉 </button>
+                    <button className="Profile-Following">{following} 팔로잉 </button>
                     <button className="Profile-Follower">{follower} 팔로워 </button>
                 </div>
             </div>
