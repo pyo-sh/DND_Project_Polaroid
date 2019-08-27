@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 
 class MyProfile extends Component {
     state = this.props.profile;
+    // render가 실행되고 난 뒤 현재 프롭스와 전의 프롭스를 비교해서, 바뀌었을 때 setState를 시킨다.
     componentDidUpdate(prevProps, prevState){
         if(prevProps.profile !== this.props.profile){
             const {id, name, about, photo, follower, following, benefit} = this.props.profile;
@@ -18,7 +19,7 @@ class MyProfile extends Component {
                 benefit
             })
         }
-    }   
+    }
     render() {
         return (
                 <Profile 
@@ -29,6 +30,8 @@ class MyProfile extends Component {
                     following={this.state.following}
                     follower={this.state.follower}
                     grade={this.state.grade}
+                    onClickFollowing={this.props.onClickFollowing}
+                    onClickFollower={this.props.onClickFollower}
                     />
         );
     }
@@ -56,8 +59,9 @@ const Profile = ({photo, name, id, about, following, follower, grade}) => {
                         />
                 </div>
                 <div className="Profile-Service">
-                    <div className="Profile-Following">{following} 팔로잉 </div>
-                    <div className="Profile-Follower">{follower} 팔로워 </div>
+                    {/* 팔로잉 페이지와 팔로워 페이지를 따로 놓아서 홈페이지를 푸쉬하는 방법으로 만들 것임 props로 onClick을 받았음 */}
+                    <button className="Profile-Following" onClick={onClickFollowing}>{following} 팔로잉 </button>
+                    <button className="Profile-Follower" onClick={onClickFollower}>{follower} 팔로워 </button>
                 </div>
             </div>
         </div>

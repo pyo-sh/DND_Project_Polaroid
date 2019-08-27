@@ -2,6 +2,7 @@ import './MyInformationMenu.css';
 import React, { Component } from 'react';
 
 class MyInformationMenu extends Component {
+
     render() {
         return (
             <div className="MyInformation-Menu">
@@ -9,17 +10,17 @@ class MyInformationMenu extends Component {
                     <MyInformationMenuButton editOnClick={this.props.editOnClick} className="MyInformation-Menu-Tab" title="회원정보수정"/>
                     <MyInformationMenuButton editOnClick={this.props.editOnClick} className="MyInformation-Menu-Tab" title="회원탈퇴"/>
                 </div>
-                {this._renderPage(this.props.checkOnClick)}
+                {this._renderPage()}
             </div>
         );
     }
-    _renderPage = ({checkOnClick}) => {
+    _renderPage = () => {
         const checkPW = this.props.checkPW;
         if(checkPW){
             return <div className="MyInformation-Pw-True">비밀번호 입력 완료!</div>;
         }
         else{
-            return <MyInformationMenuInput checkOnClick={checkOnClick}/>;
+            return <MyInformationMenuInput checkOnClick={this.props.checkOnClick}/>;
         }
     }
 }

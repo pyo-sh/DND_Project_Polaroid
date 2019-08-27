@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 class MyInformation extends Component{
     state = {
         selectMode: "기본",
-        checkPW: true // 임시
+        checkPW: false // 임시
     }
     render(){
         return(
@@ -21,7 +21,7 @@ class MyInformation extends Component{
         const {selectMode} = this.state;
         switch(selectMode) {
             case "회원정보수정" : return <MyProfileEdit profile={this.props.profile} getInfo={this.props.getInfo} editOnClick={this.editOnClick}/>;
-            case "회원탈퇴" : return <MyWithdrawal/>;
+            case "회원탈퇴" : return <MyWithdrawal id={this.props.profile.id}/>;
             default : return <MyInformationMenu profile={this.props.profile} editOnClick={this.editOnClick} checkPW={this.state.checkPW} checkOnClick={this.checkOnClick}/>;
         }
     }
@@ -40,19 +40,10 @@ class MyInformation extends Component{
             }
         }
     }
-    checkOnClick = (e) => {
-        const {checkPW} = this.state;
-        console.log(checkPW);
-        if(checkPW) {
-            this.setState({
-                checkPW: false
-            });
-        }
-        else {
-            this.setState({
-                checkPW: true
-            });
-        }
+    checkOnClick = () => {
+        this.setState({
+            checkPW : !this.state.checkPW
+        })
     }
 }
 
