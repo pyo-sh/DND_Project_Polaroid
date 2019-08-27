@@ -22,15 +22,13 @@ passport.use(
             session: false,
         },
         (req, username, password, done) => {
-            console.log(ID);
             try {
                 User.findOne({
                     where: {
                         [Op.or]: [
                             {
                                 ID: username,
-                            },
-                            { nickname: req.body.nickname},
+                            }
                         ],
                     },
                 }).then(user => {
@@ -40,17 +38,7 @@ passport.use(
                             message: 'username or email already taken',
                         });
                     }
-                    bcrypt.hash(password, BCRPYT_SALT_ROUNDS).then(hashedPassword => {
-                        User.create({
-                            ID : req.body.ID,
-                            PASSWORD: hashedPassword,
-                            nickname : req.body.nickname,
-                            email : req.body.email
-                        }).then(user => {
-                            console.log('user created');
-                            return done(null, user);
-                        });
-                    });
+                    return done(null, user);
                 });
             } catch(err) {
                 return done(err);

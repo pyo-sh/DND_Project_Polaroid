@@ -49,6 +49,7 @@ users.post('/fblogin', (req, res, next) => {
 });
 
 users.post('/login', (req, res, next) => {  // 로그인
+    console.log('여기 온거 맞음?');
     passport.authenticate('login', (err, users, info) => {
         if (err) {
             console.error(`error ${err}`);
@@ -62,6 +63,7 @@ users.post('/login', (req, res, next) => {  // 로그인
                 res.status(403).send(info.message);
             }
         } else {
+            console.log('여기 온거 맞음?');
             req.logIn(users, () => {
                 User.findOne({
                     where : {
@@ -98,7 +100,6 @@ users.post('/register', (req, res, next) => {   // 유저 등록
             res.status(403).send(info.message);
         } else {
             req.logIn(user, error => {
-                console.log(user);
                 const today =new Date();
                 const userData = {
                     ID : req.body.ID,
@@ -107,7 +108,6 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                     nickname : req.body.nickname,
                     created: today,
                 };
-                console.log(userData);
                 User.findOne({
                     where: {
                         ID: req.body.ID,
@@ -117,7 +117,6 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                     if(!user){
                         bcrypt.hash(req.body.PASSWORD, 10, (err,hash) => {
                             userData.PASSWORD = hash;
-                            console.log(userData);
                             User.create(userData)
                             .then(user => {
                                 const IntroData ={
@@ -136,6 +135,7 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                                 })
                             })
                     } else {
+                         console.log('유저가 이미 있따?');
                          res.json({error: 'User already exist'})
                     }
                 })
@@ -312,11 +312,15 @@ users.post('/findpassword', (req, res) => { // 해당 주소로 들어왔을때�
             expiresIn: 60 * 60,
         })
         const transporter = nodemailer.createTransport({
+         secure: false,
           service: 'gmail',
           auth: {
-            user: 'ansejrrhkd@gmail.com', // 바꾸자
-            pass: 'dkelektm123!', // 바꾸자
+            user: 'ansrjsdn9865@gmail.com', // 바꾸자
+            pass: 'gkskenftpt123!', // 바꾸자
           },
+          tls: {
+            rejectUnauthorized: false
+        }
         });
 
         const mailOptions = {
@@ -326,7 +330,7 @@ users.post('/findpassword', (req, res) => { // 해당 주소로 들어왔을때�
           text:
             `안녕하세요.${req.body.ID}님 Polaroid입니다. 비밀번호를 바꾸기 위해 요청을 하셨군요.\n\n`
             + '아래의 링크를 클릭하시거나 브라우저 주소창에 붙여넣기 해주세요!\n\n'
-            + `https://localhost:3000/user/reset/${req.body.ID}/${token}\n`
+            + `http://localhost:3000/user/reset/${req.body.ID}/${token}\n`
             + '만약 패스워드를 바꾸고 싶지 않으시다면 이 링크를 무시하시면 당신의 비밀번호는 바뀌지 않을거에요!\n',
         };
 
@@ -368,11 +372,15 @@ users.post("/findid", (req, res) => {
       console.log(array);
       
       const transporter = nodemailer.createTransport({
-        service: "gmail",
+        secure: false,
+        service: 'gmail',
         auth: {
-          user: "ansrjsdn9865@gmail.com", // 바꾸자
-          pass: "gkskenftpt123!" // 바꾸자
-        }
+          user: 'ansrjsdn9865@gmail.com', // 바꾸자
+          pass: 'gkskenftpt123!', // 바꾸자
+        },
+        tls: {
+          rejectUnauthorized: false
+      }
       });
       const mailOptions = {
         from: "mySqlDemoEmail@gmail.com",

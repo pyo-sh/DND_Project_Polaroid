@@ -10,7 +10,7 @@ class MyPageMenuBar extends Component {
                 <MyPageMenuButton MenuOnClick={this.props.MenuOnClick} className="" title="LIKED"/>
                 <MyPageMenuButton MenuOnClick={this.props.MenuOnClick} className="" title="FAVORITE"/>
                 <MyPageMenuButton MenuOnClick={this.props.MenuOnClick} className="" title="BENEFIT"/>
-                <MyPageMenuButton MenuOnClick={this.props.MenuOnClick} className="" title="MY PAGE"/>
+                <MyPageMenuButton MenuOnClick={this.props.MenuOnClick} className="" title="SETTINGS"/>
             </div>
         );
     }
