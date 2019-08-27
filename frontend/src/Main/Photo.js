@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Photo.css';
 
 function Photo({image}){
     return (
-        <img className = "Photo" src={image.urls.small} alt=""/>
+        <img className = "Photo" src={require(`../img/photo/${image}`)} alt=""/>
     );
     
 }

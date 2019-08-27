@@ -38,21 +38,31 @@ app.get('/api', (req, res) => {
 app.use('/api/user', Users);
 app.use('/api/mypage', MyPage);
 
-app.get('/api/file/photos', (req, res) => {
-   let photos = [];
-   let fileCount;
-   fs.readdir('frontend/src/img/photo', (err, files) => {
-       console.log(files);
-       fileCount = files.length;
-       console.log(fileCount);
-   for(let i = 0; i < fileCount; i++){
+app.post('/api/file/photos', (req, res) => {
+  let photos = [];
+  let start = req.body.start;
+  let count = req.body.count;
+  let isMore = req.body.isMore;
+  let fileCount = 0;
+
+  fs.readdir('frontend/src/img/photo', (err, files) => {
+    fileCount = files.length;
+ 
+    for(let i = start; i < start + count; i++){
+      if(fileCount >= i){
         photos.push(`photo${i}.jpg`);
-   }
-   res.json({
-    photos
-   });
+        
+        if (fileCount == i){
+          isMore = false;
+          break;
+        }
+      }
+    }
+    res.json({
+     photos
+    });
+  });
 });
-})
 
 const port = process.env.PORT || 5000;
 
@@ -63,29 +73,3 @@ app.listen(port, () => {
 // https.createServer(optionsForHTTPS, app).listen(port, () => {
 //     console.log("HTTPS server listening on port " + port);
 // }) https 해제
-
-// unsplash api
-global.fetch = require('node-fetch');
-const config = require('universal-config');
-const Unsplash = require('unsplash-js').default;
-const toJson = require('unsplash-js').toJson;
-const express = require('express');
-
-const unsplash = new Unsplash({
-  applicationId: config.get('APPLICATION_ID'),
-  secret: config.get('SECRET'),
-  callbackUrl: config.get('CALLBACK_URL')
-});
-
-const app = express();
-
-app.get('/api/photos', (req, res) => {
-  unsplash.photos
-    .listPhotos(req.query.start, req.query.count)
-    .then(toJson)
-    .then(json => res.json(json));
-});
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

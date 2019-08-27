@@ -8,39 +8,42 @@ class Photos extends Component {
     state = {
         images: [],
         count: 30,
-        start: 1
+        start: 1,
+        isMore : true
       };
     
     componentDidMount() {
-        const { count, start } = this.state;
-        axios
-          .get(`/api/photos?count=${count}&start=${start}`)
-          .then(res => this.setState({ images: res.data }));
-      }
+      const { count, start } = this.state;
+      axios.post(`/api/file/photos`,{count,start})
+        .then(response => {
+          this.setState({ images: response.data.photos})
+        })
+        .catch(err => console.error(err))
+    }
     
     fetchImages = () => {
-          console.log(this.state.images);
-        const { count, start } = this.state;
-        this.setState({ start: this.state.start + count });
-        axios
-          .get(`/api/photos?count=${count}&start=${start}`)
-          .then(res =>
-            this.setState({ images: this.state.images.concat(res.data) })
-          );
-      };
+      const count = this.state.count,
+            start = count + this.state.start;
+      this.setState({ start: start });
+ 
+      axios.post(`/api/file/photos`,{count,start})
+        .then(response => {
+          this.setState({ images: this.state.images.concat(response.data.photos),
+                          isMore : response.data.isMore})
+        })
+        .catch(err => console.error(err))
+     }
     
-
-
     render() {
         return (
             <div className = "Photos">
                 <InfiniteScroll
                     dataLength = {this.state.images.length}
                     next = {this.fetchImages}
-                    hasMore = {true}
+                    hasMore = {this.state.isMore}
                     loader = {<h4>Loading..</h4>}
                     >
-                   
+                      
                     {this.state.images.map((image, index) => (
                        <Photo key={image.id} image={image} />
                      ))}
@@ -48,6 +51,7 @@ class Photos extends Component {
             </div>
         );
     }
-}
+  }
 
 export default Photos;
+

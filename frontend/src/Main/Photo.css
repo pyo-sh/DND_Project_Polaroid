@@ -1,5 +1,6 @@
 .Photo {
-    display: flexbox;
-    margin: 10px;
-  }
+  
+  margin: 10px;
+  width: 33%;
+}
   
