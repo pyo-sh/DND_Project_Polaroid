@@ -39,21 +39,31 @@ app.get('/api', (req, res) => {
 app.use('/api/user', Users);
 app.use('/api/mypage', MyPage);
 
-app.get('/api/file/photos', (req, res) => {
-   let photos = [];
-   let fileCount;
-   fs.readdir('frontend/src/img/photo', (err, files) => {
-       console.log(files);
-       fileCount = files.length;
-       console.log(fileCount);
-   for(let i = 0; i < fileCount; i++){
+app.post('/api/file/photos', (req, res) => {
+  let photos = [];
+  let start = req.body.start;
+  let count = req.body.count;
+  let isMore = req.body.isMore;
+  let fileCount = 0;
+
+  fs.readdir('frontend/src/img/photo', (err, files) => {
+    fileCount = files.length;
+ 
+    for(let i = start; i < start + count; i++){
+      if(fileCount >= i){
         photos.push(`photo${i}.jpg`);
-   }
-   res.json({
-    photos
-   });
+        
+        if (fileCount == i){
+          isMore = false;
+          break;
+        }
+      }
+    }
+    res.json({
+     photos
+    });
+  });
 });
-})
 
 
 
@@ -100,4 +110,3 @@ app.listen(port, () => {
 // https.createServer(optionsForHTTPS, app).listen(port, () => {
 //     console.log("HTTPS server listening on port " + port);
 // }) https 해제
-
