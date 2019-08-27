@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './ImageInfo.css';
 
@@ -30,7 +30,7 @@ Registrant.protoType = {
 function ImageInfo({registrant, paid, type, size, uploadDate, downloade, kategorie, tags}){
     return (
         <div className = "ImageInfo">
-            <Registrant registrant = {registrant} />
+            <Registrant registrant = {registrant}/>
             <div className = "ImageInfo-Column Download">
                 <button className = {paid ? "Premium" : "Free"} onClick = ""> {paid ? "Premium Download" : "Free Download"} </button>
             </div>
@@ -64,11 +64,11 @@ function ImageInfo({registrant, paid, type, size, uploadDate, downloade, kategor
 
 function Registrant({registrant}){
     return(
-        <div className = "ImageInfo-Column Profile" onClick = "">
-            <div className = "Profile-Image">
+        <div className = "ImageInfo-Column Registrant" onClick = "">
+            <div className = "Registrant-Image">
             <img src = {registrant.profileImage ? registrant.profileImage : "https://postfiles.pstatic.net/MjAxOTA3MzBfMjgy/MDAxNTY0NDkxNDIxOTA3.PDvjdx3QnWA0Bty0KXQAd9IBixEYYBZ7vk3UfijmqlQg.lWtF8Jrtmh-Kv4hra3IXNlY4z3I15DpiPkdh6NiGLC0g.PNG.she2325/%E3%85%81%E3%85%82.png?type=w966"} alt = {registrant.nickname}></img>
             </div>
-            <div className = "Profile-Info">
+            <div className = "Registrant-Info">
                 <span className = "Nickname"> {registrant.nickname} </span> 
                 <span className = "Id"> {"@" + registrant.id} </span>
             </div>

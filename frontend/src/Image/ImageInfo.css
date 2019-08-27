@@ -13,19 +13,19 @@
     margin-top : 10px;
 }
 
-.Profile-Image{
+.Registrant-Image{
     width: 70px;
     height: 70px;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.Profile-Image img{    
+.Registrant-Image img{    
     width: 100px;
     height: 100px;
 }
 
-.Profile-Info{
+.Registrant-Info{
     display: flex;
     flex-direction: column;
     margin-top : 20px;
@@ -33,12 +33,12 @@
     text-align: left;
 }
 
-.Profile-Info .Nickname{
+.Registrant-Info .Nickname{
     font-size: 20px;
     font-weight: 600;
 }
 
-.Profile-Info .Id{
+.Registrant-Info .Id{
     color : rgb(180, 180, 180);
     margin-top : 2px;
     margin-left : 10px;
