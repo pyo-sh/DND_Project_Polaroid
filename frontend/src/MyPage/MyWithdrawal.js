@@ -29,7 +29,8 @@ class MyWithdrawal extends Component{
         this.props.history.push('/');
     }
     onChange = (e) => {
-        console.dir(e.target);
+        if(e.target.value)
+        return 0;
     }
 }
 

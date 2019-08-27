@@ -8,6 +8,7 @@ class MyInformationMenu extends Component {
             <div className="MyInformation-Menu">
                 <div className="MyInformation-Menu-Tabs">
                     <MyInformationMenuButton editOnClick={this.props.editOnClick} className="MyInformation-Menu-Tab" title="회원정보수정"/>
+                    <MyInformationMenuButton editOnClick={this.props.editOnClick} className="MyInformation-Menu-Tab" title="비밀번호변경"/>
                     <MyInformationMenuButton editOnClick={this.props.editOnClick} className="MyInformation-Menu-Tab" title="회원탈퇴"/>
                 </div>
                 {this._renderPage()}
@@ -20,7 +21,10 @@ class MyInformationMenu extends Component {
             return <div className="MyInformation-Pw-True">비밀번호 입력 완료!</div>;
         }
         else{
-            return <MyInformationMenuInput checkOnClick={this.props.checkOnClick}/>;
+            return <MyInformationMenuInput 
+                checkOnClick={this.props.checkOnClick}
+                getPassword={this.props.getPassword}
+                />;
         }
     }
 }
@@ -31,12 +35,12 @@ const MyInformationMenuButton = ({editOnClick, className, title}) => {
     );
 }
 
-const MyInformationMenuInput = ({checkOnClick}) => {
+const MyInformationMenuInput = ({checkOnClick, getPassword}) => {
     return(
         <div className="MyInformation-Pw">
             <div className="MyInformation-Pw-Check">회원 비밀번호 확인</div>
             <div className="MyInformation-Pw-Title">
-                <input className="MyInformation-Pw-Input"/>
+                <input onChange={getPassword} className="MyInformation-Pw-Input" type="password"/>
                 <button onClick={checkOnClick} className="MyInformation-Pw-Btn">확인</button>
             </div>
         </div>

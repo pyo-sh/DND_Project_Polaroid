@@ -312,11 +312,15 @@ users.post('/findpassword', (req, res) => { // 해당 주소로 들어왔을때�
             expiresIn: 60 * 60,
         })
         const transporter = nodemailer.createTransport({
+         secure: false,
           service: 'gmail',
           auth: {
-            user: 'ansejrrhkd@gmail.com', // 바꾸자
-            pass: 'dkelektm123!', // 바꾸자
+            user: 'ansrjsdn9865@gmail.com', // 바꾸자
+            pass: 'gkskenftpt123!', // 바꾸자
           },
+          tls: {
+            rejectUnauthorized: false
+        }
         });
 
         const mailOptions = {
@@ -326,7 +330,7 @@ users.post('/findpassword', (req, res) => { // 해당 주소로 들어왔을때�
           text:
             `안녕하세요.${req.body.ID}님 Polaroid입니다. 비밀번호를 바꾸기 위해 요청을 하셨군요.\n\n`
             + '아래의 링크를 클릭하시거나 브라우저 주소창에 붙여넣기 해주세요!\n\n'
-            + `https://localhost:3000/user/reset/${req.body.ID}/${token}\n`
+            + `http://localhost:3000/user/reset/${req.body.ID}/${token}\n`
             + '만약 패스워드를 바꾸고 싶지 않으시다면 이 링크를 무시하시면 당신의 비밀번호는 바뀌지 않을거에요!\n',
         };
 
@@ -368,11 +372,15 @@ users.post("/findid", (req, res) => {
       console.log(array);
       
       const transporter = nodemailer.createTransport({
-        service: "gmail",
+        secure: false,
+        service: 'gmail',
         auth: {
-          user: "ansrjsdn9865@gmail.com", // 바꾸자
-          pass: "gkskenftpt123!" // 바꾸자
-        }
+          user: 'ansrjsdn9865@gmail.com', // 바꾸자
+          pass: 'gkskenftpt123!', // 바꾸자
+        },
+        tls: {
+          rejectUnauthorized: false
+      }
       });
       const mailOptions = {
         from: "mySqlDemoEmail@gmail.com",
