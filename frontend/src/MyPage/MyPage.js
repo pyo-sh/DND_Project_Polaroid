@@ -2,7 +2,7 @@ import './MyPage.css';
 import MyProfile from './MyProfile';
 import MyPageMenuBar from './MyPageMenuBar';
 import MyPageBenefit from './MyPageBenefit';
-import MyProfileEdit from './MyProfileEdit';
+import MyInformation from './MyInformation';
 import React, { Component } from 'react';
 import { getAllInfo } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
@@ -10,7 +10,6 @@ import jwt_decode from 'jwt-decode';
 class MyPage extends Component {
     state ={
         selectedMenu: "UPLOAD",
-        editMode: false,
         profile: {
             photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
             name: "",
@@ -35,11 +34,12 @@ class MyPage extends Component {
             }
         }
     }
-    componentDidMount(){ // 렌더링이 되고 난 후 getInfo를 실행 시킴으로서 db에 있는 해당 아이디의 정보들을 가지고 와서 setState 시킴
+    // 렌더링이 되고 난 후 getInfo를 실행 시키면서 db에 있는 해당 아이디의 정보들을 가지고 와서 setState 시킴
+    componentDidMount(){
         this.getInfo();
     }
     render() {
-        const {editMode, profile} = this.state;
+        const {profile} = this.state;
         return (
             <div className="MyPage">
                 <MyProfile profile={profile}/>
@@ -55,7 +55,7 @@ class MyPage extends Component {
         localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
         const decode = jwt_decode(token);
         const ID = decode.ID;
-        console.log(ID);
+        // console.log(ID); // 아이디를 콘솔창에서 알아보기 위함
         getAllInfo(ID).then(res=> {
             this.setState({
                 profile: {
@@ -73,7 +73,7 @@ class MyPage extends Component {
             console.error(err);
         })
     }
-    
+    // 메뉴바를 눌러서 버튼의 innerText 값을 받아서 state를 바꾸면 반환하는 페이지가 바뀌는 형식이다.
     _SelectMenu = () => {
         const type = this.state.selectedMenu;
         switch(type) {
@@ -82,10 +82,11 @@ class MyPage extends Component {
             case "LIKED" : return ;
             case "FAVORITE" : return ;
             case "BENEFIT" : return <MyPageBenefit profile={this.state.profile}/>;
-            case "MY PAGE" : return <MyProfileEdit profile={this.state.profile} getInfo={this.getInfo} editOnClick={this.editOnClick}/>;
+            case "SETTINGS" : return <MyInformation profile={this.state.profile} getInfo={this.getInfo}/>;
             default : return <div className="loading-screen"></div>;
         }
     }
+    // 메뉴바 버튼을 눌렀을 때 state의 값을 버튼의 innerText로 바꾸고 버튼의 이펙트 효과를 만들기 위해 클릭안한 버튼을 제외한 클릭된 버튼의 className을 "MyPage-Menu-Selected" 으로 설정.
     MenuOnClick = (e) => {
         if(e.target.className==="MyPage-Menu-Selected"){}
         else{
@@ -100,20 +101,6 @@ class MyPage extends Component {
             })
         }
         return null;
-    }
-    editOnClick = () => {
-        const { editMode } = this.state;
-        if( editMode === false){
-            this.setState({
-                editMode : true
-            })
-        }
-        else {
-            this.setState({
-                editMode : false
-            })
-        }
-     
     }
 }
 
