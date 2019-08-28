@@ -1,9 +1,19 @@
 import './MyWithdrawal.css';
+import { del } from '../Login/DeleteUser';
 import {withRouter} from 'react-router-dom';
 import React, {Component} from 'react';
 
 // 회원탈퇴 페이지
 class MyWithdrawal extends Component{
+    state = {
+        id: '',
+        checkID: ''
+    }
+    componentDidMount = () => {
+        this.setState({
+            id: this.props.id
+        })
+    }
     render(){
         return(
             <div className="MyWithdrawal">
@@ -26,11 +36,19 @@ class MyWithdrawal extends Component{
         );
     }
     _Access = () => {
-        this.props.history.push('/');
+        const {id, checkID} = this.state;
+        if(checkID === id){
+            del();
+            this.props.history.push('/');
+        }
+        else{
+            console.log("안됨")
+        }
     }
     onChange = (e) => {
-        if(e.target.value)
-        return 0;
+        this.setState({
+            checkID: e.target.value
+        })
     }
 }
 
