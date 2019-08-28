@@ -14,11 +14,9 @@ class ResetPassword extends Component {
     }
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.props);
         const {userID} = this.props.match.params;
         const {token} = this.props.match.params; // 토큰이 jwt 형식인지 확인해서 아니면
         const decodeToken = jwt_decode(token); // decode 못하게 하는 방식이 좋지 않을까 생각듦
-        console.log(decodeToken);
         if(decodeToken.ID === userID && decodeToken.auth === true) {
             const user = {
                 userID,
@@ -27,7 +25,6 @@ class ResetPassword extends Component {
             ResetPwd(user);
             alert('password가 바꼈습니다.');
             this.props.history.push('/user/login');
-            console.log('리셋된다ㅏㅏㅏ');
         }
         else {
             console.log('에러입니다!');

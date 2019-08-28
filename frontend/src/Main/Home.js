@@ -6,21 +6,9 @@ import SideContent from './SideContent';
 class Home extends Component {
     state = {
         tag : ["하늘", "동물", "배경"],
-        photos : [],
     }
-   getPhotos = _ => {
-    fetch('/api/file/photos')
-    .then(response => response.json())
-    .then(response => this.setState({ photos : response.photos}))
-    .catch(err => console.error(err))
-   }
-
-   componentDidMount(){
-       this.getPhotos();
-   }
-    
     render() {
-        const { tag, photos } = this.state;
+        const { tag } = this.state;
         return (
             <div >
                 <MainBanner tag={tag} />

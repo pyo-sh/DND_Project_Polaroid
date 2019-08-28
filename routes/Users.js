@@ -6,7 +6,6 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
-const Intro = require('../models/Intro');
 
 users.post('/fblogin', (req, res, next) => {
     passport.authenticate('facebook', (err, users, info) => {
@@ -49,7 +48,6 @@ users.post('/fblogin', (req, res, next) => {
 });
 
 users.post('/login', (req, res, next) => {  // 로그인
-    console.log('여기 온거 맞음?');
     passport.authenticate('login', (err, users, info) => {
         if (err) {
             console.error(`error ${err}`);
@@ -63,7 +61,6 @@ users.post('/login', (req, res, next) => {  // 로그인
                 res.status(403).send(info.message);
             }
         } else {
-            console.log('여기 온거 맞음?');
             req.logIn(users, () => {
                 User.findOne({
                     where : {
@@ -106,6 +103,10 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                     PASSWORD: req.body.PASSWORD,
                     email : req.body.email,
                     nickname : req.body.nickname,
+                    introduce : '안녕하세요 처음뵙겠습니다.',
+                    follow : 0,
+                    follower : 0,
+                    grade : '일반',
                     created: today,
                 };
                 User.findOne({
@@ -119,15 +120,6 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                             userData.PASSWORD = hash;
                             User.create(userData)
                             .then(user => {
-                                const IntroData ={
-                                    ID: userData.ID,
-                                    introduce : '안녕하세요 처음뵙겠습니다.',
-                                    follow : 0,
-                                    follower : 0,
-                                    grade : '일반',
-                                    nickname : userData.nickname
-                                }
-                                Intro.create(IntroData);
                                 res.json({status : user.ID + 'registerd'})
                                 })
                             .catch(err => {

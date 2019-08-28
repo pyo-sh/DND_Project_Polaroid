@@ -1,12 +1,12 @@
 const express = require('express');
 const MyPage = express.Router();
 
-const Intro = require('../models/Intro');
+const User = require('../models/User');
 
 MyPage.get('/:userID', (req, res) => {
     console.log(req.params.userID);
     const userID = req.params.userID
-    Intro.findOne({
+    User.findOne({
         where :{
             ID : userID
         }
@@ -28,19 +28,15 @@ MyPage.post('/edit', (req, res) => {
         introduce : req.body.introduce,
         nickname : req.body.nickname
     }
-    Intro.findOne({
+    User.findOne({
         where : {
             ID : user.ID,
         }
     })
     .then(targetUser => {
         if (targetUser === null) {
-            Intro.create(user).then(res => {
-                console.log(res);
-            })
-            .catch(err => console.error(err));
-            console.log('유저 생성 완료!');
-            return res.send('업데이트 완료');
+            console.log('유저가 없습니다.');
+            return res.send('업데이트 실패');
         } else {
             console.log(targetUser);
             targetUser.update({

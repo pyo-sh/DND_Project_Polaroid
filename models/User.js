@@ -17,6 +17,18 @@ module.exports = db.sequelize.define(
         nickname : {
             type: Sequelize.STRING,   
         },
+        introduce: {
+            type: Sequelize.STRING,
+        },
+        follow : {
+            type: Sequelize.INTEGER,
+        },
+        follower : {
+            type: Sequelize.INTEGER,   
+        },
+        grade: {
+            type : Sequelize.STRING
+        },
         created: {
             type : Sequelize.DATE,
             defaultValue: Sequelize.NOW
