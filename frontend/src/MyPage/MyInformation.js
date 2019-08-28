@@ -1,4 +1,3 @@
-import './MyInformation';
 import MyProfileEdit from './MyProfileEdit';
 import MyInformationMenu from './MyInformationMenu';
 import MyWithdrawal from './MyWithdrawal';
