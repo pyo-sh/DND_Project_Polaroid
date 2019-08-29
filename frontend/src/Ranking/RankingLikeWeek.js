@@ -7,11 +7,11 @@ class RankingLikeWeek extends Component{
         return(
             
                 <ol className = "Ranking-Box-Text">
-                    <li>최정은 329</li>
-                    <li>정은이 308</li>
-                    <li>둉은이 158</li>
-                    <li>으아아 126</li>
-                    <li>으어어 9</li>
+                    <li className="Ranking-Box-Ranking">최정은 329</li>
+                    <li className="Ranking-Box-Ranking">정은이 308</li>
+                    <li className="Ranking-Box-Ranking">둉은이 158</li>
+                    <li className="Ranking-Box-Ranking">으아아 126</li>
+                    <li className="Ranking-Box-Ranking">으어어 9</li>
                 </ol>
               
         )

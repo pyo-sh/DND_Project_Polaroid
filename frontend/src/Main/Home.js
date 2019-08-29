@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MainBanner from './MainBanner';
 import Photos from './Photos';
 import SideContent from './SideContent';
+import './Home.css';
 
 class Home extends Component {
     state = {
@@ -14,8 +15,7 @@ class Home extends Component {
         return (
             <div >
                 <MainBanner tag={tag} />
-                <div className="Content" style={{ display: "flex", marginTop: "50px",
-                marginLeft:"20px", marginRight: "20px"}}>
+                <div className="Content">
                     <Photos />
                     <SideContent /> 
                 </div>
