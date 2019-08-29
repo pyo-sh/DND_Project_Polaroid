@@ -53,8 +53,18 @@
 }
 .Profile .Profile-Columns .Profile-Service .Profile-Following{
     color: blue;
+    border: 0;
+    outline: 0;
+    font-size: 17px;
+    background: none;
+    cursor: pointer;
 }
 .Profile .Profile-Columns .Profile-Service .Profile-Follower{
     color: gray;
-    margin-left: 5%
+    margin-left: 5%;
+    border: 0;
+    outline: 0;
+    font-size: 17px;
+    background: none;
+    cursor: pointer;
 }

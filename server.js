@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const Users = require('./routes/Users');
 const MyPage = require('./routes/MyPage');
+const Raking = require('./routes/Raking');
 const AWS = require("aws-sdk");
 AWS.config.loadFromPath(__dirname+ "/config/awsconfig.json");
 // const optionsForHTTPS = {
@@ -40,22 +41,33 @@ app.get('/api', (req, res) => {
 
 app.use('/api/user', Users);
 app.use('/api/mypage', MyPage);
+app.use('/api/raking', Raking);
 
-app.get('/api/file/photos', (req, res) => {
-   let photos = [];
-   let fileCount;
-   fs.readdir("frontend/src/img/photo", (err, files) => {
-     console.log(files);
-     fileCount = files.length;
-     console.log(fileCount);
-     for (let i = 0; i < fileCount; i++) {
-       photos.push(`photo${i}.jpg`);
-     }
-     res.json({
-       photos
-     });
-   });
-})
+app.post('/api/file/photos', (req, res) => {
+  let photos = [];
+  let start = req.body.start;
+  let count = req.body.count;
+  let isMore = req.body.isMore;
+  let fileCount = 0;
+
+  fs.readdir('frontend/src/img/photo', (err, files) => {
+    fileCount = files.length;
+ 
+    for(let i = start; i < start + count; i++){
+      if(fileCount >= i){
+        photos.push(`photo${i}.jpg`);
+        
+        if (fileCount == i){
+          isMore = false;
+          break;
+        }
+      }
+    }
+    res.json({
+     photos, isMore
+    });
+  });
+});
 
 app.post('/api/uploads3',cors(), (req, res) => {
     let s3 = new AWS.S3();

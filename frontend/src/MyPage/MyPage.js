@@ -7,6 +7,8 @@ import React, { Component } from 'react';
 import { getAllInfo } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
 
+// import ProfileSmall from './ProfileSmall';
+
 class MyPage extends Component {
     state ={
         selectedMenu: "UPLOAD",
@@ -80,9 +82,24 @@ class MyPage extends Component {
             case "UPLOAD" : return ;
             case "DOWNLOADED" : return ;
             case "LIKED" : return ;
-            case "FAVORITE" : return ;
-            case "BENEFIT" : return <MyPageBenefit profile={this.state.profile}/>;
-            case "SETTINGS" : return <MyInformation profile={this.state.profile} getInfo={this.getInfo}/>;
+            case "FAVORITE" : 
+                return ;
+                // <ProfileSmall 
+                //     profileImage={this.state.profile.photo} 
+                //     nickname={this.state.profile.name} 
+                //     id={this.state.profile.id}
+                //     images={""}
+                //     follow={""}
+                //     />
+            case "BENEFIT" : 
+                return <MyPageBenefit 
+                    profile={this.state.profile}
+                    />;
+            case "SETTINGS" : 
+                return <MyInformation 
+                    profile={this.state.profile} 
+                    getInfo={this.getInfo}
+                    />;
             default : return <div className="loading-screen"></div>;
         }
     }

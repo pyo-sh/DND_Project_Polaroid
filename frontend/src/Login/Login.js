@@ -11,6 +11,7 @@ class Login extends Component {
         ID : '',
         email : '',
         PASSWORD: '',
+        loginCheck: true
     }
 
     handleClick = () => {
@@ -41,16 +42,26 @@ class Login extends Component {
             if(res) {
                 this.props.history.push(`/mypage`)
             }
+            else{
+              this.setState({
+                loginCheck : false
+              })
+            }
           }) :
           sessionLogin(user).then(res => {
               if(res) {
                   this.props.history.push(`/mypage`)
               }
+              else{
+                this.setState({
+                  loginCheck : false
+                })
+              }
           })
     }
 
     render() {
-
+      const { loginCheck } = this.state;
         const checkStyleChange = {
             color:'black'
         }
@@ -101,9 +112,10 @@ class Login extends Component {
                       로그인
                     </button>
                   </div>
+                  { loginCheck ? null : <div className="Login-Check">아이디나 비밀번호가 일치하지 않습니다.</div>}
                   <div className="Login-Box-Bottom">
                     <Link to="/user/signup" className="Link">
-                      회원가입{" "}
+                      회원가입
                     </Link>
                     <div className="find">
                       <Link to="/user/findid" className="Link">아이디 찾기 </Link>
