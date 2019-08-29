@@ -1,0 +1,76 @@
+
+.Mark-Modal-Overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.16);
+}
+
+.Mark-Modal{
+    width: 320px;
+    height: 370px;
+    z-index: 1;   /*div 의 창이 맨 앞으로 오게 ( 순서 1 )*/
+    border-radius: 7px;
+    background-color: white;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+    padding: 15px 5px;
+    position: absolute;
+    top: 20%;
+    left: 40%;
+}
+
+.Mark-Modal .Mark-Title{
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.Mark-Modal .Mark-Content{
+    margin: 0 auto;
+    color: none;
+    background: gray;
+    width:250px;
+    height:250px;
+    padding-top: 5px;
+    padding-left: 5px;
+    
+}
+
+
+.Mark-Modal .Mark-Button-Wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px;
+}
+
+.Mark-Modal .Mark-Button-Wrap Button{
+    width: 30%;
+    padding: 12px 0;
+    border-radius: 0 0 10px 10px;
+    border: none;
+    color: blue;
+    background: none;
+    font-size: 13pt;
+    cursor: pointer;
+}
+
+.Mark-Modal .Mark-Button-Wrap .Mark-Button1{
+    color: gray;
+}
+ 
+.Mark-Item-Display{
+    display: flex;
+    margin-top: 20px;
+}
+
+.Mark-Item {
+    display: flex;
+}
+
+.check-mark {
+    color: black;
+    margin-left: 100px;
+    font-weight: 800;
+}
