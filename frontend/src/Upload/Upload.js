@@ -18,7 +18,7 @@ class Upload extends React.Component {
                 <input className="TagInput" type="text" name="태그" placeholder="쉼표로 구분"></input>
               </div>
             </div>
-            <div className="TagExpl">3개 이상</div>
+            <div className="TagExpl">5개 이하</div>
             <div className="Price">가격
               <StartPrice/>
             </div>
@@ -88,58 +88,19 @@ class ImportImage extends React.Component {
 }
 
 const options=[
-  {
-    name: '--선택--',
-    value: null,
-  },
-  {
-    name: 'Wallpaper',
-    value: 'Wallpaper',
-  },
-  {
-    name: 'Nature',
-    value: 'Nature',
-  },
-  {
-    name: 'Fashion',
-    value: 'Fashion',
-  },
-  {
-    name: 'Illustration',
-    value: 'Illustration',
-  },
-  {
-    name: 'Art Works',
-    value: 'Art Works',
-  },
-  {
-    name: 'People',
-    value: 'People',
-  },
-  {
-    name: 'Patterns',
-    value: 'Patterns',
-  },
-  {
-    name: 'Architecture',
-    value: 'Architecture',
-  },
-  {
-    name: 'Business',
-    value: 'Business',
-  },
-  {
-    name: 'Animals',
-    value: 'Animals',
-  },
-  {
-    name: 'Travel',
-    value: 'Travel',
-  },
-  {
-    name: 'Food',
-    value: 'Food',
-  }
+  {name: '--선택--', value: null,},
+  {name: 'Wallpaper', value: 'Wallpaper',},
+  {name: 'Nature',value: 'Nature',},
+  {name: 'Fashion',value: 'Fashion',},
+  {name: 'Illustration',value: 'Illustration',},
+  {name: 'Art Works',value: 'Art Works',},
+  {name: 'People',value: 'People',},
+  {name: 'Patterns',value: 'Patterns',},
+  {name: 'Architecture',value: 'Architecture',},
+  {name: 'Business',value: 'Business',},
+  {name: 'Animals',value: 'Animals',},
+  {name: 'Travel',value: 'Travel',},
+  {name: 'Food',value: 'Food',}
 ]
 class Select extends React.Component{
   state={value:''};
