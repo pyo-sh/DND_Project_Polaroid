@@ -6,10 +6,12 @@
 
 .App-Left{
   width: 1200px;
+  height: 100%;
 }
 
 .App-Right{
   width: 380px;
+  height: 100%;
 }
 
 @media screen and (max-width : 100%){

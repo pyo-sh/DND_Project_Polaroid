@@ -8,6 +8,8 @@ class SignUp extends Component {
     state = {
         ID : '',
         PASSWORD : '',
+        PASSWORDCHECK : '',
+        check : true,
         email : '',
         nickname : '',
     }
@@ -18,21 +20,29 @@ class SignUp extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-
-        const user = {
-            ID : this.state.ID,
-            PASSWORD: this.state.PASSWORD,
-            nickname : this.state.nickname,
-            email: this.state.email,
+        const {ID, PASSWORD, PASSWORDCHECK, nickname, email} = this.state;
+        if( PASSWORD !== PASSWORDCHECK) {
+            this.setState({
+                check: false
+            })
+            return;
         }
-
-        register(user).then(res => {
-            if(res) {
-                this.props.history.push(`/user/login`)
+        else {
+            const user = {
+                ID : ID,
+                PASSWORD: PASSWORD,
+                nickname : nickname,
+                email: email,
             }
-        })
+            register(user).then(res => {
+                if(res) {
+                    this.props.history.push(`/user/login`)
+                }
+            })
+        }
     }
     render() {
+        const { check } = this.state;
         return(
             <div className="Sign-Up-Box">
             <div>
@@ -50,10 +60,9 @@ class SignUp extends Component {
                         <label htmlFor="PASSWORD"><h4>비밀번호</h4></label>
                         <input type="password" placeholder="PASSWORD"
                         name = "PASSWORD" value={this.state.PASSWORD} onChange={this.onChange}/>
-                        
+    
                         <h4>비밀번호 확인</h4>
-                        <input type="password" placeholder="PASSWORD"></input>
-                        
+                        <input type="password" placeholder="PASSWORD_CHECK" name = "PASSWORDCHECK" onChange={this.onChange}></input>
                         <label htmlFor="nickname"><h4>닉네임</h4></label>
                         <input type="text" placeholder="NICKNAME"
                         name ="nickname" value={this.state.nickname}
@@ -70,6 +79,7 @@ class SignUp extends Component {
                             <button type = "submit" className = "Sign-Up-Button" >가입</button>
                         </div>
                     </div>
+                    {check ? null : <div className= "Warning">비밀번호와 비밀번호확인이 다릅니다.</div>}
                     <div className = "Sign-Up-Box-Bottom">
                         ALREADY HAVE ID?
                         <div>

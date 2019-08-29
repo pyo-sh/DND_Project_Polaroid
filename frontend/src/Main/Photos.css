@@ -1,0 +1,38 @@
+.Photos{
+    width: 100%;
+}
+
+.Grid{
+    overflow: hidden;
+}
+
+ul{
+    list-style: none;
+}
+
+li{
+  width :32%
+}
+
+img{
+    overflow: hidden;
+    width: 100%
+}
+
+@media screen and (max-width : 100%){
+    li{
+        width :32%
+    }
+}
+
+@media screen and (max-width : 1200px){
+    li{
+        width :48%
+    }
+}
+
+@media screen and (max-width : 800px){
+    li{
+        width : 100%
+    }
+}

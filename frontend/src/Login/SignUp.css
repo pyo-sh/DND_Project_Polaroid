@@ -50,6 +50,10 @@ h1{
     margin-left: 30px;
     margin-bottom: 5px;
 }
+.Warning {
+    text-align: center;
+    color : red;
+}
 
 .Sign-Up-Box-Info input{
     margin-top: 8px;
