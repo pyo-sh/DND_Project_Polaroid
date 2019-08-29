@@ -56,6 +56,7 @@ class ImportImage extends React.Component {
     })
   };
 
+
   handleFileChange = e => {
     e.preventDefault();
 
