@@ -44,24 +44,23 @@ const HomePage = ({match}) => {  // '/' 로 들어왔을 때
 
 const LoginPage = ({match}) => { // '/user' 로 들어 왔을 때.
     return(
-            <>
             <div className ="Main">
                      <div className="Main-Left">
                         <MainPhoto /> 
                     </div>
+
                     <div className="Main-Right">
                     <Switch>
-                    <Route path={match.url+'/login'} exact={true} component={Login} /> 
-                    <Route path={match.url+'/signup'}exact={true} component={SignUp} /> 
-                    <Route path={match.url+'/findid'} exact={true} component={FindID} />  
-                    <Route path={match.url + '/findpassword'} exact={true}  component={FindPassword} />
-                    <Route path={match.url + '/facebook'} exact={true} component={Facebook}/>
-                    <Route path={match.url + '/delete'} exact={true} component={DeleteUser}/>
-                    <Route path={match.url + '/reset/:userID/:token'} exact={true} component={ResetPassword}/>
+                        <Route path={match.url+'/login'} exact={true} component={Login} /> 
+                        <Route path={match.url+'/signup'}exact={true} component={SignUp} /> 
+                        <Route path={match.url+'/findid'} exact={true} component={FindID} />  
+                        <Route path={match.url + '/findpassword'} exact={true}  component={FindPassword} />
+                        <Route path={match.url + '/facebook'} exact={true} component={Facebook}/>
+                        <Route path={match.url + '/delete'} exact={true} component={DeleteUser}/>
+                        <Route path={match.url + '/reset/:userID/:token'} exact={true} component={ResetPassword}/>
                     </Switch>
                     </div>
-                </div>
-            </>
+            </div>
     )
 }
 

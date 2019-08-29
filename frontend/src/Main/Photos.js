@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import './Photos.css';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Photo from './Photo';
+import { Link } from 'react-router-dom';
+import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';
+
+const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
+  maxWidth: 1500
+});
 
 class Photos extends Component {
     state = {
@@ -36,17 +41,17 @@ class Photos extends Component {
     
     render() {
         return (
-            <div className = "Photos">
-                <InfiniteScroll
-                    dataLength = {this.state.images.length}
-                    next = {this.fetchImages}
-                    hasMore = {this.state.isMore}
-                    loader = {<h4>Loading..</h4>}
-                    >
-                      
-                    {this.state.images.map((image, index) => (
-                       <Photo key={image.id} image={image} />
-                     ))}
+            <div className = "Photos">   
+                  <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
+                    <Grid component="ul" columnWidth={400} gutterWidth = {7} gutterHeight = {5} layout = {layout.pinterest} duration = {800}>
+                      {this.state.images.map((image, index) => (
+                        <li key = {index} >
+                            <Link to ="/imagepage">
+                              <img className = "Photo" src={require(`../img/photo/${image}`)} alt=""/>
+                            </Link>
+                        </li>
+                      ))}
+                    </Grid>
                 </InfiniteScroll>
             </div>
         );

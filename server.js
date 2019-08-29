@@ -62,7 +62,7 @@ app.post('/api/file/photos', (req, res) => {
       }
     }
     res.json({
-     photos
+     photos, isMore
     });
   });
 });
