@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const Users = require('./routes/Users');
 const MyPage = require('./routes/MyPage');
+const Raking = require('./routes/Raking');
 const AWS = require("aws-sdk");
 AWS.config.loadFromPath(__dirname+ "/config/awsconfig.json");
 // const optionsForHTTPS = {
@@ -38,6 +39,7 @@ app.get('/api', (req, res) => {
 
 app.use('/api/user', Users);
 app.use('/api/mypage', MyPage);
+app.use('/api/raking', Raking);
 
 app.post('/api/file/photos', (req, res) => {
   let photos = [];
