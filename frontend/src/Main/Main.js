@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import MyPage from '../MyPage/MyPageScreen';
 import Upload from '../Upload/Upload';
 import Image from '../Image/ImageScreen';
-
+import Uploads3 from '../Upload/UploadS3';
 import Login from '../Login/Login';
 import SignUp from '../Login/SignUp';
 import FindID from '../Login/FindID';
@@ -35,6 +35,7 @@ const HomePage = ({match}) => {  // '/' 로 들어왔을 때
                 <Route path={match.url+'imagepage'} exact={true} component = {Image}/>
                 <Route path={match.url+'upload'} exact={true} component = {Upload} />
                 <Route path={match.url+'mypage'} exact={true} component = {MyPage} />
+                <Route path={match.url+'uploads3'} exact={true} component={Uploads3}/>
                 <Route path={match.url} exact={true} component = {Home}/>
             </Switch>
         </>

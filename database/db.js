@@ -1,10 +1,10 @@
 const Squelize = require('sequelize');
 const db = {}
-const sequelize = new Squelize('mundb',
-    'mundb',
+const sequelize = new Squelize('poloapp',
+    'poloapp',
     'mypassword',
 {
-    host : "mundb.cqug9xdast4f.ap-northeast-2.rds.amazonaws.com",
+    host : "poloapp.c9klnt3lplec.ap-northeast-2.rds.amazonaws.com",
     dialect : 'mysql',
     operatorsAliases: false,
 

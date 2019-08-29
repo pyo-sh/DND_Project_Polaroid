@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const Users = require('./routes/Users');
 const MyPage = require('./routes/MyPage');
-
+const AWS = require("aws-sdk");
+AWS.config.loadFromPath(__dirname+ "/config/awsconfig.json");
 // const optionsForHTTPS = {
 //     key: fs.readFileSync('config/key.pem','utf8'),
 //     cert: fs.readFileSync('config/server.crt','utf8'),
@@ -64,6 +65,42 @@ app.post('/api/file/photos', (req, res) => {
   });
 });
 
+
+
+
+app.post('/api/uploads3',cors(), (req, res) => {
+    let s3 = new AWS.S3();
+    const fileName = req.body.fileName;
+    const fileType = req.body.fileType;
+
+    const s3Params = {
+        Bucket : "poloapp/images",
+        Key : fileName,
+        Expires : 500,
+        ContentType : fileType,
+        ACL : 'public-read',
+    };
+
+    s3.getSignedUrl('putObject', s3Params, (err, data) => {
+        if(err){
+            console.log(err);
+            res.json({success:false, error:err});
+        }
+
+        const returnData = {
+            signedRequest: data,
+            url : `https://poloapp.s3.ap-northeast-2.amazonaws.com/images/${fileName}`
+        };
+
+        res.json({success:true, data:{returnData}});
+    });
+    
+})
+
+app.get('/api/uploads3', function(req, res, next) {
+   
+  });
+  
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
