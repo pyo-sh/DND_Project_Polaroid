@@ -42,7 +42,6 @@ function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, 
         
         </div>
      );
-    
 }
 
 function ImageUseInformation({like, isLike, veiw, size, mark}){
