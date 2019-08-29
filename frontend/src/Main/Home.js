@@ -20,13 +20,13 @@ class Home extends Component {
    }
     
     render() {
-        const { tag, photos } = this.state;
+        const { tag } = this.state;
         return (
             <div >
                 <MainBanner tag={tag} />
-                <div className="Content App" style={{ display: "flex", marginTop: "30px" }}>
-                    <div className = "App-Left"> <Photos /> </div>
-                    <div className = "App-Right"> <SideContent /> </div>
+                <div className="Content" style={{ display: "flex", marginTop: "30px" }}>
+                    <Photos />
+                    <SideContent />
                 </div>
             </div>
         );
