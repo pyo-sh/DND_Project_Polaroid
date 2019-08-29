@@ -83,8 +83,7 @@ class ImageScreen extends Component {
             like = {this.state.image[0].like} 
             isLike = {this.state.image[0].isLike} 
             veiw = {this.state.image[0].veiw} 
-            size = {this.state.image[0].size} 
-            mark = {this.state.image[0].mark} 
+            size = {this.state.image[0].size}
             key = {this.state.image[0].id} />
         </div>
         <div className = "App-Right">

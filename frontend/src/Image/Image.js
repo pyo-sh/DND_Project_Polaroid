@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './Image.css';
 import {Icon} from 'semantic-ui-react';
+import Mark from './Mark';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
@@ -18,16 +19,7 @@ Image.protoType = {
     like : PropTypes.string.isRequired,
     isLike : PropTypes.bool,
     veiw : PropTypes.string.isRequired,
-    size : PropTypes.string.isRequired,
-    mark : PropTypes.bool   
-}
-
-ImageUseInformation.protoType = {
-    like : PropTypes.string.isRequired,
-    isLike : PropTypes.bool,
-    veiw : PropTypes.string.isRequired,
-    size : PropTypes.string.isRequired,
-    mark : PropTypes.bool
+    size : PropTypes.string.isRequired
 }
 
 function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, veiw, size, mark}) {
@@ -36,7 +28,7 @@ function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, 
             <div className = "Image-Column">
                 <img className = "MainImage" src = {im[id]} alt = {id}></img>
             </div>    
-            <ImageUseInformation like = {like} isLike = {isLike} veiw = {veiw} size = {size} mark = {mark}/>
+            <ImageUseInformation like = {like} isLike = {isLike} veiw = {veiw} size = {size} />
             <p className = "Relatied-Title Image-Column"> Relatied Image</p>
             <RelationImage id = {id}/>
         
@@ -45,29 +37,53 @@ function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, 
     
 }
 
-function ImageUseInformation({like, isLike, veiw, size, mark}){
-    return(
-        <div className = "Image-Column">
-            <p> {size} </p>
+class ImageUseInformation extends Component {
+  
+    state = {
+        isMarkOpen: false
+    }
+
+    openMark = () => {
+        this.setState({isMarkOpen: true})
+    }
+
+    closeMark = () => {
+        this.setState({isMarkOpen: false})
+    }
+
+    onClickMark = (e) => {
+        this.state.isMarkOpen ? this.closeMark() : this.openMark()
+    }
+
+    render(){
+
+        let name = this.state.isMarkOpen ? "star" : "star outline"
+
+        return(
+            <div className = "Image-Column">
+            <p> {this.props.size} </p>
             <div className = "Image-UseInforfmation">
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "Declaration" name = "warning circle"/>
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Mark" name = {mark ? "star" : "star outline"}/> 
+                    <Icon className = "Mark" name = {name} onClick = {this.onClickMark}/> 
+                    <Mark isOpen={this.state.isMarkOpen} close={this.closeMark} />
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Like" name = {mark ? "heart" : "heart outline"} color = "red"/>
-                    {like}
+                    <Icon className = "Like" name = {"heart"} color = "red"/>
+                    {this.props.like}
                 </div>
-                <div className = "Image-UseInforfmation-Item" >
-                    <Icon className = "Veiw " name = "eye"/>
-                    {veiw}
+                <div className = "Image-UseInforfmation-Item">
+                    <Icon className = "view " name = "eye"/>
+                    {this.props.view}
                 </div>
             </div>
-        </div>
-    );
+            </div>
+        )
+    }
 }
+
 
 class RelationImage extends Component{
     state = {
