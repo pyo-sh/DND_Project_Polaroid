@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const fs = require('fs');
-const data = fs.readFileSync('./database.json');
 
 // const https = require('https');
 const bodyParser = require('body-parser');
