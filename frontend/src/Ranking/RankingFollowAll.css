@@ -1,11 +1,12 @@
-li{
+.Ranking-Box-Ranking{
+    width: 120px;
     margin-top: 5px;
-    letter-spacing: 2px;
-    font-size: 11px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-align: center;
 }
 
 .Ranking-Box-Text{
-    font-size: 10px;
     margin-top: 25px;
     border-top: 1px solid grey;
     opacity: 0;

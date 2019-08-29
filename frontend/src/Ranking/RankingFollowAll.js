@@ -19,7 +19,7 @@ class RankingFollowAll extends Component{
         return(
             <ol className = "Ranking-Box-Text">
               {ranking.map((user, index) => {
-                  return <li key = {index}>{user.userNickname} {user.userfollower}</li>
+                  return <li className ="Ranking-Box-Ranking" key = {index}>{user.userNickname} {user.userfollower}</li>
               })}
             </ol>
               
