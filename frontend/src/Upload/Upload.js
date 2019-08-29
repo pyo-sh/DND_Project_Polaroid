@@ -18,7 +18,7 @@ class Upload extends React.Component {
                 <input className="TagInput" type="text" name="태그" placeholder="쉼표로 구분"></input>
               </div>
             </div>
-            <div className="TagExpl">3개 이상</div>
+            <div className="TagExpl">5개 이하</div>
             <div className="Price">가격
               <StartPrice/>
             </div>
@@ -53,14 +53,22 @@ class ImportImage extends React.Component {
     e.preventDefault();
     this.uploadImage().then(res => {
       console.log(res.data);
-    });
+    })
   };
 
   handleFileChange = e => {
-    this.setState({
-      file: e.target.files[0],
-      fileName: e.target.value
-    });
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onload=()=>{
+      this.setState({
+        file: file,
+        fileName: reader.result
+      });
+    }
+    reader.readAsDataURL(file)
   };
 
   uploadImage = () => {
@@ -76,70 +84,38 @@ class ImportImage extends React.Component {
   };
 
   render() {
+    let {fileName} = this.state;
+    let $fileNameUrl = null;
+    if(fileName) {$fileNameUrl = (<img src={fileName}/>)}
+    else{$fileNameUrl = (<div className = "previewText">Image Preview</div>)}
     return (
-      <form onSubmit={this.handleFormSubmit}>
-        <button className="imageBtn">
-        <input type="file" name="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/>
-        </button><br/>
-        <button type="submit">Upload</button>
-      </form>
+      <div>
+        <div className = "previewComponent">
+          <div className="imgPreview">{$fileNameUrl}</div>
+        </div>
+        <form onSubmit={(e)=>this.handleFormSubmit(e)}>
+          <input className="imageBtn" type="file" onChange={(e)=>this.handleFileChange(e)}/>
+          <button className="submit" type="submit" onClick={(e)=>this.handleFormSubmit(e)}>upload btn</button>
+         </form>
+      </div>
     );
   }
 }
 
 const options=[
-  {
-    name: '--선택--',
-    value: null,
-  },
-  {
-    name: 'Wallpaper',
-    value: 'Wallpaper',
-  },
-  {
-    name: 'Nature',
-    value: 'Nature',
-  },
-  {
-    name: 'Fashion',
-    value: 'Fashion',
-  },
-  {
-    name: 'Illustration',
-    value: 'Illustration',
-  },
-  {
-    name: 'Art Works',
-    value: 'Art Works',
-  },
-  {
-    name: 'People',
-    value: 'People',
-  },
-  {
-    name: 'Patterns',
-    value: 'Patterns',
-  },
-  {
-    name: 'Architecture',
-    value: 'Architecture',
-  },
-  {
-    name: 'Business',
-    value: 'Business',
-  },
-  {
-    name: 'Animals',
-    value: 'Animals',
-  },
-  {
-    name: 'Travel',
-    value: 'Travel',
-  },
-  {
-    name: 'Food',
-    value: 'Food',
-  }
+  {name: '--선택--', value: null,},
+  {name: 'Wallpaper', value: 'Wallpaper',},
+  {name: 'Nature',value: 'Nature',},
+  {name: 'Fashion',value: 'Fashion',},
+  {name: 'Illustration',value: 'Illustration',},
+  {name: 'Art Works',value: 'Art Works',},
+  {name: 'People',value: 'People',},
+  {name: 'Patterns',value: 'Patterns',},
+  {name: 'Architecture',value: 'Architecture',},
+  {name: 'Business',value: 'Business',},
+  {name: 'Animals',value: 'Animals',},
+  {name: 'Travel',value: 'Travel',},
+  {name: 'Food',value: 'Food',}
 ]
 class Select extends React.Component{
   state={value:''};
