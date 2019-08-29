@@ -53,14 +53,22 @@ class ImportImage extends React.Component {
     e.preventDefault();
     this.uploadImage().then(res => {
       console.log(res.data);
-    });
+    })
   };
 
   handleFileChange = e => {
-    this.setState({
-      file: e.target.files[0],
-      fileName: e.target.value
-    });
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onload=()=>{
+      this.setState({
+        file: file,
+        fileName: reader.result
+      });
+    }
+    reader.readAsDataURL(file)
   };
 
   uploadImage = () => {
@@ -76,13 +84,20 @@ class ImportImage extends React.Component {
   };
 
   render() {
+    let {fileName} = this.state;
+    let $fileNameUrl = null;
+    if(fileName) {$fileNameUrl = (<img src={fileName}/>)}
+    else{$fileNameUrl = (<div className = "previewText">Image Preview</div>)}
     return (
-      <form onSubmit={this.handleFormSubmit}>
-        <button className="imageBtn">
-        <input type="file" name="file" file={this.state.file} value={this.state.fileName} onChange={this.handleFileChange}/>
-        </button><br/>
-        <button type="submit">Upload</button>
-      </form>
+      <div>
+        <div className = "previewComponent">
+          <div className="imgPreview">{$fileNameUrl}</div>
+        </div>
+        <form onSubmit={(e)=>this.handleFormSubmit(e)}>
+          <input className="imageBtn" type="file" onChange={(e)=>this.handleFileChange(e)}/>
+          <button className="submit" type="submit" onClick={(e)=>this.handleFormSubmit(e)}>upload btn</button>
+         </form>
+      </div>
     );
   }
 }

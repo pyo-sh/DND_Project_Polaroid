@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const fs = require('fs');
+const data = fs.readFileSync('./database.json');
+
 // const https = require('https');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -42,21 +44,18 @@ app.use('/api/mypage', MyPage);
 app.get('/api/file/photos', (req, res) => {
    let photos = [];
    let fileCount;
-   fs.readdir('frontend/src/img/photo', (err, files) => {
-       console.log(files);
-       fileCount = files.length;
-       console.log(fileCount);
-   for(let i = 0; i < fileCount; i++){
-        photos.push(`photo${i}.jpg`);
-   }
-   res.json({
-    photos
+   fs.readdir("frontend/src/img/photo", (err, files) => {
+     console.log(files);
+     fileCount = files.length;
+     console.log(fileCount);
+     for (let i = 0; i < fileCount; i++) {
+       photos.push(`photo${i}.jpg`);
+     }
+     res.json({
+       photos
+     });
    });
-});
 })
-
-
-
 
 app.post('/api/uploads3',cors(), (req, res) => {
     let s3 = new AWS.S3();
@@ -81,15 +80,12 @@ app.post('/api/uploads3',cors(), (req, res) => {
             signedRequest: data,
             url : `https://poloapp.s3.ap-northeast-2.amazonaws.com/images/${fileName}`
         };
-
         res.json({success:true, data:{returnData}});
     });
-    
 })
 
 app.get('/api/uploads3', function(req, res, next) {
-   
-  });
+});
   
 const port = process.env.PORT || 5000;
 
@@ -100,4 +96,3 @@ app.listen(port, () => {
 // https.createServer(optionsForHTTPS, app).listen(port, () => {
 //     console.log("HTTPS server listening on port " + port);
 // }) https 해제
-
