@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './Image.css';
 import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
+import Declaration from './Declaration';
+
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
@@ -18,17 +20,17 @@ Image.protoType = {
     kategorie : PropTypes.string.isRequired,
     like : PropTypes.string.isRequired,
     isLike : PropTypes.bool,
-    veiw : PropTypes.string.isRequired,
+    view : PropTypes.string.isRequired,
     size : PropTypes.string.isRequired
 }
 
-function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, veiw, size, mark}) {
+function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, view, size}) {
     return ( 
         <div className = "Image">
             <div className = "Image-Column">
                 <img className = "MainImage" src = {im[id]} alt = {id}></img>
             </div>    
-            <ImageUseInformation like = {like} isLike = {isLike} veiw = {veiw} size = {size} />
+            <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
             <p className = "Relatied-Title Image-Column"> Relatied Image</p>
             <RelationImage id = {id}/>
         
@@ -38,41 +40,104 @@ function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, 
 }
 
 class ImageUseInformation extends Component {
-  
+    
+    //Mark가 들어간건 즐겨찾기
+    //Dec가 들어간건 신고창
+    //Like가 들어간건 좋아요
+
     state = {
-        isMarkOpen: false
+        isMarkPopUpOpen: false,
+        isMarkClick: false,
+        isDecPopUpOpen: false,
+        isLikeClick: false,
+        like: this.props.like
     }
 
-    openMark = () => {
-        this.setState({isMarkOpen: true})
+    openMarkPopUp = () => {
+        this.setState({
+            isMarkPopUpOpen: true
+        })
     }
 
-    closeMark = () => {
-        this.setState({isMarkOpen: false})
+    closeMarkPopUp = () => {
+        this.setState({
+            isMarkPopUpOpen: false
+        })
     }
 
-    onClickMark = (e) => {
-        this.state.isMarkOpen ? this.closeMark() : this.openMark()
+    openDecPopUp = () => {
+        this.setState({
+            isDecPopUpOpen: true
+        })
+    }
+
+    closeDecPopUp = () => {
+        this.setState({
+            isDecPopUpOpen: false
+        })
+    }
+    
+    clickMark = () =>{
+        this.setState({
+            isMarkClick: true
+        })
+    }
+
+    reclickMark = () => {
+        this.setState({
+            isMarkClick: false,
+            isMarkPopUpOpen: false
+        })
+    }
+
+    clickLike = () =>{
+        this.setState({
+            isLikeClick: true,
+            like: this.state.like + 1   //한 번 누르면 증가
+        })
+    }
+
+    reclickLike = () => {
+        this.setState({
+            isLikeClick: false,
+            like: this.state.like - 1   //한 번 누르면 감소
+        })
+    }
+
+    onClickDeclaration = () => {
+        this.state.isDecPopUpOpen ? this.closeDecPopUp() : this.openDecPopUp()
+    }
+
+    onClickMark = () => {
+        this.state.isMarkPopUpOpen ? this.closeMarkPopUp() : this.openMarkPopUp()
+        this.state.isMarkClick ? this.reclickMark() : this.clickMark()
+    }
+
+    onClickLike = () => {
+        this.state.isLikeClick ? this.reclickLike() : this.clickLike()
     }
 
     render(){
 
-        let name = this.state.isMarkOpen ? "star" : "star outline"
+        let markname = this.state.isMarkClick ? "star" : "star outline"
+
+        let likename = this.state.isLikeClick ? "heart" : "heart outline"
 
         return(
             <div className = "Image-Column">
             <p> {this.props.size} </p>
             <div className = "Image-UseInforfmation">
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Declaration" name = "warning circle"/>
+                    <Icon className = "Declaration" name = "warning circle" onClick={this.onClickDeclaration}/>
+                    <Declaration isOpen={this.state.isDecPopUpOpen} close={this.closeDecPopUp} />
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Mark" name = {name} onClick = {this.onClickMark}/> 
-                    <Mark isOpen={this.state.isMarkOpen} close={this.closeMark} />
+                    <Icon className = "Mark" name = {markname} onClick = {this.onClickMark}/> 
+                    <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} />
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Like" name = {"heart"} color = "red"/>
-                    {this.props.like}
+                    <Icon className = "Like" name = {likename} onClick={this.onClickLike}/>
+                    {this.state.like}
                 </div>
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "view " name = "eye"/>

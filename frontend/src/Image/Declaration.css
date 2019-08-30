@@ -1,0 +1,62 @@
+
+.Declaration-Modal-Overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.16);
+}
+
+.Declaration-Modal{
+    width: 320px;
+    height: 200px;
+    z-index: 1;   /*div 의 창이 맨 앞으로 오게 ( 순서 1 )*/
+    border-radius: 7px;
+    background-color: white;
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+    padding: 15px 5px;
+    position: absolute;
+    top: 20%;
+    left: 40%;
+}
+
+.Declaration-Modal .Declaration-Title{
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+.Declaration-Modal .Declaration-Content{
+    margin: 0 auto;
+    color: none;
+    background: gray;
+    width:250px;
+    height:100px;
+    padding-top: 5px;
+    padding-left: 5px;
+    
+}
+
+
+.Declaration-Modal .Declaration-Button-Wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px;
+}
+
+.Declaration-Modal .Declaration-Button-Wrap Button{
+    width: 30%;
+    padding: 12px 0;
+    border-radius: 0 0 10px 10px;
+    border: none;
+    color: blue;
+    background: none;
+    font-size: 13pt;
+    cursor: pointer;
+}
+
+.Declaration-Modal .Declaration-Button-Wrap .Declaration-Button1{
+    color: gray;
+}
+ 

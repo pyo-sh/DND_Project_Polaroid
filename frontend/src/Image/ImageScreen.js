@@ -24,7 +24,7 @@ class ImageScreen extends Component {
       uploadDate : "2019.2.8",
       downloade : "1594",
       kategorie : "Nature",
-      like : "56",
+      like : 56,
       isLike : false,
       veiw : "45",
       size : "가로 X 세로",

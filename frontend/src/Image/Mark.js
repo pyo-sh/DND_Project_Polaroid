@@ -6,7 +6,7 @@ import './Mark.css';
 
 class Mark extends Component { 
     
-    id = 3
+    id = 0
 
     state = {
         input: '',
