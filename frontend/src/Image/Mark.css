@@ -62,15 +62,11 @@
  
 .Mark-Item-Display{
     display: flex;
-    margin-top: 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-.Mark-Item {
-    display: flex;
-}
-
-.check-mark {
+.Check-Mark {
     color: black;
-    margin-left: 100px;
     font-weight: 800;
 }

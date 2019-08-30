@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FolderListItem from './FolderListItem';
+import {Icon} from 'semantic-ui-react';
 import './Mark.css';
 
 class FolderList extends Component {
@@ -19,9 +20,6 @@ class FolderList extends Component {
 
         return(
             <div>
-                <div className="Mark-Item">
-                    기본 폴더 <div className="check-mark">✓</div>
-                </div>
                 {folderList}
             </div>
         )
