@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export const register = async newUser => {
-    console.log(newUser);
     return await axios
     .post('/api/user/register', {
         ID : newUser.ID,

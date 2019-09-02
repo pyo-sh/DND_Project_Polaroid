@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './Image.css';
 import {Icon} from 'semantic-ui-react';
+import Mark from './Mark';
+import Declaration from './Declaration';
 import { withRouter } from 'react-router-dom';
 
 
@@ -19,26 +21,17 @@ Image.protoType = {
     kategorie : PropTypes.string.isRequired,
     like : PropTypes.string.isRequired,
     isLike : PropTypes.bool,
-    veiw : PropTypes.string.isRequired,
-    size : PropTypes.string.isRequired,
-    mark : PropTypes.bool   
+    view : PropTypes.string.isRequired,
+    size : PropTypes.string.isRequired
 }
 
-ImageUseInformation.protoType = {
-    like : PropTypes.string.isRequired,
-    isLike : PropTypes.bool,
-    veiw : PropTypes.string.isRequired,
-    size : PropTypes.string.isRequired,
-    mark : PropTypes.bool
-}
-
-function Image({id, like, isLike, veiw, size, mark, match}) {
+function Image({id, like, isLike, view, size, match}) {
     return ( 
         <div className = "Image">
             <div className = "Image-Column">
                 <img className = "MainImage" src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
             </div>    
-            <ImageUseInformation like = {like} isLike = {isLike} veiw = {veiw} size = {size} mark = {mark}/>
+            <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
             <p className = "Relatied-Title Image-Column"> Relatied Image</p>
             <RelationImage id = {id}/>
         
@@ -46,29 +39,116 @@ function Image({id, like, isLike, veiw, size, mark, match}) {
      );
 }
 
-function ImageUseInformation({like, isLike, veiw, size, mark}){
-    return(
-        <div className = "Image-Column">
-            <p> {size} </p>
+class ImageUseInformation extends Component {
+    
+    //Mark가 들어간건 즐겨찾기
+    //Dec가 들어간건 신고창
+    //Like가 들어간건 좋아요
+
+    state = {
+        isMarkPopUpOpen: false,
+        isMarkClick: false,
+        isDecPopUpOpen: false,
+        isLikeClick: false,
+        like: this.props.like
+    }
+
+    openMarkPopUp = () => {
+        this.setState({
+            isMarkPopUpOpen: true
+        })
+    }
+
+    closeMarkPopUp = () => {
+        this.setState({
+            isMarkPopUpOpen: false
+        })
+    }
+
+    openDecPopUp = () => {
+        this.setState({
+            isDecPopUpOpen: true
+        })
+    }
+
+    closeDecPopUp = () => {
+        this.setState({
+            isDecPopUpOpen: false
+        })
+    }
+    
+    clickMark = () =>{
+        this.setState({
+            isMarkClick: true
+        })
+    }
+
+    reclickMark = () => {
+        this.setState({
+            isMarkClick: false,
+            isMarkPopUpOpen: false
+        })
+    }
+
+    clickLike = () =>{
+        this.setState({
+            isLikeClick: true,
+            like: this.state.like + 1   //한 번 누르면 증가
+        })
+    }
+
+    reclickLike = () => {
+        this.setState({
+            isLikeClick: false,
+            like: this.state.like - 1   //한 번 누르면 감소
+        })
+    }
+
+    onClickDeclaration = () => {
+        this.state.isDecPopUpOpen ? this.closeDecPopUp() : this.openDecPopUp()
+    }
+
+    onClickMark = () => {
+        this.state.isMarkPopUpOpen ? this.closeMarkPopUp() : this.openMarkPopUp()
+        this.state.isMarkClick ? this.reclickMark() : this.clickMark()
+    }
+
+    onClickLike = () => {
+        this.state.isLikeClick ? this.reclickLike() : this.clickLike()
+    }
+
+    render(){
+
+        let markname = this.state.isMarkClick ? "star" : "star outline"
+
+        let likename = this.state.isLikeClick ? "heart" : "heart outline"
+
+        return(
+            <div className = "Image-Column">
+            <p> {this.props.size} </p>
             <div className = "Image-UseInforfmation">
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Declaration" name = "warning circle"/>
+                    <Icon className = "Declaration" name = "warning circle" onClick={this.onClickDeclaration}/>
+                    <Declaration isOpen={this.state.isDecPopUpOpen} close={this.closeDecPopUp} />
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Mark" name = {mark ? "star" : "star outline"}/> 
+                    <Icon className = "Mark" name = {markname} onClick = {this.onClickMark}/> 
+                    <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} />
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Like" name = {mark ? "heart" : "heart outline"} color = "red"/>
-                    {like}
+                    <Icon className = "Like" name = {likename} onClick={this.onClickLike}/>
+                    {this.state.like}
                 </div>
-                <div className = "Image-UseInforfmation-Item" >
-                    <Icon className = "Veiw " name = "eye"/>
-                    {veiw}
+                <div className = "Image-UseInforfmation-Item">
+                    <Icon className = "view " name = "eye"/>
+                    {this.props.view}
                 </div>
             </div>
-        </div>
-    );
+            </div>
+        )
+    }
 }
+
 
 class RelationImage extends Component{
     state = {
@@ -90,11 +170,11 @@ class RelationImage extends Component{
         }]
     }
 
-    SearchImage(){
+    searchImage(){
         const relation = [];
         this.state.image.some((image) => {
             let n;
-            if(this.props.id !== image.id){
+            if(1 !== image.id){
                 n = 0;
                 this.state.image[this.props.id].tags.forEach((tag) => {
                     if(image.tags.indexOf(tag) !== -1)
@@ -112,7 +192,7 @@ class RelationImage extends Component{
 
 
     render_Image(){
-       const relation = this.SearchImage().map((image) => {
+       const relation = this.searchImage().map((image) => {
             return (
                 <div className = "Image-Relation" style = {{ backgroundImage : `url(${im[image.id]})`}}/>
            );
