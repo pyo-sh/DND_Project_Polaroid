@@ -1,0 +1,28 @@
+.Category{
+    margin-top: 50px;
+    margin-left:20px; 
+    margin-right: 20px; 
+    justify-content : space-between;
+    display: flex;
+    position: relative;
+    top : 50px;
+}
+
+.Category-information{
+    margin: 20px;
+    top : 50px;
+}
+
+.Category-information .Title{
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+.Category-information .Explanation{
+    margin-top : 20px;
+    margin-left : 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgb(100,100,100);
+}
+

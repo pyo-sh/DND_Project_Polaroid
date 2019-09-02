@@ -25,7 +25,7 @@ Image.protoType = {
     size : PropTypes.string.isRequired
 }
 
-function Image({id, like, isLike, view, size, mark, match}) {
+function Image({id, like, isLike, view, size, match}) {
     return ( 
         <div className = "Image">
             <div className = "Image-Column">
@@ -170,11 +170,11 @@ class RelationImage extends Component{
         }]
     }
 
-    SearchImage(){
+    searchImage(){
         const relation = [];
         this.state.image.some((image) => {
             let n;
-            if(this.props.id !== image.id){
+            if(1 !== image.id){
                 n = 0;
                 this.state.image[this.props.id].tags.forEach((tag) => {
                     if(image.tags.indexOf(tag) !== -1)
@@ -192,7 +192,7 @@ class RelationImage extends Component{
 
 
     render_Image(){
-       const relation = this.SearchImage().map((image) => {
+       const relation = this.searchImage().map((image) => {
             return (
                 <div className = "Image-Relation" style = {{ backgroundImage : `url(${im[image.id]})`}}/>
            );
