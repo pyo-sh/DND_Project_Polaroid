@@ -36,16 +36,15 @@ class RankingLike extends Component{
                 <i className="heartbtn fas fa-heart"></i>{title}
                 <div className="Ranking-Box-Like">
                     <div className = "Ranking-Box-Menu">
-                        <div onMouseOver={this.onMouseOver} className = "Ranking-Box-Left" style={opacityWeekStyle}>
+                        <div onMouseOver={this.onMouseOver} style={opacityWeekStyle}>
                             주간
                         </div>
-                        <div onMouseOver={this.onMouseOver} className = "Ranking-Box-Right" style={opacityMonthStyle}>
+                        <div onMouseOver={this.onMouseOver} style={opacityMonthStyle}>
                             월간
                         </div>
                     </div>  
-                
-                    {this.state.week ? <RankingLikeWeek /> : <RankingLikeMonth /> }
                     
+                    {this.state.week ? <RankingLikeWeek /> : <RankingLikeMonth /> }
                 </div>     
             </div>
         )
