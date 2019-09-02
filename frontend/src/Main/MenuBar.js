@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './MenuBar.css';
 import {Icon, Dropdown} from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
+import MyFilm from '../Film/MyFilm';
 
 class MenuBar extends Component {
     logOut = (e) => {
@@ -9,8 +10,8 @@ class MenuBar extends Component {
         localStorage.usertoken ? localStorage.removeItem('usertoken') :  sessionStorage.removeItem('usertoken');
         alert('로그아웃 되었습니다.');
         this.props.history.push(`/`);
-
     }
+
     
     render() {
         return (
@@ -29,6 +30,7 @@ class MenuBar extends Component {
                     </div>
 
                     <div className = "Menu-Item">
+                        {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? "" : <MyFilm/>}
                         <Dropdown text="Photos" pointing simple item className="link item">
                             <Dropdown.Menu>
                                 <Dropdown.Header>Categories</Dropdown.Header>
