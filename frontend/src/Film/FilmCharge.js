@@ -1,49 +1,87 @@
-import React, { Component } from 'react';
-import { chargeFilm } from './FilmFunction';
+import React, { Component } from "react";
+import { chargeFilm } from "./FilmFunction";
 import jwt_decode from "jwt-decode";
-import './FilmCharge.css';
+import "./FilmCharge.css";
+import { withRouter } from 'react-router-dom'; 
 
-class FilmCharge extends Component {  // 충전할 때 받을 것들 더 생각. css 꾸미기.
-    state = {
-        money : ''
-    }
-    
-    onSubmit = (e) => {
-        e.preventDefault();
-        let token = "";
-        const { money } = this.state;
-        localStorage.usertoken
-         ? (token = localStorage.getItem("usertoken"))
+class FilmCharge extends Component {
+  // 충전할 때 받을 것들 더 생각. css 꾸미기.
+  state = {
+    num: 0,
+    money: 0,
+    agree: false
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+    let token = "";
+    const { money, num, agree } = this.state;
+    if (agree === true) {
+      localStorage.usertoken
+        ? (token = localStorage.getItem("usertoken"))
         : (token = sessionStorage.getItem("usertoken"));
-        const decodetoken = jwt_decode(token);
-        const id = decodetoken.ID;
-        const info = {
-            id,
-            money
-        }
-        chargeFilm(info);
+      const decodetoken = jwt_decode(token);
+      const id = decodetoken.ID;
+      const info = {
+        id,
+        money,
+        num
+      };
+      chargeFilm(info);
+      this.props.history.push('/mypage');
     }
-    
-    onChange = (e) => {
-        this.setState({
-            [e.target.name] : e.target.value
-        })
+    else{
+      alert('동의를 눌려주세요.');
     }
-    render() {
-        const {money} = this.state;
-        return (
-            <div class = "Charge">
-                <form onSubmit={this.onSubmit}>
-                    얼마를 충전하시겠습니까?
-                    <br/>
-                    필름 1개당 100원 입니다.
-                    <input className="Charge_Input" placeholder="돈" name = "money" value = {money}
-                    onChange={this.onChange}/>
-                    <button type="submit">충전!</button>
-                </form>
+  };
+
+  onChange = e => {
+    this.setState({
+      num: e.target.value,
+      money: e.target.value * 100
+    });
+  };
+  handleChange = () => {
+    const { agree } = this.state;
+    this.setState({
+      agree: !agree
+    });
+  };
+  render() {
+    const { money, num, agree } = this.state;
+    return (
+      <div className="Charge">
+        <div className="Charge-Title">필름 충전</div>
+        <div className="Charge-Main">
+          <form onSubmit={this.onSubmit}>
+            <div className="Charge-Contents">
+              필름 몇개를 충전하시겠습니까?
+              <br />
+              필름 1개당 100원 입니다.
             </div>
-        );
-    }
+            <input
+              className="Charge-Input"
+              placeholder="개수"
+              value={num}
+              onChange={this.onChange}
+            />
+            <input
+              type="checkBox"
+              name="agree"
+              value={agree}
+              onChange={this.handleChange}
+            />
+            동의
+            <br />
+            <span>{money}원</span>
+            <button className="Charge-Button" type="submit">
+              충전!
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default FilmCharge;
+export default withRouter(FilmCharge);
