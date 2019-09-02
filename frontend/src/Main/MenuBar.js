@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './MenuBar.css';
 import {Icon, Dropdown} from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
+import MyFilm from '../Film/MyFilm';
 
 class MenuBar extends Component {
     state = {visible : false}
@@ -11,8 +12,8 @@ class MenuBar extends Component {
         localStorage.usertoken ? localStorage.removeItem('usertoken') :  sessionStorage.removeItem('usertoken');
         alert('로그아웃 되었습니다.');
         this.props.history.push(`/`);
-
     }
+
     
     handleToggle = () => {
         const visible = this.state.visible;
