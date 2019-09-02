@@ -9,12 +9,6 @@
 .Ranking-Box-Text{
     margin-top: 25px;
     border-top: 1px solid grey;
-    opacity: 0;
-    transition: all 0.8s ease;
 }
 
-.Ranking-Title:hover .Ranking-Box-Text{
-    opacity: 1;
-    transition: all 0.8s ease;
-}
 

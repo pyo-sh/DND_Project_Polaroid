@@ -72,15 +72,16 @@ class Mark extends Component {
         })
     }
 
-    
+    //폴더 클릭시 체크 표시 나타나게 해줌
     handleToggle = (id) => {
         
         // 파라미터로 받은 id 를 가지고 몇번째 아이템인지 찾습니다.
-        const index = this.state.folder.findIndex(todo => todo.id === id);
+        const index = this.state.folder.findIndex(item => item.id === id);
         const selected = this.state.folder[index]; // 선택한 객체
-    
-        const nextFolder = [...this.state.folder]; // 배열을 복사
-    
+        
+        //중복 클릭 방지, checked 싹다 false로 바꿈
+        const nextFolder = this.state.folder.map(item => ({...item, checked: false}))
+
         // 기존의 값들을 복사하고, checked 값을 덮어쓰기
         nextFolder[index] = { 
           ...selected, 

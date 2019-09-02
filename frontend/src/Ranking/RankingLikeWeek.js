@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import './RankingLikeWeek.css';
 import './RankingLike.css';
+import './RankingFollowAll.css';
 
 class RankingLikeWeek extends Component{
     render(){
         return(
-            
                 <ol className = "Ranking-Box-Text">
                     <li className="Ranking-Box-Ranking">최정은 329</li>
                     <li className="Ranking-Box-Ranking">정은이 308</li>

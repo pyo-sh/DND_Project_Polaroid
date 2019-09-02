@@ -41,17 +41,17 @@ class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
 
 const Profile = ({photo, name, id, about, following, follower, grade, film}) => {
     return(
-        <div className="Profile">
-            <div className="Profile-Status">
+        <div className="MyProfile">
+            <div className="MyProfile-Status">
                 <ProfilePhoto photo = {photo}/>
                 <MyProfileGrade name = {name} grade = {grade}/>
             </div>
-            <div className="Profile-Columns">
-                <div className="Profile-Private">
-                    <strong className="Profile-Name">{name}</strong>
-                    <span className="Profile-Id">{id}</span>
+            <div className="MyProfile-Columns">
+                <div className="MyProfile-Private">
+                    <strong className="MyProfile-Name">{name}</strong>
+                    <span className="MyProfile-Id">{id}</span>
                 </div>
-                <div className="Profile-About">
+                <div className="MyProfile-About">
                     <LinesEllipsis
                         text={about}
                         maxLine='5'
@@ -60,12 +60,11 @@ const Profile = ({photo, name, id, about, following, follower, grade, film}) => 
                         basedOn='letters'
                         />
                 </div>
-                <span>보유 필름 : {film}</span>
-                <div className="Profile-Service">
+                <div className="MyProfile-Service">
                     {/* 팔로잉 페이지와 팔로워 페이지를 따로 놓아서 홈페이지를 푸쉬하는 방법으로 만들 것임 props로 onClick을 받았음
                     onClick={onClickFollowing}  onClick={onClickFollower}*/}
-                    <button className="Profile-Following">{following} 팔로잉 </button>
-                    <button className="Profile-Follower">{follower} 팔로워 </button>
+                    <button className="MyProfile-Following">{following} 팔로잉 </button>
+                    <button className="MyProfile-Follower">{follower} 팔로워 </button>
                 </div>
             </div>
         </div>
@@ -74,7 +73,7 @@ const Profile = ({photo, name, id, about, following, follower, grade, film}) => 
  
 const ProfilePhoto = ({photo}) => {
     return(
-        <img className="Profile-Photo" src={photo} alt="Profile"/>
+        <img className="MyProfile-Photo" src={photo} alt="Profile"/>
     )
 }
 
