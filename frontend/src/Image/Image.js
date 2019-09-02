@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './Image.css';
 import {Icon} from 'semantic-ui-react';
+import {withRouter} from 'react-router-dom';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
@@ -30,11 +31,11 @@ ImageUseInformation.protoType = {
     mark : PropTypes.bool
 }
 
-function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, veiw, size, mark}) {
+function Image({id, like, isLike, veiw, size, mark, match}) {
     return ( 
         <div className = "Image">
             <div className = "Image-Column">
-                <img className = "MainImage" src = {im[id]} alt = {id}></img>
+                <img className = "MainImage" src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
             </div>    
             <ImageUseInformation like = {like} isLike = {isLike} veiw = {veiw} size = {size} mark = {mark}/>
             <p className = "Relatied-Title Image-Column"> Relatied Image</p>
@@ -128,4 +129,4 @@ class RelationImage extends Component{
 }
 
 
-export default Image;
+export default withRouter(Image);

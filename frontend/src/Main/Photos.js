@@ -46,7 +46,7 @@ class Photos extends Component {
                     <Grid className = "Grid" component="ul" columnWidth={400} layout = {layout.pinterest}>
                       {this.state.images.map((image, index) => (
                         <li key = {index} >
-                            <Link to ="/imagepage">
+                            <Link to = {`/imagepage/${image}`}>
                               <img className = "Photo" src={require(`../img/photo/${image}`)} alt=""/>
                             </Link>
                         </li>
