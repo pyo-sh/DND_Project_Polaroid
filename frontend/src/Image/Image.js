@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './Image.css';
 import {Icon} from 'semantic-ui-react';
+import Mark from './Mark';
+import Declaration from './Declaration';
 import { withRouter } from 'react-router-dom';
 
 
