@@ -25,7 +25,7 @@ Image.protoType = {
     size : PropTypes.string.isRequired
 }
 
-function Image({id, like, isLike, veiw, size, mark, match}) {
+function Image({id, like, isLike, view, size, mark, match}) {
     return ( 
         <div className = "Image">
             <div className = "Image-Column">

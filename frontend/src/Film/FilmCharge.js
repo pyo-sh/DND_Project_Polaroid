@@ -22,8 +22,8 @@ class FilmCharge extends Component {  // 충전할 때 받을 것들 더 생각.
             money
         }
         chargeFilm(info);
-
     }
+    
     onChange = (e) => {
         this.setState({
             [e.target.name] : e.target.value
