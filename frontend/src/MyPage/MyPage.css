@@ -1,11 +1,16 @@
 .MyPage{
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
 }
+.MyPage-MyFilm{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
 
-.null{
+.MyPage-MenuBar{
     width: 960px;
     height: 100%;
     margin: auto;

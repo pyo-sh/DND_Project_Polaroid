@@ -3,9 +3,11 @@ import MyProfile from './MyProfile';
 import MyPageMenuBar from './MyPageMenuBar';
 import MyPageBenefit from './MyPageBenefit';
 import MyInformation from './MyInformation';
-import React, { Component } from 'react';
+import MyFilmBtn from './MyFilmBtn';
+import Photos from '../Main/Photos';
 import { getAllInfo } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
+import React, { Component } from 'react';
 
 // import ProfileSmall from './ProfileSmall';
 
@@ -45,8 +47,11 @@ class MyPage extends Component {
         const {profile} = this.state;
         return (
             <div className="MyPage">
-                <MyProfile profile={profile}/>
-                <div className="null">
+                <div className="MyPage-MyFilm">
+                    <MyProfile profile={profile}/>
+                    <MyFilmBtn className="MyPage-MyFilmBtn"></MyFilmBtn>
+                </div>
+                <div className="MyPage-MenuBar">
                     <MyPageMenuBar MenuOnClick={this.MenuOnClick}/>
                     {this._SelectMenu()}
                 </div>
@@ -81,8 +86,8 @@ class MyPage extends Component {
     _SelectMenu = () => {
         const type = this.state.selectedMenu;
         switch(type) {
-            case "UPLOAD" : return ;
-            case "DOWNLOADED" : return ;
+            case "UPLOAD" : return <Photos/>;
+            case "DOWNLOADED" : return <Photos/>;
             case "LIKED" : return ;
             case "FAVORITE" : 
                 return ;
