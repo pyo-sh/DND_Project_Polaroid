@@ -2,11 +2,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const fs = require('fs');
+
 // const https = require('https');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const Users = require('./routes/Users');
 const MyPage = require('./routes/MyPage');
+const Raking = require('./routes/Raking');
 const AWS = require("aws-sdk");
 AWS.config.loadFromPath(__dirname+ "/config/awsconfig.json");
 // const optionsForHTTPS = {
@@ -38,6 +40,7 @@ app.get('/api', (req, res) => {
 
 app.use('/api/user', Users);
 app.use('/api/mypage', MyPage);
+app.use('/api/raking', Raking);
 
 app.post('/api/file/photos', (req, res) => {
   let photos = [];
@@ -60,13 +63,10 @@ app.post('/api/file/photos', (req, res) => {
       }
     }
     res.json({
-     photos
+     photos, isMore
     });
   });
 });
-
-
-
 
 app.post('/api/uploads3',cors(), (req, res) => {
     let s3 = new AWS.S3();
@@ -91,15 +91,12 @@ app.post('/api/uploads3',cors(), (req, res) => {
             signedRequest: data,
             url : `https://poloapp.s3.ap-northeast-2.amazonaws.com/images/${fileName}`
         };
-
         res.json({success:true, data:{returnData}});
     });
-    
 })
 
 app.get('/api/uploads3', function(req, res, next) {
-   
-  });
+});
   
 const port = process.env.PORT || 5000;
 

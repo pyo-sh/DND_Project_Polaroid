@@ -36,7 +36,6 @@ function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, 
         
         </div>
      );
-    
 }
 
 class ImageUseInformation extends Component {

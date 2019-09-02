@@ -13,6 +13,20 @@ const id = () => {
   return id;
 };
 
+export const del = () => {
+  const userID = id();
+  deleteUser(userID).then(res => {
+    console.log(res);
+  });
+  if (localStorage.usertoken) {
+    localStorage.removeItem("usertoken");
+  } else if (sessionStorage.usertoken) {
+    sessionStorage.removeItem("usertoken");
+  } else {
+    console.log("에러가 났습니다");
+  }
+}
+
 class DeleteUser extends Component {
   onSubmit = e => {
     e.preventDefault();

@@ -58,7 +58,7 @@ class UploadS3 extends Component {
                 <input type="file" name="imgFile" onChange={this.fileSelectedHandler}></input>
                 <button type="submit" onClick={this.fileUploadHandler}>s3에 보내기</button>                
             </form>
-            <img src={this.state.url}></img>
+            <img src={this.state.url} alt=""></img>
             </div>
         );
     }

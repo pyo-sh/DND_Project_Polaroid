@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './ProfileSmall.css';
 import history from './history';
 
+
+
 ProfileSmall.propTypes = {
     profileImage : PropTypes.string,
     nickname : PropTypes.string.isRequired,
@@ -29,8 +31,6 @@ Image.propTypes = {
 FollowButton.propTypes = {
    follow : PropTypes.bool
 }
-
-// 이동 페이지는 임시
 
 function ProfileSmall({profileImage, nickname, id, images, follow}){
     return ( 

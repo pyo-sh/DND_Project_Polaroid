@@ -73,6 +73,11 @@ h1{
     display: flex;
 }
 
+.Login-Check {
+    color : red;
+    text-align: center;
+}
+
 a.Link{
     text-decoration: none;  
     color: gray;
