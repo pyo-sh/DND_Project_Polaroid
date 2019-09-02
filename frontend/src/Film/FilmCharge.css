@@ -1,4 +1,42 @@
-.charge {
-    position: relative;
-    top : 50px;
+.Charge {
+    /* position: relative;
+    top : 50px; */
+    position : absolute;
+    top: 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 250px;
+    
+}
+
+.Charge-Title{
+    letter-spacing: 1px;
+    font-size: 2em;
+    margin-bottom : 5px;
+    font-weight: bold;
+}
+
+.Charge-Main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border : 1px solid black;
+    background:rgb(131, 131, 131, 50%);;
+}
+.Charge-Contents{
+    font-size: 15px;
+}
+.Charge-Input{
+    display: block;
+    border : none;
+    border-radius: 10px;
+    outline: none;
+}
+
+.Charge-Button{
+    border: none;
+    border-radius: 10px;
+    margin-top: 5px;
+    outline:none;
 }

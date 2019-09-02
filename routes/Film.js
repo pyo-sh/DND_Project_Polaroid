@@ -6,7 +6,8 @@ const User = require('../models/User');
 Film.post('/charge', (req, res) => { // 코인 충전 했을 때 코인을 충전한 금액의 /100 만큼 충전.
     const id = req.body.info.id;
     const money = req.body.info.money;
-    const chargeFilm = money / 100;
+    const num = req.body.info.num;
+    const chargeFilm = num;
     User.update({
         film: Sequelize.literal('film +' + chargeFilm)
     }, { where : {
