@@ -4,6 +4,7 @@ import './Image.css';
 import {Icon} from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
+
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfMTEg/MDAxNTY0NDkxMzU0ODY3.6eVSLBjwuAl2I_PZJl-rETOeIlCPLoH6Zd3BsRXu1LMg.WbPXfoyS3ACPaWJ73skzmsjnD1eHClaVgbpxAEw2cJ4g.JPEG.she2325/9.jpg?type=w966",
@@ -35,7 +36,7 @@ function Image({id, like, isLike, veiw, size, mark, match}) {
     return ( 
         <div className = "Image">
             <div className = "Image-Column">
-                <img className = "MainImage" src={require(`../img/photo/${match.params.image}`)} alt = {id}></img>
+                <img className = "MainImage" src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
             </div>    
             <ImageUseInformation like = {like} isLike = {isLike} veiw = {veiw} size = {size} mark = {mark}/>
             <p className = "Relatied-Title Image-Column"> Relatied Image</p>
@@ -43,7 +44,6 @@ function Image({id, like, isLike, veiw, size, mark, match}) {
         
         </div>
      );
-    
 }
 
 function ImageUseInformation({like, isLike, veiw, size, mark}){
