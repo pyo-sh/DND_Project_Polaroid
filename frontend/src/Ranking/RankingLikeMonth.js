@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './RankingLikeMonth.css';
 import './RankingLike.css';
+import './RankingFollowAll.css';
 
 class RankingLikeMonth extends Component{
     render(){
