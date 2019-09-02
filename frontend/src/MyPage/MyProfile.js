@@ -3,12 +3,12 @@ import LinesEllipsis from 'react-lines-ellipsis';
 import MyProfileGrade from './MyProfileGrade';
 import React, { Component } from 'react';
 
-class MyProfile extends Component {
+class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
     state = this.props.profile;
     // render가 실행되고 난 뒤 현재 프롭스와 전의 프롭스를 비교해서, 바뀌었을 때 setState를 시킨다.
     componentDidUpdate(prevProps, prevState){
         if(prevProps.profile !== this.props.profile){
-            const {id, name, about, photo, follower, following, benefit} = this.props.profile;
+            const {id, name, about, photo, follower, following, benefit, film} = this.props.profile;
             this.setState({
                 id,
                 name,
@@ -16,7 +16,8 @@ class MyProfile extends Component {
                 photo,
                 follower,
                 following,
-                benefit
+                benefit,
+                film
             })
         }
     }
@@ -30,6 +31,7 @@ class MyProfile extends Component {
                     following={this.state.following}
                     follower={this.state.follower}
                     grade={this.state.grade}
+                    film={this.state.film}
                     // onClickFollowing={this.props.onClickFollowing}
                     // onClickFollower={this.props.onClickFollower}
                     />
@@ -37,7 +39,7 @@ class MyProfile extends Component {
     }
 }
 
-const Profile = ({photo, name, id, about, following, follower, grade}) => {
+const Profile = ({photo, name, id, about, following, follower, grade, film}) => {
     return(
         <div className="Profile">
             <div className="Profile-Status">
@@ -58,6 +60,7 @@ const Profile = ({photo, name, id, about, following, follower, grade}) => {
                         basedOn='letters'
                         />
                 </div>
+                <span>보유 필름 : {film}</span>
                 <div className="Profile-Service">
                     {/* 팔로잉 페이지와 팔로워 페이지를 따로 놓아서 홈페이지를 푸쉬하는 방법으로 만들 것임 props로 onClick을 받았음
                     onClick={onClickFollowing}  onClick={onClickFollower}*/}

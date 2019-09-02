@@ -29,6 +29,9 @@ module.exports = db.sequelize.define(
         grade: {
             type : Sequelize.STRING
         },
+        film : {
+            type : Sequelize.INTEGER
+        },
         created: {
             type : Sequelize.DATE,
             defaultValue: Sequelize.NOW
