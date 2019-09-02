@@ -32,10 +32,12 @@ class FilmCharge extends Component {  // 충전할 때 받을 것들 더 생각.
     render() {
         const {money} = this.state;
         return (
-            <div class = "charge">
+            <div class = "Charge">
                 <form onSubmit={this.onSubmit}>
                     얼마를 충전하시겠습니까?
-                    <input placeholder="돈" name = "money" value = {money}
+                    <br/>
+                    필름 1개당 100원 입니다.
+                    <input className="Charge_Input" placeholder="돈" name = "money" value = {money}
                     onChange={this.onChange}/>
                     <button type="submit">충전!</button>
                 </form>

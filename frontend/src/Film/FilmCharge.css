@@ -1,4 +1,15 @@
-.charge {
-    position: relative;
-    top : 50px;
+.Charge {
+    /* position: relative;
+    top : 50px; */
+    position : absolute;
+    top: 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    width: 500px;
+    height: 250px;
+}
+
+.Charge_Input{
+    display: block;
 }
