@@ -24,7 +24,7 @@ class ImageScreen extends Component {
       uploadDate : "2019.2.8",
       downloade : "1594",
       kategorie : "Nature",
-      like : "56",
+      like : 56,
       isLike : false,
       veiw : "45",
       size : "가로 X 세로",
@@ -83,8 +83,7 @@ class ImageScreen extends Component {
             like = {this.state.image[0].like} 
             isLike = {this.state.image[0].isLike} 
             veiw = {this.state.image[0].veiw} 
-            size = {this.state.image[0].size} 
-            mark = {this.state.image[0].mark} 
+            size = {this.state.image[0].size}
             key = {this.state.image[0].id} />
         </div>
         <div className = "App-Right">

@@ -32,12 +32,18 @@
     font-size : 15px;
 }
 
+.Declaration{
+    cursor: pointer;
+}
+
 .Like{
     color: red;
+    cursor: pointer;
 }
 
 .Mark{
    color : rgb(255, 234, 44); 
+   cursor: pointer;
 }
 
 .Relatied-Title{
@@ -56,4 +62,5 @@
 .Image-Relation:last-child{
     margin-right: 0;
 }
+
 
