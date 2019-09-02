@@ -1,5 +1,5 @@
 
-.Mark-Modal-Overlay{
+.Declaration-Modal-Overlay{
     position: fixed;
     top: 0;
     left: 0;
@@ -8,9 +8,9 @@
     background-color: rgba(0,0,0,0.16);
 }
 
-.Mark-Modal{
+.Declaration-Modal{
     width: 320px;
-    height: 370px;
+    height: 200px;
     z-index: 1;   /*div 의 창이 맨 앞으로 오게 ( 순서 1 )*/
     border-radius: 7px;
     background-color: white;
@@ -21,31 +21,31 @@
     left: 40%;
 }
 
-.Mark-Modal .Mark-Title{
+.Declaration-Modal .Declaration-Title{
     margin-top: 10px;
     margin-left: 15px;
 }
 
-.Mark-Modal .Mark-Content{
+.Declaration-Modal .Declaration-Content{
     margin: 0 auto;
     color: none;
     background: gray;
     width:250px;
-    height:250px;
+    height:100px;
     padding-top: 5px;
     padding-left: 5px;
     
 }
 
 
-.Mark-Modal .Mark-Button-Wrap{
+.Declaration-Modal .Declaration-Button-Wrap{
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0 20px;
 }
 
-.Mark-Modal .Mark-Button-Wrap Button{
+.Declaration-Modal .Declaration-Button-Wrap Button{
     width: 30%;
     padding: 12px 0;
     border-radius: 0 0 10px 10px;
@@ -56,17 +56,7 @@
     cursor: pointer;
 }
 
-.Mark-Modal .Mark-Button-Wrap .Mark-Button1{
+.Declaration-Modal .Declaration-Button-Wrap .Declaration-Button1{
     color: gray;
 }
  
-.Mark-Item-Display{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.Check-Mark {
-    color: black;
-    font-weight: 800;
-}

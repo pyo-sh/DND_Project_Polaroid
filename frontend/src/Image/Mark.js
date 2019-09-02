@@ -6,13 +6,15 @@ import './Mark.css';
 
 class Mark extends Component { 
     
-    id = 3
+    id = 1
 
     state = {
         input: '',
         clickFolder: false,
         clickFolderName: false,
-        folder: []
+        folder: [
+            {id: 0, text: "기본 폴더", checked: false}
+        ]
     }
 
     //폴더 추가 눌렀을때 상태
@@ -70,6 +72,7 @@ class Mark extends Component {
         })
     }
 
+    
     handleToggle = (id) => {
         
         // 파라미터로 받은 id 를 가지고 몇번째 아이템인지 찾습니다.

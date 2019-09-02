@@ -4,7 +4,7 @@ import './NewFolder.css';
 
 class NewFolder extends Component {
     state={
-        folder: "",
+        input: "",
         clickFolderName: false
     }
 
@@ -32,8 +32,8 @@ class NewFolder extends Component {
                         type="text" 
                         placeholder="폴더 이름 입력" 
                         className="New-Folder" 
-                        name="folder"
-                        value={this.state.folder}
+                        name="input"
+                        value={this.state.input}
                         onChange={this.onChange}
                     />
                     <div className="Confirm-Area">
@@ -49,11 +49,8 @@ class NewFolder extends Component {
         this.closeNewFolder()
         
         this.setState({
-            folder: ""
+            input: ""
         })
-        console.log(this.state.folder)
-        //e.preventDefault()
-        //<button~ 이부분 form으로 둘러싸라...
     }
 
     onChange = (e) => {
