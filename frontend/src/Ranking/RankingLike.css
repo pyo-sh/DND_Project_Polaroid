@@ -16,29 +16,13 @@
 .Ranking-Box-Menu{
     width: 150px;
     height: 20px;
-    margin-top: 3px;
     background: lightgrey;
     position: absolute;
     cursor: pointer;
     display: flex;
-}
-
-.Ranking-Box-Left{
-    text-align: start;
-    width:150px;
-    height:150px;
+    justify-content: space-between;
+    font-size: 16px;
     margin-top: 3px;
-    margin-left: 3px;
-    font-size: 14px;  
-}
-
-.Ranking-Box-Right{
-    text-align: end;
-    width:150px;
-    height:150px;
-    margin-top: 3px;
-    margin-right: 3px;
-    font-size: 14px;
 }
 
 .Ranking-Box-Like{
@@ -49,7 +33,6 @@
     position: absolute;
     cursor: pointer;
 }
-
 
 .heartbtn{
     color: red;

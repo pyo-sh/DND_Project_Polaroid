@@ -15,7 +15,7 @@
 
 .Ranking-Box-Menu{
     width: 150px;
-    height: 150px;
+    height: 20px;
     margin-top: 3px;
     background: lightgrey;
     position: absolute;
@@ -34,7 +34,7 @@
 
 .Ranking-Box-Like{
     width: 150px;
-    height: 20px;
+    height: 150px;
     margin-top: 6px;
     background: lightgrey;
     position: absolute;
