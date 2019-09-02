@@ -34,7 +34,7 @@ const HomePage = ({match}) => {  // '/' 로 들어왔을 때
         <>
             <MenuBar/>
             <Switch>
-                <Route path={match.url+'imagepage'} exact={true} component = {Image}/>
+                <Route path={match.url+'imagepage/:id'} exact={true} component = {Image}/>
                 <Route path={match.url+'upload'} exact={true} component = {Upload} />
                 <Route path={match.url+'mypage'} exact={true} component = {MyPage} />
                 <Route path={match.url+'uploads3'} exact={true} component={Uploads3}/>

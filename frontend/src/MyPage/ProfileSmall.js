@@ -65,13 +65,13 @@ function ProfileImage({profileImage, alt}){
 
 function Image({image}){
     return(
-            <div className = "Image" style = {{ backgroundImage : `url(${image.image})`}} onClick = {() => history.push(`/img/${image.image}`)}>
+            <div className = "Image" style = {{ backgroundImage : `url(${image.image})`}} onClick = "">
             </div>
     );
 }
 
 function FollowButton({follow}){
-    function handleClick(e){
+    const handleClick = (e) => {
         e.preventDefault();
         // follow 역전하는 코드
     }

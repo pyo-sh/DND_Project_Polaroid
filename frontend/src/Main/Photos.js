@@ -42,11 +42,11 @@ class Photos extends Component {
     render() {
         return (
             <div className = "Photos">   
-                  <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore} >
-                    <Grid className = "Grid" component="ul" columnWidth={400} layout = {layout.pinterest}>
+                  <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
+                    <Grid className = "Grid" component="ul" columnWidth={400} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest}>
                       {this.state.images.map((image, index) => (
                         <li key = {index} >
-                            <Link to ="/imagepage">
+                            <Link to = {`/imagepage/${image}`}>
                               <img className = "Photo" src={require(`../img/photo/${image}`)} alt=""/>
                             </Link>
                         </li>
