@@ -22,7 +22,7 @@ class ImageScreen extends Component {
       },
       type : "jpg",
       uploadDate : "2019.2.8",
-      downloade : "1594",
+      download : "1594",
       kategorie : "Nature",
       like : 56,
       isLike : false,
@@ -40,7 +40,7 @@ class ImageScreen extends Component {
       },
       type : "jpg",
       uploadDate : "2019.2.8",
-      downloade : "1594",
+      download : "1594",
       kategorie : "카테고리",
       like : "564",
       isLike : true,
@@ -58,7 +58,7 @@ class ImageScreen extends Component {
       },
       type : "jpg",
       uploadDate : "2019.2.8",
-      downloade : "1594",
+      download : "1594",
       kategorie : "Nature",
       like : "564",
       isLike : true,
@@ -66,7 +66,14 @@ class ImageScreen extends Component {
       size : "가로 X 세로",
       mark : true,
       paid : false
-    }]
+    }],
+    payment : false
+  }
+
+  onClick = () =>{
+    this.setState({
+      payment : !this.state.payment
+    })
   }
   
   render(){
@@ -93,9 +100,11 @@ class ImageScreen extends Component {
             type = {this.state.image[0].type}
             size = {this.state.image[0].size}
             uploadDate = {this.state.image[0].uploadDate}
-            downloade = {this.state.image[0].downloade}
+            download = {this.state.image[0].download}
             kategorie = {this.state.image[0].kategorie}
-            tags = {this.state.image[0].tags}/>
+            tags = {this.state.image[0].tags}
+            payment= {this.state.payment}
+            handlePayment={this.onClick}/>
         </div>
       </div>
     );
