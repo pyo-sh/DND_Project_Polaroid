@@ -15,52 +15,32 @@
 
 .Ranking-Box-Menu{
     width: 150px;
-    height: 0px;
+    height: 150px;
     margin-top: 3px;
     background: lightgrey;
     position: absolute;
     cursor: pointer;
-    transition: all 0.8s ;
     display: flex;
-    opacity: 0;
 }
 
 .Ranking-Box-Left{
     text-align: center;
     width:150px;
-    height:0px;
+    height:20px;
     margin-top: 3px;
     margin-left: 3px;
-    opacity: 0;
     font-size: 14px;
-    transition: all 0.8s ease;   
 }
 
 .Ranking-Box-Like{
     width: 150px;
-    height: 0px;
+    height: 20px;
     margin-top: 6px;
     background: lightgrey;
     position: absolute;
     cursor: pointer;
-    transition: all 0.8s ;
 }
 
-.Ranking-Title:hover .Ranking-Box-Menu{
-    height: 20px;
-    opacity: 1;
-    transition: all 0.8s;
-}
-
-.Ranking-Title:hover .Ranking-Box-Like{
-    height: 150px;
-    transition: all 0.8s;
-}
-
-.Ranking-Title:hover .Ranking-Box-Left{
-    opacity: 1;
-    transition: all 0.8s;
-}
 
 .followbtn{
     color: #ff7675;

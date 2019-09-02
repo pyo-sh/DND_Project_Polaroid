@@ -8,11 +8,4 @@ li{
     font-size: 10px;
     margin-top: 25px;
     border-top: 1px solid grey;
-    transition: all 0.8s ease;
 }
-
-.Ranking-Title:hover .Ranking-Box-Text{
-    opacity: 1;
-    transition: all 0.8s ease;
-}
-
