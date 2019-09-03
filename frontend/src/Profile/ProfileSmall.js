@@ -1,59 +1,53 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './ProfileSmall.css';
 import history from './history';
-
+import getAllinfo from '../MyPage/MyPageFunction';
 
 
 ProfileSmall.propTypes = {
-    profileImage : PropTypes.string,
-    nickname : PropTypes.string.isRequired,
     id : PropTypes.string.isRequired,
-    image : PropTypes.shape({
-        image : PropTypes.string.isRequired,
-        alt : PropTypes.string.isRequired
-    }),
-    follow : PropTypes.bool
-}
-
-ProfileImage.propTypes = {
-    profileImage : PropTypes.string,
-    alt : PropTypes.string.isRequired
-}
-
-Image.propTypes = {
-    image : PropTypes.shape({
-        image : PropTypes.string,
-        alt : PropTypes.string
-    })
 }
 
 FollowButton.propTypes = {
    follow : PropTypes.bool
 }
 
-function ProfileSmall({profileImage, nickname, id, images, follow}){
-    return ( 
-        <div className = "ProfileSmall">
-            <div className = "ProfileSmall-Column">
-                <div className = "ProfileSmall-ProfileImage" onClick = {() => history.push(`/Profile/${id}`)}>
-                    <ProfileImage profileImage = {profileImage} alt = {nickname}/>
-                </div>
-                <div className = "ProfileSmall-Info">
-                    <span className = "Nickname"> {nickname} </span>
-                    <span className = "Id"> {"@" + id} </span>
-                </div>
-                { follow != null &&
-                    <div className = "ProfileSmall-Follow-Btn">
-                        <FollowButton follow = {follow}/>
+class ProfileSmall extends Component{
+    state={
+        id: "",
+        follow: true
+    }
+    componentWillMount(){
+        const { id, follow } = this.props;
+        this.setState({
+            id: id,
+            follow: follow
+        });
+    }
+    render(){
+        return ( 
+            <div className = "ProfileSmall">
+                <div className = "ProfileSmall-Column">
+                    <div className = "ProfileSmall-ProfileImage" onClick = {() => history.push(`/Profile/${id}`)}>
+                        <ProfileImage profileImage = {profileImage} alt = {nickname}/>
                     </div>
-                }
+                    <div className = "ProfileSmall-Info">
+                        <span className = "Nickname"> {nickname} </span>
+                        <span className = "Id"> {"@" + id} </span>
+                    </div>
+                    { follow != null &&
+                        <div className = "ProfileSmall-Follow-Btn">
+                            <FollowButton follow = {follow}/>
+                        </div>
+                    }
+                </div>
+                <div className = "ProfileSmall-Column">
+                    {images.map((image, index) => <Image image = {image} key = {index}/>)}
+                </div>
             </div>
-            <div className = "ProfileSmall-Column">
-                {images.map((image, index) => <Image image = {image} key = {index}/>)}
-            </div>
-        </div>
-     );
+         );
+    }
 }
 
 

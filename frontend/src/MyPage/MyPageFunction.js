@@ -6,7 +6,8 @@ export const getAllInfo = async userID => {
     .then(res => {
         // 잘 되는지 확인하기 위한 console.log
         // console.log("가지고온다~")
-        // console.log(res);
+        console.log(res);
+        console.dir(res);
         return res.data;
     })
     .catch(err => {
