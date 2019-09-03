@@ -59,4 +59,3 @@ class Photos extends Component {
   }
 
 export default Photos;
-

@@ -2,106 +2,6 @@ import React from "react";
 import "./Upload.css";
 import {post} from 'axios';
 
-class Upload extends React.Component {
-  render(){
-    return (
-      <div className="App">
-        <div className="Frame">
-          <div className="Letter">UPLOAD</div>
-          <div className="Frame-in">
-            <ImportImage/>
-            <div className="CatTag">
-              <div className="Category">카테고리
-                <Select/>
-              </div>
-              <div className="Tag">태그
-                <input className="TagInput" type="text" name="태그" placeholder="쉼표로 구분"></input>
-              </div>
-            </div>
-            <div className="TagExpl">5개 이하</div>
-            <div className="Price">가격
-              <StartPrice/>
-            </div>
-            <Distribute/>
-             <div className="Copyright">
-              <input className="CommercialAvailable" type='checkbox' name='Copyright' value='CommercialAvailable'/>상업적 이용 불가
-              <input className="CopyrightNotice" type='checkbox' name='Copyright' value='CopyrightNotice'/>저작권 표시
-              <input className="Change" type='checkbox' name='Copyright' value='Change'/>변경금지
-             </div>
-            <div className="Visibility">
-              <input className="public" type='radio' name='visibility' value='public'/>공개
-              <input className="private" type='radio' name='visibility' value='private'/>비공개
-            </div>
-            <LoggingButton/>
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
-
-class ImportImage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      file: null, // 실제 byte 형태의 데이터
-      fileName: "" // 보내고자 하는 파일 이름
-    };
-  }
-
-  handleFormSubmit = e => {
-    e.preventDefault();
-    this.uploadImage().then(res => {
-      console.log(res.data);
-    })
-  };
-
-  handleFileChange = e => {
-    e.preventDefault();
-
-    let reader = new FileReader();
-    let file = e.target.files[0];
-
-    reader.onload=()=>{
-      this.setState({
-        file: file,
-        fileName: reader.result
-      });
-    }
-    reader.readAsDataURL(file)
-  };
-
-  uploadImage = () => {
-    const url = "/api/image";
-    const formData = new FormData();
-    formData.append("image", this.state.file);
-    const config = {
-      headers: {
-        "content-type": "multipart/form-data"
-      }
-    };
-    return post(url, formData, config);
-  };
-
-  render() {
-    let {fileName} = this.state;
-    let $fileNameUrl = null;
-    if(fileName) {$fileNameUrl = (<img src={fileName}/>)}
-    else{$fileNameUrl = (<div className = "previewText">Image Preview</div>)}
-    return (
-      <div>
-        <div className = "previewComponent">
-          <div className="imgPreview">{$fileNameUrl}</div>
-        </div>
-        <form onSubmit={(e)=>this.handleFormSubmit(e)}>
-          <input className="imageBtn" type="file" onChange={(e)=>this.handleFileChange(e)}/>
-          <button className="submit" type="submit" onClick={(e)=>this.handleFormSubmit(e)}>upload btn</button>
-         </form>
-      </div>
-    );
-  }
-}
-
 const options=[
   {name: '--선택--', value: null,},
   {name: 'Wallpaper', value: 'Wallpaper',},
@@ -117,65 +17,124 @@ const options=[
   {name: 'Travel',value: 'Travel',},
   {name: 'Food',value: 'Food',}
 ]
-class Select extends React.Component{
-  state={value:''};
 
-  handleChange = (e) => {
-    console.log(e.target.value);
-    this.setState({value: e.target.value});
+class Upload extends React.Component {
+  state = {
+      file: null, // 실제 byte 형태의 데이터
+      fileName: "", // 보내고자 하는 파일 이름
+      fileUrl:"",
+      category: '',
+      tag:'',
+      price:'',
+      distribute:'',
+      copyright:'',
+      visibility:''
+    };
+
+  handleFormSubmit = e => {
+    e.preventDefault();
+    this.uploadImage().then(res => {
+      console.log(res.data);
+    })
+  };
+
+  handleFileChange = e => {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    console.log(file);
+    console.log(file.name);
+    reader.onload=()=>{
+      console.log(reader.result);
+      this.setState({
+        file: file,
+        fileName: file.name,
+        fileUrl: reader.result
+      });
+    }
+    reader.readAsDataURL(file)
+  };
+
+  handleValueChange = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+  }
+
+  uploadImage = () => {
+    const url = "/api/image";
+    const formData = new FormData();
+    formData.append("image", this.state.file);
+    formData.append("category", this.state.category);
+    formData.append("tag", this.state.tag);
+    formData.append("price", this.state.price);
+    formData.append("distribute", this.state.distribute);
+    formData.append("copyright", this.state.copyright);
+    formData.append("visibility", this.state.visibility);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data"
+      }
+    };
+    return post(url, formData, config);
   };
 
   render(){
-    const{value} =this.state;
+    let {fileUrl} = this.state;
+    let $fileNameUrl = null;
+    if(fileUrl) {$fileNameUrl = (<img src={fileUrl}/>)}
+    else{$fileNameUrl = (<div className = "previewText">Image Preview</div>)}
 
-    return(
-        <select className='categoryDropBox' value={value} onChange={this.handleChange}>
-          {options.map(item => (
-            <option key={item.value} value={item.value} >
-              {item.name}
-            </option>
-          ))}
-        </select>
-    );
-  }
-}
-
-class StartPrice extends React.Component{
-  onSubmit(e){
-    e.preventDefault();
-    var firstSetPrice=this.firstSetPrice;
-    console.log(firstSetPrice);
-  }
-  render(){
-    return(
-      <input className="PriceInput" type="text" name="firstSetPrice" ref={(c)=>this.firstSetPrice=c}></input>
-    );
-  }
-}
-
-class Distribute extends React.Component{
-  buttonChecked = (e) =>{
-    if(e.target.value==='free'){console.log('free');}
-    else{ console.log('charge');}
-  }
-  render(){
-    return(
-      <div className="Distribute">
-        <input className="free" type='radio' name='Distribute' value='free' onClick={this.buttonChecked} />무료배포
-        <input className="charge" type='radio' name='Distribute' value='charge' onClick={this.buttonChecked}/>유료배포
-      </div>
-    );
-  }
-}
-
-class LoggingButton extends React.Component {
-  handleClick = () => {
-      alert('업로드 완료');
-  }
-
-  render() {
     return (
-      <button className="UploadBtn" onClick={this.handleClick}>업로드</button>
+      <div className="App">
+        <div className="Frame">
+          <div className="Letter">UPLOAD</div>
+          <div className="Frame-in">
+          <form onSubmit={this.handleFormSubmit}>
+            <div>
+              <div className = "previewComponent">
+                <div className="imgPreview">{$fileNameUrl}</div>
+              </div>
+              {/* value={this.state.fileName} */}
+                <input className="imageBtn" type="file" name="file" file={this.state.file} onChange={this.handleFileChange}/>
+            </div>
+              <div className="CatTag">
+                <div className="Category">카테고리
+                <select className='categoryDropBox' name="category" value={this.state.category} onChange={this.handleValueChange}>
+                  {options.map(item => (
+                    <option key={item.value} value={item.value} >
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
+                </div>
+                <div className="Tag">태그
+                  <input className="TagInput" type="text" name="tag" value={this.state.tag} onChange={this.handleValueChange} placeholder="쉼표로 구분"></input>
+                </div>
+              </div>
+              <div className="TagExpl">5개 이하</div>
+              <div className="Price">가격
+                <input className="PriceInput" type="text" name="price" value={this.state.price} onChange={this.handleValueChange}></input>
+              </div>
+              <div className="Distribute">
+                <input className="free" type='radio' name='distribute' value="free" onChange={this.handleValueChange} />무료배포
+                <input className="charge" type='radio' name='distribute' value="charge" onChange={this.handleValueChange}/>유료배포
+              </div>
+              <div className="Copyright">
+                <input className="CommercialAvailable" type='checkbox' name='copyright' value='CommercialAvailable' onChange={this.handleValueChange}/>상업적 이용 불가
+                <input className="CopyrightNotice" type='checkbox' name='copyright' value='CopyrightNotice' onChange={this.handleValueChange}/>저작권 표시
+                <input className="Change" type='checkbox' name='copyright' value='NotChange' onChange={this.handleValueChange}/>변경금지
+              </div>
+              <div className="Visibility">
+                <input className="public" type='radio' name='visibility' value='public' onChange={this.handleValueChange}/>공개
+                <input className="private" type='radio' name='visibility' value='private' onChange={this.handleValueChange}/>비공개
+              </div>
+              <button className="submit" type="submit" onClick={(e)=>this.handleFormSubmit(e)}>upload btn</button>
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
 }
