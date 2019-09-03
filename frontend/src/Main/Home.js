@@ -16,8 +16,8 @@ class Home extends Component {
             <div >
                 <MainBanner tag={tag} />
                 <div className="Content">
-                    <Photos />
-                    <SideContent /> 
+                    <div className = "Content-Left"><Photos/></div>
+                    <div className = "Content-Right"> <SideContent/></div>
                 </div>
             </div>
         );

@@ -1,15 +1,17 @@
-
 .Menu{
     position: fixed;
     top : 0;
     left : 0;
     display: flex;
     justify-content: space-between;
-    background: #E0E0E0;
+    background: white;
     width : 100%;
-    height: 50px;
+    height: 55px;
     align-items: center;
     z-index : 9999;
+ 
+    box-shadow: 0px 0px 10px rgba(150,150,150, 0.5);
+
 }
 .Menu-First{
     display:flex;
@@ -26,6 +28,7 @@
 .Menu-Title{
     color : black;
     margin-left: -5px;
+    font-weight: 800;
 }
 
 .Menu-Logo{
@@ -37,21 +40,40 @@
 }
 
 .Search-Form{
+    padding: 10px;
+    height: 40px;
+    transform: translateY(35%);
+    background:  rgb(230,230,230);
     display:flex;
     align-items: center;
     margin-left : 30px;
+    border-radius: 55px;
 }
 
+.Search-Form .Icon-Search{
+    margin : 5px 10px 5px 5px;
+    color: rgb(150,150,150);
+}
+
+.Search-Form .Icon-Fliter{
+    margin : 5px;
+    color:rgb(150,150,150);
+}
 .Menu-Input {
-    width: 200px;
+    background: none;
+    border: none;
+    outline: none;
+    width: 400px;
+    height: 30px;
 }
 
 .Menu-Item{
-    display:flex;
     margin-right: 10px;
+    font-size : 13px;
 }
 
 .Login-Btn {
+    font-size : 13px;
     margin-left: 10px;
     background: none;
     border: none;
@@ -60,14 +82,24 @@
 }
 
 .Sign-Btn {
+    height: 25px;
+    width: 75px;
     margin-left: 10px;
-    color : white;
-    background-color: #7F7F7F;
-    border: none;
-    border-radius: 2px;
-    font-size: 10px;
+    vertical-align: middle;
+    background : white;
+    border: 1px solid rgb(180,180,180);
+    border-radius: 5px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
+    box-shadow: 0px 0px 2px rgb(230,230,230);
+}
+
+#Upload{
+    background : rgb(82, 195, 181);
+    color: white;
+    font-weight: 600;
+    border: none;
 }
 
 .Link{

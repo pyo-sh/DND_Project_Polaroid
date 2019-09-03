@@ -25,13 +25,13 @@ class MenuBar extends Component {
                 <header className = "Menu">
                     <div className = "Menu-First">
                         <div className="Menu-Logo">
-                            <img className = "Logo" src = {require("../img/photo/로고.svg")} alt = ""></img>
+                            <img className = "Logo" src = {require("../img/로고.svg")} alt = ""></img>
                             <Link to="/"><span className="Menu-Title" onClick={this.handleState}>Polaroid</span></Link>
                         </div>
                         <form className ="Search-Form">
-                            <Icon name="search" size="large"/>
+                            <Icon className = "Icon-Search" name="search" size="large"/>
                             <input className = "Menu-Input"/>
-                            <Icon name="sliders horizontal"size="large" style={{marginLeft:"10px"}}/>
+                            <Icon className = "Icon-Fliter" name="sliders horizontal"size="large" style={{marginLeft:"10px"}}/>
                         </form>
                     </div>
 
@@ -106,9 +106,9 @@ class MenuBar extends Component {
                                 </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                        {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? <Link to="/user/login"> <button className = "Login-Btn" onClick={this.onClick}>Login</button></Link> : <button className = "Login-Btn" onClick={this.logOut}>LogOut</button>}
+                        {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? <Link to="/user/login"> <button className = "Login-Btn" onClick={this.onClick}>Login</button></Link> : <button className = "Login-Btn" onClick={this.logOut}>Logout</button>}
                         {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? <Link to="/user/signup"><button className = "Sign-Btn" onClick={this.onClick}>Sign Up</button></Link> : <Link to="/mypage"><button className = "Sign-Btn" onClick={this.onClick}>My Page</button></Link>} 
-                        {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? "" : <Link to="/upload"><button className = "Sign-Btn">Upload</button></Link> } 
+                        {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? "" : <Link to="/upload"><button className = "Sign-Btn" id = "Upload">Upload</button></Link> } 
 
                     </div>
                 </header>
