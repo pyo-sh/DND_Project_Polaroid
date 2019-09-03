@@ -86,7 +86,7 @@ class MyPage extends Component {
     _SelectMenu = () => {
         const type = this.state.selectedMenu;
         switch(type) {
-            case "UPLOAD" : return <Photos/>;
+            case "UPLOAD" : return <Photos mypage = {true}/>;
             case "DOWNLOADED" : return <Photos/>;
             case "LIKED" : return ;
             case "FAVORITE" : 

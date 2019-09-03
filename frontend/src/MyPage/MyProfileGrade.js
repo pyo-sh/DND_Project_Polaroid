@@ -18,7 +18,7 @@ class MyProfileGrade extends Component {
     render(){
         return (
             <div>
-                <button className="Profile-Grade" onClick = {this.gradeOnClick}> 작가 등급 </button>
+                <button className="Profile-Grade" onClick = {this.gradeOnClick}> {this.props.grade} 작가 </button>
                 <GradeModal isOpen={this.state.isGradeOpen} close={this.closeGrade} name={this.props.name} grade={this.props.grade}/>
             </div>
         );
