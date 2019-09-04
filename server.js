@@ -10,6 +10,9 @@ const Users = require('./routes/Users');
 const MyPage = require('./routes/MyPage');
 const Raking = require('./routes/Raking');
 const Film = require('./routes/Film');
+const Favorite = require('./routes/Favorite');
+const Follow = require('./routes/Follow');
+
 const AWS = require("aws-sdk");
 AWS.config.loadFromPath(__dirname+ "/config/awsconfig.json");
 // const optionsForHTTPS = {
@@ -43,7 +46,8 @@ app.use('/api/user', Users);
 app.use('/api/mypage', MyPage);
 app.use('/api/raking', Raking);
 app.use('/api/film', Film);
-
+app.use('/api/favorite', Favorite);
+app.use('/api/follow', Follow);
 
 app.post('/api/file/photos', (req, res) => {
   let photos = [];

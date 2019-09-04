@@ -21,9 +21,9 @@ class FilmCharge extends Component {
         ? (token = localStorage.getItem("usertoken"))
         : (token = sessionStorage.getItem("usertoken"));
       const decodetoken = jwt_decode(token);
-      const id = decodetoken.ID;
+      const ID = decodetoken.ID;
       const info = {
-        id,
+        ID,
         money,
         num
       };

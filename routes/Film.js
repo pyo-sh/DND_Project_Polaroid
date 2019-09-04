@@ -18,26 +18,23 @@ Film.get('/:userID', (req, res) => {
 })
 
 Film.post('/charge', (req, res) => { // 코인 충전 했을 때 코인을 충전한 금액의 /100 만큼 충전.
-    const id = req.body.info.id;
-    const num = req.body.info.num;
-    const chargeFilm = num;
+    const ID = req.body.info.ID;
+    const chargeFilm = req.body.info.num;
     User.update({
         film: Sequelize.literal('film +' + chargeFilm)
     }, { where : {
-        ID : id 
+        ID
     }
 })
 })
 
 Film.post('/minus', (req, res) => {
-    console.log(req.body.info);
     const ID = req.body.info.ID;
     const filmNum = req.body.info.filmNum;
-
     User.update({
         film: Sequelize.literal('film -' + filmNum)
     }, { where : {
-        ID : ID 
+        ID 
     }
 })
 })
