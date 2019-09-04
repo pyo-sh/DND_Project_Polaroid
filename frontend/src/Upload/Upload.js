@@ -19,10 +19,11 @@ const options=[
 ]
 
 class Upload extends React.Component {
-  state = {
+  constructor(props) { // 이거 거누찌가 빼랫는데 cannot read property에러나서 다시 넣음
+    super(props);
+    this.state = {
       file: null, // 실제 byte 형태의 데이터
       fileName: "", // 보내고자 하는 파일 이름
-      fileUrl:"",
       category: '',
       tag:'',
       price:'',
@@ -30,6 +31,7 @@ class Upload extends React.Component {
       copyright:'',
       visibility:''
     };
+  }
 
   handleFormSubmit = e => {
     e.preventDefault();
@@ -37,7 +39,6 @@ class Upload extends React.Component {
       console.log(res.data);
     })
   };
-
 
   handleFileChange = e => {
     e.preventDefault();
@@ -50,8 +51,7 @@ class Upload extends React.Component {
       console.log(reader.result);
       this.setState({
         file: file,
-        fileName: file.name,
-        fileUrl: reader.result
+        fileName: reader.result
       });
     }
     reader.readAsDataURL(file)
@@ -82,9 +82,9 @@ class Upload extends React.Component {
   };
 
   render(){
-    let {fileUrl} = this.state;
+    let {fileName} = this.state;
     let $fileNameUrl = null;
-    if(fileUrl) {$fileNameUrl = (<img src={fileUrl}/>)}
+    if(fileName) {$fileNameUrl = (<img src={fileName}/>)}
     else{$fileNameUrl = (<div className = "previewText">Image Preview</div>)}
 
     return (
@@ -97,8 +97,7 @@ class Upload extends React.Component {
               <div className = "previewComponent">
                 <div className="imgPreview">{$fileNameUrl}</div>
               </div>
-              {/* value={this.state.fileName} */}
-                <input className="imageBtn" type="file" name="file" file={this.state.file} onChange={this.handleFileChange}/>
+                <input className="imageBtn" type="file" name="file" file={this.state.file} /* value={this.state.fileName} */ onChange={this.handleFileChange}/>
             </div>
               <div className="CatTag">
                 <div className="Category">카테고리
