@@ -5,9 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';
 
-const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
-  maxWidth: 1500
-});
+
 
 class Photos extends Component {
     state = {
@@ -40,10 +38,14 @@ class Photos extends Component {
      }
     
     render() {
+      const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
+        maxWidth: (this.props.mypage ? 960 : 1500)
+      });
         return (
+          
             <div className = "Photos">   
                   <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
-                    <Grid className = "Grid" component="ul" columnWidth={400} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest}>
+                    <Grid className = "Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 430)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest}>
                       {this.state.images.map((image, index) => (
                         <li key = {index} >
                             <Link to = {`/imagepage/${image}`}>
