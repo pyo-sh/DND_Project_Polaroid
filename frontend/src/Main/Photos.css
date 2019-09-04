@@ -17,6 +17,7 @@
     overflow: hidden;
     width: 100%;
 }
+<<<<<<< HEAD
 
 @media screen and (max-width : 100%){
     .Grid li{
@@ -35,3 +36,5 @@
         width : 100%;
     }
 }
+=======
+>>>>>>> master

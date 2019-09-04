@@ -21,9 +21,9 @@ class FilmCharge extends Component {
         ? (token = localStorage.getItem("usertoken"))
         : (token = sessionStorage.getItem("usertoken"));
       const decodetoken = jwt_decode(token);
-      const id = decodetoken.ID;
+      const ID = decodetoken.ID;
       const info = {
-        id,
+        ID,
         money,
         num
       };
@@ -55,9 +55,8 @@ class FilmCharge extends Component {
         <div className="Charge-Main">
           <form onSubmit={this.onSubmit}>
             <div className="Charge-Contents">
-              필름 몇개를 충전하시겠습니까?
-              <br />
-              필름 1개당 100원 입니다.
+              <div>필름 몇개를 충전하시겠습니까?</div>
+              <div>필름 1개당 100원 입니다.</div>
             </div>
             <input
               className="Charge-Input"
@@ -65,14 +64,15 @@ class FilmCharge extends Component {
               value={num}
               onChange={this.onChange}
             />
-            <input
-              type="checkBox"
-              name="agree"
-              value={agree}
-              onChange={this.handleChange}
-            />
-            동의
-            <br />
+            <div>
+              <input
+                type="checkBox"
+                name="agree"
+                value={agree}
+                onChange={this.handleChange}
+              />
+              <div>동의</div>
+            </div>
             <span>{money}원</span>
             <button className="Charge-Button" type="submit">
               충전!
