@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './MenuBar.css';
+import MyFilm from '../Film/MyFilm';
 import {Icon, Dropdown} from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 import MyFilm from '../Film/MyFilm';
@@ -14,7 +15,6 @@ class MenuBar extends Component {
         this.props.history.push(`/`);
     }
 
-    
     handleToggle = () => {
         const visible = this.state.visible;
         this.setState({visible : !visible});
