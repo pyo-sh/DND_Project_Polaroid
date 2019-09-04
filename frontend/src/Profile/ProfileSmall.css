@@ -1,4 +1,4 @@
-.Profile-Small{
+.ProfileSmall-Small{
     background : white;
     width: 25%;
     display: flex;
@@ -13,13 +13,13 @@
     0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
 }
 
-.Profile-Column{
+.ProfileSmall-Column{
     display: flex;
     position: relative;
     width : 100%;
 }
 
-.Profile-ProfileImage{
+.ProfileSmall-ProfileImage{
     position: relative;
     left : 20px;
     width: 100px;
@@ -28,14 +28,14 @@
     overflow: hidden;
 }
 
-.Profile-ProfileImage img{    
+.ProfileSmall-ProfileImage img{    
     width: 100px;
     height: 100px;
     text-align: center; 
     top : 50%;
 }
 
-.Profile-Column .Profile-Info{
+.ProfileSmall-Column .ProfileSmall-Info{
     display: flex;
     flex-direction: column;
     position: relative;
@@ -44,18 +44,18 @@
     text-align: left;
 }
 
-.Profile-Info .Nickname{
+.ProfileSmall-Info .Nickname{
    font-size: 20px;
    font-weight: 600;
 }
 
-.Profile-Info .Id{
+.ProfileSmall-Info .Id{
     color : rgb(180, 180, 180);
     font-size: 15px;
     margin-left : 8px;
 }
 
-.Follow-Btn{
+.ProfileSmall-Follow-Btn{
     display: flex;
     position: relative;
     top : 15px;
@@ -63,13 +63,13 @@
     margin-left : auto;
 } 
 
-.Follow-Btn .Follow{
+.ProfileSmall-Follow-Btn .Follow{
     color: white;
     background: rgb(86, 149, 243);
     border : none;
 }
 
-.Follow-Btn button{
+.ProfileSmall-Follow-Btn button{
     background: white;
     width: 80px;
     height: 30px;
@@ -80,7 +80,7 @@
     text-align: center;
 }
 
-.Profile-Column:last-child{
+.ProfileSmall-Column:last-child{
     justify-content: left;
     margin-top : 15px;
 }

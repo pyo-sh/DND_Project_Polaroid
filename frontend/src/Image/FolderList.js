@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import FolderListItem from './FolderListItem';
-import {Icon} from 'semantic-ui-react';
 import './Mark.css';
 
 class FolderList extends Component {
+    state = {
+        folder : []
+    }
+    componentDidMount(){
+        const folder = this.props.folder;
+        this.setState({
+            folder
+        })
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.folder !== this.props.folder) {
+            const folder = this.props.folder;
+            this.setState({
+                folder
+            })
+        }
+    }
     render(){
-
-        const folderList = this.props.folder.map(
-            ({id, text, checked}) => (
+        const folderList = this.state.folder.map(
+            ({favFolderNum, favFolderName, checked}) => (
                 <FolderListItem 
-                    id={id}
-                    text={text}
-                    checked={checked}
-                    key={id}
-                    onToggle={this.props.onToggle}
+                favFolderNum={favFolderNum}
+                favFolderName={favFolderName}
+                checked={checked}
+                key={favFolderNum}
+                onToggle={this.props.onToggle}
                 />
             )
         )

@@ -11,7 +11,8 @@ class MyInformation extends Component{
         selectMode: "기본",
         checkPW: false, // 임시
         id: '',
-        password: ''
+        password: '',
+        isFailed: false
     }
     render(){
         return(
@@ -44,6 +45,7 @@ class MyInformation extends Component{
                     checkPW={this.state.checkPW}
                     checkOnClick={this.checkOnClick}
                     getPassword={this.getPassword}
+                    isFailed={this.state.isFailed}
                     />;
         }
     }
@@ -76,6 +78,10 @@ class MyInformation extends Component{
                     checkPW: true
                 });
             }
+            else
+                this.setState({
+                    isFailed: true
+                });
         })
     }
     // SETTINGS의 페이지에서 비밀번호를 받는 input의 값을 가져오는 함수

@@ -3,9 +3,11 @@ import MyProfile from './MyProfile';
 import MyPageMenuBar from './MyPageMenuBar';
 import MyPageBenefit from './MyPageBenefit';
 import MyInformation from './MyInformation';
-import React, { Component } from 'react';
+import MyFilmBtn from './MyFilmBtn';
+import Photos from '../Main/Photos';
 import { getAllInfo } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
+import React, { Component } from 'react';
 
 // import ProfileSmall from './ProfileSmall';
 
@@ -20,6 +22,7 @@ class MyPage extends Component {
             following: 0,
             follower: 0,
             grade: "일반",
+            film : 0,
             benefit: {
                 monthData: [
                     ["x", "2019-01-01", "2019-02-01", "2019-03-01", "2019-04-01", "2019-05-01", "2019-06-01", "2019-07-01", "2019-08-01", "2019-09-01", "2019-10-01", "2019-11-01", "2019-12-01"],
@@ -33,7 +36,9 @@ class MyPage extends Component {
                     ["data2", 15, 25, 35, 45, 5],
                     ["data3", 20, 30, 40, 50, 10]
                 ]
-            }
+            },
+            // 마이프로필인지 다른사람프로필인지 확인하는 boolean
+            checkProfile: true
         }
     }
     // 렌더링이 되고 난 후 getInfo를 실행 시키면서 db에 있는 해당 아이디의 정보들을 가지고 와서 setState 시킴
@@ -44,8 +49,11 @@ class MyPage extends Component {
         const {profile} = this.state;
         return (
             <div className="MyPage">
-                <MyProfile profile={profile}/>
-                <div className="null">
+                <div className="MyPage-MyFilm">
+                    <MyProfile profile={profile}/>
+                    <MyFilmBtn className="MyPage-MyFilmBtn"></MyFilmBtn>
+                </div>
+                <div className="MyPage-MenuBar">
                     <MyPageMenuBar MenuOnClick={this.MenuOnClick}/>
                     {this._SelectMenu()}
                 </div>
@@ -67,7 +75,8 @@ class MyPage extends Component {
                     about : res.introduce,
                     following: res.follow,
                     follower : res.follower,
-                    grade : res.grade
+                    grade : res.grade,
+                    film : res.film
                 }  
             })
         })
@@ -79,8 +88,8 @@ class MyPage extends Component {
     _SelectMenu = () => {
         const type = this.state.selectedMenu;
         switch(type) {
-            case "UPLOAD" : return ;
-            case "DOWNLOADED" : return ;
+            case "UPLOAD" : return <Photos mypage = {true}/>;
+            case "DOWNLOADED" : return <Photos/>;
             case "LIKED" : return ;
             case "FAVORITE" : 
                 return ;
