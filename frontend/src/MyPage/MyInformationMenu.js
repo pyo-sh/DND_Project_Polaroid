@@ -2,7 +2,16 @@ import './MyInformationMenu.css';
 import React, { Component } from 'react';
 
 class MyInformationMenu extends Component {
-
+    state = {
+        failedPW: false
+    }
+    componentWillReceiveProps(nextProps){
+        if(this.state.failedPW !== nextProps.isFailed){
+            this.setState({
+                failedPW: nextProps.isFailed
+            });
+        }
+    }
     render() {
         return (
             <div className="MyInformation-Menu">
@@ -21,9 +30,10 @@ class MyInformationMenu extends Component {
             return <div className="MyInformation-Pw-True">비밀번호 입력 완료!</div>;
         }
         else{
-            return <MyInformationMenuInput 
+            return <MyInformationMenuInput
                 checkOnClick={this.props.checkOnClick}
                 getPassword={this.props.getPassword}
+                failedPW={this.state.failedPW}
                 />;
         }
     }
@@ -35,7 +45,7 @@ const MyInformationMenuButton = ({editOnClick, className, title}) => {
     );
 }
 
-const MyInformationMenuInput = ({checkOnClick, getPassword}) => {
+const MyInformationMenuInput = ({checkOnClick, getPassword, failedPW}) => {
     return(
         <div className="MyInformation-Pw">
             <div className="MyInformation-Pw-Check">회원 비밀번호 확인</div>
