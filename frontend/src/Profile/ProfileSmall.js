@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './ProfileSmall.css';
 import history from './history';
-import getAllinfo from '../MyPage/MyPageFunction';
+import getAllInfo from '../MyPage/MyPageFunction';
 
 
 ProfileSmall.propTypes = {
@@ -16,8 +16,16 @@ FollowButton.propTypes = {
 class ProfileSmall extends Component{
     state={
         id: "",
-        follow: true
+        follow: true,
+        profile: {
+            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
+            name: "",
+            id: "",
+            about: "",
+            grade: "일반"
+        }
     }
+
     componentWillMount(){
         const { id, follow } = this.props;
         this.setState({
@@ -25,15 +33,41 @@ class ProfileSmall extends Component{
             follow: follow
         });
     }
+
+    componentDidMount(){
+        this.getInfo();
+    }
+
+    getInfo = () => {
+        const ID = this.state.id;
+        console.log(id);
+        getAllInfo(ID).then(res=> {
+            this.setState({
+                profile: {
+                    ...this.state.profile,
+                    id : ID,
+                    name : res.nickname,
+                    about : res.introduce,
+                    grade : res.grade
+                }
+            })
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    }
+
     render(){
+        const { follow } = this.state;
+        const { photo, id, name, about, grade } = this.state.profile;
         return ( 
             <div className = "ProfileSmall">
                 <div className = "ProfileSmall-Column">
                     <div className = "ProfileSmall-ProfileImage" onClick = {() => history.push(`/Profile/${id}`)}>
-                        <ProfileImage profileImage = {profileImage} alt = {nickname}/>
+                        <ProfileImage photo = {photo} alt = {name}/>
                     </div>
                     <div className = "ProfileSmall-Info">
-                        <span className = "Nickname"> {nickname} </span>
+                        <span className = "Nickname"> {name} </span>
                         <span className = "Id"> {"@" + id} </span>
                     </div>
                     { follow != null &&
