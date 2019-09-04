@@ -26,11 +26,7 @@ class MenuBar extends Component {
                 <header className = "Menu">
                     <div className = "Menu-First">
                         <div className="Menu-Logo">
-<<<<<<< HEAD
                             <img className = "Logo" src = {require("../img/Logo.svg")} alt = ""></img>
-=======
-                            <img className = "Logo" src = {require("../img/로고.svg")} alt = ""></img>
->>>>>>> master
                             <Link to="/"><span className="Menu-Title" onClick={this.handleState}>Polaroid</span></Link>
                         </div>
                         <form className ="Search-Form">
