@@ -1,59 +1,87 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './ProfileSmall.css';
 import history from './history';
-
+import getAllInfo from '../MyPage/MyPageFunction';
 
 
 ProfileSmall.propTypes = {
-    profileImage : PropTypes.string,
-    nickname : PropTypes.string.isRequired,
     id : PropTypes.string.isRequired,
-    image : PropTypes.shape({
-        image : PropTypes.string.isRequired,
-        alt : PropTypes.string.isRequired
-    }),
-    follow : PropTypes.bool
-}
-
-ProfileImage.propTypes = {
-    profileImage : PropTypes.string,
-    alt : PropTypes.string.isRequired
-}
-
-Image.propTypes = {
-    image : PropTypes.shape({
-        image : PropTypes.string,
-        alt : PropTypes.string
-    })
 }
 
 FollowButton.propTypes = {
    follow : PropTypes.bool
 }
 
-function ProfileSmall({profileImage, nickname, id, images, follow}){
-    return ( 
-        <div className = "ProfileSmall">
-            <div className = "ProfileSmall-Column">
-                <div className = "ProfileSmall-ProfileImage" onClick = {() => history.push(`/Profile/${id}`)}>
-                    <ProfileImage profileImage = {profileImage} alt = {nickname}/>
-                </div>
-                <div className = "ProfileSmall-Info">
-                    <span className = "Nickname"> {nickname} </span>
-                    <span className = "Id"> {"@" + id} </span>
-                </div>
-                { follow != null &&
-                    <div className = "ProfileSmall-Follow-Btn">
-                        <FollowButton follow = {follow}/>
-                    </div>
+class ProfileSmall extends Component{
+    state={
+        id: "",
+        follow: true,
+        profile: {
+            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
+            name: "",
+            id: "",
+            about: "",
+            grade: "일반"
+        }
+    }
+
+    componentWillMount(){
+        const { id, follow } = this.props;
+        this.setState({
+            id: id,
+            follow: follow
+        });
+    }
+
+    componentDidMount(){
+        this.getInfo();
+    }
+
+    getInfo = () => {
+        const ID = this.state.id;
+        console.log(id);
+        getAllInfo(ID).then(res=> {
+            this.setState({
+                profile: {
+                    ...this.state.profile,
+                    id : ID,
+                    name : res.nickname,
+                    about : res.introduce,
+                    grade : res.grade
                 }
+            })
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    }
+
+    render(){
+        const { follow } = this.state;
+        const { photo, id, name, about, grade } = this.state.profile;
+        return ( 
+            <div className = "ProfileSmall">
+                <div className = "ProfileSmall-Column">
+                    <div className = "ProfileSmall-ProfileImage" onClick = {() => history.push(`/Profile/${id}`)}>
+                        <ProfileImage photo = {photo} alt = {name}/>
+                    </div>
+                    <div className = "ProfileSmall-Info">
+                        <span className = "Nickname"> {name} </span>
+                        <span className = "Id"> {"@" + id} </span>
+                    </div>
+                    { follow != null &&
+                        <div className = "ProfileSmall-Follow-Btn">
+                            <FollowButton follow = {follow}/>
+                        </div>
+                    }
+                </div>
+                <div className = "ProfileSmall-Column">
+                    {images.map((image, index) => <Image image = {image} key = {index}/>)}
+                </div>
             </div>
-            <div className = "ProfileSmall-Column">
-                {images.map((image, index) => <Image image = {image} key = {index}/>)}
-            </div>
-        </div>
-     );
+         );
+    }
 }
 
 

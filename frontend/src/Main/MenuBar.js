@@ -26,7 +26,7 @@ class MenuBar extends Component {
                 <header className = "Menu">
                     <div className = "Menu-First">
                         <div className="Menu-Logo">
-                            <img className = "Logo" src = {require("../img/photo/로고.svg")} alt = ""></img>
+                            <img className = "Logo" src = {require("../img/로고.svg")} alt = ""></img>
                             <Link to="/"><span className="Menu-Title" onClick={this.handleState}>Polaroid</span></Link>
                         </div>
                         <form className ="Search-Form">
@@ -37,6 +37,7 @@ class MenuBar extends Component {
                     </div>
 
                     <div className = "Menu-Item">
+                    {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? "" : <MyFilm/> } 
                         <Dropdown text="Category" pointing simple item className="link item">
                             <Dropdown.Menu> 
                                 <Dropdown.Item onClick = {this.handleToggle}> Best Photos </Dropdown.Item>
