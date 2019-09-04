@@ -3,7 +3,6 @@ import './MenuBar.css';
 import MyFilm from '../Film/MyFilm';
 import {Icon, Dropdown} from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-import MyFilm from '../Film/MyFilm';
 
 class MenuBar extends Component {
     state = {visible : false}
