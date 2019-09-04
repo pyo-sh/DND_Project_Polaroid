@@ -106,8 +106,13 @@ class ImageInfo extends Component {
     minusFilm(info);
   };
   onClick = () => {
-    this._getFilm();
-    this.props.handlePayment();
+    if(localStorage.usertoken || sessionStorage.usertoken){
+      this._getFilm();
+      this.props.handlePayment();
+    }
+    else {
+      alert('로그인을 해주세요');
+    }
   };
   render() {
     const {
