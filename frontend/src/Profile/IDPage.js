@@ -3,9 +3,13 @@ import './IDPage.css';
 import MyProfile from '../MyPage/MyProfile';
 import Photos from '../Main/Photos';
 import { getAllInfo } from '../MyPage/MyPageFunction';
+import { getMyID, isFollowInfo } from './ProfileFunction';
 
 class IDPage extends Component {
     state ={
+        myID: "",
+        isMe: false,
+        isFollow: false,
         titleName: "",
         profile: {
             photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
@@ -31,10 +35,15 @@ class IDPage extends Component {
     }
     
     componentWillMount(){
+        const myID = getMyID();
         this.upperTitle();
+        this.setState({
+            myID: myID
+        })
     }
     componentDidMount(){
         this.getInfo();
+        this.checkMyself();
     }
 
     //upperTitle로 아이디를 알아내서 정보를 받아오는 함수
@@ -58,13 +67,29 @@ class IDPage extends Component {
         })
     }
 
+    // 이 페이지가 나에 대한 페이지라면, 팔로우 버튼을 없애야 하므로 boolean 설정
+    checkMyself = () => {
+        const { myID, titleName } = this.state;
+        if(myID === titleName){
+            this.setState({
+                isMe: true
+            });
+        }
+        console.log(isFollowInfo(myID, titleName));
+        console.dir(isFollowInfo("ironman", "ansrjsdn"));
+    }
+
+    onClickFollow = () => {
+
+    }
+
     render() {
-        const {profile} = this.state;
+        const { profile, isMe } = this.state;
         return (
             <div className="IDPage">
                 <div className="IDPage-Profile">
                     <MyProfile profile={profile}/>
-                    <FollowBtn/>
+                    {FollowBtn(isMe)}
                 </div>
                 <div className="IDPage-Title">UPLOADED PHOTOS</div>
                 <div className="IDPage-Photo">
@@ -75,8 +100,12 @@ class IDPage extends Component {
     }
 }
 
-const FollowBtn = () => {
-    return <button className="IDPage-FollowBtn">Follow</button>
+const FollowBtn = ( isMe ) => {
+    if(!isMe){
+        return <button className="IDPage-FollowBtn">Follow</button>
+    }
+    else
+        return null;
 }
 
 export default IDPage;
