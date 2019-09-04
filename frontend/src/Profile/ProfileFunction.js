@@ -1,61 +1,83 @@
 import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
-export const getFollowerInfo = async userID => {
-    return await axios
-    .get(`/api/mypage/${userID}`)
-    .then(res => {
-        // 잘 되는지 확인하기 위한 console.log
-        // console.log("가지고온다~")
-        // console.log(res);
-        return res.data.follower;
-    })
-    .catch(err => {
-        console.log(err);
-    })
+export const addFollow = async ({userID, targetID}) => {
+  return await axios
+  .get('api/Follow/addFollow',{
+    followID: userID,
+    followerID: targetID
+  })
+  .then(res => {
+    console.log("팔로잉 추가하는 것");
+    return res;
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
+export const deleteFollow = async ({userID, targetID}) => {
+  return await axios
+  .get('api/Follow/deleteFollow',{
+    followID: userID,
+    followerID: targetID
+  })
+  .then(res => {
+    console.log("팔로잉 취소하는 것");
+    return res;
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
 
 export const getFollowingInfo = async userID => {
     return await axios
-    .get(`/api/mypage/${userID}`)
+    .get(`/api/Follow/getFollow`, {
+        followerID: userID
+    })
     .then(res => {
-        // 잘 되는지 확인하기 위한 console.log
-        // console.log("가지고온다~")
-        // console.log(res);
-        return res.data.follow;
+        console.log("팔로잉의 res는");
+        console.log(res);
+        return res;
     })
     .catch(err => {
         console.log(err);
     })
 }
 
-export const getFollowInfo = async ({userID, start, count, follow}) =>{
-    return await axios
-    .get()
+export const getFollowerInfo = async userID => {
+  return await axios
+  .get(`/api/Follow/getMyFollow`, {
+    followID: userID
+  })
+  .then(res => {
+      console.log("팔로워의 res는")
+      console.log(res);
+      return res.data.follower;
+  })
+  .catch(err => {
+      console.log(err);
+  })
 }
 
+export const isFollowInfo = async ({userID, targetID}) =>{
+    return await axios
+    .get('/api/Follow/getOneFollow', {
+      followID: userID,
+      followerID: targetID
+    })
+    .then(res => {
+      console.log("팔로잉중인지 아닌지의 boolean은")
+      console.log(res);
+      return res.data.follower;
+    })
+}
 
-app.post('/api/file/photos', (req, res) => {
-    let photos = [];
-    let start = req.body.start;
-    let count = req.body.count;
-    let isMore = req.body.isMore;
-    let fileCount = 0;
-  
-    fs.readdir('frontend/src/img/photo', (err, files) => {
-      fileCount = files.length;
-   
-      for(let i = start; i < start + count; i++){
-        if(fileCount >= i){
-          photos.push(`photo${i}.jpg`);
-          
-          if (fileCount == i){
-            isMore = false;
-            break;
-          }
-        }
-      }
-      res.json({
-       photos, isMore
-      });
-    });
-  });
+export const getMyID = () => {
+  let token = '';
+  localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
+  const decode = jwt_decode(token);
+  const ID = decode.ID;
+  return ID;
+}

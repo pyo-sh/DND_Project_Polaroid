@@ -1,12 +1,12 @@
 import './Follow.css';
 import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import axios from 'axios';
 import { getFollowingInfo, getFollowerInfo } from './ProfileFunction'
 
 class Follow extends Component {
     state={
-        id: "",
+        id: "", // 현재 로그인 된 아이디
+        targetID: "", // 대상의 아이디
         followingID: [],
         // true : following, false : follower
         isFollow: true,
@@ -17,7 +17,6 @@ class Follow extends Component {
         countID: [], // 출력을 해야하는 id 목록들, 30개씩 붙인다.
         count: 30, // 한 번의 스크롤에 불러올 id의 갯수
         start: 0,
-        end: 29, // countID에 들어가야 할 배열의 부분
         isMore : true
     }
 
@@ -40,53 +39,14 @@ class Follow extends Component {
         console.log(id);
         console.log(isFollow);
         console.log(this.state.targetID);
-
-        this.setState({ followingID: getFollowingInfo(id) });
-        if(!this.state.isFollow){
-            this.setState({ followerID: getFollowerInfo(id) });
-            this.setState({ countID: countID.concat() });
-        }
     }
 
     fetchIDs = () => {
-        const {count, start, end} = this.state;
-        // const start = count + this.state.start;
-        // this.setState({ start: start });
-        this.setDatas();
-        if(this.state.isFollow)
-            this.setState({ countID: this.state.countID.concat(this.state.followingID.slice(start, end)),
-                            isMore : response.data.isMore});
-        else
-            this.setState({ countID: this.state.countID.concat(this.state.followerID.slice(start, end)),
-                            isMore : response.data.isMore});
+        
     }
 
-    componentDidMount() {
-        const { count, start } = this.state;
-        axios.post(`/api/file/photos`,{count,start})
-          .then(response => {
-            this.setState({ images: response.data.photos})
-          })
-          .catch(err => console.error(err))
-      }
-    fetchImages = () => {
-        const count = this.state.count,
-              start = count + this.state.start;
-        this.setState({ start: start });
-   
-        axios.post(`/api/file/photos`,{count,start})
-          .then(response => {
-            this.setState({ images: this.state.images.concat(response.data.photos),
-                            isMore : response.data.isMore})
-          })
-          .catch(err => console.error(err))
-       }
-
     setDatas = () => {
-        this.setState({
-            start: count + start,
-            end = count + end
-        });
+        
     }
 
     render() {
