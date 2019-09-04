@@ -19,15 +19,16 @@
 }
 
 .Logo{
-    margin-top : 13px;
-    margin-left: 5px;
-    height: 55px;
+    position: absolute;
+    top : 50%;
+    transform: translateY(-50%);
+    height: 45px;
     width: auto;
 }
 
 .Menu-Title{
     color : black;
-    margin-left: -5px;
+    margin-left: 55px;
     font-weight: 800;
 }
 
@@ -42,7 +43,6 @@
 .Search-Form{
     padding: 10px;
     height: 40px;
-    transform: translateY(35%);
     background:  rgb(230,230,230);
     display:flex;
     align-items: center;
@@ -59,6 +59,7 @@
     margin : 5px;
     color:rgb(150,150,150);
 }
+
 .Menu-Input {
     background: none;
     border: none;
@@ -131,4 +132,28 @@
     opacity: 1;
     height: 75px;
     transition: 0.3s;
+}
+
+@media screen and (max-width: 1100px){
+    .Login-Btn{
+        display: none;
+    }
+    .Sign-Btn{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 750px){
+    .Search-Form{
+        border-radius: 50%;
+    }
+    .Search-Form .Menu-Input{
+        display: none;
+    }
+    .Search-Form .Icon-Search{
+        margin: 0px;
+    }
+    .Search-Form .Icon-Fliter{
+        display: none;
+    }
 }

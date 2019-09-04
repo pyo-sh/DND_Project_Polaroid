@@ -1,42 +1,32 @@
 .Main-Banner{
-    background-size: cover;
-    background-position: center;
     position: relative;
     top : 55px;
     width : 100%;
     height : 500px;
-}
-
-.Main-Banner-Box{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    height: 100%;
-    width: 100%;
-    color: rgb(100,100,100);
-    opacity: 1;
+    background: rgb(100,100,100);
 }
 
 .Main-Banner-Title{
+    width: 100%;
     position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 38%;
+    transform: translateY(-100%);
+    text-align: center;
     color : white;
-    opacity: 0.9;
-    font-size : 3rem;
+    opacity: 1;
+    font-size : 3.8rem;
     font-weight: 600;
     line-height: 0.8em;
 }
 
 .Main-Banner-Explanation{
+    width: 100%;
     position: absolute;
-    top: 38%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 45%;
+    transform: translateY(-100%);
+    text-align: center;
     color : white;
-    opacity: 0.7;
+    opacity: 0.8;
     font-size : 1.5rem;
     font-weight: 600;
     line-height: 0.8em;
@@ -46,30 +36,51 @@
     width: 100%;
     height: 500px;
     object-fit: cover;
-    opacity: 0.6;
+    opacity: 0.4;
 }
 
-.Main-Banner-Input{
+.Main-Banner-Search{
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,-100%);
+    padding-left : 12px;
     margin: 0 auto;
-    width: 350px;
+    width: 500px;
     height: 40px;
     border-radius: 5px;
+    opacity: 0.9;
+    background: white;
+}
+
+.Main-Banner-Search-Input{
+    width: 90%;
+    height: 40px;
     border: none;
     outline: none;
 }
 
+.Main-Banner-Search .Icon-Search{
+    position: absolute;
+    top : 50%;
+    right: 4px;
+    transform: translateY(-50%);
+    color: rgb(150,150,150);
+}
+
+.Focus{
+    box-shadow: 0 0 10px white;
+}
+
 .Main-Banner-Tag {
     position: absolute;
-    top: 60%;
+    top: 63%;
     left: 50%;
     transform: translate(-50%,-50%);
     margin: 0 auto;
     color : white;
     font-weight: bold;
+    opacity: 0.8;
 }
 
 .Main-Banner-Tag a{
@@ -82,20 +93,27 @@
 }
 
 
-@media screen and (max-width : 100%){
-    .Main-Banner-Title {
-        font-size: 3rem;
+@media screen and (max-width : 900px){
+    .Main-Banner-Title{
+        font-size : 3rem;
     }
     .Main-Banner-Explanation{
-        font-size: 1.5rem;
+        font-size : 1.2rem;
     }
-  }
-  @media screen and (max-width : 1200px){
-    .Main-Banner-Title {
-        font-size: 2.3rem;
-    }
-    .Main-Banner-Explanation{
-        font-size: 1rem;
-    }
-  }
+}
 
+
+@media screen and (max-width : 600px){
+    .Main-Banner-Title{
+        font-size : 2.3rem;
+    }
+    .Main-Banner{
+        height: 400px;
+    }
+    .Main-Banner-Img{
+        height: 400px;
+    }
+    .Main-Banner-Search{
+        width: 400px;
+    }
+}

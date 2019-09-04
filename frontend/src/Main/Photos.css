@@ -30,7 +30,7 @@
     }
 }
 
-@media screen and (max-width : 400px){
+@media screen and (max-width : 800px){
     .Grid li{
         width : 100%;
     }
