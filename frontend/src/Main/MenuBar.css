@@ -60,7 +60,7 @@
     color:rgb(150,150,150);
 }
 
-.Menu-Input {
+.Search-Form .Search-Input {
     background: none;
     border: none;
     outline: none;
@@ -69,8 +69,13 @@
 }
 
 .Menu-Item{
+    display: flex;
     margin-right: 10px;
     font-size : 13px;
+}
+
+.Menu-Item .Holiding-Film{
+    left: 0;
 }
 
 .Login-Btn {
@@ -147,7 +152,7 @@
     .Search-Form{
         border-radius: 50%;
     }
-    .Search-Form .Menu-Input{
+    .Search-Form .Search-Input{
         display: none;
     }
     .Search-Form .Icon-Search{

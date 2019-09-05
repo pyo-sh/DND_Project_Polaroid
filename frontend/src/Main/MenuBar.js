@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './MenuBar.css';
+import MyFilm from '../Film/MyFilm';
 import {Icon, Dropdown} from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
@@ -11,9 +12,8 @@ class MenuBar extends Component {
         localStorage.usertoken ? localStorage.removeItem('usertoken') :  sessionStorage.removeItem('usertoken');
         alert('로그아웃 되었습니다.');
         this.props.history.push(`/`);
-
     }
-    
+
     handleToggle = () => {
         const visible = this.state.visible;
         this.setState({visible : !visible});
@@ -36,6 +36,7 @@ class MenuBar extends Component {
                     </div>
 
                     <div className = "Menu-Item">
+                    {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? "" : <MyFilm/> } 
                         <Dropdown text="Category" pointing simple item className="link item">
                             <Dropdown.Menu> 
                                 <Dropdown.Item onClick = {this.handleToggle}> Best Photos </Dropdown.Item>
