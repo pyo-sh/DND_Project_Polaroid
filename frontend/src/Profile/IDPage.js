@@ -3,7 +3,7 @@ import './IDPage.css';
 import MyProfile from '../MyPage/MyProfile';
 import Photos from '../Main/Photos';
 import { getAllInfo } from '../MyPage/MyPageFunction';
-import { getMyID, isFollowInfo } from './ProfileFunction';
+import { getMyID, isFollowInfo, addFollow, deleteFollow } from './ProfileFunction';
 
 class IDPage extends Component {
     state ={
@@ -44,6 +44,7 @@ class IDPage extends Component {
     componentDidMount(){
         this.getInfo();
         this.checkMyself();
+        this.checkIsFollow();
     }
 
     //upperTitle로 아이디를 알아내서 정보를 받아오는 함수
@@ -75,12 +76,34 @@ class IDPage extends Component {
                 isMe: true
             });
         }
-        console.log(isFollowInfo(myID, titleName));
-        console.dir(isFollowInfo("ironman", "ansrjsdn"));
+    }
+    // 팔로우 중인지 아닌지를 알아보는 boolean isFollow 설정
+    checkIsFollow = () => {
+        const { myID, titleName } = this.state;
+        isFollowInfo(myID, titleName).then(res => {
+            if(res)
+                this.setState({
+                    isFollow: true
+                })
+            else
+                this.setState({
+                    isFollow: false
+                })
+        })
     }
 
-    onClickFollow = () => {
-
+    // 팔로우 버튼을 눌렀을 때 실행
+    onClickFollow = (e) => {
+        const { myID, titleName, isFollow } = this.state;
+        console.dir(e.target);
+        console.log("state의 isFollow는"+isFollow);
+        if(isFollow){
+            deleteFollow( myID, titleName );
+        }
+        else{
+            addFollow( myID, titleName );
+        }
+        this.checkIsFollow();
     }
 
     render() {
@@ -89,7 +112,7 @@ class IDPage extends Component {
             <div className="IDPage">
                 <div className="IDPage-Profile">
                     <MyProfile profile={profile}/>
-                    {FollowBtn(isMe)}
+                    {FollowBtn(isMe, this.onClickFollow)}
                 </div>
                 <div className="IDPage-Title">UPLOADED PHOTOS</div>
                 <div className="IDPage-Photo">
@@ -100,9 +123,13 @@ class IDPage extends Component {
     }
 }
 
-const FollowBtn = ( isMe ) => {
+const FollowBtn = ( isMe, onClickFollow ) => {
     if(!isMe){
-        return <button className="IDPage-FollowBtn">Follow</button>
+        return <button 
+            className="IDPage-FollowBtn"
+            onClick={onClickFollow}
+            >
+            Follow</button>
     }
     else
         return null;

@@ -1,12 +1,13 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-export const addFollow = async ({userID, targetID}) => {
-  return await axios
-  .get('api/Follow/addFollow',{
+export const addFollow = async (userID, targetID) => {
+  const info = {
     followID: userID,
     followerID: targetID
-  })
+  }
+  return await axios
+  .post('api/Follow/addFollow', {info})
   .then(res => {
     console.log("팔로잉 추가하는 것");
     return res;
@@ -16,9 +17,9 @@ export const addFollow = async ({userID, targetID}) => {
   })
 }
 
-export const deleteFollow = async ({userID, targetID}) => {
+export const deleteFollow = async (userID, targetID) => {
   return await axios
-  .get('api/Follow/deleteFollow',{
+  .post('api/Follow/deleteFollow',{
     followID: userID,
     followerID: targetID
   })
@@ -32,8 +33,8 @@ export const deleteFollow = async ({userID, targetID}) => {
 }
 
 export const getFollowingInfo = async userID => {
-    return await axios
-    .get(`/api/Follow/getFollow`, {
+  return await axios
+    .post(`/api/Follow/getFollow`, {
         followerID: userID
     })
     .then(res => {
@@ -48,7 +49,7 @@ export const getFollowingInfo = async userID => {
 
 export const getFollowerInfo = async userID => {
   return await axios
-  .get(`/api/Follow/getMyFollow`, {
+  .post(`/api/Follow/getMyFollow`, {
     followID: userID
   })
   .then(res => {
@@ -61,17 +62,20 @@ export const getFollowerInfo = async userID => {
   })
 }
 
-export const isFollowInfo = async ({userID, targetID}) =>{
-    return await axios
-    .get('/api/Follow/getOneFollow', {
-      followID: userID,
-      followerID: targetID
-    })
-    .then(res => {
-      console.log("팔로잉중인지 아닌지의 boolean은")
-      console.log(res);
-      return res.data.follower;
-    })
+export const isFollowInfo = async (userID, targetID) =>{
+  return await axios
+  .post('/api/Follow/getOneFollow', {
+    followID: userID,
+    followerID: targetID
+  })
+  .then(res => {
+    let isFollow;
+    if(res.data === null)
+      isFollow = false;
+    else
+      isFollow = true;
+    return isFollow;
+  })
 }
 
 export const getMyID = () => {
