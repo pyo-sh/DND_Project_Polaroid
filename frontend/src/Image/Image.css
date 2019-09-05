@@ -1,12 +1,8 @@
-.Image {
-    margin: 20px;
-}
-
 .Image-Column{
     display: flex;
     justify-content: flex-start;
     align-content: flex-start;
-    margin: 10px;
+    margin-top : 10px;
 }
 
 .MainImage{

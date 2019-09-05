@@ -8,7 +8,10 @@ class MyFilm extends Component {
         film: 0
     }
     componentDidMount(){
-        this.getInfo();
+        if(localStorage.usertoken || sessionStorage.usertoken){
+            this.getInfo();
+        }
+
     }
     getInfo = () => {
         let token = '';

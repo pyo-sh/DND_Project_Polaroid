@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Payment.css';
 
 class Payment extends Component {
-    state = {
+    state = { // 프라이스 불러오고 바꾸고 하는거 정해야함.
         price : 100
     }
     onDownClick = () => {

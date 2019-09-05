@@ -4,9 +4,6 @@ export const getAllInfo = async userID => {
     return await axios
     .get(`/api/mypage/${userID}`)
     .then(res => {
-        // 잘 되는지 확인하기 위한 console.log
-        // console.log("가지고온다~")
-        // console.log(res);
         return res.data;
     })
     .catch(err => {
@@ -41,5 +38,15 @@ export const checkPassword = async user => {
     })
     .catch(err => {
         console.log(err);
+    })
+}
+
+export const getAllFavorite = async ID => {
+    return await axios
+    .post('/api/favorite/getAll', {
+        ID
+    })
+    .then(res =>{
+        return res.data;
     })
 }

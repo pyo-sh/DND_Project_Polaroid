@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './ImageScreen.css';
 import Image from './Image';
 import ImageInfo from './ImageInfo';
 
@@ -78,8 +77,8 @@ class ImageScreen extends Component {
   
   render(){
     return (
-      <div className="App">
-        <div className = "App-Left">
+      <div className="Content">
+        <div className = "Content-Left">
           <Image 
             id = {this.state.image[0].id} 
             tags = {this.state.image[0].tags} 
@@ -89,11 +88,11 @@ class ImageScreen extends Component {
             kategorie = {this.state.image[0].kategorie} 
             like = {this.state.image[0].like} 
             isLike = {this.state.image[0].isLike} 
-            view = {this.state.image[0].veiw} 
+            view = {this.state.image[0].view} 
             size = {this.state.image[0].size}
             key = {this.state.image[0].id} />
         </div>
-        <div className = "App-Right">
+        <div className = "Content-Right">
           <ImageInfo 
             registrant = {this.state.image[0].registrant}
             paid = {this.state.image[0].paid}

@@ -5,6 +5,7 @@ import MyPageBenefit from './MyPageBenefit';
 import MyInformation from './MyInformation';
 import MyFilmBtn from './MyFilmBtn';
 import Photos from '../Main/Photos';
+import MyFavorite from './MyFavorite';
 import { getAllInfo } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
 import React, { Component } from 'react';
@@ -36,7 +37,9 @@ class MyPage extends Component {
                     ["data2", 15, 25, 35, 45, 5],
                     ["data3", 20, 30, 40, 50, 10]
                 ]
-            }
+            },
+            // 마이프로필인지 다른사람프로필인지 확인하는 boolean
+            checkProfile: true
         }
     }
     // 렌더링이 되고 난 후 getInfo를 실행 시키면서 db에 있는 해당 아이디의 정보들을 가지고 와서 setState 시킴
@@ -58,11 +61,15 @@ class MyPage extends Component {
             </div>
         );
     }
-    getInfo = () => {
+    getID = () => {
         let token = '';
         localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
         const decode = jwt_decode(token);
         const ID = decode.ID;
+        return ID;
+    }
+    getInfo = () => {
+        const ID = this.getID();
         // console.log(ID); // 아이디를 콘솔창에서 알아보기 위함
         getAllInfo(ID).then(res=> {
             this.setState({
@@ -86,11 +93,11 @@ class MyPage extends Component {
     _SelectMenu = () => {
         const type = this.state.selectedMenu;
         switch(type) {
-            case "UPLOAD" : return <Photos/>;
+            case "UPLOAD" : return <Photos mypage = {true}/>;
             case "DOWNLOADED" : return <Photos/>;
             case "LIKED" : return ;
             case "FAVORITE" : 
-                return ;
+                return <MyFavorite getID={this.getID}/>;
                 // <ProfileSmall 
                 //     profileImage={this.state.profile.photo} 
                 //     nickname={this.state.profile.name} 

@@ -8,7 +8,7 @@ class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
     // render가 실행되고 난 뒤 현재 프롭스와 전의 프롭스를 비교해서, 바뀌었을 때 setState를 시킨다.
     componentDidUpdate(prevProps, prevState){
         if(prevProps.profile !== this.props.profile){
-            const {id, name, about, photo, follower, following, benefit, film} = this.props.profile;
+            const {id, name, about, photo, follower, following, benefit, checkProfile} = this.props.profile;
             this.setState({
                 id,
                 name,
@@ -17,7 +17,8 @@ class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
                 follower,
                 following,
                 benefit,
-                film
+                // film,
+                checkProfile // 출력되는 프로파일이 MyProfile이면 true, 다른사람 Profile이면 false로 등급 확인
             })
         }
     }
@@ -31,25 +32,26 @@ class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
                     following={this.state.following}
                     follower={this.state.follower}
                     grade={this.state.grade}
-                    film={this.state.film}
+                    // film={this.state.film}
                     // onClickFollowing={this.props.onClickFollowing}
-                    // onClickFollower={this.props.onClickFollower}
+                    // onClickFollower={this.props.onClickFollower}'
+                    checkProfile={this.state.checkProfile}
                     />
         );
     }
 }
 
-const Profile = ({photo, name, id, about, following, follower, grade, film}) => {
+const Profile = ({photo, name, id, about, following, follower, grade, checkProfile}) => {
     return(
         <div className="MyProfile">
             <div className="MyProfile-Status">
                 <ProfilePhoto photo = {photo}/>
-                <MyProfileGrade name = {name} grade = {grade}/>
+                <MyProfileGrade name = {name} grade = {grade} checkProfile={checkProfile}/>
             </div>
             <div className="MyProfile-Columns">
                 <div className="MyProfile-Private">
                     <strong className="MyProfile-Name">{name}</strong>
-                    <span className="MyProfile-Id">{id}</span>
+                    <span className="MyProfile-Id">@{id}</span>
                 </div>
                 <div className="MyProfile-About">
                     <LinesEllipsis

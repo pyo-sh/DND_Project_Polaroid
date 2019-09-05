@@ -26,3 +26,36 @@ export const minusFilm = async info => {
         console.log(err);
     })
 }
+
+export const getFolder = async userID => {
+    return await axios
+    .post('/api/favorite', {
+        userID
+    })
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
+
+export const addFolder = async info => {
+    return await axios
+    .post('/api/favorite/addFolder', {
+        info
+    })
+    .then(res => {
+        return res;
+    })
+}
+
+export const addPhotoInFolder = async info => {
+    return await axios
+    .post('/api/favorite/addPhotoInFolder', {
+        info
+    })
+    .then(res => {
+        return res;
+    })
+}

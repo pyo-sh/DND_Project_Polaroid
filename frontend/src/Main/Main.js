@@ -17,6 +17,7 @@ import DeleteUser from '../Login/DeleteUser';
 import ResetPassword from '../Login/ResetPassword';
 import Category from './Category';
 import FilmCharge from '../Film/FilmCharge';
+import IDPage from '../Profile/IDPage';
 import { MigrationHub } from 'aws-sdk';
 
 const Main = () => {  // 출력 될 곳
@@ -41,6 +42,7 @@ const HomePage = ({match}) => {  // '/' 로 들어왔을 때
                 <Route path={match.url+'mypage'} exact={true} component = {MyPage} />
                 <Route path={match.url+'uploads3'} exact={true} component={Uploads3}/>
                 <Route path={match.url+'film/charge'} exact={true} component={FilmCharge}/>
+                <Route path={match.url+':id'} exact={true} component={IDPage}/>
                 <Route path={match.url} exact={true} component = {Home}/>
             </Switch>
         </>

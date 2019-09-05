@@ -31,6 +31,7 @@
   width: 860px;
   height: 500px;
   background-color: #FFFFFF;
+  overflow: hidden;
 }
 
 img{
