@@ -19,7 +19,9 @@ class Image extends Component {
         imageWidthHalf: "",
         imageHeightHalf:"",
         waterMarkWidth: "",
-        waterMarkHeight: ""
+        waterMarkHeight: "",
+        imageScreenWidth: 0,
+        imageScreenHeight: 0
     }
 
     componentDidMount(){
@@ -27,7 +29,9 @@ class Image extends Component {
         if(this.img.naturalWidth > this.img.naturalHeight){
             this.setState({
                 imageWidthHalf: this.img.naturalWidth/3.3,
-                imageHeightHalf: this.img.naturalHeight/4.5
+                imageHeightHalf: this.img.naturalHeight/4.5,
+                imageScreenWidth: 6000,
+                imageScreenHeight: 4000
             }) 
         } 
 
@@ -35,7 +39,9 @@ class Image extends Component {
         else {
             this.setState({
                 imageWidthHalf: this.img.naturalWidth/4,
-                imageHeightHalf: this.img.naturalHeight/3.8
+                imageHeightHalf: this.img.naturalHeight/3.8,
+                imageScreenWidth: 1500,
+                imageScreenHeight: 3000
             }) 
         }
 
@@ -58,7 +64,7 @@ class Image extends Component {
 
     render(){
         const {id, like, isLike, view, size, match} = this.props
-        const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight} = this.state
+        const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight, imageScreenWidth, imageScreenHeight} = this.state
 
         return( 
         <div className = "Image">
@@ -72,7 +78,7 @@ class Image extends Component {
                     opacity={0.4}
                     coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
                 >
-                <img className = "MainImage" ref = {(c) => {this.img = c}}  src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
+                <img className = "MainImage" ref = {(c) => {this.img = c}} src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
                     
             </ReactImageProcess>
         </div>    
