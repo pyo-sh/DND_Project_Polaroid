@@ -88,12 +88,6 @@ Follow.post("/getMyFollow", (req, res) => {
 Follow.post("/deleteFollow", (req, res) => {
   const followID = req.body.followID;
   const followerID = req.body.followerID;
-  follow.destroy({
-    where: {
-      followID,
-      followerID
-    }
-  });
   User.update(
     {
       // 팔로우 취소하면 내려가야한다.
@@ -115,5 +109,17 @@ Follow.post("/deleteFollow", (req, res) => {
       }
     }
   );
+  follow.destroy({
+    where: {
+      followID,
+      followerID
+    }
+  }).then(_=>{
+      res.send("삭제 성공!");
+  })
+  .catch(err => {
+      console.log(err);
+  })
+
 });
 module.exports = Follow;

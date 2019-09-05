@@ -8,9 +8,9 @@ import { getMyID, isFollowInfo, addFollow, deleteFollow } from './ProfileFunctio
 class IDPage extends Component {
     state ={
         myID: "",
-        isMe: false,
-        isFollow: false,
         titleName: "",
+        isMe: false, // myID == titleName 일때 true
+        isFollow: false, // 내가 이사람을 팔로우 하고 있는지
         profile: {
             photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
             name: "",
@@ -23,8 +23,24 @@ class IDPage extends Component {
             checkProfile: false
         }
     }
+    
+    // 처음 클래스를 불러올 때 실행하는 것들 [나의 아이디와 상대방의 프로파일 정보]
+    componentWillMount(){
+        const myID = getMyID();
+        this.upperTitle();
+        this.setState({
+            myID: myID
+        });
+    }
 
-    // 아이디를 알아내는 작업
+    // 처음 클래스를 불러오고 render 후에 변경하는 정보들 (필요한 state값이 바뀐걸 받아서 정보 처리)
+    componentDidMount(){
+        this.getInfo();
+        this.checkMyself();
+        this.checkIsFollow();
+    }
+
+    // 상대방의 아이디를 알아내는 작업
     upperTitle(){
         let title = this.props.match.params.id;
         title = title.replace('-',' ');
@@ -33,21 +49,8 @@ class IDPage extends Component {
             titleName: title
         });
     }
-    
-    componentWillMount(){
-        const myID = getMyID();
-        this.upperTitle();
-        this.setState({
-            myID: myID
-        })
-    }
-    componentDidMount(){
-        this.getInfo();
-        this.checkMyself();
-        this.checkIsFollow();
-    }
 
-    //upperTitle로 아이디를 알아내서 정보를 받아오는 함수
+    //upperTitle로 아이디를 알아내서 정보를 받아오는 함수 (상대방의 프로필 정보)
     getInfo = () => {
         const ID = this.state.titleName;
         getAllInfo(ID).then(res=> {
@@ -93,26 +96,33 @@ class IDPage extends Component {
     }
 
     // 팔로우 버튼을 눌렀을 때 실행
-    onClickFollow = (e) => {
+    onClickFollow =  () => {
         const { myID, titleName, isFollow } = this.state;
-        console.dir(e.target);
-        console.log("state의 isFollow는"+isFollow);
         if(isFollow){
-            deleteFollow( myID, titleName );
+            deleteFollow( myID, titleName).then(_=>{
+                this.checkIsFollow();
+                this.getInfo();
+            });
         }
         else{
-            addFollow( myID, titleName );
+            addFollow( myID, titleName ).then(_ => {
+                this.checkIsFollow();
+                this.getInfo();
+            });
         }
-        this.checkIsFollow();
+        // this.checkIsFollow();
+        // this.getInfo();
     }
 
     render() {
-        const { profile, isMe } = this.state;
+        const { profile, isMe, isFollow } = this.state;
         return (
             <div className="IDPage">
                 <div className="IDPage-Profile">
                     <MyProfile profile={profile}/>
-                    {FollowBtn(isMe, this.onClickFollow)}
+                    <div className="IDPage-Btn">
+                        <FollowBtn isFollow={isFollow} isMe={isMe} onClickFollow={this.onClickFollow}/>
+                    </div>
                 </div>
                 <div className="IDPage-Title">UPLOADED PHOTOS</div>
                 <div className="IDPage-Photo">
@@ -123,13 +133,11 @@ class IDPage extends Component {
     }
 }
 
-const FollowBtn = ( isMe, onClickFollow ) => {
+const FollowBtn = ({ isFollow, isMe, onClickFollow }) => {
     if(!isMe){
-        return <button 
-            className="IDPage-FollowBtn"
-            onClick={onClickFollow}
-            >
-            Follow</button>
+        return <button className = {isFollow === true ? "IDPage-Following" : "IDPage-Follow"} onClick = {onClickFollow}>
+                {isFollow  === true? "Following" : "Follow"}
+            </button>
     }
     else
         return null;

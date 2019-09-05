@@ -9,7 +9,6 @@ export const addFollow = async (userID, targetID) => {
   return await axios
   .post('api/Follow/addFollow', {info})
   .then(res => {
-    console.log("팔로잉 추가하는 것");
     return res;
   })
   .catch(err => {
@@ -24,7 +23,6 @@ export const deleteFollow = async (userID, targetID) => {
     followerID: targetID
   })
   .then(res => {
-    console.log("팔로잉 취소하는 것");
     return res;
   })
   .catch(err => {

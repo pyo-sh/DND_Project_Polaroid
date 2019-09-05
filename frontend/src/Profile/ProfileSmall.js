@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './ProfileSmall.css';
 import history from './history';
-import getAllInfo from '../MyPage/MyPageFunction';
+import { getAllInfo } from '../MyPage/MyPageFunction';
 
 
 ProfileSmall.propTypes = {
@@ -98,11 +98,7 @@ function Image({image}){
     );
 }
 
-function FollowButton({follow}){
-    const handleClick = (e) => {
-        e.preventDefault();
-        // follow 역전하는 코드
-    }
+const FollowButton = ({follow, handleClick}) => {
     return(
         <button className = {follow === true ? "Following" : "Follow"} onClick = {handleClick}>
             {follow  === true? "Following" : "Follow"}
