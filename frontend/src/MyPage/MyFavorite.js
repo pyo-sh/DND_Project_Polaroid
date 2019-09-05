@@ -11,8 +11,6 @@ class MyFavorite extends Component {
             this.setState({
                 favoriteFolder : res
             })
-        console.log(this.state.favoriteFolder);
-        console.log(this.state.favoriteFolder[0].favorites[0].favName);
         })
     }
     render() {
