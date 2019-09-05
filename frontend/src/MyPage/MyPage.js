@@ -5,6 +5,7 @@ import MyPageBenefit from './MyPageBenefit';
 import MyInformation from './MyInformation';
 import MyFilmBtn from './MyFilmBtn';
 import Photos from '../Main/Photos';
+import MyFavorite from './MyFavorite';
 import { getAllInfo } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
 import React, { Component } from 'react';
@@ -60,11 +61,15 @@ class MyPage extends Component {
             </div>
         );
     }
-    getInfo = () => {
+    getID = () => {
         let token = '';
         localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
         const decode = jwt_decode(token);
         const ID = decode.ID;
+        return ID;
+    }
+    getInfo = () => {
+        const ID = this.getID();
         // console.log(ID); // 아이디를 콘솔창에서 알아보기 위함
         getAllInfo(ID).then(res=> {
             this.setState({
@@ -92,7 +97,7 @@ class MyPage extends Component {
             case "DOWNLOADED" : return <Photos/>;
             case "LIKED" : return ;
             case "FAVORITE" : 
-                return ;
+                return <MyFavorite getID={this.getID}/>;
                 // <ProfileSmall 
                 //     profileImage={this.state.profile.photo} 
                 //     nickname={this.state.profile.name} 

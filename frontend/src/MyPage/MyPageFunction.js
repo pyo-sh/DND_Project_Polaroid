@@ -40,3 +40,13 @@ export const checkPassword = async user => {
         console.log(err);
     })
 }
+
+export const getAllFavorite = async ID => {
+    return await axios
+    .post('/api/favorite/getAll', {
+        ID
+    })
+    .then(res =>{
+        return res.data;
+    })
+}
