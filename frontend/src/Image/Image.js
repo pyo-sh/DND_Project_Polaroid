@@ -17,21 +17,38 @@ class Image extends Component {
     
     state = {
         imageWidthHalf: "",
-        imageHeightHalf:""
+        imageHeightHalf:"",
+        waterMarkWidth: "",
+        waterMarkHeight: ""
     }
 
     componentDidMount(){
+        //원본 이미지 너비가 높이보다 크면
         if(this.img.naturalWidth > this.img.naturalHeight){
             this.setState({
-                imageWidthHalf: this.img.naturalWidth/2.5,
-                imageHeightHalf: this.img.naturalHeight/3.5
-            }) 
-        } else {
-            this.setState({
                 imageWidthHalf: this.img.naturalWidth/3.3,
-                imageHeightHalf: this.img.naturalHeight/2.2
+                imageHeightHalf: this.img.naturalHeight/4.5
+            }) 
+        } 
+
+        //너비가 높이보다 작으면
+        else {
+            this.setState({
+                imageWidthHalf: this.img.naturalWidth/4,
+                imageHeightHalf: this.img.naturalHeight/3.8
             }) 
         }
+
+        //이미지 너비와 높이에 따른 워터마크 크기
+        this.img.naturalWidth < 4000 && this.img.naturalHeight < 4000 ?
+        this.setState({
+            waterMarkWidth: 1700,
+            waterMarkHeight: 1700
+        })  :
+        this.setState({
+            waterMarkWidth: 3000,
+            waterMarkHeight: 3000
+        })
         
         console.dir(this.img)
         console.log(this.img.naturalWidth)
@@ -41,23 +58,22 @@ class Image extends Component {
 
     render(){
         const {id, like, isLike, view, size, match} = this.props
-        const {imageHeightHalf, imageWidthHalf} = this.state
+        const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight} = this.state
 
-       
         return( 
         <div className = "Image">
         <div className = "Image-Column">
             <ReactImageProcess
-                mode="waterMark"
-                waterMarkType="image"
-                waterMark={require(`../img/photo/로고.svg`)}
-                width={1500}
-                height={1700}
-                opacity={0.4}
-                coordinate={[imageWidthHalf, imageHeightHalf]}
-            >
-            <img className = "MainImage" ref = {(c) => {this.img = c}}  src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
-                
+                    mode="waterMark"
+                    waterMarkType="image"
+                    waterMark={require(`../img/photo/로고.svg`)}    //워터마크 이미지 경로
+                    width={waterMarkWidth}      //워터마크 너비
+                    height={waterMarkHeight}    //워터마크 높이
+                    opacity={0.4}
+                    coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
+                >
+                <img className = "MainImage" ref = {(c) => {this.img = c}}  src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
+                    
             </ReactImageProcess>
         </div>    
         <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
