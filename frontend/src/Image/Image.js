@@ -28,7 +28,7 @@ class Image extends Component {
         //원본 이미지 너비가 높이보다 크면
         if(this.img.naturalWidth > this.img.naturalHeight){
             this.setState({
-                imageWidthHalf: this.img.naturalWidth/3.3,
+                imageWidthHalf: this.img.naturalWidth/3.1,
                 imageHeightHalf: this.img.naturalHeight/4.5,
                 imageScreenWidth: 6000,
                 imageScreenHeight: 4000
@@ -38,8 +38,8 @@ class Image extends Component {
         //너비가 높이보다 작으면
         else {
             this.setState({
-                imageWidthHalf: this.img.naturalWidth/4,
-                imageHeightHalf: this.img.naturalHeight/3.8,
+                imageWidthHalf: this.img.naturalWidth/3,
+                imageHeightHalf: this.img.naturalHeight/3,
                 imageScreenWidth: 1500,
                 imageScreenHeight: 3000
             }) 
@@ -48,12 +48,12 @@ class Image extends Component {
         //이미지 너비와 높이에 따른 워터마크 크기
         this.img.naturalWidth < 4000 && this.img.naturalHeight < 4000 ?
         this.setState({
-            waterMarkWidth: 1700,
-            waterMarkHeight: 1700
+            waterMarkWidth: 900,
+            waterMarkHeight: 900
         })  :
         this.setState({
-            waterMarkWidth: 3000,
-            waterMarkHeight: 3000
+            waterMarkWidth: 1700,
+            waterMarkHeight: 1700
         })
         
         console.dir(this.img)
@@ -72,7 +72,7 @@ class Image extends Component {
             <ReactImageProcess
                     mode="waterMark"
                     waterMarkType="image"
-                    waterMark={require(`../img/photo/로고.svg`)}    //워터마크 이미지 경로
+                    waterMark={require(`../img/Logo.svg`)}    //워터마크 이미지 경로
                     width={waterMarkWidth}      //워터마크 너비
                     height={waterMarkHeight}    //워터마크 높이
                     opacity={0.4}
