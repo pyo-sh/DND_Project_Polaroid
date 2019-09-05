@@ -1,7 +1,37 @@
 .Content {
-    display: flex;
-    margin-top: 50px;
-    margin-left:20px; 
-    margin-right: 20px; 
-    justify-content : space-between;
-}
+    top : 55px;
+    display : flex;
+    justify-content: center;
+    margin-top : 100px;
+  }
+  
+  .Content-Left{
+    width: 1200px;
+    height: 100%;
+    margin: 10px;
+  }
+  
+  .Content-Right{
+    width: 380px;
+    height: 100%;
+    margin : 10px;
+    padding-left : 50px;
+  }
+  
+  @media screen and (max-width : 100%){
+    .Content {
+      display : flex;
+    }
+  }
+  @media screen and (max-width : 1200px){
+    .Content{
+      display : flex;
+      flex-direction: column;
+    }
+    .Content-Left{
+      width: 100%;
+    }
+    .Content-Right{
+      width: 100%;
+    }
+  }

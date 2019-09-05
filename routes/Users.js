@@ -6,6 +6,7 @@ const passport = require('passport');
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
+const favoriteFolder = require('../models/favoriteFolder');
 
 users.post('/fblogin', (req, res, next) => {
     passport.authenticate('facebook', (err, users, info) => {
@@ -107,6 +108,7 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                     follow : 0,
                     follower : 0,
                     grade : '일반',
+                    film : 0,
                     created: today,
                 };
                 User.findOne({
@@ -120,6 +122,11 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                             userData.PASSWORD = hash;
                             User.create(userData)
                             .then(user => {
+                                const userFav = {
+                                    ID: user.ID,
+                                    favFolderName: '기본 폴더'
+                                }
+                                favoriteFolder.create(userFav);
                                 res.json({status : user.ID + 'registerd'})
                                 })
                             .catch(err => {

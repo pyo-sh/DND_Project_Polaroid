@@ -4,6 +4,7 @@ import './Image.css';
 import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
 import Declaration from './Declaration';
+import { withRouter } from 'react-router-dom';
 
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
@@ -24,11 +25,11 @@ Image.protoType = {
     size : PropTypes.string.isRequired
 }
 
-function Image({id, tags, type, uploadDate, downloade, kategorie, like, isLike, view, size}) {
+function Image({id, like, isLike, view, size, match}) {
     return ( 
         <div className = "Image">
             <div className = "Image-Column">
-                <img className = "MainImage" src = {im[id]} alt = {id}></img>
+                <img className = "MainImage" src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
             </div>    
             <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
             <p className = "Relatied-Title Image-Column"> Relatied Image</p>
@@ -169,11 +170,11 @@ class RelationImage extends Component{
         }]
     }
 
-    SearchImage(){
+    searchImage(){
         const relation = [];
         this.state.image.some((image) => {
             let n;
-            if(this.props.id !== image.id){
+            if(1 !== image.id){
                 n = 0;
                 this.state.image[this.props.id].tags.forEach((tag) => {
                     if(image.tags.indexOf(tag) !== -1)
@@ -191,7 +192,7 @@ class RelationImage extends Component{
 
 
     render_Image(){
-       const relation = this.SearchImage().map((image) => {
+       const relation = this.searchImage().map((image) => {
             return (
                 <div className = "Image-Relation" style = {{ backgroundImage : `url(${im[image.id]})`}}/>
            );
@@ -209,4 +210,4 @@ class RelationImage extends Component{
 }
 
 
-export default Image;
+export default withRouter(Image);

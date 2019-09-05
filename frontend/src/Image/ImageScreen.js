@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './ImageScreen.css';
 import Image from './Image';
 import ImageInfo from './ImageInfo';
 
@@ -22,11 +21,11 @@ class ImageScreen extends Component {
       },
       type : "jpg",
       uploadDate : "2019.2.8",
-      downloade : "1594",
+      download : "1594",
       kategorie : "Nature",
       like : 56,
       isLike : false,
-      veiw : "45",
+      view : "45",
       size : "가로 X 세로",
       mark : true,
       paid : true
@@ -40,11 +39,11 @@ class ImageScreen extends Component {
       },
       type : "jpg",
       uploadDate : "2019.2.8",
-      downloade : "1594",
+      download : "1594",
       kategorie : "카테고리",
       like : "564",
       isLike : true,
-      veiw : "456",
+      view : "456",
       size : "가로 X 세로",
       paid : false
     },{
@@ -58,21 +57,28 @@ class ImageScreen extends Component {
       },
       type : "jpg",
       uploadDate : "2019.2.8",
-      downloade : "1594",
+      download : "1594",
       kategorie : "Nature",
       like : "564",
       isLike : true,
-      veiw : "4558",
+      view : "4558",
       size : "가로 X 세로",
       mark : true,
       paid : false
-    }]
+    }],
+    payment : false
+  }
+
+  onClick = () =>{
+    this.setState({
+      payment : !this.state.payment
+    })
   }
   
   render(){
     return (
-      <div className="App">
-        <div className = "App-Left">
+      <div className="Content">
+        <div className = "Content-Left">
           <Image 
             id = {this.state.image[0].id} 
             tags = {this.state.image[0].tags} 
@@ -82,20 +88,22 @@ class ImageScreen extends Component {
             kategorie = {this.state.image[0].kategorie} 
             like = {this.state.image[0].like} 
             isLike = {this.state.image[0].isLike} 
-            veiw = {this.state.image[0].veiw} 
+            view = {this.state.image[0].view} 
             size = {this.state.image[0].size}
             key = {this.state.image[0].id} />
         </div>
-        <div className = "App-Right">
+        <div className = "Content-Right">
           <ImageInfo 
             registrant = {this.state.image[0].registrant}
             paid = {this.state.image[0].paid}
             type = {this.state.image[0].type}
             size = {this.state.image[0].size}
             uploadDate = {this.state.image[0].uploadDate}
-            downloade = {this.state.image[0].downloade}
+            download = {this.state.image[0].download}
             kategorie = {this.state.image[0].kategorie}
-            tags = {this.state.image[0].tags}/>
+            tags = {this.state.image[0].tags}
+            payment= {this.state.payment}
+            handlePayment={this.onClick}/>
         </div>
       </div>
     );

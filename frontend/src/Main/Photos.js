@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';
 
 const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
-  maxWidth: 1500
+  maxWidth: 1300
 });
 
 class Photos extends Component {
@@ -31,7 +31,7 @@ class Photos extends Component {
             start = count + this.state.start;
       this.setState({ start: start });
  
-      axios.post(`/api/file/photos`,{count,start})
+       axios.post(`/api/file/photos`,{count,start})
         .then(response => {
           this.setState({ images: this.state.images.concat(response.data.photos),
                           isMore : response.data.isMore})
@@ -40,13 +40,17 @@ class Photos extends Component {
      }
     
     render() {
+      const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
+        maxWidth: (this.props.mypage ? 960 : 1500)
+      });
         return (
+          
             <div className = "Photos">   
-                  <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore} >
-                    <Grid className = "Grid" component="ul" columnWidth={400} layout = {layout.pinterest}>
+                  <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
+                    <Grid className = "Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 430)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest}>
                       {this.state.images.map((image, index) => (
                         <li key = {index} >
-                            <Link to ="/imagepage">
+                            <Link to = {`/imagepage/${image}`}>
                               <img className = "Photo" src={require(`../img/photo/${image}`)} alt=""/>
                             </Link>
                         </li>
