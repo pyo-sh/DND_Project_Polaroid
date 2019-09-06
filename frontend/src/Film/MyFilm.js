@@ -5,20 +5,27 @@ import React, {Component} from 'react';
 
 class MyFilm extends Component {
     state = {
+        id: "",
         film: 0
+    }
+    
+    componentWillMount(){
+        let token = '';
+        localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
+        const decode = jwt_decode(token);
+        const id = decode.ID;
+        this.setState({
+            id: id
+        });
     }
     componentDidMount(){
         if(localStorage.usertoken || sessionStorage.usertoken){
             this.getInfo();
         }
-
     }
     getInfo = () => {
-        let token = '';
-        localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
-        const decode = jwt_decode(token);
-        const ID = decode.ID;
-        getAllInfo(ID).then(res=> {
+        const { id } = this.state
+        getAllInfo(id).then(res=> {
             this.setState({
                 film : res.film
             })
@@ -27,6 +34,7 @@ class MyFilm extends Component {
             console.error(err);
         })
     }
+
     render(){
         return(
             <div className="MyFilm">
