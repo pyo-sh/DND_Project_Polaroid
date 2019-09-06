@@ -1,7 +1,8 @@
 import './MyProfile.css';
+import React, { Component } from 'react';
 import LinesEllipsis from 'react-lines-ellipsis';
 import MyProfileGrade from './MyProfileGrade';
-import React, { Component } from 'react';
+import FollowBtn from '../Profile/FollowBtn';
 
 class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
     state = {
@@ -53,7 +54,7 @@ class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
                     grade={grade}
                     // film={this.state.film}
                     // onClickFollowing={this.props.onClickFollowing}
-                    // onClickFollower={this.props.onClickFollower}'
+                    // onClickFollower={this.props.onClickFollower}
                     checkProfile={checkProfile}
                     />
         );
@@ -82,10 +83,8 @@ const Profile = ({photo, name, id, about, following, follower, grade, checkProfi
                         />
                 </div>
                 <div className="MyProfile-Service">
-                    {/* 팔로잉 페이지와 팔로워 페이지를 따로 놓아서 홈페이지를 푸쉬하는 방법으로 만들 것임 props로 onClick을 받았음
-                    onClick={onClickFollowing}  onClick={onClickFollower}*/}
-                    <button className="MyProfile-Following">{following} 팔로잉 </button>
-                    <button className="MyProfile-Follower">{follower} 팔로워 </button>
+                    <FollowBtn targetID={id} followNum={following} isFollow={true}/>
+                    <FollowBtn targetID={id} followNum={follower} isFollow={false}/>
                 </div>
             </div>
         </div>

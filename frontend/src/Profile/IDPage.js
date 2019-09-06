@@ -110,8 +110,6 @@ class IDPage extends Component {
                 this.getInfo();
             });
         }
-        // this.checkIsFollow();
-        // this.getInfo();
     }
 
     render() {

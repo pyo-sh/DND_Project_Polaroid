@@ -33,15 +33,13 @@ export const deleteFollow = async (userID, targetID) => {
 export const getFollowingInfo = async userID => {
   return await axios
     .post(`/api/Follow/getFollow`, {
-        followerID: userID
+      followerID: userID
     })
     .then(res => {
-        console.log("팔로잉의 res는");
-        console.log(res);
-        return res;
+      return res;
     })
     .catch(err => {
-        console.log(err);
+      console.log(err);
     })
 }
 
@@ -51,12 +49,12 @@ export const getFollowerInfo = async userID => {
     followID: userID
   })
   .then(res => {
-      console.log("팔로워의 res는")
-      console.log(res);
-      return res.data.follower;
+    console.log("팔로워의 res는")
+    console.log(res);
+    return res.data.follower;
   })
   .catch(err => {
-      console.log(err);
+    console.log(err);
   })
 }
 
@@ -82,4 +80,31 @@ export const getMyID = () => {
   const decode = jwt_decode(token);
   const ID = decode.ID;
   return ID;
+}
+
+// 얼마만큼의 데이터를 받을 것인지.
+export const getFollowingSome = async (userID, start, count) => {
+  return await axios
+    .post(`/api/Follow/getFollow`, {
+      followerID: userID
+    })
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+export const getFollowerSome = async (userID, start, count) => {
+  return await axios
+  .post(`/api/Follow/getMyFollow`, {
+    followID: userID
+  })
+  .then(res => {
+
+    return res.data.follower;
+  })
+  .catch(err => {
+      console.log(err);
+  })
 }
