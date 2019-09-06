@@ -7,8 +7,10 @@
     background-color: rgba(0,0,0,0.16);
   }
   .FollowBtn-Modal{
-    width: 320px;
+    width: 350px;
+    /* height: 800px; */
     z-index: 9001;   /*div 의 창이 맨 앞으로 오게 ( 순서 1 )*/
+
     border-radius: 7px;
     background-color: white;
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
@@ -16,6 +18,9 @@
     padding: 15px 5px;
 
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .FollowBtn-Following{

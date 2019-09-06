@@ -32,9 +32,13 @@ class IDPage extends Component {
             myID: myID
         });
     }
-
     // 처음 클래스를 불러오고 render 후에 변경하는 정보들 (필요한 state값이 바뀐걸 받아서 정보 처리)
     componentDidMount(){
+        const myID = getMyID();
+        this.setState({
+            myID: myID
+        });
+        this.upperTitle();
         this.getInfo();
         this.checkMyself();
         this.checkIsFollow();
@@ -99,7 +103,7 @@ class IDPage extends Component {
     onClickFollow =  () => {
         const { myID, titleName, isFollow } = this.state;
         if(isFollow){
-            deleteFollow( myID, titleName).then(_=>{
+            deleteFollow( myID, titleName ).then(_=>{
                 this.checkIsFollow();
                 this.getInfo();
             });
@@ -119,7 +123,12 @@ class IDPage extends Component {
                 <div className="IDPage-Profile">
                     <MyProfile profile={profile}/>
                     <div className="IDPage-Btn">
-                        <FollowBtn isFollow={isFollow} isMe={isMe} onClickFollow={this.onClickFollow}/>
+                        <FollowBtn
+                            isFollow={isFollow}
+                            isMe={isMe}
+                            onClickFollow={this.onClickFollow}
+                            reFresh={this.reFresh}
+                            />
                     </div>
                 </div>
                 <div className="IDPage-Title">UPLOADED PHOTOS</div>

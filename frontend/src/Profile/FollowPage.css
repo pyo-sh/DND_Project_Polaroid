@@ -1,45 +1,12 @@
-.Profile-Grade{
-    border-radius: 7px;
-    font-size: 5px;
-    color: white;
-    background : gray;
-    margin: 5px auto;
-    margin-bottom: 0;
+.FollowPage{
+    width: 100%;
+}
+.FollowPage li{
+    list-style:none;
 }
 
-.FollowPage-Title{
-    margin: 10px;
-    text-align: center;
+.FollowPage-Top{
+    margin: 15px;
+    font-size: 17px;
+    font-style: bold;
 }
-.FollowPage-Content{
-    padding: 0 20px;
-    color: none;
-}
-.FollowPage-Content p{
-    background: gray;
-}
-.FollowPage-Button-Wrap{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin: 0 20px;
-}
-.FollowPage-Button-Wrap Button{
-    width: 30%;
-    padding: 12px 0;
-    border-radius: 0 0 10px 10px;
-    border: none;
-
-    color: blue;
-    background: none;
-    font-size: 13pt;
-    cursor: pointer;
-}
-.FollowPage-Button1{
-    color: gray;
-}
-.FollowPage-Button2-Another{
-    margin-left: 70%;
-}
-

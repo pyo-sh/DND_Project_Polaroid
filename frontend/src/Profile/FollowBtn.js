@@ -6,13 +6,13 @@ class FollowBtn extends Component {
     state={
         targetID: "",
         isFollowOpen: false,
-        // true : following, false : follower
-        isFollow:true,
+        // (버튼의 상태가)true : following, false : follower
+        isFollow: true,
         followNum: 0
     }
 
     componentWillMount(){
-        const {targetID, followNum, isFollow} = this.props;
+        const { targetID, followNum, isFollow} = this.props;
         this.setState({
             targetID: targetID,
             isFollow: isFollow,
@@ -20,6 +20,10 @@ class FollowBtn extends Component {
         });
     }
     componentWillReceiveProps(nextProps){
+        if(this.props.targetID !== nextProps.targetID)
+            this.setState({
+                targetID: nextProps.targetID
+            });
         this._setFollowNum(nextProps.followNum);
     }
     
@@ -53,7 +57,10 @@ class FollowBtn extends Component {
                     <React.Fragment>
                         <div className="FollowBtn-Modal-Overlay" onClick={this.closeFollow} />
                         <div className="FollowBtn-Modal">
-                            <FollowPage targetID={targetID}/>
+                            <FollowPage 
+                                targetID={targetID} 
+                                isFollow={isFollow}
+                                />
                         </div>
                     </React.Fragment>
                     :

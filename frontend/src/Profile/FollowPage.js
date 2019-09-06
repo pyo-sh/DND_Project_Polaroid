@@ -2,7 +2,7 @@ import './FollowPage.css';
 import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
-// import ProfileSmall from './ProfileSmall';
+import ProfileSmall from './ProfileSmall';
 import { getMyID, getFollowingSome, getFollowerSome } from './ProfileFunction'
 
 class FollowPage extends Component {
@@ -14,36 +14,41 @@ class FollowPage extends Component {
         // 여기까진 id(자신)의 follower와 following 사람들의 리스트
         countID: [], // 출력을 해야하는 id 목록들, 30개씩 붙인다.
         count: 30, // 한 번의 스크롤에 불러올 id의 갯수
-        start: 1,
+        start: 0,
         isMore : true
     }
 
     componentWillMount(){
         const id = getMyID();
-        const targetID = this.props;
+        const {targetID, isFollow} = this.props;
         this.setState({
             id: id,
-            targetID: targetID
+            targetID: targetID,
+            isFollow: isFollow
         });
     }
     componentDidMount() {
-        const { isFollow, count, start } = this.state;
+        const { targetID, isFollow, count, start } = this.state;
         if(isFollow){
-            getFollowingSome("ironman", count, start).then(res => {
-                console.log("res는" + res);
-                console.dir(res);
+            getFollowingSome(targetID, start, count).then(res => {
+                this.setState({
+                    countID: this.state.countID.concat(res.data)
+                })
             });
         }
         else{
-            getFollowerSome("ironman", count, start).then(res => {
-                console.log("res는" + res);
-                console.dir(res);
-            })
+            getFollowerSome(targetID, start, count).then(res => {
+                this.setState({
+                    countID: this.state.countID.concat(res.data)
+                })
+            });
         }
     }
 
     fetchIDs = () => {
-        
+        const count = this.state.count;
+        const start = count + this.state.start;
+        this.setState({ start: start });
     }
 
     setDatas = () => {
@@ -53,15 +58,23 @@ class FollowPage extends Component {
     _renderFollow = () => {
         
     }
+
     render() {
         const { isFollow } = this.state;
         return (
-            <div className="Follow">
-                <InfiniteScroll dataLength = {this.state.countID.length} next = {this.fetchIDs} hasMore = {this.state.isMore}>
-                    {this.state.countID.map((id, index) => (
+            <div className="FollowPage">
+                <div className="FollowPage-Top">
+                    {isFollow===true ? "Following" : "Follower"}
+                </div>
+                <InfiniteScroll
+                    dataLength = {this.state.countID.length}
+                    next = {this.fetchIDs}
+                    hasMore = {this.state.isMore}
+                    >
+                    {this.state.countID.map((list, index) => (
                         <li key = {index} >
-                            <Link to = {`/${id}`}>
-                                {/* <ProfileSmall id={id}/> */}
+                            <Link to = {isFollow===true ? `/${list.followerID}` :  `/${list.followID}`}>
+                                <ProfileSmall id={isFollow===true ? list.followerID : list.followID}/>
                             </Link>
                         </li>
                     ))}

@@ -1,36 +1,30 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import './ProfileSmall.css';
-import history from './history';
+import {withRouter} from 'react-router-dom';
 import { getAllInfo } from '../MyPage/MyPageFunction';
+import { getMyID, addFollow, deleteFollow } from './ProfileFunction';
 
-
-ProfileSmall.propTypes = {
-    id : PropTypes.string.isRequired,
-}
-
-FollowButton.propTypes = {
-   follow : PropTypes.bool
-}
-
+// 나인지 아닌지, 팔로우 기능을 추가해줘야 하는지 아닌지. 버튼 추가해주거나 홈페이지로 넘어가주거나,
 class ProfileSmall extends Component{
     state={
         id: "",
-        follow: true,
+        isMe: false,
+        // true : following, false : follower
+        isFollow: true,
         profile: {
             photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
             name: "",
-            id: "",
             about: "",
             grade: "일반"
         }
     }
 
     componentWillMount(){
-        const { id, follow } = this.props;
+        const { id, isMe, isFollow } = this.props;
         this.setState({
             id: id,
-            follow: follow
+            isMe: isMe,
+            isFollow: isFollow
         });
     }
 
@@ -40,15 +34,12 @@ class ProfileSmall extends Component{
 
     getInfo = () => {
         const ID = this.state.id;
-        console.log(id);
         getAllInfo(ID).then(res=> {
             this.setState({
                 profile: {
                     ...this.state.profile,
-                    id : ID,
-                    name : res.nickname,
-                    about : res.introduce,
-                    grade : res.grade
+                    // photo: res.photo,
+                    name: res.nickname,
                 }
             })
         })
@@ -57,53 +48,79 @@ class ProfileSmall extends Component{
         })
     }
 
+    handleClick = () => {
+        const myID = getMyID();
+        const { id, isFollow } = this.state;
+        if(isFollow){
+            deleteFollow( myID, id ).then(_=>{
+                this.setState({
+                    isFollow: !isFollow
+                });
+            });
+        }
+        else{
+            addFollow( myID, id ).then(_=>{
+                this.setState({
+                    isFollow: !isFollow
+                });
+            });
+        }
+    }
+
     render(){
-        const { follow } = this.state;
-        const { photo, id, name, about, grade } = this.state.profile;
-        return ( 
+        const { id, isMe, isFollow } = this.state;
+        const { photo, name } = this.state.profile;
+        return (
             <div className = "ProfileSmall">
                 <div className = "ProfileSmall-Column">
-                    <div className = "ProfileSmall-ProfileImage" onClick = {() => history.push(`/Profile/${id}`)}>
+                    <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/Profile/${id}`)}>
                         <ProfileImage photo = {photo} alt = {name}/>
                     </div>
                     <div className = "ProfileSmall-Info">
                         <span className = "Nickname"> {name} </span>
                         <span className = "Id"> {"@" + id} </span>
                     </div>
-                    { follow != null &&
+                    { isFollow != null &&
                         <div className = "ProfileSmall-Follow-Btn">
-                            <FollowButton follow = {follow}/>
+                            <FollowButton
+                                isMe = {isMe}
+                                isFollow = {isFollow}
+                                handleClick = {this.handleClick}
+                                />
                         </div>
                     }
                 </div>
-                <div className = "ProfileSmall-Column">
+                {/* <div className = "ProfileSmall-Column">
                     {images.map((image, index) => <Image image = {image} key = {index}/>)}
-                </div>
+                </div> */}
             </div>
-         );
+        );
     }
 }
 
 
-function ProfileImage({profileImage, alt}){
+function ProfileImage({photo, alt}){
     return (
-        <img src = {profileImage ? profileImage : "https://postfiles.pstatic.net/MjAxOTA3MzBfMjgy/MDAxNTY0NDkxNDIxOTA3.PDvjdx3QnWA0Bty0KXQAd9IBixEYYBZ7vk3UfijmqlQg.lWtF8Jrtmh-Kv4hra3IXNlY4z3I15DpiPkdh6NiGLC0g.PNG.she2325/%E3%85%81%E3%85%82.png?type=w966"} alt = {alt}></img>
+        <img src = {photo ? photo : "https://postfiles.pstatic.net/MjAxOTA3MzBfMjgy/MDAxNTY0NDkxNDIxOTA3.PDvjdx3QnWA0Bty0KXQAd9IBixEYYBZ7vk3UfijmqlQg.lWtF8Jrtmh-Kv4hra3IXNlY4z3I15DpiPkdh6NiGLC0g.PNG.she2325/%E3%85%81%E3%85%82.png?type=w966"} alt = {alt}></img>
     ); // 프로필 사진이 없으면 검게 나오도록, 후에 사진 id로 대체하여 데이터랑 연결될 예정
 }
 
-function Image({image}){
-    return(
-            <div className = "Image" style = {{ backgroundImage : `url(${image.image})`}} onClick = "">
-            </div>
-    );
+// function Image({image}){
+//     return(
+//             <div className = "Image" style = {{ backgroundImage : `url(${image.image})`}} onClick = "">
+//             </div>
+//     );
+// }
+
+const FollowButton = ({ isMe, isFollow, handleClick}) => {
+    if(!isMe)
+        return(
+            <button className = {isFollow === true ? "Following" : "Follow"} onClick = {handleClick}>
+                {isFollow  === true? "Following" : "Follow"}
+            </button>
+        );
+    else
+        return null;
 }
 
-const FollowButton = ({follow, handleClick}) => {
-    return(
-        <button className = {follow === true ? "Following" : "Follow"} onClick = {handleClick}>
-            {follow  === true? "Following" : "Follow"}
-        </button>
-    );
-}
-
-export default ProfileSmall;
+export default withRouter(ProfileSmall);
