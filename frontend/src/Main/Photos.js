@@ -21,7 +21,7 @@ class Photos extends Component {
       const { count, start } = this.state;
       axios.post(`/api/file/photos`,{count,start})
         .then(response => {
-          this.setState({ images: response.data.photos})
+          this.setState({ images: response.data.photos })
         })
         .catch(err => console.error(err))
     }
