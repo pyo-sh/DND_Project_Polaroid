@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import './Image.css';
 import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
 import Declaration from './Declaration';
 import { withRouter } from 'react-router-dom';
-
+import ReactImageProcess from 'react-image-process';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
@@ -13,30 +13,75 @@ const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw
 "https://postfiles.pstatic.net/MjAxOTA3MzBfMjA2/MDAxNTY0NDkxMzU1NDQ2.vY704r4pmlsPx_ijWiAWMCbNUBw101-pRDzUxh7vxX8g.K9VsOmd0BkLHn73-GrF2nLzh4n1KzZiH2eoPfKHiWOAg.JPEG.she2325/11.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA4MDVfMjcy/MDAxNTY1MDExNDA0NDQ0.6HOnJFq9OjAMYWAZcLNX1a8okDNHPRLm0s0Y6djzHUEg.fOX-DQbLGo_rUjmP9kR2vNp_ZKd6S8UnaWdeqRqnPK4g.JPEG.she2325/jailam-rashad-1297005-unsplash.jpg?type=w966"];
 
-Image.protoType = {
-    id : PropTypes.string.isRequired,
-    type : PropTypes.string.isRequired,
-    uploadDate : PropTypes.string.isRequired,
-    downloade : PropTypes.string.isRequired,
-    kategorie : PropTypes.string.isRequired,
-    like : PropTypes.string.isRequired,
-    isLike : PropTypes.bool,
-    view : PropTypes.string.isRequired,
-    size : PropTypes.string.isRequired
-}
+class Image extends Component {
+    
+    state = {
+        imageWidthHalf: "",
+        imageHeightHalf:"",
+        waterMarkWidth: "",
+        waterMarkHeight: ""
+    }
 
-function Image({id, like, isLike, view, size, match}) {
-    return ( 
-        <div className = "Image">
-            <div className = "Image-Column">
-                <img className = "MainImage" src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
-            </div>    
-            <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
-            <p className = "Relatied-Title Image-Column"> Relatied Image</p>
-            <RelationImage id = {id}/>
+    componentDidMount(){
+        //원본 이미지 너비가 높이보다 크면
+        if(this.img.naturalWidth > this.img.naturalHeight){
+            this.setState({
+                imageWidthHalf: this.img.naturalWidth/3.3,
+                imageHeightHalf: this.img.naturalHeight/4.5
+            }) 
+        } 
+
+        //너비가 높이보다 작으면
+        else {
+            this.setState({
+                imageWidthHalf: this.img.naturalWidth/4,
+                imageHeightHalf: this.img.naturalHeight/3.8
+            }) 
+        }
+
+        //이미지 너비와 높이에 따른 워터마크 크기
+        this.img.naturalWidth < 4000 && this.img.naturalHeight < 4000 ?
+        this.setState({
+            waterMarkWidth: 1700,
+            waterMarkHeight: 1700
+        })  :
+        this.setState({
+            waterMarkWidth: 3000,
+            waterMarkHeight: 3000
+        })
         
+        console.dir(this.img)
+        console.log(this.img.naturalWidth)
+        console.log(this.img.naturalHeight)
+    }
+    img;
+
+    render(){
+        const {id, like, isLike, view, size, match} = this.props
+        const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight} = this.state
+
+        return( 
+        <div className = "Image">
+        <div className = "Image-Column">
+            <ReactImageProcess
+                    mode="waterMark"
+                    waterMarkType="image"
+                    waterMark={require(`../img/logo.svg`)}    //워터마크 이미지 경로
+                    width={waterMarkWidth}      //워터마크 너비
+                    height={waterMarkHeight}    //워터마크 높이
+                    opacity={0.4}
+                    coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
+                >
+                <img className = "MainImage" ref = {(c) => {this.img = c}}  src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
+                    
+            </ReactImageProcess>
+        </div>    
+        <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
+        <p className = "Relatied-Title Image-Column"> Relatied Image</p>
+        <RelationImage id = {id}/>
         </div>
-     );
+        )
+    }
 }
 
 class ImageUseInformation extends Component {
@@ -118,7 +163,7 @@ class ImageUseInformation extends Component {
     }
 
     render(){
-
+        
         let markname = this.state.isMarkClick ? "star" : "star outline"
 
         let likename = this.state.isLikeClick ? "heart" : "heart outline"
@@ -192,15 +237,17 @@ class RelationImage extends Component{
 
 
     render_Image(){
+        
        const relation = this.searchImage().map((image) => {
             return (
                 <div className = "Image-Relation" style = {{ backgroundImage : `url(${im[image.id]})`}}/>
-           );
+            )
        })
        return relation;
     }
 
     render(){
+        
         return( 
             <div className = "Image-Column">
                 {this.render_Image()}
