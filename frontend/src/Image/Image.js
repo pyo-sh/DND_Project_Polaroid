@@ -66,7 +66,7 @@ class Image extends Component {
             <ReactImageProcess
                     mode="waterMark"
                     waterMarkType="image"
-                    waterMark={require(`../img/logo.svg`)}    //워터마크 이미지 경로
+                    waterMark={require(`../img/Logo.svg`)}    //워터마크 이미지 경로
                     width={waterMarkWidth}      //워터마크 너비
                     height={waterMarkHeight}    //워터마크 높이
                     opacity={0.4}

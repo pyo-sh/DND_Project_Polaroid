@@ -19,24 +19,37 @@ const options=[
 ]
 
 class Upload extends React.Component {
-state = {
-      file: null, // 실제 byte 형태의 데이터
-      fileName: "", // 보내고자 하는 파일 이름
-      category: '',
-      tag:'',
-      price:'',
-      distribute:'',
-      CommercialAvailable:'',
-      CopyrightNotice:'',
-      Change:'',
-      visibility:''
-};
+  state = {
+        file: null, // 실제 byte 형태의 데이터
+        fileName: "", // 보내고자 하는 파일 이름
+        category: '',
+        tag:'',
+        price:'',
+        distribute:'',
+        CommercialAvailable:'',
+        CopyrightNotice:'',
+        noChange:'',
+        visibility:''
+  };
 
   handleFormSubmit = e => {
     e.preventDefault();
     this.uploadImage().then(res => {
       console.log(res.data);
     })
+    this.setState({
+      file:null,
+      fileName:'',
+      category: '',
+      tag:'',
+      price:'',
+      distribute:'',
+      CommercialAvailable:'',
+      CopyrightNotice:'',
+      noChange:'',
+      visibility:''
+    })
+    //window.location.reload();
   };
 
   handleFileChange = e => {
@@ -72,7 +85,7 @@ state = {
     formData.append("price", this.state.price);
     formData.append("CommercialAvailable", this.state.CommercialAvailable);
     formData.append("CopyrightNotice", this.state.CopyrightNotice);
-    formData.append("Change", this.state.Change);
+    formData.append("noChange", this.state.noChange);
     formData.append("visibility", this.state.visibility);
     const config = {
       headers: {
@@ -125,7 +138,7 @@ state = {
               <div className="Copyright">
                 <input className="CommercialAvailable" type='checkbox' name='CommercialAvailable' value='NotCommercialAvailable' onChange={this.handleValueChange}/>상업적 이용 불가
                 <input className="CopyrightNotice" type='checkbox' name='CopyrightNotice' value='CopyrightNotice' onChange={this.handleValueChange}/>저작권 표시
-                <input className="Change" type='checkbox' name='Change' value='NotChange' onChange={this.handleValueChange}/>변경금지
+                <input className="Change" type='checkbox' name='noChange' value='NoChange' onChange={this.handleValueChange}/>변경금지
               </div>
               <div className="Visibility">
                 <input className="public" type='radio' name='visibility' value='public' onChange={this.handleValueChange}/>공개
