@@ -123,7 +123,7 @@ state = {
                 <input className="PriceInput" type="text" name="price" value={this.state.price} onChange={this.handleValueChange}></input>
               </div>
               <div className="Copyright">
-                <input className="CommercialAvailable" type='checkbox' name='CommercialAvailable' value='CommercialAvailable' onChange={this.handleValueChange}/>상업적 이용 불가
+                <input className="CommercialAvailable" type='checkbox' name='CommercialAvailable' value='NotCommercialAvailable' onChange={this.handleValueChange}/>상업적 이용 불가
                 <input className="CopyrightNotice" type='checkbox' name='CopyrightNotice' value='CopyrightNotice' onChange={this.handleValueChange}/>저작권 표시
                 <input className="Change" type='checkbox' name='Change' value='NotChange' onChange={this.handleValueChange}/>변경금지
               </div>
