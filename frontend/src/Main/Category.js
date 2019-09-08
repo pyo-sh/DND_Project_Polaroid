@@ -35,16 +35,14 @@ class Category extends Component {
 
     render(){
         return (
-            <div className = "Content">
-                <div className = "Content-Left">
-                    <div className = "Category-Information">
-                        <div className = "Title">{this.upperTitle()}</div>
-                        <p className = "Explanation">{this.explanation()}</p>
-                        <Photos category = {this.props.match.params.category}/>
-                    </div>
+            <div className = "Category">
+                <div className = "Category-Information">
+                    <div className = "Title">{this.upperTitle()}</div>
+                    <p className = "Explanation">{this.explanation()}</p>
                 </div>
-                <div className = "Content-Right">
-                    <SideContent Category = {this.props.match.params.category}/> 
+                <div className = "Content" id = "content-category">
+                    <div className = "Content-Left"><Photos category = {this.props.match.params.category}/></div>
+                    <div className = "Content-Right"> <SideContent category = {this.props.match.params.category}/> </div>
                 </div>
             </div>
         )
