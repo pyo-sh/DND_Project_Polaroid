@@ -2,6 +2,7 @@ import './MyFilm.css';
 import { getAllInfo } from '../MyPage/MyPageFunction';
 import jwt_decode from 'jwt-decode';
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 
 class MyFilm extends Component {
     state = {
@@ -30,7 +31,8 @@ class MyFilm extends Component {
     render(){
         return(
             <div className="MyFilm">
-                보유필름 : {this.state.film}
+                보유필름 :  
+                <Link className = "Amount" to = "/film/charge"> {this.state.film ? this.state.film : "0"} </Link>
             </div>
         );
     }

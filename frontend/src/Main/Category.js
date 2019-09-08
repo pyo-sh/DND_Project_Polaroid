@@ -37,7 +37,7 @@ class Category extends Component {
         return (
             <div className = "Content">
                 <div className = "Content-Left">
-                    <div className = "Category-information">
+                    <div className = "Category-Information">
                         <div className = "Title">{this.upperTitle()}</div>
                         <p className = "Explanation">{this.explanation()}</p>
                         <Photos category = {this.props.match.params.category}/>
