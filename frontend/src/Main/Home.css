@@ -1,8 +1,7 @@
 .Content {
-    top : 55px;
     display : flex;
     justify-content: center;
-    margin-top : 100px;
+    margin-top : 120px;
   }
   
   .Content-Left{

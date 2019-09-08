@@ -16,6 +16,7 @@ import MainPhoto from '../Login/MainPhoto';
 import DeleteUser from '../Login/DeleteUser';
 import ResetPassword from '../Login/ResetPassword';
 import Category from './Category';
+import Search from './Search';
 import FilmCharge from '../Film/FilmCharge';
 import IDPage from '../Profile/IDPage';
 import { MigrationHub } from 'aws-sdk';
@@ -37,6 +38,7 @@ const HomePage = ({match}) => {  // '/' 로 들어왔을 때
             <MenuBar/>
             <Switch>
                 <Route path={match.url+'category/:category'} exact={true} component={Category}/>
+                <Route path={match.url+'search/:search'} exact={true} component={Search}/>
                 <Route path={match.url+'imagepage/:id'} exact={true} component = {Image}/>
                 <Route path={match.url+'upload'} exact={true} component = {Upload} />
                 <Route path={match.url+'mypage'} exact={true} component = {MyPage} />
