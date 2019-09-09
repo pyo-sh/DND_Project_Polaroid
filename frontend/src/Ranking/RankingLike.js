@@ -17,8 +17,6 @@ class RankingLike extends Component{
     
 
     render(){
-        const {title} = this.props
-
         const opacityHalf = {
             opacity: 0.5
         }
@@ -32,19 +30,23 @@ class RankingLike extends Component{
 
         // DB에서 좋아요 많은 것부터 받아와 순서대로 출력
         return(
-            <div className = "Ranking-Title">
-                <i className="heartbtn fas fa-heart"></i>{title}
+            <div className = "Ranking-Box">
+                <div className = "Ranking-Title">
+                    <i className="heartbtn fas fa-heart"/>
+                    인기 작품
+                </div>
                 <div className="Ranking-Box-Like">
                     <div className = "Ranking-Box-Menu">
-                        <div onMouseOver={this.onMouseOver} style={opacityWeekStyle}>
+                        <div onMouseOver={this.onMouseOver} className = "Ranking-Box-Left" style={opacityWeekStyle}>
                             주간
                         </div>
-                        <div onMouseOver={this.onMouseOver} style={opacityMonthStyle}>
+                        <div onMouseOver={this.onMouseOver} className = "Ranking-Box-Right" style={opacityMonthStyle}>
                             월간
                         </div>
                     </div>  
-                    
+                
                     {this.state.week ? <RankingLikeWeek /> : <RankingLikeMonth /> }
+                    
                 </div>     
             </div>
         )
