@@ -41,20 +41,6 @@ Follow.post("/addFollow", (req, res) => {
     });
 });
 
-// 팔로우 너  팔로워 나
-Follow.post("/getFollow", (req, res) => {
-  const followerID = req.body.followerID;
-  follow
-    .findAll({
-      where: {
-        followerID
-      }
-    })
-    .then(follow => {
-      res.json(follow);
-    });
-});
-
 Follow.post("/getOneFollow", (req, res) => {
   const followerID = req.body.followerID;
   const followID = req.body.followID;
@@ -71,9 +57,9 @@ Follow.post("/getOneFollow", (req, res) => {
     });
 });
 
-Follow.post("/getMyFollow", (req, res) => {
+// 팔로우 너  팔로워 나
+Follow.post("/getFollow", (req, res) => {
   const followID = req.body.followID;
-
   follow
     .findAll({
       where: {
@@ -85,15 +71,23 @@ Follow.post("/getMyFollow", (req, res) => {
     });
 });
 
+Follow.post("/getMyFollow", (req, res) => {
+  const followerID = req.body.followerID;
+
+  follow
+    .findAll({
+      where: {
+        followerID
+      }
+    })
+    .then(follow => {
+      res.json(follow);
+    });
+});
+
 Follow.post("/deleteFollow", (req, res) => {
   const followID = req.body.followID;
   const followerID = req.body.followerID;
-  follow.destroy({
-    where: {
-      followID,
-      followerID
-    }
-  });
   User.update(
     {
       // 팔로우 취소하면 내려가야한다.
@@ -115,5 +109,47 @@ Follow.post("/deleteFollow", (req, res) => {
       }
     }
   );
+  follow.destroy({
+    where: {
+      followID,
+      followerID
+    }
+  }).then(_=>{
+      res.send("삭제 성공!");
+  })
+  .catch(err => {
+      console.log(err);
+  })
 });
+
+Follow.post("/getFollowLimit", (req, res) => {
+  const followID = req.body.followID;
+  const start = parseInt(req.body.start);
+  const count = parseInt(req.body.count);
+  follow
+    .findAll({
+      where: {
+        followID
+      },limit:[start, count]
+    })
+    .then(follow => {
+      res.json(follow);
+    });
+});
+
+Follow.post("/getMyFollowLimit", (req, res) => {
+  const followerID = req.body.followerID;
+  const start = parseInt(req.body.start);
+  const count = parseInt(req.body.count);
+  follow
+    .findAll({
+      where: {
+        followerID
+      },limit:[start, count]
+    })
+    .then(follow => {
+      res.json(follow);
+    });
+});
+
 module.exports = Follow;
