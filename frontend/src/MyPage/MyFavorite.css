@@ -1,0 +1,35 @@
+.MyFavorite-Window{
+    width: 90%;
+    background: white;
+    margin: 15px 50px;
+    padding: 5px;
+}
+
+.MyFavorite-Buttons{
+    margin: 15px;
+}
+.MyFavorite-Buttons button{
+    margin: 10px;
+    font-size: 25px;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+.MyFavorite-Selected-Button{
+    color: blue;
+}
+
+.MyFavorite-Files{
+    margin: 30px;
+}
+.MyFavorite-Title{
+    font-size: 20px;
+    margin: 10px;
+    
+}
+.MyFavorite-File{
+    margin: 7px;
+    margin-left: 40px;
+    
+}
