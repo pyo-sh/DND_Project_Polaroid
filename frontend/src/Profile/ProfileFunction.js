@@ -9,7 +9,6 @@ export const addFollow = async (userID, targetID) => {
   return await axios
   .post('api/Follow/addFollow', {info})
   .then(res => {
-    console.log("팔로잉 추가하는 것");
     return res;
   })
   .catch(err => {
@@ -24,7 +23,6 @@ export const deleteFollow = async (userID, targetID) => {
     followerID: targetID
   })
   .then(res => {
-    console.log("팔로잉 취소하는 것");
     return res;
   })
   .catch(err => {
@@ -35,30 +33,28 @@ export const deleteFollow = async (userID, targetID) => {
 export const getFollowingInfo = async userID => {
   return await axios
     .post(`/api/Follow/getFollow`, {
-        followerID: userID
+      followID: userID
     })
     .then(res => {
-        console.log("팔로잉의 res는");
-        console.log(res);
-        return res;
+      return res;
     })
     .catch(err => {
-        console.log(err);
+      console.log(err);
     })
 }
 
 export const getFollowerInfo = async userID => {
   return await axios
   .post(`/api/Follow/getMyFollow`, {
-    followID: userID
+    followerID: userID
   })
   .then(res => {
-      console.log("팔로워의 res는")
-      console.log(res);
-      return res.data.follower;
+    console.log("팔로워의 res는")
+    console.log(res);
+    return res;
   })
   .catch(err => {
-      console.log(err);
+    console.log(err);
   })
 }
 
@@ -84,4 +80,34 @@ export const getMyID = () => {
   const decode = jwt_decode(token);
   const ID = decode.ID;
   return ID;
+}
+
+// 얼마만큼의 데이터를 받을 것인지.
+export const getFollowingSome = async (userID, start, count) => {
+  return await axios
+    .post(`/api/Follow/getFollowLimit`, {
+      followID: userID,
+      start: start,
+      count: count
+    })
+    .then(res => {
+      return res;
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+export const getFollowerSome = async (userID, start, count) => {
+  return await axios
+  .post(`/api/Follow/getMyFollowLimit`, {
+    followerID: userID,
+    start : start,
+    count: count
+  })
+  .then(res => {
+    return res;
+  })
+  .catch(err => {
+      console.log(err);
+  })
 }
