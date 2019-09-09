@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';
 
 const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
-  maxWidth: 1300
+  maxWidth: 1200
 });
 
 class Photos extends Component {
@@ -47,7 +47,7 @@ class Photos extends Component {
           
             <div className = "Photos">   
                   <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
-                    <Grid className = "Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 430)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest}>
+                    <Grid className = "Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 395)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest}>
                       {this.state.images.map((image, index) => (
                         <li key = {index} >
                             <Link to = {`/imagepage/${image}`}>
