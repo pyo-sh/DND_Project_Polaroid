@@ -1,24 +1,23 @@
 .Category{
-    margin-top: 50px;
-    margin-left:20px; 
-    margin-right: 20px; 
-    justify-content : space-between;
+    width: 100%;
     display: flex;
-    position: relative;
-    top : 50px;
+    flex-direction: column;
+    align-content: center;
+    margin-top : 200px;
 }
 
-.Category-information{
-    margin: 20px;
-    top : 50px;
+.Category-Information{
+    width: 1600px;
+    top : 100px;
+    margin:auto;
 }
 
-.Category-information .Title{
+.Category-Information .Title{
     font-size: 3rem;
     font-weight: 800;
 }
 
-.Category-information .Explanation{
+.Category-Information .Explanation{
     margin-top : 20px;
     margin-left : 10px;
     font-size: 1.2rem;
@@ -26,3 +25,6 @@
     color: rgb(100,100,100);
 }
 
+#content-category{
+    margin-top : 50px;
+}

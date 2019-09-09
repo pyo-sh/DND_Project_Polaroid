@@ -5,7 +5,10 @@ import {Icon, Dropdown} from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
 
 class MenuBar extends Component {
-    state = {visible : false}
+    state = {
+        visible : false,
+        search : ''
+    }
 
     logOut = (e) => {
         e.preventDefault();
@@ -19,6 +22,15 @@ class MenuBar extends Component {
         this.setState({visible : !visible});
     }
 
+    onChange = (e) => {
+        this.setState({search : e.target.value});
+    }
+
+    onSubmit = (e) => {
+        e.preventDefault();
+        this.props.history.push(`/search/${this.state.search}`);
+    }
+
     render() {
         return (
             <>
@@ -28,16 +40,16 @@ class MenuBar extends Component {
                             <img className = "Logo" src = {require("../img/Logo.svg")} alt = ""></img>
                             <Link to="/"><span className="Menu-Title" onClick={this.handleState}>Polaroid</span></Link>
                         </div>
-                        <form className ="Search-Form">
+                        <form className ="Search-Form" onSubmit={this.onSubmit} method = "post">
                             <Icon className = "Icon-Search" name="search" size="large"/>
-                            <input className = "Menu-Input"/>
+                            <input className = "Search-Input" type = "text" value = {this.state.search} onChange={this.onChange}/>
                             <Icon className = "Icon-Fliter" name="sliders horizontal"size="large" style={{marginLeft:"10px"}}/>
                         </form>
                     </div>
 
                     <div className = "Menu-Item">
-                    {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? "" : <MyFilm/> } 
-                        <Dropdown text="Category" pointing simple item className="link item">
+                    
+                        <Dropdown text="Category" pointing simple item className="link item Menu-Category">
                             <Dropdown.Menu> 
                                 <Dropdown.Item onClick = {this.handleToggle}> Best Photos </Dropdown.Item>
                                     <div className = {"Sub-Menu" + (this.state.visible ? " Visible" : "")}>
@@ -108,6 +120,7 @@ class MenuBar extends Component {
                             </Dropdown.Menu>
                         </Dropdown>
                         {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? <Link to="/user/login"> <button className = "Login-Btn" onClick={this.onClick}>Login</button></Link> : <button className = "Login-Btn" onClick={this.logOut}>Logout</button>}
+                        {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? "" : <MyFilm/> } 
                         {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? <Link to="/user/signup"><button className = "Sign-Btn" onClick={this.onClick}>Sign Up</button></Link> : <Link to="/mypage"><button className = "Sign-Btn" onClick={this.onClick}>My Page</button></Link>} 
                         {((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) ? "" : <Link to="/upload"><button className = "Sign-Btn" id = "Upload">Upload</button></Link> } 
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { chargeFilm } from "./FilmFunction";
 import jwt_decode from "jwt-decode";
 import "./FilmCharge.css";
-import { withRouter } from 'react-router-dom'; 
+import { withRouter } from 'react-router-dom';
 
 class FilmCharge extends Component {
   // 충전할 때 받을 것들 더 생각. css 꾸미기.
