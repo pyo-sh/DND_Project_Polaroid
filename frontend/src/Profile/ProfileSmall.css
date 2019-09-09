@@ -1,7 +1,7 @@
 .ProfileSmall{
     position: relative;
     background : white;
-    width: 500px;
+    width: 45%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -86,7 +86,7 @@
     margin-top : 15px;
 }
 
-.ProfileSmall-Column .Image{
+.UserImage{
     width: 32%;
     padding-bottom: 25%; 
     background-size: cover;

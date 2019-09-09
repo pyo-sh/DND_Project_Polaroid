@@ -16,8 +16,13 @@ class ProfileSmall extends Component{
             name: "",
             about: "",
             grade: "일반"
-        }
-    }
+        },
+        images : [
+            {image : "photo1.jpg"}, 
+            {image : "photo2.jpg"}, 
+            {image : "photo3.jpg"} //고쳐야함
+        ]
+    };
 
     componentWillMount(){
         const { id, isMe, isFollow } = this.props;
@@ -90,9 +95,9 @@ class ProfileSmall extends Component{
                         </div>
                     }
                 </div>
-                {/* <div className = "ProfileSmall-Column">
-                    {images.map((image, index) => <Image image = {image} key = {index}/>)}
-                </div> */}
+                 <div className = "ProfileSmall-Column">
+                    {this.state.images.map((image, index) => <UserImage image = {image} key = {index}/>)}
+                </div> 
             </div>
         );
     }
@@ -105,12 +110,11 @@ function ProfileImage({photo, alt}){
     ); // 프로필 사진이 없으면 검게 나오도록, 후에 사진 id로 대체하여 데이터랑 연결될 예정
 }
 
-// function Image({image}){
-//     return(
-//             <div className = "Image" style = {{ backgroundImage : `url(${image.image})`}} onClick = "">
-//             </div>
-//     );
-// }
+function UserImage({image}){
+     return(
+        <div className = "UserImage" style = {{ backgroundImage : `url(${require(`../img/photo/photo5.jpg`)})`}} />
+     );
+ }
 
 const FollowButton = ({ isMe, isFollow, handleClick}) => {
     if(!isMe)
