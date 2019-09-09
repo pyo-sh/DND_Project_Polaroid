@@ -19,35 +19,41 @@ class Image extends Component {
         imageWidthHalf: "",
         imageHeightHalf:"",
         waterMarkWidth: "",
-        waterMarkHeight: ""
+        waterMarkHeight: "",
+        imageScreenWidth: 0,
+        imageScreenHeight: 0
     }
 
     componentDidMount(){
         //원본 이미지 너비가 높이보다 크면
         if(this.img.naturalWidth > this.img.naturalHeight){
             this.setState({
-                imageWidthHalf: this.img.naturalWidth/3.3,
-                imageHeightHalf: this.img.naturalHeight/4.5
+                imageWidthHalf: this.img.naturalWidth/3.1,
+                imageHeightHalf: this.img.naturalHeight/4.5,
+                imageScreenWidth: 6000,
+                imageScreenHeight: 4000
             }) 
         } 
 
         //너비가 높이보다 작으면
         else {
             this.setState({
-                imageWidthHalf: this.img.naturalWidth/4,
-                imageHeightHalf: this.img.naturalHeight/3.8
+                imageWidthHalf: this.img.naturalWidth/3,
+                imageHeightHalf: this.img.naturalHeight/3,
+                imageScreenWidth: 1500,
+                imageScreenHeight: 3000
             }) 
         }
 
         //이미지 너비와 높이에 따른 워터마크 크기
         this.img.naturalWidth < 4000 && this.img.naturalHeight < 4000 ?
         this.setState({
-            waterMarkWidth: 1700,
-            waterMarkHeight: 1700
+            waterMarkWidth: 900,
+            waterMarkHeight: 900
         })  :
         this.setState({
-            waterMarkWidth: 3000,
-            waterMarkHeight: 3000
+            waterMarkWidth: 1700,
+            waterMarkHeight: 1700
         })
         
         console.dir(this.img)
@@ -58,7 +64,7 @@ class Image extends Component {
 
     render(){
         const {id, like, isLike, view, size, match} = this.props
-        const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight} = this.state
+        const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight, imageScreenWidth, imageScreenHeight} = this.state
 
         return( 
         <div className ="Imagei">
@@ -72,7 +78,7 @@ class Image extends Component {
                     opacity={0.4}
                     coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
                 >
-                <img className = "MainImage" ref = {(c) => {this.img = c}}  src={require(`../img/photo/${match.params.id}`)} alt = {id}/>
+                <img className = "MainImage" ref = {(c) => {this.img = c}} src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
                     
             </ReactImageProcess>
         </div>    
