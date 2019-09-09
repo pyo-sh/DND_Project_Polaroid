@@ -1,6 +1,7 @@
-.ProfileSmall-Small{
+.ProfileSmall{
+    position: relative;
     background : white;
-    width: 90%;
+    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -85,11 +86,7 @@
     margin-top : 15px;
 }
 
-<<<<<<< HEAD
 .ProfileSmall-Column .Image{
-=======
-.ProfileImage{
->>>>>>> f7388b6333eb8def49adc42e709be521fa06eabd
     width: 32%;
     padding-bottom: 25%; 
     background-size: cover;
@@ -102,11 +99,7 @@
 }
 
 
-@media screen and (max-width : 1400px){
-    .Profile-Small{
-        flex : 33.33%;
-    }
-}
+
 @media screen and (max-width : 800px){
     .Profile-Small{
         flex : 50%;

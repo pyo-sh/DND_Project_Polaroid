@@ -28,7 +28,11 @@ class MenuBar extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.history.push(`/search/${this.state.search}`);
+
+        if(this.state.search === '')
+            alert("검색어를 입력하세요.");
+        else
+            this.props.history.push(`/search/${this.state.search}`);
     }
 
     render() {
