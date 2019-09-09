@@ -92,7 +92,6 @@ passport.use(
         },
         (username, password, done) => {
             try{
-                console.log('여기1');
                 User.findOne({
                     where: {
                         ID : username,

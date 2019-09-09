@@ -200,71 +200,71 @@ users.post('/reset', (req, res) => { // 패스워드 리셋
     })
 });
 
-const BCRYPT_SALT_ROUNDS = 12;
-users.put('/updatepassword', (req, res, next) => { // 패스워드 바꿀 때
-    passport.authenticate('jwt', { session: false }, (err, user, info) => {
-        if (err) {
-            console.error(err);
-        }
-        if (info !== undefined){
-            console.error(info.message);
-            res.status(403).send(info.message);
-        }else {
-            User.findOne({
-                where: {
-                    ID : req.body.ID,
-                },
-            }).then((userInfo) => {
-                if(userInfo != null) {
-                    console.log('user found in db');
-                    bcrypt
-                        .hash(req.body.PASSWORD, BCRYPT_SALT_ROUNDS)
-                        .then((hashedPassword) => {
-                            userInfo.update({
-                                PASSWORD: hashedPassword,
-                            });
-                        })
-                        .then(() => {
-                            console.log('password updated');
-                            res.status(200).send({ auth: true, message: 'password updated'});
-                        });
-                } else {
-                    console.error('no user exists in db to update');
-                    res.status(404).json('no user exists in db to update');
-                }
-            });
-        }
-    })(req, res, next);
-});
+// const BCRYPT_SALT_ROUNDS = 12;
+// users.put('/updatepassword', (req, res, next) => { // 패스워드 바꿀 때
+//     passport.authenticate('jwt', { session: false }, (err, user, info) => {
+//         if (err) {
+//             console.error(err);
+//         }
+//         if (info !== undefined){
+//             console.error(info.message);
+//             res.status(403).send(info.message);
+//         }else {
+//             User.findOne({
+//                 where: {
+//                     ID : req.body.ID,
+//                 },
+//             }).then((userInfo) => {
+//                 if(userInfo != null) {
+//                     console.log('user found in db');
+//                     bcrypt
+//                         .hash(req.body.PASSWORD, BCRYPT_SALT_ROUNDS)
+//                         .then((hashedPassword) => {
+//                             userInfo.update({
+//                                 PASSWORD: hashedPassword,
+//                             });
+//                         })
+//                         .then(() => {
+//                             console.log('password updated');
+//                             res.status(200).send({ auth: true, message: 'password updated'});
+//                         });
+//                 } else {
+//                     console.error('no user exists in db to update');
+//                     res.status(404).json('no user exists in db to update');
+//                 }
+//             });
+//         }
+//     })(req, res, next);
+// });
 
-users.put('/updateuser', (req, res, next) => {
-    passport.authenticate('jwt', { session: false }, (err, user, info) =>{
-        if (err) {
-            console.error(err);
-        }
-        if (info !== undefined) {
-            console.error(info.message);
-            res.status(403).send(info.message);
-        } else{
-            User.findOne({
-                where : {
-                    ID : req.body.ID,
-                },
-            }).then((userInfo) => {
-                console.log('user found in db');
-                userInfo
-                    .update({
-                        nickname :  req.body.nickname,
-                        email : req.body.email
-                    })
-                    .then(() => {
-                        console.log('user updated');
-                        res.status(200).send({auth : true, message: 'user update'});
-                    })
-            });
-        }
-    })(req, res, next);
-});
+// users.put('/updateuser', (req, res, next) => {
+//     passport.authenticate('jwt', { session: false }, (err, user, info) =>{
+//         if (err) {
+//             console.error(err);
+//         }
+//         if (info !== undefined) {
+//             console.error(info.message);
+//             res.status(403).send(info.message);
+//         } else{
+//             User.findOne({
+//                 where : {
+//                     ID : req.body.ID,
+//                 },
+//             }).then((userInfo) => {
+//                 console.log('user found in db');
+//                 userInfo
+//                     .update({
+//                         nickname :  req.body.nickname,
+//                         email : req.body.email
+//                     })
+//                     .then(() => {
+//                         console.log('user updated');
+//                         res.status(200).send({auth : true, message: 'user update'});
+//                     })
+//             });
+//         }
+//     })(req, res, next);
+// });
 
 users.delete('/delete/:userID', (req, res) => {
             console.log(req.params.userID);

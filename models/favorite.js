@@ -1,6 +1,5 @@
 const Sequelize = require('sequelize');
 const db = require('../database/db');
-const favoriteFolder = require('./favoriteFolder');
 
 const favorite = db.sequelize.define(
     'favorite',
