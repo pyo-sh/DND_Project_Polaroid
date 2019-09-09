@@ -24,16 +24,26 @@
     background: rgb(131, 131, 131, 50%);
 }
 
-.IDPage-FollowBtn{
+.IDPage-Btn{
     align-self: flex-start;
     margin-top: 110px;
 
-    background: white;
+}
+.IDPage-Btn button{
     width: 80px;
     height: 30px;
+
     border : 1px solid rgb(180, 180, 180);
     border-radius: 5px;
+
     font-size: 15px;
     font-weight: 400;
     text-align: center;
+}
+.IDPage-Follow{
+    background: white;
+}
+.IDPage-Following{
+    color: white;
+    background: rgb(86, 149, 243);
 }

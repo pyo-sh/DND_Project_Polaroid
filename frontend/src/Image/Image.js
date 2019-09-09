@@ -68,7 +68,7 @@ class Image extends Component {
         const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight, imageScreenWidth, imageScreenHeight} = this.state
 
         return( 
-        <div className = "Image">
+        <div className ="Imagei">
         <div className = "Image-Column">
             <ReactImageProcess
                     mode="waterMark"

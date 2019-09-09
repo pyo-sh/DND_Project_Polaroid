@@ -60,7 +60,7 @@
     color:rgb(150,150,150);
 }
 
-.Menu-Input {
+.Search-Form .Search-Input {
     background: none;
     border: none;
     outline: none;
@@ -69,16 +69,23 @@
 }
 
 .Menu-Item{
+    display: flex;
     margin-right: 10px;
     font-size : 13px;
 }
 
+.Menu-Category{
+    margin-top : 3px;
+    vertical-align: middle;
+}
+
 .Login-Btn {
+    margin-top : 2px;
     font-size : 13px;
-    margin-left: 10px;
+    margin-left: 13px;
+    vertical-align: middle;
     background: none;
     border: none;
-    font-weight: 400;
     cursor: pointer;
     outline:none;
 }
@@ -86,8 +93,7 @@
 .Sign-Btn {
     height: 25px;
     width: 75px;
-    margin-left: 10px;
-    vertical-align: middle;
+    margin-left: 13px;
     background : white;
     border: 1px solid rgb(180,180,180);
     border-radius: 5px;
@@ -130,7 +136,7 @@
     background: rgb(130,130,130);
 }
 
-.Visible{
+.Menu-Item .Visible{
     opacity: 1;
     height: 75px;
     transition: 0.3s;
@@ -149,7 +155,7 @@
     .Search-Form{
         border-radius: 50%;
     }
-    .Search-Form .Menu-Input{
+    .Search-Form .Search-Input{
         display: none;
     }
     .Search-Form .Icon-Search{
