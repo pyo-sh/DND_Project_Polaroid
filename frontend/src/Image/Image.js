@@ -22,6 +22,7 @@ class Image extends Component {
         waterMarkHeight: "",
         imageScreenWidth: 0,
         imageScreenHeight: 0
+        
     }
 
     componentDidMount(){
