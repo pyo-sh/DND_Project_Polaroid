@@ -1,0 +1,12 @@
+.FollowPage{
+    width: 100%;
+}
+.FollowPage li{
+    list-style:none;
+}
+
+.FollowPage-Top{
+    margin: 15px;
+    font-size: 17px;
+    font-style: bold;
+}

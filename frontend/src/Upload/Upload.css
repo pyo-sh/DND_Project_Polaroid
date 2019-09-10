@@ -1,4 +1,4 @@
-.App{
+.Upload{
   height: 1300px;
   position: relative;
 }
@@ -34,7 +34,7 @@
   overflow: hidden;
 }
 
-img{
+.Upload-img{
   width: 100%;
 }
 
