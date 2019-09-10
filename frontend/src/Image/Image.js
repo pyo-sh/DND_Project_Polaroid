@@ -39,7 +39,7 @@ class Image extends Component {
             //너비가 높이보다 작으면
             else {
                 this.setState({
-                    imageWidthHalf: this.img.naturalWidth/3.5,
+                    imageWidthHalf: this.img.naturalWidth/3.1,
                     imageHeightHalf: this.img.naturalHeight/2.8,
                     imageScreenWidth: 1500,
                     imageScreenHeight: 3000
