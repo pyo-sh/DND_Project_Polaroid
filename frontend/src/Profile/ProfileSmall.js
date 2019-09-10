@@ -72,11 +72,16 @@ class ProfileSmall extends Component{
         }
     }
 
+    movePage = (e) => {
+        e.preventDefault();
+        this.props.history.push(`/${this.state.id}`);
+    }
+
     render(){
         const { id, isMe, isFollow } = this.state;
         const { photo, name } = this.state.profile;
         return (
-            <div className = "ProfileSmall">
+            <div className = "ProfileSmall" onClick = {this.movePage}>
                 <div className = "ProfileSmall-Column">
                     <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/Profile/${id}`)}>
                         <ProfileImage photo = {photo} alt = {name}/>
@@ -84,8 +89,7 @@ class ProfileSmall extends Component{
                     <div className = "ProfileSmall-Info">
                         <span className = "Nickname"> {name} </span>
                         <span className = "Id"> {"@" + id} </span>
-                    </div>
-                    { isFollow != null &&
+                        { isFollow != null &&
                         <div className = "ProfileSmall-Follow-Btn">
                             <FollowButton
                                 isMe = {isMe}
@@ -94,6 +98,8 @@ class ProfileSmall extends Component{
                                 />
                         </div>
                     }
+                    </div>
+                   
                 </div>
                  <div className = "ProfileSmall-Column">
                     {this.state.images.map((image, index) => <UserImage image = {image} key = {index}/>)}

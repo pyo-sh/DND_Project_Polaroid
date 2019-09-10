@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Photos from './Photos';
 import SideContent from './SideContent';
 import Users from '../Profile/ProfileSmall';
-import S from './S.js';
+import SearchUser from './SearchUser.js';
 import './ContentTop.css';
 
 class Search extends Component {
@@ -27,7 +27,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className = "Content" id = "content-top-search">
-                    <div className = "Content-Left">{this.state.searchList === "photos" ? <Photos/> : <S/>}</div>
+                    <div className = "Content-Left">{this.state.searchList === "photos" ? <Photos/> : <SearchUser/>}</div>
                     <div className = "Content-Right"> <SideContent/> </div>
                 </div>
             </div>
