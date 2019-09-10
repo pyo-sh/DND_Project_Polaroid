@@ -29,7 +29,7 @@ class Image extends Component {
             //원본 이미지 너비가 높이보다 크면
             if(this.img.naturalWidth > this.img.naturalHeight){
                 this.setState({
-                    imageWidthHalf: this.img.naturalWidth/3,
+                    imageWidthHalf: this.img.naturalWidth/2.8,
                     imageHeightHalf: this.img.naturalHeight/4.6,
                     imageScreenWidth: 6000,
                     imageScreenHeight: 4000
@@ -39,8 +39,8 @@ class Image extends Component {
             //너비가 높이보다 작으면
             else {
                 this.setState({
-                    imageWidthHalf: this.img.naturalWidth/3.6,
-                    imageHeightHalf: this.img.naturalHeight/3,
+                    imageWidthHalf: this.img.naturalWidth/3.5,
+                    imageHeightHalf: this.img.naturalHeight/2.8,
                     imageScreenWidth: 1500,
                     imageScreenHeight: 3000
                 }) 
