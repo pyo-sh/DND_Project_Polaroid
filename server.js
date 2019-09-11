@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const Users = require('./routes/Users');
 const MyPage = require('./routes/MyPage');
-const Raking = require('./routes/Raking');
+const Ranking = require('./routes/Ranking');
 const Film = require('./routes/Film');
 const Favorite = require('./routes/Favorite');
 const Follow = require('./routes/Follow');
@@ -43,7 +43,7 @@ app.get('/api', (req, res) => {
 
 app.use('/api/user', Users);
 app.use('/api/mypage', MyPage);
-app.use('/api/ranking', Raking);
+app.use('/api/ranking', Ranking);
 app.use('/api/film', Film);
 app.use('/api/favorite', Favorite);
 app.use('/api/follow', Follow);
