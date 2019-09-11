@@ -6,7 +6,6 @@ import Mark from './Mark';
 import Declaration from './Declaration';
 import { withRouter } from 'react-router-dom';
 import ReactImageProcess from 'react-image-process';
-import { Link } from 'react-router-dom';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
@@ -24,46 +23,44 @@ class Image extends Component {
         imageScreenWidth: 0,
         imageScreenHeight: 0
     }
-
     componentDidMount(){
-            //원본 이미지 너비가 높이보다 크면
-            if(this.img.naturalWidth > this.img.naturalHeight){
-                this.setState({
-                    imageWidthHalf: this.img.naturalWidth/2.8,
-                    imageHeightHalf: this.img.naturalHeight/4.6,
-                    imageScreenWidth: 6000,
-                    imageScreenHeight: 4000
-                }) 
-            } 
-    
-            //너비가 높이보다 작으면
-            else {
-                this.setState({
-                    imageWidthHalf: this.img.naturalWidth/3.1,
-                    imageHeightHalf: this.img.naturalHeight/2.8,
-                    imageScreenWidth: 1500,
-                    imageScreenHeight: 3000
-                }) 
-            }
-    
-            //이미지 너비와 높이에 따른 워터마크 크기
-            this.img.naturalWidth < 4000 && this.img.naturalHeight < 4000 ?
+        //원본 이미지 너비가 높이보다 크면
+        if(this.img.naturalWidth > this.img.naturalHeight){
             this.setState({
-                waterMarkWidth: 900,
-                waterMarkHeight: 900
-            })  :
+                imageWidthHalf: this.img.naturalWidth/3.1,
+                imageHeightHalf: this.img.naturalHeight/4.5,
+                imageScreenWidth: 6000,
+                imageScreenHeight: 4000
+            }) 
+        } 
+        //너비가 높이보다 작으면
+        else {
             this.setState({
-                waterMarkWidth: 1800,
-                waterMarkHeight: 1800
-            })
-                
-            console.dir(this.img)
-            console.log(this.img.naturalWidth)
-            console.log(this.img.naturalHeight)
-    }   
-    
+                imageWidthHalf: this.img.naturalWidth/3,
+                imageHeightHalf: this.img.naturalHeight/3,
+                imageScreenWidth: 1500,
+                imageScreenHeight: 3000
+            }) 
+        }
+
+        //이미지 너비와 높이에 따른 워터마크 크기
+        this.img.naturalWidth < 4000 && this.img.naturalHeight < 4000 ?
+        this.setState({
+            waterMarkWidth: 900,
+            waterMarkHeight: 900
+        })  :
+        this.setState({
+            waterMarkWidth: 1700,
+            waterMarkHeight: 1700
+        })
+    }
     img;
 
+    onload = (e) => {
+        if(e.target.src.includes('base64')) {
+            e.target.className = "MainImage";
+        }
+    }
     render(){
         const {id, like, isLike, view, size, match} = this.props
         const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight, imageScreenWidth, imageScreenHeight} = this.state
@@ -71,12 +68,7 @@ class Image extends Component {
         return( 
         <div className ="Imagei">
         <div className = "Image-Column">
-           
             <ReactImageProcess
-                mode="compress"
-                quality={0.0001}
-            >
-                <ReactImageProcess
                     mode="waterMark"
                     waterMarkType="image"
                     waterMark={require(`../img/Logo.svg`)}    //워터마크 이미지 경로
@@ -84,15 +76,12 @@ class Image extends Component {
                     height={waterMarkHeight}    //워터마크 높이
                     opacity={0.4}
                     coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
-                >   
-                   <img className = "MainImage" ref = {(c) => {this.img = c}} src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
-                </ReactImageProcess> 
-                
+                >
+                <img className = "temp" ref = {(c) => {this.img = c}}
+                onLoad={this.onload}
+                src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
+                    
             </ReactImageProcess>
-            
-
-            
-            
         </div>    
         <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
         <p className = "Relatied-Title Image-Column"> Relatied Image</p>
@@ -172,10 +161,8 @@ class ImageUseInformation extends Component {
     }
 
     onClickMark = () => {
-       
         this.state.isMarkPopUpOpen ? this.closeMarkPopUp() : this.openMarkPopUp()
         this.state.isMarkClick ? this.reclickMark() : this.clickMark()
-        
     }
 
     onClickLike = () => {
@@ -197,15 +184,8 @@ class ImageUseInformation extends Component {
                     <Declaration isOpen={this.state.isDecPopUpOpen} close={this.closeDecPopUp} />
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    {
-                        ((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) 
-                        
-                        ? <Link to = "/user/login" alt="test"><Icon className = "Mark" name = {markname} onClick = {this.onClickMark}/></Link>
-                        : 
-                        <Icon className = "Mark" name = {markname} onClick = {this.onClickMark}/> 
-                    }
+                    <Icon className = "Mark" name = {markname} onClick = {this.onClickMark}/> 
                     <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} />
-                    
                 </div>
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "Like" name = {likename} onClick={this.onClickLike}/>
@@ -282,7 +262,6 @@ class RelationImage extends Component{
         );
     }
 }
-
 
 
 export default withRouter(Image);
