@@ -4,6 +4,9 @@
     align-content: flex-start;
     margin-top : 10px;
 }
+.temp{
+    display: none;
+}
 
 .MainImage{
     width: 100%;

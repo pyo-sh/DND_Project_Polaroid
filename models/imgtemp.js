@@ -7,8 +7,8 @@ const imgtemp = db.sequelize.define(
     {
         imgID: {
             type: Sequelize.INTEGER,
-            autoIncrement : true;
             primaryKey: true,
+            autoIncrement : true,
         },
         imgName : {
             type: Sequelize.STRING,
@@ -20,4 +20,5 @@ const imgtemp = db.sequelize.define(
 )
 
 imgtemp.hasMany(imgLiked, {foreignKey : 'imgID', sourceKey: 'imgID'});
+
 module.exports = imgtemp;

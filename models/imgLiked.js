@@ -8,11 +8,11 @@ const imgLiked = db.sequelize.define(
             type: Sequelize.INTEGER,
             primaryKey: true,
         },
-        likeID : {
+        likeID: {
             type: Sequelize.STRING,
             primaryKey: true,
         },
-        likeDate : {
+        likeDate: {
             type : Sequelize.DATE,
         }
     },
@@ -20,4 +20,5 @@ const imgLiked = db.sequelize.define(
         timestamps: false
     }
 )
+
 module.exports = imgLiked;

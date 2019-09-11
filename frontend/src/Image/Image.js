@@ -23,7 +23,6 @@ class Image extends Component {
         imageScreenWidth: 0,
         imageScreenHeight: 0
     }
-
     componentDidMount(){
         //원본 이미지 너비가 높이보다 크면
         if(this.img.naturalWidth > this.img.naturalHeight){
@@ -34,7 +33,6 @@ class Image extends Component {
                 imageScreenHeight: 4000
             }) 
         } 
-
         //너비가 높이보다 작으면
         else {
             this.setState({
@@ -55,13 +53,14 @@ class Image extends Component {
             waterMarkWidth: 1700,
             waterMarkHeight: 1700
         })
-        
-        console.dir(this.img)
-        console.log(this.img.naturalWidth)
-        console.log(this.img.naturalHeight)
     }
     img;
 
+    onload = (e) => {
+        if(e.target.src.includes('base64')) {
+            e.target.className = "MainImage";
+        }
+    }
     render(){
         const {id, like, isLike, view, size, match} = this.props
         const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight, imageScreenWidth, imageScreenHeight} = this.state
@@ -78,7 +77,9 @@ class Image extends Component {
                     opacity={0.4}
                     coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
                 >
-                <img className = "MainImage" ref = {(c) => {this.img = c}} src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
+                <img className = "temp" ref = {(c) => {this.img = c}}
+                onLoad={this.onload}
+                src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
                     
             </ReactImageProcess>
         </div>    
