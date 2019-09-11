@@ -46,12 +46,26 @@ Favorite.post('/addPhotoInFolder', (req, res) => {
 Favorite.post('/getAll', (req, res) => {
     const ID = req.body.ID;  // 아이디를 받아서 그 사람의 모든 폴더네임과 이미지네임을 출력해준다.
     favoriteFolder.findAll({attributes:['favFolderName'],
-    include: [{model: favorite, attributes : ['favName']}], where : {
+    include: [{model: favorite, attributes : ['favName']}], 
+    where : {
         ID
     }})
     .then(folder => {
         res.json(folder);
     })
 })
+
+Favorite.post('/getAll2', (req, res) => {
+    const ID = req.body.ID;  // 아이디를 받아서 그 사람의 모든 폴더네임과 이미지네임을 출력해준다.
+    favorite.findAll({
+    include: [{model: favoriteFolder}], 
+    where : {
+        ID
+    }})
+    .then(folder => {
+        res.json(folder);
+    })
+})
+
 
 module.exports = Favorite;

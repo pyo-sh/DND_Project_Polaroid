@@ -1,6 +1,6 @@
-const Squelize = require('sequelize');
+const Sequelize = require('sequelize');
 const db = {}
-const sequelize = new Squelize('poloapp',
+const sequelize = new Sequelize('poloapp',
     'poloapp',
     'mypassword',
 {
@@ -19,6 +19,6 @@ const sequelize = new Squelize('poloapp',
 )
 
 db.sequelize = sequelize;
-db.Squelize = Squelize;
+db.Sequelize = Sequelize;
 
 module.exports = db;

@@ -9,10 +9,11 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const Users = require('./routes/Users');
 const MyPage = require('./routes/MyPage');
-const Raking = require('./routes/Raking');
+const Ranking = require('./routes/Ranking');
 const Film = require('./routes/Film');
 const Favorite = require('./routes/Favorite');
 const Follow = require('./routes/Follow');
+const LikeRanking = require('./routes/LikeRanking');
 
 const AWS = require("aws-sdk");
 AWS.config.loadFromPath(__dirname+ "/config/awsconfig.json");
@@ -42,11 +43,11 @@ app.get('/api', (req, res) => {
 
 app.use('/api/user', Users);
 app.use('/api/mypage', MyPage);
-app.use('/api/raking', Raking);
+app.use('/api/ranking', Ranking);
 app.use('/api/film', Film);
 app.use('/api/favorite', Favorite);
 app.use('/api/follow', Follow);
-
+app.use('/api/likeranking', LikeRanking);
 app.post('/api/file/photos', (req, res) => {
   let photos = [];
   let start = req.body.start;
