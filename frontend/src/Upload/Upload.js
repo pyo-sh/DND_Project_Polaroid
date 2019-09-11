@@ -98,11 +98,12 @@ class Upload extends React.Component {
   render(){
     let {fileName} = this.state;
     let $fileNameUrl = null;
-<<<<<<< HEAD
     if(fileName) {$fileNameUrl = (<img src={fileName}/>)}
-=======
+
     if(fileUrl) {$fileNameUrl = (<img className="Upload-img" src={fileUrl}/>)}
->>>>>>> 5f68bf669760de07e90b800983d3dbba2a29955f
+
+    if(fileUrl) {$fileNameUrl = (<img className="Upload-img" src={fileUrl}/>)}
+
     else{$fileNameUrl = (<div className = "previewText">Image Preview</div>)}
 
     return (
