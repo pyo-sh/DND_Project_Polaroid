@@ -14,16 +14,15 @@ class LoginMain extends Component {
         return (
             <div>
                  <div className ="Main">
-                     <div className="Main-Left">
-                        <MainPhoto /> 
+                     <div className="Main-Lef" style = {{backgroundImage : "url(https://mfiles.alphacoders.com/686/686186.jpg)"}} alt="">
                     </div>
                     <div className="Main-Right">
-                    <Route path="/user/login" component={Login} /> 
-                    <Route path="/user/signup" component={SignUp} /> 
-                    <Route path="/user/findiD" component={FindID} />  
-                    <Route path="/user/findpassword" component={FindPassword} />
-                    <Route path="/user/profile" component={Profile} />
-                    <Route path="/user/facebook" component={Facebook}/>
+                        <Route path="/user/login" component={Login} /> 
+                        <Route path="/user/signup" component={SignUp} /> 
+                        <Route path="/user/findiD" component={FindID} />  
+                        <Route path="/user/findpassword" component={FindPassword} />
+                        <Route path="/user/profile" component={Profile} />
+                        <Route path="/user/facebook" component={Facebook}/>
                     </div>
                     </div>
             </div>

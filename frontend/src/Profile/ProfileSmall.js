@@ -17,11 +17,7 @@ class ProfileSmall extends Component{
             about: "",
             grade: "일반"
         },
-        images : [
-            {image : "photo1.jpg"}, 
-            {image : "photo2.jpg"}, 
-            {image : "photo3.jpg"} //고쳐야함
-        ]
+        images : ["photo1.jpg", "photo2.jpg", "photo3.jpg"]
     };
 
     componentWillMount(){
@@ -118,7 +114,7 @@ function ProfileImage({photo, alt}){
 
 function UserImage({image}){
      return(
-        <div className = "UserImage" style = {{ backgroundImage : `url(${require(`../img/photo/photo5.jpg`)})`}} />
+        <div className = "UserImage" style = {{ backgroundImage : `url(${require(`../img/photo/${image}`)})`}} />
      );
  }
 
