@@ -1,69 +1,83 @@
-h1{
-    color: rgb(43, 43, 43);   
-}
-
 .Login-Box{
+    position: relative;
+    top : 45%;
+    left: 55%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-.Login-Box-Info h4{
-    padding-top: 10px;
-    margin-left: 30px;
+.Login-Box-Column{
+    display: flex;
+    justify-content: center;
     margin-bottom: 5px;
 }
 
-.Login-Box-Info input{
+.Login-Box-Column p{
+    font-size: 55px;
+    font-weight: 800;
+    margin-left: 20px;
+}
+
+.Login-Box img{
+    width: 55px;
+}
+
+.Login-Form h4{
+    width: 320px;
+    padding-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.Login-Form input{
     margin-top: 5px;
     margin-bottom: 5px;
-    margin-left: 30px;
     padding : 5px;
     width: 320px;
     height: 40px;
-    border-radius: 3px;
-    border: none;
+    border : 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
     outline : none;
 }
 
-.Login-Box-Info{
+.Login-Form{
     display: flex;
     flex-direction: column;
-    background-color: lightgray;
+    justify-content: center;
+    align-items: center;
+    border : 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
     width: 400px;
-    height: 260px;
-    margin: 0, auto;
+    padding: 10px;
 }
 
-.Login-Box-Info i{
-    margin-left: 35px;
+.Login-Maintain{
+    width: 320px;
+    color : rgb(100, 100, 100);
+    margin-top : 10px;
+    margin-bottom: 5px;
+}
+
+.Login-Form i{
     margin-right: 5px;
-    font-size: 20px;
-}
-
-.fa-check-circle{
-    color: black;
-}
-
-.Login-Button-Align{
-    margin: 6% 10%;
-}
-
-.Login-Button-Align input{
-    width: 300px;
-    height: 40px;
+    font-size: 15px;
 }
 
 .Login-Button{
     text-align: center;
     line-height: 39px;
     font-size: 16px;
-    background-color: rgb(107, 107, 107); 
+    background-color: rgb(82, 195, 181);
     color: white;  
     border-radius: 5px;
-    width: 300px;
+    width: 320px;
     height: 40px;
-    border-radius: 3px;
+    border-radius: 5px;
     border : none;
+     outline : none;
+    margin-bottom: 10px;
 }
 
 .Login-Box-Bottom{
@@ -71,6 +85,7 @@ h1{
     margin-top: 5px;
     margin-left: 10px;
     display: flex;
+    justify-content: space-between;
 }
 
 .Login-Check {

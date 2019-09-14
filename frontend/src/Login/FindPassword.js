@@ -26,25 +26,19 @@ class FindPassword extends Component {
 
     render(){
         return(
-          <div className="Find-Password-Box">
-            <div>
-                <h1>Welcome Back Polaroid !</h1>
-                <form onSubmit = {this.onSubmit}>
-                <div className = "Find-Password-Box-Info">
-                    <div className = "Find-Password-Font">
-                    아이디를 입력하세요.
+          <div className="Find-Box">
+                <p>Find Password!</p>
+                <form className = "Find-Form" onSubmit = {this.onSubmit}>
+                    <div className = "Find-Font">
+                        아이디를 입력하세요.
                     </div>
                     <input type = "text" placeholder = "ID" name="ID" onChange={this.onChange}></input>
-                    <div className = "Find-Password-Font">
-                    Email을 입력하세요.
+                    <div className = "Find-Font">
+                        Email을 입력하세요.
                     </div>
                     <input type = "email" placeholder = "EMail" name="email" onChange={this.onChange}></input>
-                    <div className = "Find-Password-Button-Align">
-                        <button type = "submit" className = "Find-Password-Button">확인</button>
-                    </div>
-                </div>
+                    <button type = "submit" className = "Find-Button">확인</button>
                 </form>
-            </div>
             </div>
         )
     }

@@ -14,8 +14,9 @@ class LoginMain extends Component {
         return (
             <div>
                  <div className ="Main">
-                     <div className="Main-Lef" style = {{backgroundImage : "url(https://mfiles.alphacoders.com/686/686186.jpg)"}} alt="">
-                    </div>
+                     <div className="Main-Left" >
+                         <MainPhoto/>
+                     </div>
                     <div className="Main-Right">
                         <Route path="/user/login" component={Login} /> 
                         <Route path="/user/signup" component={SignUp} /> 
@@ -24,7 +25,7 @@ class LoginMain extends Component {
                         <Route path="/user/profile" component={Profile} />
                         <Route path="/user/facebook" component={Facebook}/>
                     </div>
-                    </div>
+                </div>
             </div>
         );
     }

@@ -1,29 +1,20 @@
-h1{
-    color: rgb(43, 43, 43);   
-    text-align: center;
-}
-
 .Sign-Up-Box{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    position: relative;
+    top : 45%;
+    left: 55%;
+    transform: translate(-50%, -50%);
 }
 
-.ID{
-    display: flex;
-    height: 30px;
+.Sign-Up-Box p{
+    font-size: 45px;
+    font-weight: 800;
+    margin-bottom: 10px;
 }
 
-.ID input{
-    margin-left: 30px;
-    margin-bottom: 8px;
-    width: 270px;
-    height: 35px;
-}
-
-.ID button{
-    width: 100px;
-}
-
+/*
 .ID-Check{
     text-align: center;
     line-height: 40px;
@@ -35,57 +26,55 @@ h1{
     width: 70px;
     height: 40px;
     margin: 0 9%;
-}
+}*/
 
-.Sign-Up-Box-Info{
+.Sign-Form{
     display: flex;
     flex-direction: column;
-    background-color: lightgray;
+    align-items: center;
+    border : 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
     width: 400px;
-    height: 600px;
+    padding: 20px;
 }
 
-.Sign-Up-Box-Info h4{
-    padding-top: 20px;
-    margin-left: 30px;
+.Sign-Form h4{
+    width: 320px;
+    padding-top: 10px;
+    margin-top: 10px;
     margin-bottom: 5px;
+    text-align: left;
 }
+
 .Warning {
     text-align: center;
     color : red;
 }
 
-.Sign-Up-Box-Info input{
-    margin-top: 8px;
-    margin-left: 30px;
-    margin-bottom: 20px;
-    width: 330px;
-    height: 35px;
-    border-radius: 3px;
-    border: none;
-    outline : none;
-}
-
-.Sign-Up-Button-Align{
-    margin: 5% 35%;
-}
-
-.Sign-Up-Button-Align input{
-    width: 150px;
+.Sign-Form input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding : 5px;
+    width: 320px;
     height: 40px;
+    border : 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
+    outline : none;
 }
 
 .Sign-Up-Button{
     text-align: center;
     line-height: 35px;
     font-size: 16px;
-    background-color: rgb(107, 107, 107); 
-    float: center;
+    background-color: rgb(82, 195, 181);
     color: white;  
     border-radius: 5px;
     width: 100px;
     height: 40px;
     border : none;
+    outline : none;
+    margin-top: 10px;
+
 }
 
 .Sign-Up-Box-Bottom{
