@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { findPassword } from './UserFunctions';
-import "./FindPassword.css";
+import "./Find.css";
 
 class FindPassword extends Component {
     state = {

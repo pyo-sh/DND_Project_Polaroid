@@ -3,12 +3,41 @@
   height: 100%;
   background-size: cover;
   background-position: center;
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
+
 .Main-Left-Photo-Explanation{
-  position: relative;
-  top : 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: absolute;
+  top : 45%;
+  transform: translateY(-50%);
+  margin-left: 70px;
+}
+
+.Main-Left-Photo-Column{
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 60px;
+}
+
+.Main-Left-Photo-Title{
+  font-size: 55px;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+}
+
+.Main-Left-Logo{
+  width: 50px;
+  margin-top : 10px;
+  margin-right : 20px;
+  z-index: 2;
+}
+
+.Main-Left-Photo-Explanation p {
+  font-size: 22px;
+  font-weight: 600;
+  color: white;
+  opacity: 0.8;
+  line-height: 7px;
 }

@@ -8,16 +8,10 @@
     align-items: center;
 }
 
-.Login-Box-Column{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5px;
-}
-
-.Login-Box-Column p{
-    font-size: 55px;
+.Login-Box p{
+    font-size: 45px;
     font-weight: 800;
-    margin-left: 20px;
+    margin-bottom: 10px;
 }
 
 .Login-Box img{

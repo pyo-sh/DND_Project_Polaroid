@@ -74,10 +74,7 @@ class Login extends Component {
       
         return (
           <div className="Login-Box">
-            <div className = "Login-Box-Column">
-              <img src = {require('../img/Logo.svg')} alt = 'Logo'/>
-              <p> Polaroid</p>
-            </div>
+              <p> Welcome Back!</p>
               <form className = "Login-Form" onSubmit={this.onSubmit} method="post">
                   <label htmlFor="ID">
                     <h4>아이디</h4>

@@ -7,12 +7,14 @@
   .Content-Left{
     width: 1200px;
     height: 100%;
+    margin: 10px;
   }
   
   .Content-Right{
     width: 380px;
     height: 100%;
     padding-left : 50px;
+    margin: 10px;
   }
   
   @media screen and (max-width : 100%){
