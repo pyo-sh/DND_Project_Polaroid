@@ -4,32 +4,35 @@
     margin: 15px 50px;
     padding: 5px;
 }
-
 .MyFavorite-Buttons{
     margin: 15px;
 }
 .MyFavorite-Buttons button{
-    margin: 10px;
-    font-size: 25px;
+    width: 33%;
+    height: 30px;
+    font-size: 20px;
     border: none;
     outline: none;
     background: none;
     cursor: pointer;
+    text-align: start;
+    background: rgb(131, 131, 131, 50%);
+    box-shadow: 0px 0px 2px rgb(230,230,230);
+}
+.MyFavorite-Unselected-Button{
+    color: black;
 }
 .MyFavorite-Selected-Button{
-    color: blue;
+    color: white;
 }
 
 .MyFavorite-Files{
     margin: 30px;
-}
-.MyFavorite-Title{
-    font-size: 20px;
-    margin: 10px;
-    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 }
 .MyFavorite-File{
-    margin: 7px;
-    margin-left: 40px;
-    
+    margin: 15px;
+    font-size: 15px;
 }

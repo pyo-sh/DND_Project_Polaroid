@@ -1,9 +1,8 @@
 import './FollowPage.css';
 import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Link } from 'react-router-dom';
-import ProfileSmall from './ProfileSmall';
-import { getMyID, getFollowingSome, getFollowerSome } from './ProfileFunction'
+import FollowProfile from './FollowProfile';
+import { getMyID, getFollowingSome, getFollowerSome, isFollowInfo } from './ProfileFunction'
 
 class FollowPage extends Component {
     state={
@@ -18,6 +17,7 @@ class FollowPage extends Component {
         isMore : true
     }
 
+    //현재 로그인 된 아이디와 props를 state값 넣어준다.
     componentWillMount(){
         const id = getMyID();
         const {targetID, isFollow} = this.props;
@@ -27,6 +27,7 @@ class FollowPage extends Component {
             isFollow: isFollow
         });
     }
+    // 현재 state값에 들어있는 값들로 팔로워 혹은 팔로잉을 찾는다.
     componentDidMount() {
         const { targetID, isFollow, count, start } = this.state;
         if(isFollow){
@@ -60,7 +61,7 @@ class FollowPage extends Component {
     }
 
     render() {
-        const { isFollow } = this.state;
+        const { id, isFollow } = this.state;
         return (
             <div className="FollowPage">
                 <div className="FollowPage-Top">
@@ -71,13 +72,17 @@ class FollowPage extends Component {
                     next = {this.fetchIDs}
                     hasMore = {this.state.isMore}
                     >
-                    {this.state.countID.map((list, index) => (
-                        <li key = {index} >
-                            <Link to = {isFollow===true ? `/${list.followerID}` :  `/${list.followID}`}>
-                                <ProfileSmall id={isFollow===true ? list.followerID : list.followID}/>
-                            </Link>
-                        </li>
-                    ))}
+                    {this.state.countID.map((list, index) => {
+                        const printID = isFollow===true ? list.followerID : list.followID;
+                        const isMe = printID === id;
+                        return <li key = {index} >
+                                <FollowProfile 
+                                    id={printID}
+                                    isMe={isMe}
+                                    isFollow={isMe ? false : isFollowInfo(id, printID)}
+                                    />
+                            </li>
+                    })}
                 </InfiniteScroll>
             </div>
         );
