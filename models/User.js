@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../database/db');
 const favoriteFolder = require('./favoriteFolder');
 const follow = require('./follow');
+// const imgLiked = require('./imgLiked');
 
 const User = db.sequelize.define(
     'user',
@@ -46,5 +47,6 @@ const User = db.sequelize.define(
 User.hasMany(favoriteFolder, {foreignKey : 'ID', sourceKey: 'ID' });
 User.hasMany(follow, {foreignKey : 'followID', sourceKey: 'ID'});
 User.hasMany(follow, {foreignKey : 'followerID', sourceKey: 'ID'});
+// User.hasMany(imgLiked, {foreignKey : 'likeID', sourceKey: 'ID'});
 
 module.exports = User;

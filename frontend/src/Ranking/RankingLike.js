@@ -27,7 +27,7 @@ class RankingLike extends Component{
 
         let opacityWeekStyle = this.state.week ? opacityFull : opacityHalf
         let opacityMonthStyle = this.state.week ? opacityHalf : opacityFull
-
+        const { monthLikeRanking, weekLikeRanking } = this.props;
         // DB에서 좋아요 많은 것부터 받아와 순서대로 출력
         return(
             <div className = "Ranking-Box">
@@ -45,7 +45,7 @@ class RankingLike extends Component{
                         </div>
                     </div>  
                 
-                    {this.state.week ? <RankingLikeWeek /> : <RankingLikeMonth /> }
+                    {this.state.week ? <RankingLikeWeek weekLikeRanking ={weekLikeRanking}/> : <RankingLikeMonth monthLikeRanking = {monthLikeRanking} /> }
                     
                 </div>     
             </div>
