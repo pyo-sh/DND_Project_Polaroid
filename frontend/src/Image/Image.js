@@ -67,25 +67,25 @@ class Image extends Component {
 
         return( 
         <div className ="Imagei">
-        <div className = "Image-Column">
-            <ReactImageProcess
-                    mode="waterMark"
-                    waterMarkType="image"
-                    waterMark={require(`../img/Logo.svg`)}    //워터마크 이미지 경로
-                    width={waterMarkWidth}      //워터마크 너비
-                    height={waterMarkHeight}    //워터마크 높이
-                    opacity={0.4}
-                    coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
-                >
-                <img className = "temp" ref = {(c) => {this.img = c}}
-                onLoad={this.onload}
-                src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
-                    
-            </ReactImageProcess>
-        </div>    
-        <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
-        <p className = "Relatied-Title Image-Column"> Relatied Image</p>
-        <RelationImage id = {id}/>
+            <div className = "Image-Column">
+                <ReactImageProcess
+                        mode="waterMark"
+                        waterMarkType="image"
+                        waterMark={require(`../img/Logo.svg`)}    //워터마크 이미지 경로
+                        width={waterMarkWidth}      //워터마크 너비
+                        height={waterMarkHeight}    //워터마크 높이
+                        opacity={0.4}
+                        coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
+                    >
+                    <img className = "temp" ref = {(c) => {this.img = c}}
+                    onLoad={this.onload}
+                    src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
+                        
+                </ReactImageProcess>
+            </div>    
+            <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
+            <p className = "Relatied-Title Image-Column"> Related Image</p>
+            <RelationImage id = {id}/>
         </div>
         )
     }
