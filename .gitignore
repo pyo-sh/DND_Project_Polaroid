@@ -2,9 +2,12 @@
 
 # dependencies
 /node_modules
+/config/config.json
 /.pnp
 .pnp.js
 /frontend/node_modules
+/frontend/src/Upload/awsconfig.js
+
 # testing
 /coverage
 

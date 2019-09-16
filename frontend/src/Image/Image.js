@@ -4,7 +4,7 @@ import './Image.css';
 import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
 import Declaration from './Declaration';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import ReactImageProcess from 'react-image-process';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
@@ -25,6 +25,8 @@ class Image extends Component {
     }
     componentDidMount(){
         //원본 이미지 너비가 높이보다 크면
+        console.log(this.img.naturalHeight, this.img.naturalWidth);
+        console.log(this.img.Height, this.img.Width);
         if(this.img.naturalWidth > this.img.naturalHeight){
             this.setState({
                 imageWidthHalf: this.img.naturalWidth/3.1,
@@ -57,6 +59,7 @@ class Image extends Component {
     img;
 
     onload = (e) => {
+        console.dir(e.target);
         if(e.target.src.includes('base64')) {
             e.target.className = "MainImage";
         }
@@ -67,25 +70,32 @@ class Image extends Component {
 
         return( 
         <div className ="Imagei">
-            <div className = "Image-Column">
-                <ReactImageProcess
-                        mode="waterMark"
-                        waterMarkType="image"
-                        waterMark={require(`../img/Logo.svg`)}    //워터마크 이미지 경로
-                        width={waterMarkWidth}      //워터마크 너비
-                        height={waterMarkHeight}    //워터마크 높이
-                        opacity={0.4}
-                        coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
-                    >
-                    <img className = "temp" ref = {(c) => {this.img = c}}
-                    onLoad={this.onload}
-                    src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
-                        
-                </ReactImageProcess>
-            </div>    
-            <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
-            <p className = "Relatied-Title Image-Column"> Related Image</p>
-            <RelationImage id = {id}/>
+        <div className = "Image-Column">
+            {/* <ReactImageProcess
+                    mode="waterMark"
+                    waterMarkType="image"
+                    waterMark={`https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo`}    //워터마크 이미지 경로
+                    width={waterMarkWidth}      //워터마크 너비
+                    height={waterMarkHeight}    //워터마크 높이
+                    opacity={0.4}
+                    coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치 
+                > */}
+                <div className="temp-div">     {/* 워터 마크 처럼 만들기 위한 것 , 이미지를 url 로 하니깐 reactimageprocess가 먹히지 않고 오류가 계속 떠서
+                                                    css로 워터마크를 만들기 위함.*/}
+                    <div className ="temp-divzzz">
+                    <img className = "temp2" src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo.svg`} width={waterMarkWidth} height={waterMarkHeight}/>
+                    </div>
+                </div>
+            
+                <img className = "temp" ref = {(c) => {this.img = c}}
+                onLoad={this.onload}
+                src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${match.params.id}`} alt = {id}/>
+                    
+            {/* </ReactImageProcess> */}
+        </div>    
+        <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
+        <p className = "Relatied-Title Image-Column"> Relatied Image</p>
+        <RelationImage id = {id}/>
         </div>
         )
     }
@@ -112,6 +122,13 @@ class ImageUseInformation extends Component {
     }
 
     closeMarkPopUp = () => {
+        this.setState({
+            isMarkPopUpOpen: false,
+            isMarkClick: false
+        })
+    }
+
+    confirmMarkPopUp = () => {
         this.setState({
             isMarkPopUpOpen: false
         })
@@ -184,8 +201,18 @@ class ImageUseInformation extends Component {
                     <Declaration isOpen={this.state.isDecPopUpOpen} close={this.closeDecPopUp} />
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Icon-Mark" name = {markname} onClick = {this.onClickMark}/> 
-                    <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} />
+                    {
+                        ((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) 
+                        
+                        ? 
+                        
+                        <Link to = "/user/login" alt="test"><Icon className = "Icon-Mark" name = {markname} onClick = {this.onClickMark}/></Link>
+                        
+                        : 
+                        
+                        <Icon className = "Icon-Mark" name = {markname} onClick = {this.onClickMark}/> 
+                    }
+                        <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} confirm={this.confirmMarkPopUp}/>
                 </div>
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "Icon-Like" name = {likename} onClick={this.onClickLike}/>

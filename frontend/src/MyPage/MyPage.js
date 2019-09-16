@@ -94,17 +94,9 @@ class MyPage extends Component {
         const type = this.state.selectedMenu;
         switch(type) {
             case "UPLOAD" : return <Photos mypage = {true}/>;
-            case "DOWNLOADED" : return <Photos/>;
-            case "LIKED" : return <Photos/>;
-            case "FAVORITE" : 
-                return <MyFavorite getID={this.getID}/>;
-                // <ProfileSmall 
-                //     profileImage={this.state.profile.photo} 
-                //     nickname={this.state.profile.name} 
-                //     id={this.state.profile.id}
-                //     images={""}
-                //     follow={""}
-                //     />
+            case "DOWNLOADED" : return <Photos mypage = {true}/>;
+            case "LIKED" : return ;
+            case "FAVORITE" : return <MyFavorite getID={this.getID}/>;
             case "BENEFIT" : 
                 return <MyPageBenefit 
                     profile={this.state.profile}

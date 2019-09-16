@@ -8,8 +8,8 @@ const favorite = db.sequelize.define(
             type: Sequelize.INTEGER,
             primaryKey: true
         },
-        favName : {
-            type: Sequelize.STRING,
+        imgID : {
+            type: Sequelize.INTEGER,
             primaryKey : true,
         }
     },

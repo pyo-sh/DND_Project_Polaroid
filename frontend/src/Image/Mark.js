@@ -82,6 +82,7 @@ class Mark extends Component {
       />
     );
   };
+  
   //폴더 추가 확인 버튼을 눌렀을 때
   onClickConfirm = () => {
     this.closeNewFolder();
@@ -90,10 +91,15 @@ class Mark extends Component {
       ID,
       folderName
     };
-    addFolder(info).then(res => {
-      console.log(res);
-      this.getAllFolder();
-    });
+    if(folderName.trim() === ""){
+      alert("공백 금지!")
+    } 
+    else{
+      addFolder(info).then(res => {
+        console.log(res);
+        this.getAllFolder();
+      });
+    }
   };
 
   //만들어진 폴더를 클릭할 때
@@ -111,7 +117,7 @@ class Mark extends Component {
       photo
     };
     addPhotoInFolder(info);
-    this.props.close();
+    this.props.confirm();
   };
 
   //폴더 클릭시 체크 표시 나타나게 해줌

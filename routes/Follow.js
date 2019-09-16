@@ -85,21 +85,6 @@ Follow.post("/getMyFollow", (req, res) => {
     });
 });
 
-Follow.post("/getMyFollowLimit", (req, res) => {
-  const followID = req.body.followID;
-  const start = parseInt(req.body.start);
-  const end = parseInt(req.body.end);
-  follow
-    .findAll({
-      where: {
-        followID
-      },limit:[start, end]
-    })
-    .then(follow => {
-      res.json(follow);
-    });
-});
-
 Follow.post("/deleteFollow", (req, res) => {
   const followID = req.body.followID;
   const followerID = req.body.followerID;
@@ -152,19 +137,5 @@ Follow.post("/getFollowLimit", (req, res) => {
     });
 });
 
-Follow.post("/getMyFollowLimit", (req, res) => {
-  const followerID = req.body.followerID;
-  const start = parseInt(req.body.start);
-  const count = parseInt(req.body.count);
-  follow
-    .findAll({
-      where: {
-        followerID
-      },limit:[start, count]
-    })
-    .then(follow => {
-      res.json(follow);
-    });
-});
 
 module.exports = Follow;

@@ -34,14 +34,9 @@ class IDPage extends Component {
     }
     // 처음 클래스를 불러오고 render 후에 변경하는 정보들 (필요한 state값이 바뀐걸 받아서 정보 처리)
     componentDidMount(){
-        const myID = getMyID();
-        this.setState({
-            myID: myID
-        });
-        this.upperTitle();
         this.getInfo();
-        this.checkMyself();
-        this.checkIsFollow();
+        if(!this.checkMyself())
+            this.checkIsFollow();
     }
 
     // 상대방의 아이디를 알아내는 작업
@@ -78,11 +73,13 @@ class IDPage extends Component {
     // 이 페이지가 나에 대한 페이지라면, 팔로우 버튼을 없애야 하므로 boolean 설정
     checkMyself = () => {
         const { myID, titleName } = this.state;
-        if(myID === titleName){
+        if(myID === titleName || myID === null){
             this.setState({
                 isMe: true
             });
+            return true;
         }
+        return false;
     }
     // 팔로우 중인지 아닌지를 알아보는 boolean isFollow 설정
     checkIsFollow = () => {
