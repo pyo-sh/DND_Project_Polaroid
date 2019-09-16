@@ -4,6 +4,11 @@ import "./ImageInfo.css";
 import Payment from "./Payment";
 import { getFilm, minusFilm } from "./ImageFunction";
 import jwt_decode from "jwt-decode";
+import { withRouter } from 'react-router-dom';
+import AWS from 'aws-sdk';
+import {awsconfig} from '../Upload/awsconfig';
+import axios from "axios";
+
 
 Registrant.protoType = {
   registrant: {
@@ -15,6 +20,7 @@ Registrant.protoType = {
 
 class ImageInfo extends Component {
   state = {
+    img : {},
     registrant: "",
     paid: "",
     type: "",
@@ -28,6 +34,10 @@ class ImageInfo extends Component {
   };
 
   componentDidMount() {
+    const imgID = this.props.match.params.id
+    axios.get(`/api/images/getOneImg/${imgID}`).then(result => {
+
+    })
     const {
       registrant,
       paid,
@@ -105,9 +115,36 @@ class ImageInfo extends Component {
     };
     minusFilm(info);
   };
+
+  downloadClick = () => {
+    let {imgUrl} = this.state;
+    let urlArray = imgUrl.split("/")
+    let bucket = urlArray[2]
+    let realBucket = bucket.split('.');
+    realBucket = realBucket[0];
+    console.log(realBucket)
+    // let Key = urlArray[4];
+    let Key = `${urlArray[3]}/${urlArray[4]}`;
+    let imgName = urlArray[4];
+    console.log(Key);
+    let s3 = new AWS.S3({accessKeyId:awsconfig.accessKeyId, secretAccessKey : awsconfig.secretAccessKey});
+    let params = {Bucket: realBucket, Key: Key}
+    s3.getObject(params, (err, data) => {
+      console.log(err);
+      console.log(data);
+      let blob=new Blob([data.Body], {type: data.ContentType});
+      let link=document.createElement('a');
+      const url=window.URL.createObjectURL(blob);
+      link.href = url;
+      link.setAttribute('download',`${imgName}.${data.ContentType}`);
+      document.body.appendChild(link);
+      link.click();
+    })}
+
   onClick = () => {
     if(localStorage.usertoken || sessionStorage.usertoken){
-      this._getFilm();
+      this._getFilm(); // 토큰이 더 적으면 충전 하게 만들어야함(충전 하는 곳으로 가시겠습니까 정도?) 토큰이 같거나 더 많을 때 다운로드 받을 수 있게
+      this.downloadClick();
       this.props.handlePayment();
     }
     else {
@@ -207,4 +244,4 @@ function Registrant({ registrant }) {
     </div>
   );
 }
-export default ImageInfo;
+export default withRouter(ImageInfo);

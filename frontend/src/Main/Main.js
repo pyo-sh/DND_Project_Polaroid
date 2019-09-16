@@ -3,7 +3,7 @@ import MenuBar from './MenuBar';
 import Home from './Home';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import MyPage from '../MyPage/MyPageScreen';
-import Upload from '../Upload/Upload';
+import Upload2 from '../Upload/Upload2';
 import Image from '../Image/ImageScreen';
 import Uploads3 from '../Upload/UploadS3';
 import Login from '../Login/Login';
@@ -40,7 +40,7 @@ const HomePage = ({match}) => {  // '/' 로 들어왔을 때
                 <Route path={match.url+'category/:category'} exact={true} component={Category}/>
                 <Route path={match.url+'search/:search'} exact={true} component={Search}/>
                 <Route path={match.url+'imagepage/:id'} exact={true} component = {Image}/>
-                <Route path={match.url+'upload'} exact={true} component = {Upload} />
+                <Route path={match.url+'upload'} exact={true} component = {Upload2} />
                 <Route path={match.url+'mypage'} exact={true} component = {MyPage} />
                 <Route path={match.url+'uploads3'} exact={true} component={Uploads3}/>
                 <Route path={match.url+'film/charge'} exact={true} component={FilmCharge}/>

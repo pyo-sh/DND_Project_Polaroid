@@ -152,19 +152,5 @@ Follow.post("/getFollowLimit", (req, res) => {
     });
 });
 
-Follow.post("/getMyFollowLimit", (req, res) => {
-  const followerID = req.body.followerID;
-  const start = parseInt(req.body.start);
-  const count = parseInt(req.body.count);
-  follow
-    .findAll({
-      where: {
-        followerID
-      },limit:[start, count]
-    })
-    .then(follow => {
-      res.json(follow);
-    });
-});
 
 module.exports = Follow;

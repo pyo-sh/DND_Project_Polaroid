@@ -25,6 +25,8 @@ class Image extends Component {
     }
     componentDidMount(){
         //원본 이미지 너비가 높이보다 크면
+        console.log(this.img.naturalHeight, this.img.naturalWidth);
+        console.log(this.img.Height, this.img.Width);
         if(this.img.naturalWidth > this.img.naturalHeight){
             this.setState({
                 imageWidthHalf: this.img.naturalWidth/3.1,
@@ -57,6 +59,7 @@ class Image extends Component {
     img;
 
     onload = (e) => {
+        console.dir(e.target);
         if(e.target.src.includes('base64')) {
             e.target.className = "MainImage";
         }
@@ -68,20 +71,27 @@ class Image extends Component {
         return( 
         <div className ="Imagei">
         <div className = "Image-Column">
-            <ReactImageProcess
+            {/* <ReactImageProcess
                     mode="waterMark"
                     waterMarkType="image"
-                    waterMark={require(`../img/Logo.svg`)}    //워터마크 이미지 경로
+                    waterMark={`https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo`}    //워터마크 이미지 경로
                     width={waterMarkWidth}      //워터마크 너비
                     height={waterMarkHeight}    //워터마크 높이
                     opacity={0.4}
-                    coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치
-                >
+                    coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치 
+                > */}
+                <div className="temp-div">     {/* 워터 마크 처럼 만들기 위한 것 , 이미지를 url 로 하니깐 reactimageprocess가 먹히지 않고 오류가 계속 떠서
+                                                    css로 워터마크를 만들기 위함.*/}
+                    <div className ="temp-divzzz">
+                    <img className = "temp2" src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo.svg`} width={waterMarkWidth} height={waterMarkHeight}/>
+                    </div>
+                </div>
+            
                 <img className = "temp" ref = {(c) => {this.img = c}}
                 onLoad={this.onload}
-                src={require(`../img/photo/${match.params.id}`)} width={imageScreenWidth} height={imageScreenHeight} alt = {id}/>
+                src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${match.params.id}`} alt = {id}/>
                     
-            </ReactImageProcess>
+            {/* </ReactImageProcess> */}
         </div>    
         <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
         <p className = "Relatied-Title Image-Column"> Relatied Image</p>

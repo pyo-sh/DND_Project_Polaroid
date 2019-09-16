@@ -9,30 +9,36 @@ class Photos extends Component {
     state = {
         images: [],
         count: 30,
-        start: 1,
+        start: 0,
         isMore : true
       };
     
     componentDidMount() {
       const { count, start } = this.state;
-      axios.post(`/api/file/photos`,{count,start})
-        .then(response => {
-          this.setState({ images: response.data.photos })
-        })
-        .catch(err => console.error(err))
+      // axios.get(`/api/file/photos`,{count,start})
+      //   .then(response => {
+      //     this.setState({ images: response.data.photos })
+      //   })
+      //   .catch(err => console.error(err))
+      axios.get(`/api/images/getAllImages?start=${start}&count=${count}`).then(res=>{
+        this.setState({images : res.data});
+      })
     }
     
     fetchImages = () => {
       const count = this.state.count,
             start = count + this.state.start;
       this.setState({ start: start });
- 
-       axios.post(`/api/file/photos`,{count,start})
-        .then(response => {
-          this.setState({ images: this.state.images.concat(response.data.photos),
-                          isMore : response.data.isMore})
-        })
-        .catch(err => console.error(err))
+      
+      axios.get(`/api/images/getAllImages?start=${start}&count=${count}`)
+      .then(res=>{
+        this.setState({ images: this.state.images.concat(res.data)}) // 이즈 모얼인가 뭐 해줘야함.
+      })
+      //  axios.post(`/api/file/photos`,{count,start})
+      //   .then(response => {
+         
+      //   })
+      .catch(err => console.error(err))
      }
     
     render() {
@@ -42,12 +48,23 @@ class Photos extends Component {
         return (
           
             <div className = "Photos">   
-                  <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
+                  {/* <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
                     <Grid className = "Photos-Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 395)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
                       {this.state.images.map((image, index) => (
                         <li key = {index} >
-                            <Link to = {`/imagepage/${image}`}>
-                              <img className = "Photos-photo" src={require(`../img/photo/${image}`)} alt=""/>
+                            <Link to = {`/imagepage/${image.imgName}`}>
+                              <img className = "Photos-photo" src={require(`../img/photo/${image.imgName}`)} alt=""/>
+                            </Link>
+                        </li>
+                      ))}
+                    </Grid>
+                </InfiniteScroll> */}
+                <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore} >
+                    <Grid className = "Photos-Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 395)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
+                      {this.state.images.map((image) => (
+                        <li key = {image.imgID} >
+                            <Link to = {`/imagepage/${image.imgID}`}>
+                              <img className = "Photos-photo" src={image.imgUrl} alt="이미지"/>
                             </Link>
                         </li>
                       ))}

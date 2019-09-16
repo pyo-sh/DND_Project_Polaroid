@@ -2,14 +2,14 @@ const express = require("express");
 const LikeRanking = express.Router();
 const Sequelize = require("sequelize");
 const imgLiked = require("../models/imgLiked");
-const imgtemp = require("../models/imgtemp");
+const image = require("../models/image");
 const db = require("../database/db");
 
 LikeRanking.get("/test", (req, res) => {
   imgLiked
     .findAll({
       attributes: ["imgID"],
-      include: [{ model: imgtemp, attributes: ["imgName"] }]
+      include: [{ model: image, attributes: ["imgName"] }]
     })
     .then(user => {
       res.send(user);
@@ -38,7 +38,7 @@ LikeRanking.get("/all", (req, res) => {
   // 전체 좋아요 랭킹을 순서대로 보여줌. imgID 컬럼이랑 COUNT(*) 컬럼을 count로 해서.
   // imgID 별로 그룹을 지어서 count 수 내림차순으로 정렬을 해서 limit 5 만큼.
   let query =
-    "SELECT a.imgID , imgName, COUNT(*) count FROM imgtemps a, imgLikeds b WHERE a.imgID = b.imgID GROUP BY imgID ORDER BY COUNT(*) desc";
+    "SELECT a.imgID , imgName, COUNT(*) count FROM images a, imgLikeds b WHERE a.imgID = b.imgID GROUP BY imgID ORDER BY COUNT(*) desc";
   // 시퀄라이즈로 하기가 어려워서 query를 직접 짜서 해보았다. imgID 같은 애들끼리 INNER JOIN 해서 그룹바이 imgID 해서
   // imgID와 imgName과 그것들의 개수를 출력한다.
   db.sequelize.query(query).then(([results, metadata]) => {
@@ -55,7 +55,7 @@ LikeRanking.get("/month", (req, res) => {
   if (month < 10) {
     month = "0" + month;
   }
-  let query = `SELECT a.imgID , b.imgName, COUNT(*) AS count, SUBSTRING(likeDate, 1,7) AS month FROM imgLikeds a, imgtemps b
+  let query = `SELECT a.imgID , b.imgName, COUNT(*) AS count, SUBSTRING(likeDate, 1,7) AS month FROM imgLikeds a, images b
   WHERE  a.imgID = b.imgID  and SUBSTRING(likeDate,1,7) = "${year}-${month}" GROUP BY imgID ORDER BY COUNT(*) DESC LIMIT 5;`;
 
   db.sequelize.query(query).then(([results, metadata]) => {
@@ -137,7 +137,7 @@ LikeRanking.get("/week", (req, res) => {
   if (startMonth < 10) {
     startMonth = "0" + startMonth;
   }
-  let query = `SELECT a.imgID, b.imgName, COUNT(*) AS count, SUBSTRING(likeDate,1,4) AS YEAR FROM imgLikeds a, imgtemps b 
+  let query = `SELECT a.imgID, b.imgName, COUNT(*) AS count, SUBSTRING(likeDate,1,4) AS YEAR FROM imgLikeds a, images b 
   WHERE a.imgID = b.imgID AND likeDate BETWEEN"${startYear}-${startMonth}-${startday}" AND "${year}-${month}-${today}" GROUP BY imgid ORDER BY COUNT(*) DESC LIMIT 5;`;
 
   db.sequelize.query(query).then(([results, metadata]) => {
@@ -164,7 +164,7 @@ LikeRanking.get("/day", (req, res) => {
   if (day < 10) {
     day = "0" + day;
   }
-  let query = `SELECT a.imgID, b.imgName, COUNT(*) AS COUNT, SUBSTRING(likeDate,9,2) AS DAY FROM imgLikeds a, imgtemps b 
+  let query = `SELECT a.imgID, b.imgName, COUNT(*) AS COUNT, SUBSTRING(likeDate,9,2) AS DAY FROM imgLikeds a, images b 
     WHERE a.imgID = b.imgID AND substring(likeDate,9,2) = ${day} GROUP BY a.imgID, likeDate order by COUNT(*) DESC LIMIT 5;`;
 
   db.sequelize.query(query).then(([results, metadata]) => {
