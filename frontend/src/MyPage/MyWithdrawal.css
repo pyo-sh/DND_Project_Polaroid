@@ -27,3 +27,9 @@
     outline: 0;
     font-size: 17px;
 }
+.MyWithdrawal-ID-Incorrect{
+    width: 200px;
+    height: 20px;
+    text-align: center;
+    color: red;
+}
