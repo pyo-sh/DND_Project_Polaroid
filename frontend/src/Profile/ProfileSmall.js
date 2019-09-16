@@ -108,7 +108,7 @@ class ProfileSmall extends Component{
 
 function ProfileImage({photo, alt}){
     return (
-        <img src = {photo ? photo : "https://postfiles.pstatic.net/MjAxOTA3MzBfMjgy/MDAxNTY0NDkxNDIxOTA3.PDvjdx3QnWA0Bty0KXQAd9IBixEYYBZ7vk3UfijmqlQg.lWtF8Jrtmh-Kv4hra3IXNlY4z3I15DpiPkdh6NiGLC0g.PNG.she2325/%E3%85%81%E3%85%82.png?type=w966"} alt = {alt}></img>
+        <img src = {photo ? photo : require("../img/User.svg")} alt = {alt}></img>
     ); // 프로필 사진이 없으면 검게 나오도록, 후에 사진 id로 대체하여 데이터랑 연결될 예정
 }
 

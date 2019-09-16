@@ -10,7 +10,7 @@
 
 .Declaration-Modal{
     width: 450px;
-    height: 210px;
+    height: 225px;
     z-index: 9000;   /*div 의 창이 맨 앞으로 오게 ( 순서 1 )*/
     border-radius: 5px;
     background-color: white;
@@ -30,11 +30,7 @@
     width:400px;
     padding-top: 5px;
     padding-left: 5px;
-}
-
-.Declaration-Modal .Declaration-Content p{
     font-size : 12px;
-    margin : 5px;
 }
 
 
@@ -56,12 +52,12 @@
 .Declaration-Modal .Declaration-Button-Wrap .Declaration-Button-Cancel{
     background : none;
     border : 1px solid rgb(200, 200, 200);
-    margin-right : 8px;
 }
  
 .Declaration-Modal .Declaration-Button-Wrap .Declaration-Button-Declaration{
     color: white;
-    background : rgb(82, 195, 181);
+    background : red;
     border : none;
+    margin-right : 8px;
 }
  
