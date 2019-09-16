@@ -6,14 +6,10 @@ class FolderListItem extends Component {
 
     render(){
         return(
-            <div className="Mark-Item-Display" onClick={() => this.props.onToggle(this.props.favFolderNum)}>
-                <div>
-                    <div>{this.props.favFolderName}</div>
-                </div>
-                <div className="Check-Mark">
-                {
-                    this.props.checked && (<Icon name="check" />)
-                }
+            <div className={"Mark-Items"+ (this.props.checked ? " Check-Mark-Background" : '')} onClick={() => this.props.onToggle(this.props.favFolderNum)}>
+                <Icon className = {"Icon-Folder" + (this.props.checked ? " Check-Mark" : '')} name = {this.props.checked ? "folder open" : "folder outline"}/>
+                <div className={"Mark-Items-Item" + (this.props.checked ? " Check-Mark" : '')}> 
+                    {this.props.favFolderName}
                 </div>
             </div>
         )

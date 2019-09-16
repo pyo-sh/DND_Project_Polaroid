@@ -25,7 +25,11 @@ class MainBanner extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.history.push(`/search/${this.state.search}`);
+
+        if(this.state.search === '')
+            alert("검색어를 입력하세요.");
+        else
+            this.props.history.push(`/search/${this.state.search}`);
     }
 
     render() {
@@ -38,7 +42,7 @@ class MainBanner extends Component {
                 <div className = {"Main-Banner-Search" + (this.state.focus ? " Focus" : "")} onFocus = {this.handleFocus} onBlur = {this.handleBlur}>
                     <form onSubmit={this.onSubmit} method="post">
                         <input className = "Main-Banner-Search-Input" type = "text" value = {this.state.search} onChange = {this.onChange}/>
-                        <Icon className = "Icon-Search" name="search" size="large"/>
+                        <Icon className = "Icon-Search" name="search" size="large" onClick = {this.onSubmit}/>
                     </form>
                 </div>
                 <span className = "Main-Banner-Tag">자주 찾는 태그 : {tag.map((v,index) => {
