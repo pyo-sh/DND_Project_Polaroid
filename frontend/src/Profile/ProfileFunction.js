@@ -77,6 +77,8 @@ export const isFollowInfo = async (userID, targetID) =>{
 export const getMyID = () => {
   let token = '';
   localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
+  if(token === null)
+    return null;
   const decode = jwt_decode(token);
   const ID = decode.ID;
   return ID;

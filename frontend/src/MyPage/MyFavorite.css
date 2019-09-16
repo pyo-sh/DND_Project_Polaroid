@@ -1,0 +1,38 @@
+.MyFavorite-Window{
+    width: 90%;
+    background: white;
+    margin: 15px 50px;
+    padding: 5px;
+}
+.MyFavorite-Buttons{
+    margin: 15px;
+}
+.MyFavorite-Buttons button{
+    width: 33%;
+    height: 30px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    text-align: start;
+    background: rgb(131, 131, 131, 50%);
+    box-shadow: 0px 0px 2px rgb(230,230,230);
+}
+.MyFavorite-Unselected-Button{
+    color: black;
+}
+.MyFavorite-Selected-Button{
+    color: white;
+}
+
+.MyFavorite-Files{
+    margin: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.MyFavorite-File{
+    margin: 15px;
+    font-size: 15px;
+}

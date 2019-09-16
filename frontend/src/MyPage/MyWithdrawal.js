@@ -7,7 +7,8 @@ import React, {Component} from 'react';
 class MyWithdrawal extends Component{
     state = {
         id: '',
-        checkID: ''
+        checkID: '',
+        failedID: false
     }
     componentDidMount = () => {
         this.setState({
@@ -27,6 +28,7 @@ class MyWithdrawal extends Component{
                     className="MyWithdrawal-Input"
                     onChange={this.onChange}
                     />
+                <MyWithdrawalIncorrect failedID={this.state.failedID}/>
                 <button 
                     onClick={this._Access} 
                     className="MyWithdrawal-Btn">
@@ -42,7 +44,9 @@ class MyWithdrawal extends Component{
             this.props.history.push('/');
         }
         else{
-            console.log("안됨")
+            this.setState({
+                failedID: true
+            });
         }
     }
     onChange = (e) => {
@@ -50,6 +54,13 @@ class MyWithdrawal extends Component{
             checkID: e.target.value
         })
     }
+}
+
+const MyWithdrawalIncorrect = ({failedID}) => {
+    if(failedID)
+        return <div className="MyWithdrawal-ID-Incorrect">아이디를 다시 입력하세요!</div>
+    else
+        return <div className="MyWithdrawal-ID-Incorrect"></div>
 }
 
 export default withRouter(MyWithdrawal);
