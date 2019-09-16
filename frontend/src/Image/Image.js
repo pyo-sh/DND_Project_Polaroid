@@ -118,6 +118,12 @@ class ImageUseInformation extends Component {
         })
     }
 
+    confirmMarkPopUp = () => {
+        this.setState({
+            isMarkPopUpOpen: false
+        })
+    }
+
     openDecPopUp = () => {
         this.setState({
             isDecPopUpOpen: true
@@ -196,7 +202,7 @@ class ImageUseInformation extends Component {
                         
                         <Icon className = "Mark" name = {markname} onClick = {this.onClickMark}/> 
                     }
-                        <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} />
+                        <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} confirm={this.confirmMarkPopUp}/>
                 </div>
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "Like" name = {likename} onClick={this.onClickLike}/>

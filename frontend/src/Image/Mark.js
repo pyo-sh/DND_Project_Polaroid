@@ -109,7 +109,7 @@ class Mark extends Component {
       photo
     };
     addPhotoInFolder(info);
-    this.props.close();
+    this.props.confirm();
   };
 
   //폴더 클릭시 체크 표시 나타나게 해줌
