@@ -95,7 +95,7 @@ class MyPage extends Component {
         switch(type) {
             case "UPLOAD" : return <Photos mypage = {true}/>;
             case "DOWNLOADED" : return <Photos/>;
-            case "LIKED" : return ;
+            case "LIKED" : return <Photos/>;
             case "FAVORITE" : 
                 return <MyFavorite getID={this.getID}/>;
                 // <ProfileSmall 

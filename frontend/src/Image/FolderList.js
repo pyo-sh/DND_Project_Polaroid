@@ -34,7 +34,7 @@ class FolderList extends Component {
         )
 
         return(
-            <div>
+            <div className = "MarK-List">
                 {folderList}
             </div>
         )

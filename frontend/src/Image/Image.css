@@ -57,12 +57,12 @@
     cursor: pointer;
 }
 
-.Like{
+.Icon-Like{
     color: red;
     cursor: pointer;
 }
 
-.Mark{
+.Icon-Mark{
    color : rgb(255, 234, 44); 
    cursor: pointer;
 }

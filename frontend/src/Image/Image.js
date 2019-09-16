@@ -4,7 +4,7 @@ import './Image.css';
 import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
 import Declaration from './Declaration';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import ReactImageProcess from 'react-image-process';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
@@ -123,6 +123,13 @@ class ImageUseInformation extends Component {
 
     closeMarkPopUp = () => {
         this.setState({
+            isMarkPopUpOpen: false,
+            isMarkClick: false
+        })
+    }
+
+    confirmMarkPopUp = () => {
+        this.setState({
             isMarkPopUpOpen: false
         })
     }
@@ -194,15 +201,25 @@ class ImageUseInformation extends Component {
                     <Declaration isOpen={this.state.isDecPopUpOpen} close={this.closeDecPopUp} />
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Mark" name = {markname} onClick = {this.onClickMark}/> 
-                    <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} />
+                    {
+                        ((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) 
+                        
+                        ? 
+                        
+                        <Link to = "/user/login" alt="test"><Icon className = "Icon-Mark" name = {markname} onClick = {this.onClickMark}/></Link>
+                        
+                        : 
+                        
+                        <Icon className = "Icon-Mark" name = {markname} onClick = {this.onClickMark}/> 
+                    }
+                        <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} confirm={this.confirmMarkPopUp}/>
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Like" name = {likename} onClick={this.onClickLike}/>
+                    <Icon className = "Icon-Like" name = {likename} onClick={this.onClickLike}/>
                     {this.state.like}
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "view " name = "eye"/>
+                    <Icon className = "Icon-View " name = "eye"/>
                     {this.props.view}
                 </div>
             </div>

@@ -50,14 +50,16 @@ class Mark extends Component {
 
   //폴더 추가 취소 상태
   closeNewFolder = () => {
-    this.setState({ clickFolderName: false });
+    this.setState({ 
+      clickFolderName: false,
+      input : ''
+    });
   };
 
   //폴더 추가 취소
   originNewFolder = () => {
     return (
-      <div onClick={this.openNewFolder}>
-        <Icon name="plus" />
+      <div className = "Mark-Title-Display" onClick={this.openNewFolder}>
         폴더 추가
       </div>
     );
@@ -80,6 +82,7 @@ class Mark extends Component {
       />
     );
   };
+  
   //폴더 추가 확인 버튼을 눌렀을 때
   onClickConfirm = () => {
     this.closeNewFolder();
@@ -88,10 +91,15 @@ class Mark extends Component {
       ID,
       folderName
     };
-    addFolder(info).then(res => {
-      console.log(res);
-      this.getAllFolder();
-    });
+    if(folderName.trim() === ""){
+      alert("공백 금지!")
+    } 
+    else{
+      addFolder(info).then(res => {
+        console.log(res);
+        this.getAllFolder();
+      });
+    }
   };
 
   //만들어진 폴더를 클릭할 때
@@ -109,7 +117,7 @@ class Mark extends Component {
       photo
     };
     addPhotoInFolder(info);
-    this.props.close();
+    this.props.confirm();
   };
 
   //폴더 클릭시 체크 표시 나타나게 해줌
@@ -155,7 +163,10 @@ class Mark extends Component {
           <React.Fragment>
             <div className="Mark-Modal-Overlay" onClick={this.props.close} />
             <div className="Mark-Modal">
-              <h3 className="Mark-Title">{newFolder}</h3>
+              <h3 className="Mark-Column">
+                <Icon name="plus" onClick = {() => {this.setState({clickFolderName : true})}}/>
+                <div className = "Mark-Title">{newFolder}</div>
+              </h3>
               <div className="Mark-Content">
                 <div>
                   <FolderList
@@ -166,11 +177,11 @@ class Mark extends Component {
                 </div>
               </div>
               <div className="Mark-Button-Wrap">
-                <button className="Mark-Button1" onClick={this.props.close}>
-                  CANCEL
+                <button className="Mark-Button-Cancel" onClick={this.props.close}>
+                  취소
                 </button>
-                <button className="Mark-Button2" onClick={this.onClickEnd}>
-                  CONFIRM
+                <button className="Mark-Button-Confirm" onClick={this.onClickEnd}>
+                  완료
                 </button>
               </div>
             </div>

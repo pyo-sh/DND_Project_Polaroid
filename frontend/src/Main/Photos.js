@@ -45,8 +45,8 @@ class Photos extends Component {
       const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
         maxWidth: (this.props.mypage ? 960 : 1500)
       });
+
         return (
-          
             <div className = "Photos">   
                   {/* <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
                     <Grid className = "Photos-Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 395)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
