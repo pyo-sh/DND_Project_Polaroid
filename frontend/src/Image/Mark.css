@@ -73,6 +73,13 @@
     border : none;
 }
 
+
+.MarK-List{
+    height: 249px;
+    border-radius: 3px;
+    overflow: auto;
+}
+
 .Mark-Items{
     height: 30px;
     display: flex;
@@ -86,6 +93,7 @@
 
 .Mark-Items-Item{
     margin-left : 3px;
+    font-size : 12px;
 }
 
 
