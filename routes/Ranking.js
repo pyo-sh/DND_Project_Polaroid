@@ -1,9 +1,9 @@
 const express = require('express');
-const Raking = express.Router();
+const Ranking = express.Router();
 
 const User = require('../models/User');
 
-Raking.get('/', (req, res) => {
+Ranking.get('/', (req, res) => {
     console.log('겟랭킹');
     User.findAll({order : [['follower','DESC']], limit : 5})
     .then(user => {
@@ -28,4 +28,4 @@ Raking.get('/', (req, res) => {
     })
 })
 
-module.exports = Raking;
+module.exports = Ranking;

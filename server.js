@@ -9,10 +9,11 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const Users = require('./routes/Users');
 const MyPage = require('./routes/MyPage');
-const Raking = require('./routes/Raking');
+const Ranking = require('./routes/Ranking');
 const Film = require('./routes/Film');
 const Favorite = require('./routes/Favorite');
 const Follow = require('./routes/Follow');
+const LikeRanking = require('./routes/LikeRanking');
 
 const AWS = require("aws-sdk");
 AWS.config.loadFromPath(__dirname+ "/config/awsconfig.json");
@@ -42,11 +43,11 @@ app.get('/api', (req, res) => {
 
 app.use('/api/user', Users);
 app.use('/api/mypage', MyPage);
-app.use('/api/raking', Raking);
+app.use('/api/ranking', Ranking);
 app.use('/api/film', Film);
 app.use('/api/favorite', Favorite);
 app.use('/api/follow', Follow);
-
+app.use('/api/likeranking', LikeRanking);
 app.post('/api/file/photos', (req, res) => {
   let photos = [];
   let start = req.body.start;
@@ -103,6 +104,29 @@ app.post('/api/uploads3',cors(), (req, res) => {
 app.get('/api/uploads3', function(req, res, next) {
 });
   
+//예림 수정중
+/*
+const uploadedImage = multer({dest: './uploadedImage'})
+
+app.use('/uploadImg', express.static('./uploadedImage'));
+
+app.post('/api/upload', upload.single('image'), (req, res)=>{
+  let sql = 'INSERT INTO CUSTOMER VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  let image = '/uploadImg/' + req.file.filename;
+  let category = req.body.category;
+  let tag = req.body.tag;
+  let distribute = req.body.distribute;
+  let price = req.body.price;
+  let CommercialAvailable = req.body.CommercialAvailable;
+  let CopyrightNotice = req.body.CopyrightNotice;
+  let noChange = req.body.noChange;
+  let visibility = req.body.visibility;
+  let params = [image, category, tag, distribute, price, CommercialAvailable, CopyrightNotice, noChange, visibility];
+  connection.query(sql, params, (err, rows, fields)=>{
+    res.send(rows);
+  })
+})
+*/
 
 app.listen(port, () => {
     console.log(`welcome ${port}`);
