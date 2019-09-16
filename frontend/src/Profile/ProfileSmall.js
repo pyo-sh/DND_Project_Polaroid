@@ -16,8 +16,9 @@ class ProfileSmall extends Component{
             name: "",
             about: "",
             grade: "일반"
-        }
-    }
+        },
+        images : ["photo1.jpg", "photo2.jpg", "photo3.jpg"]
+    };
 
     componentWillMount(){
         const { id, isMe, isFollow } = this.props;
@@ -67,11 +68,16 @@ class ProfileSmall extends Component{
         }
     }
 
+    movePage = (e) => {
+        e.preventDefault();
+        this.props.history.push(`/${this.state.id}`);
+    }
+
     render(){
         const { id, isMe, isFollow } = this.state;
         const { photo, name } = this.state.profile;
         return (
-            <div className = "ProfileSmall">
+            <div className = "ProfileSmall" onClick = {this.movePage}>
                 <div className = "ProfileSmall-Column">
                     <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/Profile/${id}`)}>
                         <ProfileImage photo = {photo} alt = {name}/>
@@ -79,8 +85,7 @@ class ProfileSmall extends Component{
                     <div className = "ProfileSmall-Info">
                         <span className = "Nickname"> {name} </span>
                         <span className = "Id"> {"@" + id} </span>
-                    </div>
-                    { isFollow != null &&
+                        { isFollow != null &&
                         <div className = "ProfileSmall-Follow-Btn">
                             <FollowButton
                                 isMe = {isMe}
@@ -89,10 +94,12 @@ class ProfileSmall extends Component{
                                 />
                         </div>
                     }
+                    </div>
+                   
                 </div>
-                {/* <div className = "ProfileSmall-Column">
-                    {images.map((image, index) => <Image image = {image} key = {index}/>)}
-                </div> */}
+                 <div className = "ProfileSmall-Column">
+                    {this.state.images.map((image, index) => <UserImage image = {image} key = {index}/>)}
+                </div> 
             </div>
         );
     }
@@ -105,12 +112,11 @@ function ProfileImage({photo, alt}){
     ); // 프로필 사진이 없으면 검게 나오도록, 후에 사진 id로 대체하여 데이터랑 연결될 예정
 }
 
-// function Image({image}){
-//     return(
-//             <div className = "Image" style = {{ backgroundImage : `url(${image.image})`}} onClick = "">
-//             </div>
-//     );
-// }
+function UserImage({image}){
+     return(
+        <div className = "UserImage" style = {{ backgroundImage : `url(${require(`../img/photo/${image}`)})`}} />
+     );
+ }
 
 const FollowButton = ({ isMe, isFollow, handleClick}) => {
     if(!isMe)

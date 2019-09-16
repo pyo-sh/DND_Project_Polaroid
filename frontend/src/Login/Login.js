@@ -28,7 +28,7 @@ class Login extends Component {
     onChange = (e) => {
         this.setState({[e.target.name]: e.target.value})
     }
-    
+
     onSubmit = (e) => {
         e.preventDefault();
 
@@ -63,21 +63,19 @@ class Login extends Component {
     render() {
       const { loginCheck } = this.state;
         const checkStyleChange = {
-            color:'black'
+            color: 'rgb(82, 195, 181)'
         }
 
         const checkStyleOrigin = {
-            color: 'white'
+            color: 'rgb(100, 100, 100)'
         }
 
         let checkStyle = this.state.click ? checkStyleChange : checkStyleOrigin
       
         return (
           <div className="Login-Box">
-            <div>
-              <h1>Welcome Back Polaroid !</h1>
-              <form onSubmit={this.onSubmit} method="post">
-                <div className="Login-Box-Info">
+              <p> Welcome Back!</p>
+              <form className = "Login-Form" onSubmit={this.onSubmit} method="post">
                   <label htmlFor="ID">
                     <h4>아이디</h4>
                   </label>
@@ -87,9 +85,11 @@ class Login extends Component {
                     name="ID"
                     value={this.state.ID}
                     onChange={this.onChange}
+                    onFocus = {this.handleFocus} 
+                    onBlur = {this.handleBlur}
                   />
                   <label htmlFor="PASSWORD">
-                    <h4>password</h4>
+                    <h4>Password</h4>
                   </label>
                   <input
                     type="password"
@@ -97,9 +97,10 @@ class Login extends Component {
                     name="PASSWORD"
                     value={this.state.PASSWORD}
                     onChange={this.onChange}
+                    onFocus = {this.handleFocus} 
+                    onBlur = {this.handleBlur}
                   />
-                  <br />
-                  <div>
+                  <div className = "Login-Maintain">
                     <i
                       onClick={this.handleClick}
                       className="far fa-check-circle"
@@ -113,7 +114,8 @@ class Login extends Component {
                     </button>
                   </div>
                   { loginCheck ? null : <div className="Login-Check">아이디나 비밀번호가 일치하지 않습니다.</div>}
-                  <div className="Login-Box-Bottom">
+              </form>
+              <div className="Login-Box-Bottom">
                     <Link to="/user/signup" className="Link">
                       회원가입
                     </Link>
@@ -122,10 +124,8 @@ class Login extends Component {
                       <Link to="/user/findpassword" className="Link"> 비밀번호 찾기 </Link>
                     </div>
                   </div>
-                </div>
-              </form>
             </div>
-          </div>
+          
         );
         }
 }
