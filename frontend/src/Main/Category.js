@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Photos from './Photos';
 import SideContent from './SideContent';
-import './Category.css';
+import './ContentTop.css';
 
 class Category extends Component {
     upperTitle(){
@@ -35,12 +35,12 @@ class Category extends Component {
 
     render(){
         return (
-            <div className = "Category">
-                <div className = "Category-Information">
+            <div className = "Content-Top">
+                <div className = "Content-Top-Information">
                     <div className = "Title">{this.upperTitle()}</div>
                     <p className = "Explanation">{this.explanation()}</p>
                 </div>
-                <div className = "Content" id = "content-category">
+                <div className = "Content" id = "content-top-category">
                     <div className = "Content-Left"><Photos category = {this.props.match.params.category}/></div>
                     <div className = "Content-Right"> <SideContent category = {this.props.match.params.category}/> </div>
                 </div>

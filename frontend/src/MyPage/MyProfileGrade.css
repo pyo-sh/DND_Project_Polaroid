@@ -15,6 +15,7 @@
     right: 0;
     background-color: rgba(0,0,0,0.16);
   }
+
 .Grade-Modal{
     width: 320px;
     z-index: 9000;   /*div 의 창이 맨 앞으로 오게 ( 순서 1 )*/
@@ -22,7 +23,6 @@
     background-color: white;
     box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
     padding: 15px 5px;
-
     position: absolute;
 }
 .Grade-Modal .Grade-Title{

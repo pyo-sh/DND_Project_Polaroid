@@ -13,8 +13,8 @@ const ChangeNewFolder = ({value, onChange, onClickConfirm, closeNewFolder}) => {
                     onChange={onChange}
                 />
                 <div className="Confirm-Area">
-                    <button className="Confirm" onClick={onClickConfirm}>확인</button>
                     <button className="Cancel" onClick={closeNewFolder}>취소</button>
+                    <button className="Confirm" onClick={onClickConfirm}>확인</button>
                 </div>     
             </form>
         </div>

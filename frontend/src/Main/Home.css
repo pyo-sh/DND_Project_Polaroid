@@ -13,8 +13,8 @@
   .Content-Right{
     width: 380px;
     height: 100%;
-    margin : 10px;
     padding-left : 50px;
+    margin: 10px;
   }
   
   @media screen and (max-width : 100%){
