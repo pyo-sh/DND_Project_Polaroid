@@ -18,7 +18,7 @@ class Payment extends Component {
         if(this.props.copyrightNotice === "CopyrightNotice")
             caution.push("해당 이미지는 저작자의 이름, 출처 등 저작자에 대한 정보를 표시해야 합니다.");
         else  authority.push("해당 이미지는 저작자에 대한 정보를 표시하지 않아도 됩니다.");
-        if(this.props.handleValueChange === "NoChange")
+        if(this.props.noChange === "NoChange")
             caution.push("해당 이미지는 변경하거나 이미지를 사용한 2차 제작이 불가합니다.");
         else authority.push("해당 이미지는 변경하거나 이미지를 사용한 2차 제작이 가능합니다.");
 
@@ -62,14 +62,20 @@ class Payment extends Component {
                 <div className = "Payment-Modal">
                     <h3 className="Payment-Title"> 이미지 다운로드 </h3>
                     <div className = "Payment-Content Border">
-                        <h4>권한</h4>
-                        <ul className = "Payment-Photo-Authority">
-                            {this.printAuthity()}
-                        </ul>
-                        <h4>주의</h4>
-                        <ul className = "Payment-Photo-Caution">
-                            {this.printCaution()}
-                        </ul>
+                        {this.state.authority.length ?  <h4>권한</h4> : ""}
+                        {this.state.authority.length ? 
+                            <ul className = "Payment-Photo-Authority">
+                                {this.printAuthity()}
+                            </ul>
+                            : ""
+                        }
+                        {this.state.caution.length ? <h4>주의</h4> : ""}
+                        {this.state.caution.length ? 
+                            <ul className = "Payment-Photo-Caution">
+                                {this.printCaution()}
+                            </ul>
+                            : ""
+                        }
                     </div>
                     <div className = "Payment-Content">
                         <div className = "Payment-Content-Column">

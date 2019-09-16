@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { chargeFilm } from "./FilmFunction";
+import {Icon} from 'semantic-ui-react';
 import jwt_decode from "jwt-decode";
 import "./FilmCharge.css";
 import { withRouter } from 'react-router-dom';
@@ -38,7 +39,7 @@ class FilmCharge extends Component {
   onChange = e => {
     this.setState({
       num: e.target.value,
-      money: e.target.value * 100
+      money: e.target.value * 1000
     });
   };
   handleChange = () => {
@@ -51,19 +52,27 @@ class FilmCharge extends Component {
     const { money, num, agree } = this.state;
     return (
       <div className="Charge">
-        <div className="Charge-Title">필름 충전</div>
+        <div className = "Charge-Column">
+          <div className="Charge-Title">필름 충전</div>
+          <div className = "Charge-Explanation">다양한 이미지를 자신의 것으로 만들어보세요. </div>
+        </div>
         <div className="Charge-Main">
           <form onSubmit={this.onSubmit}>
             <div className="Charge-Contents">
-              <div>필름 몇개를 충전하시겠습니까?</div>
-              <div>필름 1개당 100원 입니다.</div>
+              <div className = "Charge-Cotents-Column">
+                <Icon className = "Icon-Film" name = "film"/>
+                <div>필름 1 : 1,000원</div>
+              </div>
             </div>
-            <input
-              className="Charge-Input"
-              placeholder="개수"
-              value={num}
-              onChange={this.onChange}
-            />
+            <div className = "Charge-Input-Count">
+              <p>충전할 필름 갯수</p>
+              <input
+                className="Charge-Input"
+                placeholder="개수"
+                value={num}
+                onChange={this.onChange}
+              />
+            </div>
             <div>
               <input
                 type="checkBox"

@@ -7,35 +7,61 @@
     transform: translate(-50%, -50%);
     width: 500px;
     height: 250px;
-    
+}
 
+.Charge-Column{
+    display: flex;
+    flex-direction: column;
 }
 
 .Charge-Title{
-    letter-spacing: 1px;
-    font-size: 2em;
-    margin-bottom : 5px;
-    font-weight: bold;
+    font-size: 3rem;
+    font-weight: 800;
+}
+
+.Charge-Explanation{
+    margin-top : 24px;
+    margin-left : 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgb(100,100,100);
 }
 
 .Charge-Main {
     display: flex;
     justify-content: center;
     align-items: center;
-    border : 1px solid black;
-    background:rgb(131, 131, 131, 50%);
-
+    border : 1px solid rgb(180, 180, 180);
+    border-radius: 7px;
+    background:rgb(230,230,230);
     padding: 35px;
+    margin-top : 30px;
 }
+
 .Charge-Contents{
     margin: 10px;
-    font-size: 20px;
+    font-size: 17px;
 }
+
+.Charge-Cotents-Column{
+    display: flex;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.Icon-Film{
+    margin-right: 5px;
+}
+
+
 .Charge-Input{
+    width: 250px;
+    height: 25px;
     display: block;
     border : none;
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
+    padding-left: 10px;
 }
 
 .Charge-Button{

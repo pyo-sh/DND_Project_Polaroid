@@ -141,7 +141,7 @@ class ImageInfo extends Component {
             film={film}
             handlePayment={this.props.handlePayment}
             _minusFilm={this._minusFilm}
-            commercialAvailable = ""
+            commercialAvailable = "NotCommercialAvailable"
             copyrightNotice = "CopyrightNotice"
             noChange = "NoChange"
           />
