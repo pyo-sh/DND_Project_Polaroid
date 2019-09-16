@@ -198,11 +198,11 @@ class ImageUseInformation extends Component {
                         <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} />
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "Like" name = {likename} onClick={this.onClickLike}/>
+                    <Icon className = "Icon-Like" name = {likename} onClick={this.onClickLike}/>
                     {this.state.like}
                 </div>
                 <div className = "Image-UseInforfmation-Item">
-                    <Icon className = "view " name = "eye"/>
+                    <Icon className = "Icon-View " name = "eye"/>
                     {this.props.view}
                 </div>
             </div>
