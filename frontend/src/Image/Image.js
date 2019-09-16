@@ -5,7 +5,6 @@ import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
 import Declaration from './Declaration';
 import { withRouter, Link } from 'react-router-dom';
-import ReactImageProcess from 'react-image-process';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
@@ -14,50 +13,6 @@ const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw
 "https://postfiles.pstatic.net/MjAxOTA4MDVfMjcy/MDAxNTY1MDExNDA0NDQ0.6HOnJFq9OjAMYWAZcLNX1a8okDNHPRLm0s0Y6djzHUEg.fOX-DQbLGo_rUjmP9kR2vNp_ZKd6S8UnaWdeqRqnPK4g.JPEG.she2325/jailam-rashad-1297005-unsplash.jpg?type=w966"];
 
 class Image extends Component {
-    
-    state = {
-        imageWidthHalf: "",
-        imageHeightHalf:"",
-        waterMarkWidth: "",
-        waterMarkHeight: "",
-        imageScreenWidth: 0,
-        imageScreenHeight: 0
-    }
-    componentDidMount(){
-        //원본 이미지 너비가 높이보다 크면
-        console.log(this.img.naturalHeight, this.img.naturalWidth);
-        console.log(this.img.Height, this.img.Width);
-        if(this.img.naturalWidth > this.img.naturalHeight){
-            this.setState({
-                imageWidthHalf: this.img.naturalWidth/3.1,
-                imageHeightHalf: this.img.naturalHeight/4.5,
-                imageScreenWidth: 6000,
-                imageScreenHeight: 4000
-            }) 
-        } 
-        //너비가 높이보다 작으면
-        else {
-            this.setState({
-                imageWidthHalf: this.img.naturalWidth/3,
-                imageHeightHalf: this.img.naturalHeight/3,
-                imageScreenWidth: 1500,
-                imageScreenHeight: 3000
-            }) 
-        }
-
-        //이미지 너비와 높이에 따른 워터마크 크기
-        this.img.naturalWidth < 4000 && this.img.naturalHeight < 4000 ?
-        this.setState({
-            waterMarkWidth: 900,
-            waterMarkHeight: 900
-        })  :
-        this.setState({
-            waterMarkWidth: 1700,
-            waterMarkHeight: 1700
-        })
-    }
-    img;
-
     onload = (e) => {
         console.dir(e.target);
         if(e.target.src.includes('base64')) {
@@ -66,35 +21,22 @@ class Image extends Component {
     }
     render(){
         const {id, like, isLike, view, size, match} = this.props
-        const {imageHeightHalf, imageWidthHalf, waterMarkWidth, waterMarkHeight, imageScreenWidth, imageScreenHeight} = this.state
-
+        
         return( 
-        <div className ="Imagei">
-        <div className = "Image-Column">
-            {/* <ReactImageProcess
-                    mode="waterMark"
-                    waterMarkType="image"
-                    waterMark={`https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo`}    //워터마크 이미지 경로
-                    width={waterMarkWidth}      //워터마크 너비
-                    height={waterMarkHeight}    //워터마크 높이
-                    opacity={0.4}
-                    coordinate={[imageWidthHalf, imageHeightHalf]}  //워터마크 위치 
-                > */}
-                <div className="temp-div">     {/* 워터 마크 처럼 만들기 위한 것 , 이미지를 url 로 하니깐 reactimageprocess가 먹히지 않고 오류가 계속 떠서
-                                                    css로 워터마크를 만들기 위함.*/}
-                    <div className ="temp-divzzz">
-                    <img className = "temp2" src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo.svg`} width={waterMarkWidth} height={waterMarkHeight}/>
-                    </div>
-                </div>
-            
-                <img className = "temp" ref = {(c) => {this.img = c}}
-                onLoad={this.onload}
+        <div className ="Image-Screen">
+            <div className = "Image-Screen-Column">
+                <img className = "Image-Screen-MainImage" ref = {(c) => {this.img = c}}
+                /*onLoad={this.onload}*/
                 src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${match.params.id}`} alt = {id}/>
-                    
-            {/* </ReactImageProcess> */}
-        </div>    
+                
+                     <div className ="Watermark">
+                        <div className = "Watermark-Logo" style = {{backgroundImage : `url(${require('../img/Logo_white.svg')})`}}/> 
+                        <div className = "Watermark-Text">Polaroid</div>
+                    </div>
+                
+            </div>    
         <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
-        <p className = "Relatied-Title Image-Column"> Relatied Image</p>
+        <p className = "Relatied-Title Image-Screen-Column"> Relatied Image</p>
         <RelationImage id = {id}/>
         </div>
         )
@@ -193,7 +135,7 @@ class ImageUseInformation extends Component {
         let likename = this.state.isLikeClick ? "heart" : "heart outline"
 
         return(
-            <div className = "Image-Column">
+            <div className = "Image-Screen-Column">
             <p> {this.props.size} </p>
             <div className = "Image-UseInforfmation">
                 <div className = "Image-UseInforfmation-Item">
@@ -283,7 +225,7 @@ class RelationImage extends Component{
     render(){
         
         return( 
-            <div className = "Image-Column">
+            <div className = "Image-Screen-Column">
                 {this.render_Image()}
             </div>
         );
