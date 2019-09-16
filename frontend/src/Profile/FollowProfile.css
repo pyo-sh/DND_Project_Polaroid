@@ -1,0 +1,120 @@
+.FollowProfile-Small{
+    background : white;
+    width: 25%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 20px;
+    padding : 20px;
+    border-radius: 5px;
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+    0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+}
+
+.FollowProfile-Column{
+    display: flex;
+    position: relative;
+    width : 100%;
+}
+.FollowProfile-Column2{
+    display: flex;
+    position: relative;
+}
+
+.FollowProfile-ProfileImage{
+    position: relative;
+    left : 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.FollowProfile-ProfileImage img{    
+    width: 100px;
+    height: 100px;
+    text-align: center; 
+    top : 50%;
+}
+
+.FollowProfile-Column .FollowProfile-Info{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top : 15px;
+    left : 45px;
+    text-align: left;
+}
+
+.FollowProfile-Info .Nickname{
+   font-size: 20px;
+   font-weight: 600;
+}
+
+.FollowProfile-Info .Id{
+    color : rgb(180, 180, 180);
+    font-size: 15px;
+    margin-left : 8px;
+}
+
+.FollowProfile-Follow-Btn{
+    display: flex;
+    position: relative;
+    top : 15px;
+    right: 0px;
+    margin-left : auto;
+} 
+
+.FollowProfile-Follow-Btn .Follow{
+    color: white;
+    background: rgb(86, 149, 243);
+    border : none;
+}
+
+.FollowProfile-Follow-Btn button{
+    background: white;
+    width: 80px;
+    height: 30px;
+    border : 1px solid rgb(180, 180, 180);
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.FollowProfile-Column:last-child{
+    justify-content: left;
+    margin-top : 15px;
+}
+
+.Image{
+    width: 32%;
+    padding-bottom: 25%; 
+    background-size: cover;
+    background-position: center;
+    margin-right: 2%;
+}
+
+.Image:nth-child(3){
+    margin-right: 0;
+}
+
+
+@media screen and (max-width : 1400px){
+    .Profile-Small{
+        flex : 33.33%;
+    }
+}
+@media screen and (max-width : 800px){
+    .Profile-Small{
+        flex : 50%;
+    }
+}
+@media screen and (max-width : 600px){
+    .Profile-Small{
+        flex : 100%;
+    }
+}

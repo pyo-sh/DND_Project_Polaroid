@@ -53,8 +53,16 @@ const MyInformationMenuInput = ({checkOnClick, getPassword, failedPW}) => {
                 <input onChange={getPassword} className="MyInformation-Pw-Input" type="password"/>
                 <button onClick={checkOnClick} className="MyInformation-Pw-Btn">확인</button>
             </div>
+            <MyInformationIncorrect failedPW={failedPW}/>
         </div>
     );
+}
+
+const MyInformationIncorrect = ({failedPW}) => {
+    if(failedPW)
+        return <div className="MyInformation-Pw-Incorrect">비밀번호를 다시 입력하세요!</div>
+    else
+        return <div className="MyInformation-Pw-Incorrect"></div>
 }
 
 export default MyInformationMenu;
