@@ -93,7 +93,7 @@ const Profile = ({photo, name, id, about, following, follower, grade, checkProfi
  
 const ProfilePhoto = ({photo}) => {
     return(
-        <img className="MyProfile-Photo" src={photo} alt="Profile"/>
+        <img className="MyProfile-Photo" src={photo ?  photo : require("../img/User.svg")} alt="Profile"/>
     )
 }
 

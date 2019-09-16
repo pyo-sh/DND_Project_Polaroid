@@ -171,11 +171,11 @@ class Mark extends Component {
                 </div>
               </div>
               <div className="Mark-Button-Wrap">
-                <button className="Mark-Button-Cancel" onClick={this.props.close}>
-                  취소
-                </button>
                 <button className="Mark-Button-Confirm" onClick={this.onClickEnd}>
                   완료
+                </button>
+                <button className="Mark-Button-Cancel" onClick={this.props.close}>
+                  취소
                 </button>
               </div>
             </div>

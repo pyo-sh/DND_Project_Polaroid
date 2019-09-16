@@ -41,7 +41,7 @@
     border : 1px solid rgb(180, 180, 180);
     border-radius: 3px;
     width: 250px;
-    height: 250px;
+    height: 240px;
 }
 
 
@@ -64,18 +64,18 @@
 .Mark-Modal .Mark-Button-Wrap .Mark-Button-Cancel{
     background : none;
     border : 1px solid rgb(200, 200, 200);
-    margin-right : 8px;
 }
 
 .Mark-Modal .Mark-Button-Wrap .Mark-Button-Confirm{
     color: white;
     background : rgb(82, 195, 181);
     border : none;
+    margin-right : 8px;
 }
 
 
 .MarK-List{
-    height: 249px;
+    height: 239px;
     border-radius: 3px;
     overflow: auto;
 }

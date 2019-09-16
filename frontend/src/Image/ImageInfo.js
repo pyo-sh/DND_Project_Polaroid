@@ -141,6 +141,9 @@ class ImageInfo extends Component {
             film={film}
             handlePayment={this.props.handlePayment}
             _minusFilm={this._minusFilm}
+            commercialAvailable = ""
+            copyrightNotice = "CopyrightNotice"
+            noChange = "NoChange"
           />
         ) : null}
         <div className="ImageInfo-Column">
@@ -186,7 +189,7 @@ function Registrant({ registrant }) {
           src={
             registrant.profileImage
               ? registrant.profileImage
-              : "https://postfiles.pstatic.net/MjAxOTA3MzBfMjgy/MDAxNTY0NDkxNDIxOTA3.PDvjdx3QnWA0Bty0KXQAd9IBixEYYBZ7vk3UfijmqlQg.lWtF8Jrtmh-Kv4hra3IXNlY4z3I15DpiPkdh6NiGLC0g.PNG.she2325/%E3%85%81%E3%85%82.png?type=w966"
+              :  require("../img/User.svg")
           }
           alt={registrant.nickname}
         ></img>
@@ -197,9 +200,7 @@ function Registrant({ registrant }) {
       </div>
       {registrant.follow != null && (
         <div className="Follow-Btn">
-          <button
-            className={registrant.follow === true ? "Following" : "Follow"}
-          >
+          <button className={registrant.follow === true ? "Following" : "Follow"}>
             {registrant.follow === true ? "Following" : "Follow"}
           </button>
         </div>

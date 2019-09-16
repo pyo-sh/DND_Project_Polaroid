@@ -41,8 +41,7 @@
 .Sign-Form h4{
     width: 320px;
     padding-top: 10px;
-    margin-top: 10px;
-    margin-bottom: 5px;
+    margin : 0;
     text-align: left;
 }
 
