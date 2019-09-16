@@ -113,6 +113,13 @@ class ImageUseInformation extends Component {
 
     closeMarkPopUp = () => {
         this.setState({
+            isMarkPopUpOpen: false,
+            isMarkClick: false
+        })
+    }
+
+    confirmMarkPopUp = () => {
+        this.setState({
             isMarkPopUpOpen: false
         })
     }
@@ -189,13 +196,13 @@ class ImageUseInformation extends Component {
                         
                         ? 
                         
-                        <Link to = "/user/login" alt="test"><Icon className = "Mark" name = {markname} onClick = {this.onClickMark}/></Link>
+                        <Link to = "/user/login" alt="test"><Icon className = "Icon-Mark" name = {markname} onClick = {this.onClickMark}/></Link>
                         
                         : 
                         
-                        <Icon className = "Mark" name = {markname} onClick = {this.onClickMark}/> 
+                        <Icon className = "Icon-Mark" name = {markname} onClick = {this.onClickMark}/> 
                     }
-                        <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} />
+                        <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} confirm={this.confirmMarkPopUp}/>
                 </div>
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "Icon-Like" name = {likename} onClick={this.onClickLike}/>
