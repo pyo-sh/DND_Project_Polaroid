@@ -113,7 +113,8 @@ class ImageUseInformation extends Component {
 
     closeMarkPopUp = () => {
         this.setState({
-            isMarkPopUpOpen: false
+            isMarkPopUpOpen: false,
+            isMarkClick: false
         })
     }
 
