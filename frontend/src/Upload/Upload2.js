@@ -33,14 +33,27 @@ class Upload2 extends React.Component {
         commercialAvailable:'',
         copyrightNotice:'',
         noChange:'',
-        visibility:''
+        visibility:'',
+        cateCheck: false, //카테고리 체크 여부
+        disCheck: false,  //배포 체크 여부
+        cpCheck: false,   //저작권 체크 여부
+        visCheck: false   //공개 체크 여부
   };
 
   handleFormSubmit = async (e) => {
     e.preventDefault();
-    await this.uploadImage();
-    alert('업로드 완료 되었습니다.');
-    // this.props.history.push(`/mypage`);
+    
+    // 공개여부랑 배포 모두 체크시 업로드가 되게 함
+    if((this.state.disCheck === true && this.state.visCheck === true && this.state.cateCheck === true)){
+      await this.uploadImage();
+      alert('업로드 완료 되었습니다.');
+      // this.props.history.push(`/mypage`);
+    } 
+
+    // 아닐 경우 경고창 뜨게함
+    else{
+      alert("다 체크해!")
+    }
   };
 
   handleFileChange = e => { // 미리 보기
@@ -61,12 +74,46 @@ class Upload2 extends React.Component {
     }
     reader.readAsDataURL(img)
   };
+  
+  //배포 체크
+  handleDisValueChange = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value,
+      disCheck: true 
+    })
+  }
+
+  /*저작권 보호? 종류?? 체크
+    아 그리고 얘는 다 체크 안해도 괜찮음
+  */
+  handleCpValueChange = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value
+    })
+  }
+
+  //공개 여부 체크
+  handleVisValueChange = (e) => {
+    this.setState({
+      [e.target.name] : e.target.value,
+      visCheck: true
+    })
+  }
+  
+  //카테고리 체크 
+  handleCateValueChange = (e) => { 
+    this.setState({
+      [e.target.name] : e.target.value,
+      cateCheck: true
+    })
+  }
 
   handleValueChange = (e) => { // 값 바꾸기
     this.setState({
       [e.target.name] : e.target.value
     })
   }
+
   uploadImage = () => {
       const { img,imgName, imgType, category, tag, distribute, price, commercialAvailable, copyrightNotice
     , noChange, visibility} = this.state;
@@ -129,7 +176,7 @@ class Upload2 extends React.Component {
             </div>
               <div className="CatTag">
                 <div className="CatTagCategory">카테고리
-                  <select className='categoryDropBox' name="category" value={this.state.category} onChange={this.handleValueChange}>
+                  <select className='categoryDropBox' name="category" value={this.state.category} onChange={this.handleCateValueChange}>
                     {options.map(item => (
                       <option key={item.value} value={item.value} >
                         {item.name}
@@ -143,20 +190,20 @@ class Upload2 extends React.Component {
               </div>
               <div className="TagExpl">5개 이하</div>
               <div className="Distribute">
-                <input className="free" type='radio' name='distribute' value="free" onChange={this.handleValueChange} />무료배포
-                <input className="charge" type='radio' name='distribute' value="charge" onChange={this.handleValueChange}/>유료배포
+                <input className="free" type='radio' name='distribute' value="free" onChange={this.handleDisValueChange} />무료배포
+                <input className="charge" type='radio' name='distribute' value="charge" onChange={this.handleDisValueChange}/>유료배포
               </div>
               <div className={"Price" + (this.state.distribute === 'charge' ? " Visible" : "")}>가격
                 <input className="PriceInput" type="text" name="price" value={this.state.price} onChange={this.handleValueChange}></input>
               </div>
               <div className="Copyright">
-                <input className="CommercialAvailable" type='checkbox' name='commercialAvailable' value='NotCommercialAvailable' onChange={this.handleValueChange}/>상업적 이용 불가
-                <input className="CopyrightNotice" type='checkbox' name='copyrightNotice' value='CopyrightNotice' onChange={this.handleValueChange}/>저작권 표시
-                <input className="Change" type='checkbox' name='noChange' value='NoChange' onChange={this.handleValueChange}/>변경금지
+                <input className="CommercialAvailable" type='checkbox' name='commercialAvailable' value='NotCommercialAvailable' onChange={this.handleCpValueChange}/>상업적 이용 불가
+                <input className="CopyrightNotice" type='checkbox' name='copyrightNotice' value='CopyrightNotice' onChange={this.handleCpValueChange}/>저작권 표시
+                <input className="Change" type='checkbox' name='noChange' value='NoChange' onChange={this.handleCpValueChange}/>변경금지
               </div>
               <div className="Visibility">
-                <input className="public" type='radio' name='visibility' value='public' onChange={this.handleValueChange}/>공개
-                <input className="private" type='radio' name='visibility' value='private' onChange={this.handleValueChange}/>비공개
+                <input className="public" type='radio' name='visibility' value='public' onChange={this.handleVisValueChange}/>공개
+                <input className="private" type='radio' name='visibility' value='private' onChange={this.handleVisValueChange}/>비공개
               </div>
               <button className="uploadBtn" type="submit" onClick={this.handleFormSubmit}>UPLOAD</button>
             </form>
