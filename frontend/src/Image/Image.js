@@ -13,31 +13,30 @@ const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw
 "https://postfiles.pstatic.net/MjAxOTA4MDVfMjcy/MDAxNTY1MDExNDA0NDQ0.6HOnJFq9OjAMYWAZcLNX1a8okDNHPRLm0s0Y6djzHUEg.fOX-DQbLGo_rUjmP9kR2vNp_ZKd6S8UnaWdeqRqnPK4g.JPEG.she2325/jailam-rashad-1297005-unsplash.jpg?type=w966"];
 
 class Image extends Component {
-    onload = (e) => {
-        console.dir(e.target);
-        if(e.target.src.includes('base64')) {
-            e.target.className = "MainImage";
-        }
-    }
     render(){
         const {id, like, isLike, view, size, match} = this.props
         
         return( 
-        <div className ="Image-Screen">
-            <div className = "Image-Screen-Column">
-                <img className = "Image-Screen-MainImage" ref = {(c) => {this.img = c}}
-                /*onLoad={this.onload}*/
+        <div className ="Image-Page">
+            <div className = "Image-Page-Column">
+                <img className = "Image-Page-MainImage" ref = {(c) => {this.img = c}}
+                onLoad={this.onload}
                 src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${match.params.id}`} alt = {id}/>
                 
                      <div className ="Watermark">
-                        <div className = "Watermark-Logo" style = {{backgroundImage : `url(${require('../img/Logo_white.svg')})`}}/> 
+                        <div className = "Watermark-Logo" style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo_white.svg)`}}/> 
                         <div className = "Watermark-Text">Polaroid</div>
                     </div>
                 
             </div>    
         <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
+<<<<<<< HEAD
         <p className = "Relatied-Title Image-Column"> Relatied Image</p>
         {/* <RelationImage id = {id}/> */}
+=======
+        <p className = "Relatied-Title Image-Page-Column"> Relatied Image</p>
+        <RelationImage id = {id}/>
+>>>>>>> lee
         </div>
         )
     }
@@ -135,7 +134,7 @@ class ImageUseInformation extends Component {
         let likename = this.state.isLikeClick ? "heart" : "heart outline"
 
         return(
-            <div className = "Image-Screen-Column">
+            <div className = "Image-Page-Column">
             <p> {this.props.size} </p>
             <div className = "Image-UseInforfmation">
                 <div className = "Image-UseInforfmation-Item">
@@ -224,6 +223,7 @@ class ImageUseInformation extends Component {
 
 //     render(){
         
+<<<<<<< HEAD
 //         return( 
 //             <div className = "Image-Column">
 //                 {this.render_Image()}
@@ -231,6 +231,15 @@ class ImageUseInformation extends Component {
 //         );
 //     }
 // }
+=======
+        return( 
+            <div className = "Image-Page-Column">
+                {this.render_Image()}
+            </div>
+        );
+    }
+}
+>>>>>>> lee
 
 
 export default withRouter(Image);
