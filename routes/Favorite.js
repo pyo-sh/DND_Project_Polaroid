@@ -68,7 +68,7 @@ Favorite.post('/addPhotoInFolder', (req, res) => {
 // })
 Favorite.post('/getAll',(req, res) => {
     const { userID } = req.body
-    let query = `SELECT a.favFolderNum, a.imgID, c.favFolderName, b.imgName FROM favorites a, images b, favoriteFolders c WHERE a.ImgID = b.imgID AND c.favFolderNum = a.favFolderNum AND c.ID = "${userID}" `;
+    let query = `SELECT a.favFolderNum, a.favFolderName, b.imgID, c.imgName FROM favoriteFolders a LEFT join favorites b ON a.favFolderNum = b.favFolderNum LEFT JOIN images c ON b.imgID = c.imgID  WHERE a.ID = "${userID}" ORDER BY favFolderNum`;
     db.sequelize.query(query).then(([results, metadata]) => {
         res.send(results)
     })
