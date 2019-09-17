@@ -111,10 +111,10 @@ class Mark extends Component {
 
   onClickEnd = e => {
     const folderNum = selectFolder;
-    const photo = this.props.match.params.id;
+    const imgID = this.props.match.params.id;
     const info = {
       folderNum,
-      photo
+      imgID
     };
     addPhotoInFolder(info);
     this.props.confirm();

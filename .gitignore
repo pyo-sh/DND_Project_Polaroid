@@ -6,7 +6,7 @@
 /.pnp
 .pnp.js
 /frontend/node_modules
-/frontend/src/Upload/awsconfig.js
+/frontend/src/Upload/awsconfig.json
 
 # testing
 /coverage

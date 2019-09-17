@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 // import MyProfile from './MyProfile';
 import MyPage from './MyPage';
 import './MyPageScreen.css';
@@ -6,9 +6,9 @@ import './MyPageScreen.css';
 class MyPageScreen extends Component {
   render() {
     return (
-    <Fragment>
+    <>
       <MyPage />
-    </Fragment>
+    </>
     );
   }
 }

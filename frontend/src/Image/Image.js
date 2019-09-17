@@ -165,58 +165,58 @@ class ImageUseInformation extends Component {
 }
 
 
-class RelationImage extends Component{
-    state = {
-        image : [{
-            id : "0",
-            tags : ["풍경", "하늘", "푸른"]
-        },{
-            id : "1",
-            tags: ["풍경", "푸른", "태그"]
-        },{
-            id : "2",
-            tags : ["야자수", "푸", "밝은"]
-        },{
-            id : "3",
-            tags : ["풍경", "태", "밝은"]
-        },{
-            id : "4",
-            tags : ["풍경", "태그", "밝은"]
-        }]
-    }
+// class RelationImage extends Component{
+//     state = {
+//         image : [{
+//             id : "0",
+//             tags : ["풍경", "하늘", "푸른"]
+//         },{
+//             id : "1",
+//             tags: ["풍경", "푸른", "태그"]
+//         },{
+//             id : "2",
+//             tags : ["야자수", "푸", "밝은"]
+//         },{
+//             id : "3",
+//             tags : ["풍경", "태", "밝은"]
+//         },{
+//             id : "4",
+//             tags : ["풍경", "태그", "밝은"]
+//         }]
+//     }
 
-    searchImage(){
-        const relation = [];
-        this.state.image.some((image) => {
-            let n;
-            if(1 !== image.id){
-                n = 0;
-                this.state.image[this.props.id].tags.forEach((tag) => {
-                    if(image.tags.indexOf(tag) !== -1)
-                        n++;
-                })
-            }
-            if(n >= 1){
-                relation.push(image);
-            }// 일단은 이렇게!!!!!!! 백엔드에 따라 달라질 것, 동일 카테고리 내에서만 찾는 게 나을듯 
-            if (relation.length === 3) return true; //break
-            else return false; // 계속!
-        })
-        return relation;
-    }
+//     searchImage(){
+//         const relation = [];
+//         this.state.image.some((image) => {
+//             let n;
+//             if(1 !== image.id){
+//                 n = 0;
+//                 this.state.image[this.props.id].tags.forEach((tag) => {
+//                     if(image.tags.indexOf(tag) !== -1)
+//                         n++;
+//                 })
+//             }
+//             if(n >= 1){
+//                 relation.push(image);
+//             }// 일단은 이렇게!!!!!!! 백엔드에 따라 달라질 것, 동일 카테고리 내에서만 찾는 게 나을듯 
+//             if (relation.length === 3) return true; //break
+//             else return false; // 계속!
+//         })
+//         return relation;
+//     }
 
 
-    render_Image(){
+//     render_Image(){
         
-       const relation = this.searchImage().map((image) => {
-            return (
-                <div className = "Image-Relation" style = {{ backgroundImage : `url(${im[image.id]})`}}/>
-            )
-       })
-       return relation;
-    }
+//        const relation = this.searchImage().map((image) => {
+//             return (
+//                 <div className = "Image-Relation" style = {{ backgroundImage : `url(${im[image.id]})`}}/>
+//             )
+//        })
+//        return relation;
+//     }
 
-    render(){
+//     render(){
         
         return( 
             <div className = "Image-Page-Column">

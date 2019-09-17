@@ -13,10 +13,10 @@ import React, { Component } from 'react';
 // import ProfileSmall from './ProfileSmall';
 
 class MyPage extends Component {
-    state ={
+    state ={ // grade 는 안하고 있네 지금 2019.09.17 db에서
         selectedMenu: "UPLOAD",
         profile: {
-            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
+            profileImg: "",
             name: "",
             id: "",
             about: "",
@@ -81,7 +81,8 @@ class MyPage extends Component {
                     following: res.follow,
                     follower : res.follower,
                     grade : res.grade,
-                    film : res.film
+                    film : res.film,
+                    profileImg : res.profileImg
                 }  
             })
         })

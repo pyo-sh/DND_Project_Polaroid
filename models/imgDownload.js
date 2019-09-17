@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../database/db');
 
-const imgLiked = db.sequelize.define(
-    'imgLiked',
+const imgDownload = db.sequelize.define(
+    'imgDownload',
     {
         imgID: {
             type: Sequelize.INTEGER,
@@ -12,7 +12,7 @@ const imgLiked = db.sequelize.define(
             type: Sequelize.STRING,
             primaryKey: true,
         },
-        likeDate: {
+        downDate: {
             type : Sequelize.DATE,
         }
     },
@@ -21,4 +21,4 @@ const imgLiked = db.sequelize.define(
     }
 )
 
-module.exports = imgLiked;
+module.exports = imgDownload;
