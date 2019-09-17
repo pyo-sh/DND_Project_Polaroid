@@ -30,13 +30,8 @@ class Image extends Component {
                 
             </div>    
         <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
-<<<<<<< HEAD
-        <p className = "Relatied-Title Image-Column"> Relatied Image</p>
-        {/* <RelationImage id = {id}/> */}
-=======
         <p className = "Relatied-Title Image-Page-Column"> Relatied Image</p>
         <RelationImage id = {id}/>
->>>>>>> lee
         </div>
         )
     }
@@ -223,15 +218,6 @@ class ImageUseInformation extends Component {
 
 //     render(){
         
-<<<<<<< HEAD
-//         return( 
-//             <div className = "Image-Column">
-//                 {this.render_Image()}
-//             </div>
-//         );
-//     }
-// }
-=======
         return( 
             <div className = "Image-Page-Column">
                 {this.render_Image()}
@@ -239,7 +225,6 @@ class ImageUseInformation extends Component {
         );
     }
 }
->>>>>>> lee
 
 
 export default withRouter(Image);
