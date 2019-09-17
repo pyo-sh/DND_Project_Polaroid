@@ -3,7 +3,8 @@ const db = require('../database/db');
 const favoriteFolder = require('./favoriteFolder');
 const follow = require('./follow');
 const image = require('./image');
-// const imgLiked = require('./imgLiked');
+const imgLiked = require('./imgLiked');
+const imgDownload = require('./imgDownload');
 
 const User = db.sequelize.define(
     'user',
@@ -17,6 +18,9 @@ const User = db.sequelize.define(
         },
         email : {
             type: Sequelize.STRING,
+        },
+        profileImg : {
+            type : Sequelize.STRING
         },
         nickname : {
             type: Sequelize.STRING,   
@@ -35,10 +39,6 @@ const User = db.sequelize.define(
         },
         film : {
             type : Sequelize.INTEGER
-        },
-        created: {
-            type : Sequelize.DATE,
-            defaultValue: Sequelize.NOW
         }
     },
     {
@@ -49,6 +49,7 @@ User.hasMany(favoriteFolder, {foreignKey : 'ID', sourceKey: 'ID' });
 User.hasMany(follow, {foreignKey : 'followID', sourceKey: 'ID'});
 User.hasMany(follow, {foreignKey : 'followerID', sourceKey: 'ID'});
 User.hasMany(image, { foreignKey: 'imgID', sourceKey: 'ID'});
-// User.hasMany(imgLiked, {foreignKey : 'likeID', sourceKey: 'ID'});
+User.hasMany(imgLiked, {foreignKey : 'userID', sourceKey: 'ID'});
+User.hasMany(imgDownload, {foreignKey : 'userID', sourceKey : 'ID'});
 
 module.exports = User;

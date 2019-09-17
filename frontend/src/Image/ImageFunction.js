@@ -59,3 +59,33 @@ export const addPhotoInFolder = async info => {
         return res;
     })
 }
+
+export const getImageInfo = async imgID => {
+    return await axios
+    .get(`/api/images/getOneImg/${imgID}`)
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
+
+export const getDownCount = async imgID => {
+    return await axios
+    .get(`/api/images/getDownloads/${imgID}`)
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
+
+export const plusDownUser = async (imgID, userID) => {
+    return await axios
+    .post(`/api/images/plusDownUser`,{
+        imgID,
+        userID
+    })
+}

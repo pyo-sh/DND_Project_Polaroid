@@ -43,8 +43,18 @@ const image = db.sequelize.define(
         visibility : {
             type: Sequelize.STRING
         },
+        imgWidth : {
+            type : Sequelize.INTEGER
+        },
+        imgHeight : {
+            type : Sequelize.INTEGER
+        },
         userID : {
             type : Sequelize.STRING
+        },
+        uploadDate : {
+            type: Sequelize.DATE,
+            defaultValue : Sequelize.NOW
         }
     },
     {

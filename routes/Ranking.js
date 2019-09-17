@@ -4,7 +4,6 @@ const Ranking = express.Router();
 const User = require('../models/User');
 
 Ranking.get('/', (req, res) => {
-    console.log('겟랭킹');
     User.findAll({order : [['follower','DESC']], limit : 5})
     .then(user => {
         if(user === null){
