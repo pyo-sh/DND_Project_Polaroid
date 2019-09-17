@@ -114,7 +114,7 @@ class Mark extends Component {
     const imgID = this.props.match.params.id;
     const info = {
       folderNum,
-      imgID,
+      imgID
     };
     addPhotoInFolder(info);
     this.props.confirm();
