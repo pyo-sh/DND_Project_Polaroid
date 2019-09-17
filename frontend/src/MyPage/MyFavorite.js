@@ -12,7 +12,9 @@ class MyFavorite extends Component {
         folderNum: [],
         // 현재 출력하고 있는 폴더의 넘버
         nowFolderNum: 0,
-        favoriteLength: 0
+        favoriteLength: 0,
+
+        folderCheck: false
     }
     // 지금 자신의 아이디를 가져온 뒤, favorite 폴더를 불러온다.
     componentWillMount() {
@@ -65,6 +67,19 @@ class MyFavorite extends Component {
             });
         }
     }
+    menuOnClick = (e) => {
+        const { folderCheck } = this.state;
+        if(folderCheck){
+            this.setState({
+                folderCheck: false
+            })
+        }
+        else{
+            this.setState({
+                folderCheck: true
+            })
+        }
+    }
 
     _renderButton = (favoriteFolder) => {
         let buttonDiv = '';
@@ -74,16 +89,22 @@ class MyFavorite extends Component {
                     return <button
                         className="MyFavorite-Selected-Button"
                         key={index+1}
-                        onClick={this.favOnClick}
+                        onClick={this.favOnClick}   
                         >{index+1}. {folder.favFolderName}</button>
-                return <button 
+                return <button
                     className="MyFavorite-Unselected-Button"
                     key={index+1}
                     onClick={this.favOnClick}
-                    >{index+1}. {folder.favFolderName}</button>;
+                    >{index+1}. {folder.favFolderName}</button>
             })
         }
-        return buttonDiv;
+        return <React.Fragment>
+            <button className="MyFavorite-Fake-Button" onClick={this.menuOnClick}/>
+            <div
+                className={this.state.folderCheck ? "MyFavorite-Folder-Open":"MyFavorite-Folder-Close"}
+                id="MyFavorite-Folders">
+                {buttonDiv}</div>
+        </React.Fragment>
     }
 
     _renderFolder = (favoriteFolder, nowPage) => {
@@ -112,15 +133,17 @@ class MyFavorite extends Component {
     render() {
         const { favoriteFolder, nowPage } = this.state;
         return (
-            <div className="MyFavorite-Window">
+            <React.Fragment>
                 <div className="MyFavorite-Buttons">
                     {this._renderButton(favoriteFolder)}
                 </div>
-                <div className="MyFavorite-Foldercontrol">
+                <div className="MyFavorite-Window">
+                    <div className="MyFavorite-Foldercontrol">
 
+                    </div>
+                    {this._renderFolder(favoriteFolder, nowPage)}
                 </div>
-                {this._renderFolder(favoriteFolder, nowPage)}
-            </div>
+            </React.Fragment>
         );
     }
 }
