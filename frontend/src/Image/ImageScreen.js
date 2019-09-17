@@ -9,63 +9,7 @@ const im = ["https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.
 
 
 class ImageScreen extends Component {
-  state = {
-    image : [{
-      id : "0",
-      tags : ["풍경", "하늘", "푸른"],
-      registrant : {
-        profileImage : im[0],
-        nickname : "이 은비",
-        id : "she2325",
-        follow : false
-      },
-      type : "jpg",
-      uploadDate : "2019.2.8",
-      download : "1594",
-      kategorie : "Nature",
-      like : 56,
-      isLike : false,
-      view : "45",
-      size : "가로 X 세로",
-      mark : true,
-      paid : true
-    },{
-      id : "1",
-      tags : ["풍경","하늘", "태그"],
-      registrant : {
-        profileImage : null,
-        nickname : "Lihess",
-        id : "lihess"
-      },
-      type : "jpg",
-      uploadDate : "2019.2.8",
-      download : "1594",
-      kategorie : "카테고리",
-      like : "564",
-      isLike : true,
-      view : "456",
-      size : "가로 X 세로",
-      paid : false
-    },{
-      id : "2",
-      tags : ["야자수", "하늘", "밝은"],
-      registrant : {
-        profileImage : im[3],
-        nickname : "Hong",
-        id : "hong",
-        follow : true
-      },
-      type : "jpg",
-      uploadDate : "2019.2.8",
-      download : "1594",
-      kategorie : "Nature",
-      like : "564",
-      isLike : true,
-      view : "4558",
-      size : "가로 X 세로",
-      mark : true,
-      paid : false
-    }],
+  state = { 
     payment : false
   }
 
@@ -80,30 +24,33 @@ class ImageScreen extends Component {
       <div className="Content">
         <div className = "Content-Left">
           <Image 
-            id = {this.state.image[0].id} 
-            tags = {this.state.image[0].tags} 
-            type = {this.state.image[0].type} 
-            uploadDate = {this.state.image[0].uploadDate} 
-            downloade = {this.state.image[0].downloade} 
-            kategorie = {this.state.image[0].kategorie} 
-            like = {this.state.image[0].like} 
-            isLike = {this.state.image[0].isLike} 
-            view = {this.state.image[0].view} 
-            size = {this.state.image[0].size}
-            key = {this.state.image[0].id} />
+            // id = "1"
+            // tags = {this.state.image[0].tags} 
+            // type = {this.state.image[0].type} 
+            // uploadDate = {this.state.image[0].uploadDate} 
+            // downloade = {this.state.image[0].downloade} 
+            // kategorie = {this.state.image[0].kategorie} 
+            // like = {this.state.image[0].like} 
+            // isLike = {this.state.image[0].isLike} 
+            // view = {this.state.image[0].view} 
+            // size = {this.state.image[0].size}
+            // key = {this.state.image[0].id} 
+            />
         </div>
         <div className = "Content-Right">
           <ImageInfo 
-            registrant = {this.state.image[0].registrant}
-            paid = {this.state.image[0].paid}
-            type = {this.state.image[0].type}
-            size = {this.state.image[0].size}
-            uploadDate = {this.state.image[0].uploadDate}
-            download = {this.state.image[0].download}
-            kategorie = {this.state.image[0].kategorie}
-            tags = {this.state.image[0].tags}
-            payment= {this.state.payment}
-            handlePayment={this.onClick}/>
+            // registrant = {this.state.image[0].registrant}
+            // paid = {this.state.image[0].paid}
+            // type = {this.state.image[0].type}
+            // size = {this.state.image[0].size}
+            // uploadDate = {this.state.image[0].uploadDate}
+            // download = {this.state.image[0].download}
+            // kategorie = {this.state.image[0].kategorie}
+            // tags = {this.state.image[0].tags}
+          //  }/>
+           payment= {this.state.payment}
+            handlePayment={this.onClick}
+            />
         </div>
       </div>
     );

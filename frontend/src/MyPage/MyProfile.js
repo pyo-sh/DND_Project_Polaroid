@@ -6,7 +6,7 @@ import FollowBtn from '../Profile/FollowBtn';
 
 class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
     state = {
-            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
+            profileImg: "",
             name: "",
             id: "",
             about: "",
@@ -21,6 +21,7 @@ class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
     componentWillMount(){
         this._dataSet(this.props.profile);
     }
+
     // Props가 바뀔때마다 state를 업데이트 해준다.
     componentWillReceiveProps(nextProps){
         this._dataSet(nextProps.profile);
@@ -28,24 +29,24 @@ class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
 
     // 프로파일의 정보를 최신화 시키는 함수
     _dataSet = (data) => {
-        const {photo, name, id, about, following, follower, grade, checkProfile} = data;
+        const {profileImg, name, id, about, following, follower, grade, checkProfile} = data;
         this.setState({
-            photo: photo,
-            name: name,
-            id: id,
-            about: about,
-            following: following,
-            follower: follower,
-            grade: grade,
-            checkProfile: checkProfile // 출력되는 프로파일이 MyProfile이면 true, 다른사람 Profile이면 false로 등급 확인
+            profileImg,
+            name,
+            id,
+            about,
+            following,
+            follower,
+            grade,
+            checkProfile // 출력되는 프로파일이 MyProfile이면 true, 다른사람 Profile이면 false로 등급 확인
         })
     }
 
     render() {
-        const { photo, name, id, about, following, follower, grade, checkProfile } = this.state;
+        const { profileImg, name, id, about, following, follower, grade, checkProfile } = this.state;
         return (
                 <Profile 
-                    photo={photo}
+                    profileImg={profileImg}
                     name={name}
                     id={id}
                     about={about}
@@ -61,11 +62,28 @@ class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
     }
 }
 
-const Profile = ({photo, name, id, about, following, follower, grade, checkProfile}) => {
-    return(
-        <div className="MyProfile">
+class Profile extends Component {
+    state = {
+
+    }
+    componentDidMount(){
+        const props = this.props
+        this.setState({
+            props
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        const props = nextProps;
+        this.setState({
+            props
+        })
+    }
+    render(){
+        const {profileImg, name, id, about, following, follower, grade, checkProfile} = this.props;
+        return(
+<div className="MyProfile">
             <div className="MyProfile-Status">
-                <ProfilePhoto photo = {photo}/>
+                <ProfilePhoto profileImg = {profileImg}/>
                 <MyProfileGrade name = {name} grade = {grade} checkProfile={checkProfile}/>
             </div>
             <div className="MyProfile-Columns">
@@ -88,13 +106,68 @@ const Profile = ({photo, name, id, about, following, follower, grade, checkProfi
                 </div>
             </div>
         </div>
-    )
+        )
+    }
 }
+// const Profile = ({profileImg, name, id, about, following, follower, grade, checkProfile}) => {
+//     return(
+//         <div className="MyProfile">
+//             <div className="MyProfile-Status">
+//                 <ProfilePhoto profileImg = {profileImg}/>
+//                 <MyProfileGrade name = {name} grade = {grade} checkProfile={checkProfile}/>
+//             </div>
+//             <div className="MyProfile-Columns">
+//                 <div className="MyProfile-Private">
+//                     <strong className="MyProfile-Name">{name}</strong>
+//                     <span className="MyProfile-Id">@{id}</span>
+//                 </div>
+//                 <div className="MyProfile-About">
+//                     <LinesEllipsis
+//                         text={about}
+//                         maxLine='5'
+//                         ellipsis=' ...'
+//                         trimRight
+//                         basedOn='letters'
+//                         />
+//                 </div>
+//                 <div className="MyProfile-Service">
+//                     <FollowBtn targetID={id} followNum={following} isFollow={true}/>
+//                     <FollowBtn targetID={id} followNum={follower} isFollow={false}/>
+//                 </div>
+//             </div>
+//         </div>
+//     )
+// }
  
-const ProfilePhoto = ({photo}) => {
-    return(
-        <img className="MyProfile-Photo" src={photo} alt="Profile"/>
-    )
+// const ProfilePhoto = ({profileImg}) => {
+//     return(
+//         <img className="MyProfile-Photo" src={profileImg} alt="Profile"/>
+//     )
+// }
+class ProfilePhoto extends Component {
+    state = {
+        profileImg : ''
+    }
+    componentDidMount(){
+        const {profileImg} = this.props
+        this.setState({
+            profileImg
+        })
+    }
+    componentWillReceiveProps(nextProps) {
+        const { profileImg } = nextProps
+        setTimeout( () => {
+            this.setState({
+                profileImg
+            })
+        }, 1000)
+    }
+    render(){
+        const { profileImg } = this.state;
+        return(
+            <img className="MyProfile-Photo" src={profileImg} alt="Profile"/>
+        )
+    }
 }
 
 export default MyProfile;

@@ -3,6 +3,7 @@ const Images = express.Router();
 const Sequelize = require('sequelize');
 const db = require("../database/db");
 const image = require('../models/image');
+const imgDownload = require('../models/imgDownload');
 
 Images.get('/getAllImages', (req, res) => {
     let {start, count} = req.query;
@@ -23,9 +24,33 @@ Images.get('/getOneImg/:imgID', (req, res) => {
     .then(img => {
         res.send(img);
     })
+})
+Images.get('/getDownloads/:imgID', (req, res) => {
+    let { imgID } = req.params;
+    
+    let query = `SELECT COUNT(*) downCount FROM imgDownloads WHERE imgID = ${imgID}`;
 
+    db.sequelize.query(query).then(([results, metadata]) => {
+        res.send(results);
+    })
 })
 
+Images.post('/plusDownUser', (req, res) => {
+    console.log("여기 실행");
+    const { imgID, userID } = req.body;
+    imgDownload.findOne({
+        where : {
+            imgID,
+            userID
+        }
+    }).then(result => {
+        console.log(result + "result");
+        if(!result) {
+            imgDownload.create({imgID, userID})
+        }
+    })
+
+})
 
 
 module.exports = Images;

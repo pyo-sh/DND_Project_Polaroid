@@ -6,12 +6,12 @@ const AWS = require("aws-sdk");
 AWS.config.loadFromPath("./config/awsconfig.json");
 const cors = require('cors');
 const db = require('../database/db');
+const User = require('../models/User');
 
 Upload.post('/',cors(), (req, res) => { // 업로드 하는것.
     let s3 = new AWS.S3();
-    console.log(req.body);
     const { imgName, imgType, category, tag, distribute,commercialAvailable,copyrightNotice,
-        noChange,visibility} = req.body.imageData;
+        noChange,visibility, imgHeight, imgWidth} = req.body.imageData;
     const price = 100;
     let query = "Select MAX(imgID) as maxID from images";
     db.sequelize.query(query).then(([results, metadata]) => {
@@ -22,7 +22,6 @@ Upload.post('/',cors(), (req, res) => { // 업로드 하는것.
         else {
             imgID = `${results[0].maxID + 1}`;
         }
-        console.log(imgID);
         const s3Params = {
             Bucket : "poloapp/image",
             Key : imgID,
@@ -45,18 +44,52 @@ Upload.post('/',cors(), (req, res) => { // 업로드 하는것.
             image.create({
                 imgID,imgName, imgType, category, tag, distribute, price,
                 commercialAvailable, copyrightNotice, noChange, visibility,
-                imgUrl: returnData.url
+                imgUrl: returnData.url, imgWidth, imgHeight
             })
             res.json({success:true, data:{returnData}});
         });
     })
 })
 
+Upload.post("/profileUpdate", cors(), async (req, res) => {
+  //유저 프로필 이미지 업로드 하는것.
+  let s3 = new AWS.S3();
+  const { id, imgType } = req.body.imageData;
+  let number = Math.floor(Math.random() * 10);
+  const s3Params = {
+    Bucket: "poloapp/profile",
+    Key: `${id}${number}`,
+    Expires: 500,
+    ContentType: imgType,
+    ACL: "public-read"
+  };
+
+  await s3.getSignedUrl("putObject", s3Params, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.json({ success: false, error: err });
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/${id}${number}`
+    };
+    User.findOne({
+        where : {
+            ID: id
+        }
+    }).then(user => {
+        console.log(user);
+        user.update({
+            profileImg : returnData.url
+        })
+        res.json({ success: true, data: { returnData } });
+    })
+  });
+});
 
 
 Upload.get('/getList', cors(), async (req, res) => {
     let keys = await listAllObejcts("poloapp");
-    console.log(keys);
     res.send(keys);
 })
 
@@ -77,7 +110,6 @@ const listAllObejcts = async (bucket) => {
         let data = await s3.listObjects(params).promise();
 
         data.Contents.forEach((elem) => {
-            console.log(elem.Key);
             keys = keys.concat(elem.Key);
         })
 

@@ -93,9 +93,9 @@ class MyFavorite extends Component {
             })
         }
         return (
-            <React.Fragment>
+            <>
                 {folderFile}
-            </React.Fragment>
+            </>
         );
     }
 

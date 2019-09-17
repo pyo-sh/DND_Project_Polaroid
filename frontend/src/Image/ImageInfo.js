@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import "./ImageInfo.css";
 import Payment from "./Payment";
 import { getFilm, minusFilm } from "./ImageFunction";
@@ -7,107 +6,85 @@ import jwt_decode from "jwt-decode";
 import { withRouter } from 'react-router-dom';
 import AWS from 'aws-sdk';
 import {awsconfig} from '../Upload/awsconfig';
-import axios from "axios";
+import {getImageInfo, getDownCount, plusDownUser } from './ImageFunction';
 
-
-Registrant.protoType = {
-  registrant: {
-    profileImage: PropTypes.string,
-    nickname: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired
-  }
-};
 
 class ImageInfo extends Component {
   state = {
     img : {},
-    registrant: "",
-    paid: "",
-    type: "",
-    size: "",
-    uploadDate: "",
-    download: "",
-    kategorie: "",
-    tags: [],
-    payment: "",
-    film: 0
+    imgID : '',
+    imgName : '',
+    imgType : '',
+    imgUrl : '',
+    category : '',
+    tag : [],
+    distribute : '',
+    price : '',
+    downCount : 0,
+    commercialAvailable: '',
+    copyrightNotice : '',
+    noChange : '',
+    visibility : '',
+    imgHeight : '',
+    imgWidth : '',
+    userID : '',
+    uploadDate : '',
+    film : 0
   };
 
   componentDidMount() {
     const imgID = this.props.match.params.id
-    axios.get(`/api/images/getOneImg/${imgID}`).then(result => {
-
+    getImageInfo(imgID).then(result => {
+      const { imgID, imgName, imgType, imgUrl, category, tag, distribute, price, 
+        commercialAvailable, copyrightNotice, noChange, 
+        imgWidth,imgHeight,
+        visibility, uploadDate, userID}
+      = result;
+      getDownCount(imgID).then(result => {
+        let { downCount } = result[0];
+        let uploadDate2 = uploadDate.split('T')[0];
+        let tag2 = tag.split(' ');
+        this.setState({
+          imgID,
+          imgName,
+          imgType,
+          imgUrl,
+          category,
+          tag : tag2,
+          distribute,
+          price,
+          commercialAvailable,
+          copyrightNotice,
+          noChange,
+          imgWidth,
+          imgHeight,
+          downCount,
+          visibility,
+          uploadDate : uploadDate2,
+          userID
+       })
     })
-    const {
-      registrant,
-      paid,
-      type,
-      size,
-      uploadDate,
-      download,
-      kategorie,
-      tags,
-      payment
-    } = this.props;
-    this.setState({
-      registrant,
-      paid,
-      type,
-      size,
-      uploadDate,
-      download,
-      kategorie,
-      tags,
-      payment
-    });
-  }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props) {
-      const {
-        registrant,
-        paid,
-        type,
-        size,
-        uploadDate,
-        download,
-        kategorie,
-        tags,
-        payment
-      } = this.props;
-      this.setState({
-        registrant,
-        paid,
-        type,
-        size,
-        uploadDate,
-        download,
-        kategorie,
-        tags,
-        payment
-      });
-    }
-  }
-  _getFilm = () => {
+  })
+}
+  getID = () => { // ID 불러오기
     let token = "";
     localStorage.usertoken
       ? (token = localStorage.getItem("usertoken"))
       : (token = sessionStorage.getItem("usertoken"));
     const decode = jwt_decode(token);
     const ID = decode.ID;
-    console.log("userID" + ID);
+    return ID;
+  }
+  _getFilm = () => { // 필름 가져오기
+    const ID = this.getID();
     getFilm(ID).then(film => {
       this.setState({
         film
       });
     });
   };
-  _minusFilm = price => {
-    let token = "";
-    localStorage.usertoken
-      ? (token = localStorage.getItem("usertoken"))
-      : (token = sessionStorage.getItem("usertoken"));
-    const decode = jwt_decode(token);
-    const ID = decode.ID;
+  _minusFilm = price => { // 필름 마이너스
+    const ID = this.getID();
     const filmNum = price;
     const info = {
       ID,
@@ -116,22 +93,17 @@ class ImageInfo extends Component {
     minusFilm(info);
   };
 
-  downloadClick = () => {
-    let {imgUrl} = this.state;
+  downloadClick = () => {  // S3로부터 다운로드 받게함. 그리고 imgDownloads 테이블에 추가해서 카운트가 하나 늘어나게함.
+    let {imgID, imgName, imgUrl} = this.state;
     let urlArray = imgUrl.split("/")
     let bucket = urlArray[2]
     let realBucket = bucket.split('.');
     realBucket = realBucket[0];
-    console.log(realBucket)
     // let Key = urlArray[4];
     let Key = `${urlArray[3]}/${urlArray[4]}`;
-    let imgName = urlArray[4];
-    console.log(Key);
     let s3 = new AWS.S3({accessKeyId:awsconfig.accessKeyId, secretAccessKey : awsconfig.secretAccessKey});
     let params = {Bucket: realBucket, Key: Key}
     s3.getObject(params, (err, data) => {
-      console.log(err);
-      console.log(data);
       let blob=new Blob([data.Body], {type: data.ContentType});
       let link=document.createElement('a');
       const url=window.URL.createObjectURL(blob);
@@ -139,6 +111,8 @@ class ImageInfo extends Component {
       link.setAttribute('download',`${imgName}.${data.ContentType}`);
       document.body.appendChild(link);
       link.click();
+      const userID = this.getID();
+      plusDownUser(imgID, userID);
     })}
 
   onClick = () => {
@@ -153,24 +127,33 @@ class ImageInfo extends Component {
   };
   render() {
     const {
-      registrant,
-      paid,
-      type,
-      size,
+      imgID,
+      imgName,
+      imgType,
+      imgUrl,
+      category,
+      tag,
+      distribute,
+      price,
+      commercialAvailable,
+      copyrightNotice,
+      noChange,
+      visibility,
+      userID,
+      downCount,
+      imgWidth,
+      imgHeight,
       uploadDate,
-      download,
-      kategorie,
-      tags,
-      payment,
+      payment, // 페이먼트, 필름
       film
     } = this.state;
     return (
       <div className="ImageInfo">
-        <Registrant registrant={registrant} />
+        <Registrant userID={userID} />
         <div className="ImageInfo-Column Download">
-          <button className={paid ? "Premium" : "Free"} onClick={this.onClick}>
+          <button className={distribute === "free" ?  "Free": "Premium" } onClick={this.onClick}>
             {" "}
-            {paid ? "Premium Download" : "Free Download"}{" "}
+            {distribute === "free" ?  "Free Download": "Premium Download"}{" "}
           </button>
         </div>
         {payment ? (
@@ -185,11 +168,11 @@ class ImageInfo extends Component {
             <tbody>
               <tr>
                 <td>이미지 타입</td>
-                <td>{type}</td>
+                <td>{imgType}</td>
               </tr>
               <tr>
-                <td>사이즈</td>
-                <td>{size}</td>
+                <td>사이즈</td> {/* 사이즈 추가, 업로드 날짜 추가 다운로드 추가 */}
+                <td>{imgWidth+" x "+imgHeight}</td>
               </tr>
               <tr>
                 <td> 업로드 날짜 </td>
@@ -197,15 +180,16 @@ class ImageInfo extends Component {
               </tr>
               <tr>
                 <td> 다운로드 </td>
-                <td>{download}</td>
+                <td>{downCount}</td>
               </tr>
               <tr>
                 <td> 카테고리 </td>
-                <td>{kategorie}</td>
+                <td>{category}</td>
               </tr>
               <tr>
                 <td> 태그 </td>
-                <td>{tags.map(tag => ` ${tag}`)}</td>
+                {/* <td>{tags.map(tag => ` ${tag}`)}</td> */}
+                <td>{tag}</td>
               </tr>
             </tbody>
           </table>
@@ -215,29 +199,46 @@ class ImageInfo extends Component {
   }
 }
 
-function Registrant({ registrant }) {
+function Registrant({ userID }) {
   return (
     <div className="ImageInfo-Column Registrant">
       <div className="Registrant-Image">
-        <img
+        {/* <img
           src={
             registrant.profileImage
               ? registrant.profileImage
               : "https://postfiles.pstatic.net/MjAxOTA3MzBfMjgy/MDAxNTY0NDkxNDIxOTA3.PDvjdx3QnWA0Bty0KXQAd9IBixEYYBZ7vk3UfijmqlQg.lWtF8Jrtmh-Kv4hra3IXNlY4z3I15DpiPkdh6NiGLC0g.PNG.she2325/%E3%85%81%E3%85%82.png?type=w966"
           }
           alt={registrant.nickname}
-        ></img>
+        /> */}
+              <img
+          src={
+              "https://postfiles.pstatic.net/MjAxOTA3MzBfMjgy/MDAxNTY0NDkxNDIxOTA3.PDvjdx3QnWA0Bty0KXQAd9IBixEYYBZ7vk3UfijmqlQg.lWtF8Jrtmh-Kv4hra3IXNlY4z3I15DpiPkdh6NiGLC0g.PNG.she2325/%E3%85%81%E3%85%82.png?type=w966"
+          }
+          alt={userID}
+        />
       </div>
       <div className="Registrant-Info">
-        <span className="Nickname"> {registrant.nickname} </span>
-        <span className="Id"> {"@" + registrant.id} </span>
+        {/* <span className="Nickname"> {registrant.nickname} </span> */}
+        <span className="Nickname"> {userID} </span>
+        <span className="Id"> {"@" + userID} </span>
+        {/* <span className="Id"> {"@" + registrant.id} </span> */}
       </div>
-      {registrant.follow != null && (
+      {/* {registrant.follow != null && (
         <div className="Follow-Btn">
           <button
             className={registrant.follow === true ? "Following" : "Follow"}
           >
             {registrant.follow === true ? "Following" : "Follow"}
+          </button>
+        </div>
+      )} */}
+        {userID != null && (
+        <div className="Follow-Btn">
+          <button
+            className={userID === true ? "Following" : "Follow"}
+          >
+            {userID === true ? "Following" : "Follow"}
           </button>
         </div>
       )}
