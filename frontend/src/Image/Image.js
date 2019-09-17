@@ -13,13 +13,6 @@ const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw
 "https://postfiles.pstatic.net/MjAxOTA4MDVfMjcy/MDAxNTY1MDExNDA0NDQ0.6HOnJFq9OjAMYWAZcLNX1a8okDNHPRLm0s0Y6djzHUEg.fOX-DQbLGo_rUjmP9kR2vNp_ZKd6S8UnaWdeqRqnPK4g.JPEG.she2325/jailam-rashad-1297005-unsplash.jpg?type=w966"];
 
 class Image extends Component {
-    onload = (e) => {
-        console.dir(e.target);
-        if(e.target.src.includes('base64')) {
-            e.target.className = "Image-Page-MainImage";
-        }
-    }
-
     render(){
         const {id, like, isLike, view, size, match} = this.props
         
@@ -27,11 +20,11 @@ class Image extends Component {
         <div className ="Image-Page">
             <div className = "Image-Page-Column">
                 <img className = "Image-Page-MainImage" ref = {(c) => {this.img = c}}
-                /*onLoad={this.onload}*/
+                onLoad={this.onload}
                 src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${match.params.id}`} alt = {id}/>
                 
                      <div className ="Watermark">
-                        <div className = "Watermark-Logo" style = {{backgroundImage : `url(${require('../img/Logo_white.svg')})`}}/> 
+                        <div className = "Watermark-Logo" style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo_white.svg)`}}/> 
                         <div className = "Watermark-Text">Polaroid</div>
                     </div>
                 

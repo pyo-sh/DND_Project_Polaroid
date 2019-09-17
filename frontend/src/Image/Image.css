@@ -1,7 +1,6 @@
 .Image-Page-Column{
     position: relative;
     width: 100%;
-    overflow: hidden;
     display: flex;
     justify-content: flex-start;
     align-content: flex-start;
@@ -11,6 +10,7 @@
 .Image-Page-Column:nth-child(1){
     height: 800px;
     border : 1px solid rgb(210,210,210);
+    overflow: hidden;
 }
 
 

@@ -12,7 +12,7 @@ class ProfileSmall extends Component{
         // true : following, false : follower
         isFollow: true,
         profile: {
-            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
+            photo: require('../img/User.svg'),
             name: "",
             about: "",
             grade: "일반"
@@ -70,7 +70,9 @@ class ProfileSmall extends Component{
 
     movePage = (e) => {
         e.preventDefault();
-        this.props.history.push(`/${this.state.id}`);
+
+        if(e.target.nodeName !== 'BUTTON')
+            this.props.history.push(`/${this.state.id}`);
     }
 
     render(){
@@ -79,7 +81,7 @@ class ProfileSmall extends Component{
         return (
             <div className = "ProfileSmall" onClick = {this.movePage}>
                 <div className = "ProfileSmall-Column">
-                    <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/Profile/${id}`)}>
+                    <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/${id}`)}>
                         <ProfileImage photo = {photo} alt = {name}/>
                     </div>
                     <div className = "ProfileSmall-Info">
@@ -95,7 +97,6 @@ class ProfileSmall extends Component{
                         </div>
                     }
                     </div>
-                   
                 </div>
                  <div className = "ProfileSmall-Column">
                     {this.state.images.map((image, index) => <UserImage image = {image} key = {index}/>)}
