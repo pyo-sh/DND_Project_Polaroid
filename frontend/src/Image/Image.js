@@ -23,9 +23,9 @@ class Image extends Component {
         const {id, like, isLike, view, size, match} = this.props
         
         return( 
-        <div className ="Image-Screen">
-            <div className = "Image-Screen-Column">
-                <img className = "Image-Screen-MainImage" ref = {(c) => {this.img = c}}
+        <div className ="Image-Page">
+            <div className = "Image-Page-Column">
+                <img className = "Image-Page-MainImage" ref = {(c) => {this.img = c}}
                 /*onLoad={this.onload}*/
                 src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${match.params.id}`} alt = {id}/>
                 
@@ -135,7 +135,7 @@ class ImageUseInformation extends Component {
         let likename = this.state.isLikeClick ? "heart" : "heart outline"
 
         return(
-            <div className = "Image-Screen-Column">
+            <div className = "Image-Page-Column">
             <p> {this.props.size} </p>
             <div className = "Image-UseInforfmation">
                 <div className = "Image-UseInforfmation-Item">
