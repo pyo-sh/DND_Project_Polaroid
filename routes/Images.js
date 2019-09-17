@@ -12,6 +12,14 @@ Images.get('/getAllImages', (req, res) => {
         res.json(results);
     })
 })
+Images.get('/getAllImagesTag', (req, res) => {
+    let {start, count} = req.query;
+    let query = `SELECT imgID, imgName, imgUrl, tag from images limit ${start}, ${count} `;
+
+    db.sequelize.query(query).then(([results, metadata]) => {
+        res.json(results);
+    })
+})
 Images.get('/getOneImg/:imgID', (req, res) => {
     console.log(req.params)
     let { imgID } = req.params;

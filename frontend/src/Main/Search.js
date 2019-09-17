@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import SearchImage from './SearchImage';
 import Photos from './Photos';
 import SideContent from './SideContent';
 import Users from '../Profile/ProfileSmall';
@@ -7,7 +8,6 @@ import './ContentTop.css';
 
 class Search extends Component {
     state = { searchList : "photos" };
-
     changeStatetoPhotos = () => {
         this.setState({searchList : "photos"});
     }
@@ -27,7 +27,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className = "Content" id = "content-top-search">
-                    <div className = "Content-Left">{this.state.searchList === "photos" ? <Photos/> : <SearchUser/>}</div>
+                    <div className = "Content-Left">{this.state.searchList === "photos" ? <SearchImage search = {this.props.match.params.search} /> : <SearchUser/>}</div>
                     <div className = "Content-Right"> <SideContent/> </div>
                 </div>
             </div>
