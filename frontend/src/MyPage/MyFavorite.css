@@ -1,29 +1,91 @@
+.MyFavorite-Buttons{
+    position: relative;
+    z-index: 30;
+    width: 160px;
+    border-radius: 8px;
+    left: 480px;
+}
+.MyFavorite-Fake-Button{
+    position: absolute;
+    width: 160px;
+    padding: 16px 20px;
+    border: none;
+    outline: none;
+    background: none;
+    top: -35px;
+}
+.MyFavorite-Fake-Button:before{
+    content: "";
+    position: absolute;
+    /* 삼각형으로 만들기~~!!!! */
+    width: 0px;
+    height: 0px;
+    border-top:     7px solid none;
+    border-bottom:  14px solid rgb(131, 131, 131, 50%);
+    border-right:   14px solid transparent;
+    border-left:    14px solid  transparent;
+    /* 삼각형 다만들고 위치 조정 */
+    left: 20px;
+    top: 35px;
+    transform: rotate(180deg);
+}
+#MyFavorite-Folders{
+    display: flex;
+    flex-direction: column;
+    background: none;
+    max-height: 0;
+}
+/* MyFavorite-Folder-Open와 MyFavorite-Folder-Close는 겹치는 부분은 같이 바꿔줘야 한다. */
+.MyFavorite-Folder-Open{
+    overflow: hidden;
+}
+.MyFavorite-Folder-Open button{
+    padding: 0 26px;
+    height: 0px;
+    color: none;
+    font-size: 14px;
+    margin: 1px 0;
+    position: relative;
+    border: none;
+    outline: none;
+}
+.MyFavorite-Folder-Close button{
+    padding: 16px 26px;
+    text-align: start;
+    transition: 0.3s;
+    font-size: 14px;
+    margin: 1px 0;
+    position: relative;
+    border: none;
+    outline: none;
+}
+.MyFavorite-Folder-Close button:before{
+    content: "";
+    position: absolute;
+    width: 7px;
+    height: 100%;
+    background: black;
+    top: 0;
+    left: 0;
+    transition: 0.3s;
+    opacity: 0;
+}
+.MyFavorite-Folder-Close button:hover:before{
+    opacity: 1;
+}
+.MyFavorite-Selected-Button{
+    color: black;
+}
+.MyFavorite-Unselected-Button{
+    color: white;
+}
+
 .MyFavorite-Window{
     width: 90%;
     background: white;
     margin: 15px 50px;
     padding: 5px;
-}
-.MyFavorite-Buttons{
-    margin: 15px;
-}
-.MyFavorite-Buttons button{
-    width: 33%;
-    height: 30px;
-    font-size: 20px;
-    border: none;
-    outline: none;
-    background: none;
-    cursor: pointer;
-    text-align: start;
-    background: rgb(131, 131, 131, 50%);
-    box-shadow: 0px 0px 2px rgb(230,230,230);
-}
-.MyFavorite-Unselected-Button{
-    color: black;
-}
-.MyFavorite-Selected-Button{
-    color: white;
+    position: absolute
 }
 
 .MyFavorite-Files{

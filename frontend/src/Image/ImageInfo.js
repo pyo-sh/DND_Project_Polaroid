@@ -164,6 +164,8 @@ class ImageInfo extends Component {
       payment,
       film
     } = this.state;
+    console.log(registrant);
+    console.dir(registrant);
     return (
       <div className="ImageInfo">
         <Registrant registrant={registrant} />
