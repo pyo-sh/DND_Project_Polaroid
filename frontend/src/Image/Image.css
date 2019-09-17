@@ -1,4 +1,4 @@
-.Image-Screen-Column{
+.Image-Page-Column{
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -8,13 +8,13 @@
     margin-top : 10px;
 }
 
-.Image-Screen-Column:nth-child(1){
+.Image-Page-Column:nth-child(1){
     height: 800px;
     border : 1px solid rgb(210,210,210);
 }
 
 
-.Image-Screen-Column .Watermark{
+.Image-Page-Column .Watermark{
     position: absolute;
     top : 50%;
     left : 50%;
@@ -40,7 +40,7 @@
     font-weight: 800;
 }
 
-.Image-Screen-MainImage{
+.Image-Page-MainImage{
     width: auto !important;
     height: 100%;
     box-shadow: 0 0 10px gray;
@@ -50,7 +50,7 @@
 
 }
 
-.Image-Screen-Column:nth-child(2) p{
+.Image-Page-Column:nth-child(2) p{
     font-size: 15px;
     margin-left : 20px;
 }
