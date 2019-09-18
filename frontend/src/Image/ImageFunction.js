@@ -93,7 +93,7 @@ export const plusDownUser = async (imgID, userID) => { // 다운수 증가
 
 // 다운 수 감소 어디감?
 
-export const is
+// export const is
 
 export const getLikeCount = async imgID => { // imgID로 img의 좋아요 개수를 가지고옴
     return await axios

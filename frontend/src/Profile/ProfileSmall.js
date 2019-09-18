@@ -12,7 +12,7 @@ class ProfileSmall extends Component{
         // true : following, false : follower
         isFollow: true,
         profile: {
-            photo: require('../img/User.svg'),
+            photo: 'https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg',
             name: "",
             about: "",
             grade: "일반"

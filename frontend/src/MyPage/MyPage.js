@@ -64,13 +64,16 @@ class MyPage extends Component {
     getID = () => {
         let token = '';
         localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
+        if(token === null)
+          return null;
         const decode = jwt_decode(token);
         const ID = decode.ID;
         return ID;
     }
     getInfo = () => {
         const ID = this.getID();
-        // console.log(ID); // 아이디를 콘솔창에서 알아보기 위함
+        if(ID){
+                   // console.log(ID); // 아이디를 콘솔창에서 알아보기 위함
         getAllInfo(ID).then(res=> {
             this.setState({
                 profile: {
@@ -89,6 +92,7 @@ class MyPage extends Component {
         .catch(err => {
             console.error(err);
         })
+        }
     }
     // 메뉴바를 눌러서 버튼의 innerText 값을 받아서 state를 바꾸면 반환하는 페이지가 바뀌는 형식이다.
     _SelectMenu = () => {

@@ -6,7 +6,9 @@ import Mark from './Mark';
 import Declaration from './Declaration';
 import { withRouter, Link } from 'react-router-dom';
 import { getLikeCount , imgLikeUp, imgLikeDown, isGetLike } from './ImageFunction';
+import {getImageInfo } from './ImageFunction';
 import jwt_decode from 'jwt-decode';
+import { Neptune } from 'aws-sdk';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
@@ -15,48 +17,74 @@ const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw
 "https://postfiles.pstatic.net/MjAxOTA4MDVfMjcy/MDAxNTY1MDExNDA0NDQ0.6HOnJFq9OjAMYWAZcLNX1a8okDNHPRLm0s0Y6djzHUEg.fOX-DQbLGo_rUjmP9kR2vNp_ZKd6S8UnaWdeqRqnPK4g.JPEG.she2325/jailam-rashad-1297005-unsplash.jpg?type=w966"];
 
 class Image extends Component {
-    state = { visible : false };
+  state = {   
+    visible: false };
 
-    componentWillMount() {
-        const imgID = this.props.match.params.id
-        getImageInfo(imgID).then(result => {
-            const { imgWidth, imgHeight} = result;
-            this.setState({
-                imgWidth,
-                imgHeight,
-                visible : true
-            })
-            this.img.src = `https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${imgID}`;
-            
-            if((this.state.imgHeight / this.state.imgWidth) >= 0.75) 
-                this.img.style.cssText = 'max-height : 100%; width : auto !important;';
-            else this.img.style.cssText = 'max-width : 100%; height : auto !important;';
-        })
-    }
+  componentWillMount() {
+    const imgID = this.props.match.params.id;
+    const userID = this.getID();
+    getImageInfo(imgID).then(result => {
+      const { imgWidth, imgHeight } = result;
+      this.setState({
+        imgID,
+        imgWidth,
+        imgHeight,
+        visible: true,
+        userID
+      });
+      this.img.src = `https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${imgID}`;
 
-    render(){
-        const {id, like, isLike, view, size} = this.props
-        const { imgWidth,imgHeight} = this.state;
-        
-        return( 
-        <div className ="Image-Page">
-            <div className = "Image-Page-Column">
-                <div className = "Image-Page-MainImage-Column">
-                    <img className = "Image-Page-MainImage" ref = {(c) => {this.img = c}} onLoad = {this.onload}
-                    alt = {id}/>
-                    {this.state.visible && (
-                    <div className ="Watermark">
-                        <div className = "Watermark-Logo" style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo_white.svg)`}}/> 
-                        <div className = "Watermark-Text">Polaroid</div>
-                    </div> )}
-                </div> 
-            </div>    
-        <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} imgHeight = {imgHeight} imgWidth = {imgWidth}/>
-        <p className = "Relatied-Title Image-Page-Column"> Relatied Image</p>
-        {/*<RelationImage id = {id}/>*/}
+      if (this.state.imgHeight / this.state.imgWidth >= 0.75)
+        this.img.style.cssText = "max-height : 100%; width : auto !important;";
+      else
+        this.img.style.cssText = "max-width : 100%; height : auto !important;";
+    });
+  }
+
+  getID = () => {
+    let token = "";
+    localStorage.usertoken
+      ? (token = localStorage.getItem("usertoken"))
+      : (token = sessionStorage.getItem("usertoken"));
+    if (token === null) return null;
+    const decode = jwt_decode(token);
+    const ID = decode.ID;
+    return ID;
+  };
+
+  render() {
+    const { userID, imgID, imgWidth, imgHeight } = this.state;
+    return (
+      <div className="Image-Page">
+        <div className="Image-Page-Column">
+          <div className="Image-Page-MainImage-Column">
+            <img
+              className="Image-Page-MainImage"
+              ref={c => {
+                this.img = c;
+              }}
+              onLoad={this.onload}
+              alt={imgID}
+            />
+            {this.state.visible && (
+              <div className="Watermark">
+                <div
+                  className="Watermark-Logo"
+                  style={{
+                    backgroundImage: `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo_white.svg)`
+                  }}
+                />
+                <div className="Watermark-Text">Polaroid</div>
+              </div>
+            )}
+          </div>
         </div>
-        )
-    }
+        <ImageUseInformation userID={userID} imgID={imgID} imgHeight={imgHeight} imgWidth={imgWidth} />
+        <p className="Relatied-Title Image-Page-Column"> Related Image</p>
+        {/*<RelationImage id = {id}/>*/}
+      </div>
+    );
+  }
 }
 
 class ImageUseInformation extends Component {
@@ -66,8 +94,8 @@ class ImageUseInformation extends Component {
     //Like가 들어간건 좋아요
 
     state = {
-        imgID : this.props.imgID,
-        userID : this.props.userID,
+        imgID : "",
+        userID : "",
         isMarkPopUpOpen: false,
         isMarkClick: false,
         isDecPopUpOpen: false,
@@ -75,19 +103,25 @@ class ImageUseInformation extends Component {
         like: 0
     }
 
-    componentDidMount(){
-        const { imgID, userID }  = this.state;
-         isGetLike(imgID, userID).then(res => {
-             this.setState({
-                 isLikeClick : res
-             })
-         });
-         getLikeCount(imgID).then(res => {
-            this.setState({
-                like: res.data[0].likeCount   //한 번 누르면 증가
-            })
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
+        const {imgID, userID } = nextProps;
+        this.setState({
+            imgID ,
+            userID 
         })
-        
+        isGetLike(imgID, userID).then(res => {
+            this.setState({
+                isLikeClick : res
+            })
+        });
+        getLikeCount(imgID).then(res => {
+            if(res){
+               this.setState({
+                   like: res.data[0].likeCount   //한 번 누르면 증가
+               })
+            }
+       })
     }
 
     openMarkPopUp = () => {
@@ -190,9 +224,9 @@ class ImageUseInformation extends Component {
                         ((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) 
                         
                         ? 
-                        
+                        <>
                         <Link to = "/user/login" alt="test"><Icon className = "Icon-Mark" name = {markname} onClick = {this.onClickMark}/></Link>
-                        
+                        </>
                         : 
                         
                         <Icon className = "Icon-Mark" name = {markname} onClick = {this.onClickMark}/> 
@@ -200,8 +234,20 @@ class ImageUseInformation extends Component {
                         <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} confirm={this.confirmMarkPopUp}/>
                 </div>
                 <div className = "Image-UseInforfmation-Item"> {/* 좋아요 버튼  */}
-                    <Icon className = "Icon-Like" name = {likename} onClick={this.onClickLike}/>
-                    {this.state.like}
+                {
+                     ((localStorage.usertoken === undefined) && (sessionStorage.usertoken === undefined)) 
+                        
+                     ? 
+                     <>
+                     <Link to = "/user/login" alt="test"><Icon className = "Icon-Like" name = {likename} onClick={this.onClickLike}/></Link>
+                     </>
+                     :
+                     <>
+                     <Icon className = "Icon-Like" name = {likename} onClick={this.onClickLike}/>
+                     {this.state.like}
+                     </>
+                }
+                   
                 </div>
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "Icon-View " name = "eye"/>
