@@ -60,7 +60,7 @@ class MyProfileEdit extends Component {
       img,
       imgType
     };
-    axios.post("/api/upload2/profileUpdate", { imageData }).then(res => {
+    axios.post("/api/upload/profileUpdate", { imageData }).then(res => {
       let returnData = res.data.data.returnData;
       let signedRequest = returnData.signedRequest;
       let imgUrl = returnData.url;
