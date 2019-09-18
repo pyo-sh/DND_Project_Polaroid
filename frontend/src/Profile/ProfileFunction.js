@@ -7,7 +7,7 @@ export const addFollow = async (userID, targetID) => {
     followerID: targetID
   }
   return await axios
-  .post('api/Follow/addFollow', {info})
+  .post('/api/Follow/addFollow', {info})
   .then(res => {
     return res;
   })
@@ -18,7 +18,7 @@ export const addFollow = async (userID, targetID) => {
 
 export const deleteFollow = async (userID, targetID) => {
   return await axios
-  .post('api/Follow/deleteFollow',{
+  .post('/api/Follow/deleteFollow',{
     followID: userID,
     followerID: targetID
   })
