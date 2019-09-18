@@ -5,6 +5,7 @@ import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
 import Declaration from './Declaration';
 import { withRouter, Link } from 'react-router-dom';
+import {getImageInfo } from './ImageFunction';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
@@ -13,25 +14,46 @@ const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw
 "https://postfiles.pstatic.net/MjAxOTA4MDVfMjcy/MDAxNTY1MDExNDA0NDQ0.6HOnJFq9OjAMYWAZcLNX1a8okDNHPRLm0s0Y6djzHUEg.fOX-DQbLGo_rUjmP9kR2vNp_ZKd6S8UnaWdeqRqnPK4g.JPEG.she2325/jailam-rashad-1297005-unsplash.jpg?type=w966"];
 
 class Image extends Component {
+    state = {cssText : ''};
+
+    onload = () => {
+        
+    }
+
+    componentWillMount() {
+        const imgID = this.props.match.params.id
+        getImageInfo(imgID).then(result => {
+            const { imgWidth, imgHeight} = result;
+            this.setState({
+                imgWidth,
+                imgHeight
+            })
+            console.log(this.state.imgHeight / this.state.imgWidth);
+            if((this.state.imgHeight / this.state.imgWidth) >= 0.75)
+                this.img.style.cssText = 'max-height : 100%; width : auto !important;';
+            else   this.img.style.cssText = 'max-width : 100%; height : auto !important;';
+        })
+    }
+
     render(){
         const {id, like, isLike, view, size, match} = this.props
+        const { imgWidth,imgHeight} = this.state;
         
         return( 
         <div className ="Image-Page">
             <div className = "Image-Page-Column">
-                <img className = "Image-Page-MainImage" ref = {(c) => {this.img = c}}
-                onLoad={this.onload}
-                src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${match.params.id}`} alt = {id}/>
-                
-                     <div className ="Watermark">
+                <div className = "Image-Page-MainImage-Column">
+                    <img className = "Image-Page-MainImage" ref = {(c) => {this.img = c}} onLoad = {this.onload}
+                    src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${match.params.id}`} alt = {id}/>        
+                    <div className ="Watermark">
                         <div className = "Watermark-Logo" style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo_white.svg)`}}/> 
                         <div className = "Watermark-Text">Polaroid</div>
-                    </div>
-                
+                    </div> 
+                </div> 
             </div>    
-        <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} />
+        <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} imgHeight = {imgHeight} imgWidth = {imgWidth}/>
         <p className = "Relatied-Title Image-Page-Column"> Relatied Image</p>
-        <RelationImage id = {id}/>
+        {/*<RelationImage id = {id}/>*/}
         </div>
         )
     }
@@ -123,14 +145,13 @@ class ImageUseInformation extends Component {
     }
 
     render(){
-        
         let markname = this.state.isMarkClick ? "star" : "star outline"
-
         let likename = this.state.isLikeClick ? "heart" : "heart outline"
+        const { imgWidth, imgHeight} = this.props;
 
         return(
             <div className = "Image-Page-Column">
-            <p> {this.props.size} </p>
+            <p> {imgWidth +" x "+ imgHeight} </p>
             <div className = "Image-UseInforfmation">
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "Declaration" name = "warning circle" onClick={this.onClickDeclaration}/>
@@ -217,14 +238,14 @@ class ImageUseInformation extends Component {
 //     }
 
 //     render(){
-        
-        return( 
-            <div className = "Image-Page-Column">
-                {this.render_Image()}
-            </div>
-        );
-    }
-}
+//        
+//        return( 
+//            <div className = "Image-Page-Column">
+//                {this.render_Image()}
+//            </div>
+//        );
+//    }
+//}
 
 
 export default withRouter(Image);

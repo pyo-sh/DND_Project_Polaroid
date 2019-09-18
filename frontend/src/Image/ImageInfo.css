@@ -60,6 +60,7 @@
     background: none;
     color:  rgb(180, 180, 180);
     border : none;
+    outline: none;
     font-size: 15px;
     font-weight: 600;
     text-align: center;

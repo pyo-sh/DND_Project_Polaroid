@@ -10,7 +10,7 @@
 .Image-Page-Column:nth-child(1){
     height: 800px;
     border : 1px solid rgb(210,210,210);
-    overflow: hidden;
+    overflow: hidden
 }
 
 
@@ -40,16 +40,21 @@
     font-weight: 800;
 }
 
-.Image-Page-MainImage{
-    width: auto !important;
-    height: 100%;
+.Image-Page-MainImage-Column{
     box-shadow: 0 0 10px gray;
     position: relative;
+    top : 50%;
     left : 50%;
-    transform: translateX(-50%);
-
+    transform: translate(-50%, -50%);
 }
 
+.Image-Page-MainImage{
+    box-shadow: 0 0 10px gray;
+    position: relative;
+    top : 50%;
+    left : 50%;
+    transform: translate(-50%, -50%);
+}
 .Image-Page-Column:nth-child(2) p{
     font-size: 15px;
     margin-left : 20px;
