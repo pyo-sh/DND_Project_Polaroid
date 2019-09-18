@@ -7,10 +7,16 @@ import { withRouter } from 'react-router-dom';
 import AWS from 'aws-sdk';
 import {awsconfig} from '../Upload/awsconfig';
 import {getImageInfo, getDownCount, plusDownUser } from './ImageFunction';
+import { getAllInfo } from '../MyPage/MyPageFunction';
+import { getMyID, addFollow, deleteFollow, isFollowInfo } from '../Profile/ProfileFunction';
 
 
 class ImageInfo extends Component {
   state = {
+    // informationCheck = componentWillMount, 사진의 주인 프로파일이 다 받아졌을 때 true
+    informationCheck: false,
+    // informationCheck2 = componentWillMount, 지금 로그인된 사람의 정보가 받아졌을 때 true
+    informationCheck2: false,
     img : {},
     imgID : '',
     imgName : '',
@@ -29,10 +35,13 @@ class ImageInfo extends Component {
     imgWidth : '',
     userID : '',
     uploadDate : '',
-    film : 0
+    film : 0,
+    userProfile: {},
+    // 현재 로그인이 안됐으면 myID 아래의 thisID 가 null
+    myID: {}
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const imgID = this.props.match.params.id
     getImageInfo(imgID).then(result => {
       const { imgID, imgName, imgType, imgUrl, category, tag, distribute, price, 
@@ -63,9 +72,43 @@ class ImageInfo extends Component {
           uploadDate : uploadDate2,
           userID
        })
+      })
+      // 사진의 주인인 userID를 받아서 정보를 받아오는 함수.
+      getAllInfo(userID).then(result => {
+        this.setState({
+          informationCheck: true,
+          userProfile: {
+            id: result.ID,
+            name: result.nickname,
+            profileImg: result.profileImg
+          }
+        })
+      })
+      // 나의 아이디를 토큰으로 받는다. 토큰이 null이면 id도 null
+      const myID = getMyID();
+      if(myID === userID || myID === null)
+        this.setState({
+          informationCheck2: true,
+          myID: {
+            thisID: myID,
+            isMe: true,
+            isFollow: false
+          }
+        });
+      else
+        isFollowInfo(myID, userID).then(result => {
+          this.setState({
+            informationCheck2: true,
+            myID: {
+              thisID: myID,
+              isMe: false,
+              isFollow: result
+            }
+          });
+        })
     })
-  })
-}
+  }
+
   getID = () => { // ID 불러오기
     let token = "";
     localStorage.usertoken
@@ -125,126 +168,146 @@ class ImageInfo extends Component {
       alert('로그인을 해주세요');
     }
   };
-  render() {
-    const {
-      imgID,
-      imgName,
-      imgType,
-      imgUrl,
-      category,
-      tag,
-      distribute,
-      price,
-      commercialAvailable,
-      copyrightNotice,
-      noChange,
-      visibility,
-      userID,
-      downCount,
-      imgWidth,
-      imgHeight,
-      uploadDate,
-      payment, // 페이먼트, 필름
-      film
-    } = this.state;
-    console.log(registrant);
-    console.dir(registrant);
-    return (
-      <div className="ImageInfo">
-        <Registrant userID={userID} />
-        <div className="ImageInfo-Column Download">
-          <button className={distribute === "free" ?  "Free": "Premium" } onClick={this.onClick}>
-            {" "}
-            {distribute === "free" ?  "Free Download": "Premium Download"}{" "}
-          </button>
+
+  followOnClick = (e) => {
+    const { myID, userID } = this.state;
+    if(myID.isFollow){
+        deleteFollow( myID.thisID, userID ).then(_=>{
+            this.setState({
+              myID:{
+                ...this.state.myID,
+                isFollow: !myID.isFollow
+              }
+            });
+        });
+    }
+    else{
+        addFollow( myID.thisID, userID ).then(_=>{
+            this.setState({
+              myID:{
+                ...this.state.myID,
+                isFollow: !myID.isFollow
+              }
+            });
+        });
+    }
+  }
+
+  renderImageInfo = () => {
+    const { informationCheck, informationCheck2 } = this.state;
+    if(informationCheck && informationCheck2){
+      const {
+        imgID,
+        imgName,
+        imgType,
+        imgUrl,
+        category,
+        tag,
+        distribute,
+        price,
+        commercialAvailable,
+        copyrightNotice,
+        noChange,
+        visibility,
+        userID,
+        downCount,
+        imgWidth,
+        imgHeight,
+        uploadDate,
+        payment, // 페이먼트, 필름
+        film,
+        userProfile,
+        myID
+      } = this.state;
+      return (
+        <div className="ImageInfo">
+          <Registrant userProfile={userProfile} myID={myID} followOnClick={this.followOnClick}/>
+          <div className="ImageInfo-Column Download">
+            <button className={distribute === "free" ?  "Free": "Premium" } onClick={this.onClick}>
+              {" "}
+              {distribute === "free" ?  "Free Download": "Premium Download"}{" "}
+            </button>
+          </div>
+          {payment ? (
+            <Payment
+              film={film}
+              handlePayment={this.props.handlePayment}
+              _minusFilm={this._minusFilm}
+              commercialAvailable = "NotCommercialAvailable"
+              copyrightNotice = "CopyrightNotice"
+              noChange = "NoChange"
+            />
+          ) : null}
+          <div className="ImageInfo-Column">
+            <table className="ImagInfo-Detail">
+              <tbody>
+                <tr>
+                  <td>이미지 타입</td>
+                  <td>{imgType}</td>
+                </tr>
+                <tr>
+                  <td>사이즈</td> {/* 사이즈 추가, 업로드 날짜 추가 다운로드 추가 */}
+                  <td>{imgWidth+" x "+imgHeight}</td>
+                </tr>
+                <tr>
+                  <td> 업로드 날짜 </td>
+                  <td>{uploadDate}</td>
+                </tr>
+                <tr>
+                  <td> 다운로드 </td>
+                  <td>{downCount}</td>
+                </tr>
+                <tr>
+                  <td> 카테고리 </td>
+                  <td>{category}</td>
+                </tr>
+                <tr>
+                  <td> 태그 </td>
+                  {/* <td>{tags.map(tag => ` ${tag}`)}</td> */}
+                  <td>{tag}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        {payment ? (
-          <Payment
-            film={film}
-            handlePayment={this.props.handlePayment}
-            _minusFilm={this._minusFilm}
-            commercialAvailable = "NotCommercialAvailable"
-            copyrightNotice = "CopyrightNotice"
-            noChange = "NoChange"
-          />
-        ) : null}
-        <div className="ImageInfo-Column">
-          <table className="ImagInfo-Detail">
-            <tbody>
-              <tr>
-                <td>이미지 타입</td>
-                <td>{imgType}</td>
-              </tr>
-              <tr>
-                <td>사이즈</td> {/* 사이즈 추가, 업로드 날짜 추가 다운로드 추가 */}
-                <td>{imgWidth+" x "+imgHeight}</td>
-              </tr>
-              <tr>
-                <td> 업로드 날짜 </td>
-                <td>{uploadDate}</td>
-              </tr>
-              <tr>
-                <td> 다운로드 </td>
-                <td>{downCount}</td>
-              </tr>
-              <tr>
-                <td> 카테고리 </td>
-                <td>{category}</td>
-              </tr>
-              <tr>
-                <td> 태그 </td>
-                {/* <td>{tags.map(tag => ` ${tag}`)}</td> */}
-                <td>{tag}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    );
+      );
+    }
+    else{
+      return <React.Fragment></React.Fragment>;
+    }
+  }
+  render(){
+    return this.renderImageInfo();
   }
 }
 
-function Registrant({ userID }) {
+function Registrant({ userProfile, myID, followOnClick }) {
+  const { profileImg, id, name } = userProfile;
+  const { isMe, isFollow } = myID;
   return (
     <div className="ImageInfo-Column Registrant">
       <div className="Registrant-Image">
-        {/* <img
-          src={
-            registrant.profileImage
-              ? registrant.profileImage
-              :  require("../img/User.svg")
-          }
-          alt={registrant.nickname}
-        /> */}
-              <img
-          src={
-              "https://postfiles.pstatic.net/MjAxOTA3MzBfMjgy/MDAxNTY0NDkxNDIxOTA3.PDvjdx3QnWA0Bty0KXQAd9IBixEYYBZ7vk3UfijmqlQg.lWtF8Jrtmh-Kv4hra3IXNlY4z3I15DpiPkdh6NiGLC0g.PNG.she2325/%E3%85%81%E3%85%82.png?type=w966"
-          }
-          alt={userID}
+        <img
+          src={profileImg}
+          alt={name}
         />
       </div>
       <div className="Registrant-Info">
-        {/* <span className="Nickname"> {registrant.nickname} </span> */}
-        <span className="Nickname"> {userID} </span>
-        <span className="Id"> {"@" + userID} </span>
-        {/* <span className="Id"> {"@" + registrant.id} </span> */}
+        <span className="Nickname"> {name} </span>
+        <span className="Id"> {"@" + id} </span>
       </div>
-      {/* {registrant.follow != null && (
+      {isMe 
+        ?
+        null
+        :
         <div className="Follow-Btn">
-          <button className={registrant.follow === true ? "Following" : "Follow"}>
-            {registrant.follow === true ? "Following" : "Follow"}
+          <button 
+            className={isFollow ? "Following" : "Follow"}
+            onClick={followOnClick}>
+            {isFollow ? "Following" : "Follow"}
           </button>
         </div>
-      )} */}
-        {userID != null && (
-        <div className="Follow-Btn">
-          <button
-            className={userID === true ? "Following" : "Follow"}
-          >
-            {userID === true ? "Following" : "Follow"}
-          </button>
-        </div>
-      )}
+      }
     </div>
   );
 }
