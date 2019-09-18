@@ -16,7 +16,7 @@ const Follow = require('./routes/Follow');
 const LikeRanking = require('./routes/LikeRanking');
 const Upload = require('./routes/Upload');
 const Images = require('./routes/Images');
-
+const ImgLike = require('./routes/ImgLike');
 // const AWS = require("aws-sdk");
 // AWS.config.loadFromPath(__dirname+ "/config/awsconfig.json");
 
@@ -53,85 +53,7 @@ app.use('/api/follow', Follow);
 app.use('/api/likeranking', LikeRanking);
 app.use('/api/upload', Upload);
 app.use('/api/images', Images);
-app.post('/api/file/photos', (req, res) => {
-  let photos = [];
-  let start = req.body.start;
-  let count = req.body.count;
-  let isMore = req.body.isMore;
-  let fileCount = 0;
-
-  fs.readdir('frontend/src/img/photo', (err, files) => {
-    fileCount = files.length;
- 
-    for(let i = start; i < start + count; i++){
-      if(fileCount >= i){
-        photos.push(`photo${i}.jpg`);
-        
-        if (fileCount == i){
-          isMore = false;
-          break;
-        }
-      }
-    }
-    res.json({
-     photos, isMore
-    });
-  });
-});
-
-// app.post('/api/uploads3',cors(), (req, res) => {
-//     let s3 = new AWS.S3();
-//     const fileName = req.body.fileName;
-//     const fileType = req.body.fileType;
-
-//     const s3Params = {
-//         Bucket : "poloapp/images",
-//         Key : fileName,
-//         Expires : 500,
-//         ContentType : fileType,
-//         ACL : 'public-read',
-//     };
-
-//     s3.getSignedUrl('putObject', s3Params, (err, data) => {
-//         if(err){
-//             console.log(err);
-//             res.json({success:false, error:err});
-//         }
-
-//         const returnData = {
-//             signedRequest: data,
-//             url : `https://poloapp.s3.ap-northeast-2.amazonaws.com/images/${fileName}`
-//         };
-//         res.json({success:true, data:{returnData}});
-//     });
-// })
-
-// app.get('/api/uploads3', function(req, res, next) {
-// });
-  
-//예림 수정중
-/*
-const uploadedImage = multer({dest: './uploadedImage'})
-
-app.use('/uploadImg', express.static('./uploadedImage'));
-
-app.post('/api/upload', upload.single('image'), (req, res)=>{
-  let sql = 'INSERT INTO CUSTOMER VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-  let image = '/uploadImg/' + req.file.filename;
-  let category = req.body.category;
-  let tag = req.body.tag;
-  let distribute = req.body.distribute;
-  let price = req.body.price;
-  let CommercialAvailable = req.body.CommercialAvailable;
-  let CopyrightNotice = req.body.CopyrightNotice;
-  let noChange = req.body.noChange;
-  let visibility = req.body.visibility;
-  let params = [image, category, tag, distribute, price, CommercialAvailable, CopyrightNotice, noChange, visibility];
-  connection.query(sql, params, (err, rows, fields)=>{
-    res.send(rows);
-  })
-})
-*/
+app.use('/api/imglike', ImgLike);
 
 app.listen(port, () => {
     console.log(`welcome ${port}`);

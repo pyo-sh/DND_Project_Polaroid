@@ -108,13 +108,13 @@ class ProfileSmall extends Component{
 
 function ProfileImage({photo, alt}){
     return (
-        <img src = {photo ? photo : require("../img/User.svg")} alt = {alt}></img>
+        <img src = {photo ? photo : 'https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg'} alt = {alt}></img>
     ); // 프로필 사진이 없으면 검게 나오도록, 후에 사진 id로 대체하여 데이터랑 연결될 예정
 }
 
 function UserImage({image}){
-     return(
-        <div className = "UserImage" style = {{ backgroundImage : `url(${require(`../img/photo/${image}`)})`}} />
+     return(  // 이미지 아이디받아서 이미지 아이디 따라 나오게 만들어야지.
+        <div className = "UserImage" style = {{ backgroundImage : `url('https://poloapp.s3.ap-northeast-2.amazonaws.com/image/10')`}} />
      );
  }
 
