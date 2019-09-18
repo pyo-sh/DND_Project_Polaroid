@@ -14,11 +14,7 @@ const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw
 "https://postfiles.pstatic.net/MjAxOTA4MDVfMjcy/MDAxNTY1MDExNDA0NDQ0.6HOnJFq9OjAMYWAZcLNX1a8okDNHPRLm0s0Y6djzHUEg.fOX-DQbLGo_rUjmP9kR2vNp_ZKd6S8UnaWdeqRqnPK4g.JPEG.she2325/jailam-rashad-1297005-unsplash.jpg?type=w966"];
 
 class Image extends Component {
-    state = {cssText : ''};
-
-    onload = () => {
-        
-    }
+    state = { visible : false };
 
     componentWillMount() {
         const imgID = this.props.match.params.id
@@ -26,9 +22,11 @@ class Image extends Component {
             const { imgWidth, imgHeight} = result;
             this.setState({
                 imgWidth,
-                imgHeight
+                imgHeight,
+                visible : true
             })
             console.log(this.state.imgHeight / this.state.imgWidth);
+            this.img.src = `https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${imgID}`;
             if((this.state.imgHeight / this.state.imgWidth) >= 0.75)
                 this.img.style.cssText = 'max-height : 100%; width : auto !important;';
             else   this.img.style.cssText = 'max-width : 100%; height : auto !important;';
@@ -36,7 +34,7 @@ class Image extends Component {
     }
 
     render(){
-        const {id, like, isLike, view, size, match} = this.props
+        const {id, like, isLike, view, size} = this.props
         const { imgWidth,imgHeight} = this.state;
         
         return( 
@@ -44,11 +42,12 @@ class Image extends Component {
             <div className = "Image-Page-Column">
                 <div className = "Image-Page-MainImage-Column">
                     <img className = "Image-Page-MainImage" ref = {(c) => {this.img = c}} onLoad = {this.onload}
-                    src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${match.params.id}`} alt = {id}/>        
+                    alt = {id}/>
+                    {this.state.visible && (
                     <div className ="Watermark">
                         <div className = "Watermark-Logo" style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo_white.svg)`}}/> 
                         <div className = "Watermark-Text">Polaroid</div>
-                    </div> 
+                    </div> )}
                 </div> 
             </div>    
         <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} imgHeight = {imgHeight} imgWidth = {imgWidth}/>
