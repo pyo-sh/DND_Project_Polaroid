@@ -5,7 +5,8 @@ import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
 import Declaration from './Declaration';
 import { withRouter, Link } from 'react-router-dom';
-import {getImageInfo } from './ImageFunction';
+import { getLikeCount , imgLikeUp, imgLikeDown, isGetLike } from './ImageFunction';
+import jwt_decode from 'jwt-decode';
 
 const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw.6PsoCMM-IhbyMp28iN-PGLiPRgFhUk85GP-iLWcQLsIg.qG9gNv0c480J1n8PkTKyD8SqKvkheTeFjVtuphz3CaEg.JPEG.she2325/7.jpg?type=w966",
 "https://postfiles.pstatic.net/MjAxOTA3MzBfODgg/MDAxNTY0NDkxMzU0OTY3.1VS0WEhoUmxz31Yv_Fqn8hTz0b_PI67lgDJsn3u3igcg.IeT-JpGIgHGKxUR-exblUdRKTSHZCJhaHNFQMcqxzEMg.JPEG.she2325/8.jpg?type=w966",
@@ -65,11 +66,28 @@ class ImageUseInformation extends Component {
     //Like가 들어간건 좋아요
 
     state = {
+        imgID : this.props.imgID,
+        userID : this.props.userID,
         isMarkPopUpOpen: false,
         isMarkClick: false,
         isDecPopUpOpen: false,
         isLikeClick: false,
-        like: this.props.like
+        like: 0
+    }
+
+    componentDidMount(){
+        const { imgID, userID }  = this.state;
+         isGetLike(imgID, userID).then(res => {
+             this.setState({
+                 isLikeClick : res
+             })
+         });
+         getLikeCount(imgID).then(res => {
+            this.setState({
+                like: res.data[0].likeCount   //한 번 누르면 증가
+            })
+        })
+        
     }
 
     openMarkPopUp = () => {
@@ -116,17 +134,28 @@ class ImageUseInformation extends Component {
         })
     }
 
-    clickLike = () =>{
-        this.setState({
-            isLikeClick: true,
-            like: this.state.like + 1   //한 번 누르면 증가
+    clickLike = () =>{ // 좋아요 되게 만들어야함.
+        const { userID, imgID } = this.state;
+        imgLikeUp(imgID, userID).then(res => {
+            getLikeCount(imgID).then(res => {
+                this.setState({
+                    isLikeClick: true,
+                    like: res.data[0].likeCount   //한 번 누르면 증가
+                })
+            })
         })
+      
     }
 
-    reclickLike = () => {
-        this.setState({
-            isLikeClick: false,
-            like: this.state.like - 1   //한 번 누르면 감소
+    reclickLike = () => {  // 좋아요 사라지게 만들어야함.
+        const { userID, imgID } = this.state;
+        imgLikeDown(imgID, userID).then(res => {
+            getLikeCount(imgID).then(res => {
+                this.setState({
+                    isLikeClick: false,
+                    like: res.data[0].likeCount    //한 번 누르면 감소
+                })
+            })
         })
     }
 
@@ -170,7 +199,7 @@ class ImageUseInformation extends Component {
                     }
                         <Mark isOpen={this.state.isMarkPopUpOpen} close={this.closeMarkPopUp} confirm={this.confirmMarkPopUp}/>
                 </div>
-                <div className = "Image-UseInforfmation-Item">
+                <div className = "Image-UseInforfmation-Item"> {/* 좋아요 버튼  */}
                     <Icon className = "Icon-Like" name = {likename} onClick={this.onClickLike}/>
                     {this.state.like}
                 </div>

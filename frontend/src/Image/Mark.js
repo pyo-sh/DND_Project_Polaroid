@@ -96,7 +96,6 @@ class Mark extends Component {
     } 
     else{
       addFolder(info).then(res => {
-        console.log(res);
         this.getAllFolder();
       });
     }

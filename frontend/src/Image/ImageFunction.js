@@ -71,7 +71,7 @@ export const getImageInfo = async imgID => {
     })
 }
 
-export const getDownCount = async imgID => {
+export const getDownCount = async imgID => { //다운 카운트 가져오는거
     return await axios
     .get(`/api/images/getDownloads/${imgID}`)
     .then(res => {
@@ -82,10 +82,59 @@ export const getDownCount = async imgID => {
     })
 }
 
-export const plusDownUser = async (imgID, userID) => {
+
+export const plusDownUser = async (imgID, userID) => { // 다운수 증가
     return await axios
     .post(`/api/images/plusDownUser`,{
         imgID,
         userID
     })
 }
+
+// 다운 수 감소 어디감?
+
+export const is
+
+export const getLikeCount = async imgID => { // imgID로 img의 좋아요 개수를 가지고옴
+    return await axios
+    .get(`/api/imglike/getlike/${imgID}`)
+    .then(res=> {
+        return res;
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
+
+export const isGetLike = async (imgID, userID) => { // imgID 와 userID로 자신이 이 이미지를 좋아요를 눌렸는지 아닌지를 파악
+    return await axios
+    .post('/api/imglike/isGetLike', {imgID, userID})
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
+
+export const imgLikeUp = async (imgID, userID) => { // 이미지의 라이크 수를 높이기 위한 함수
+    return await axios
+    .post('/api/imglike/likeup',{imgID, userID})
+    .then(res => {
+        console.log(res);
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
+
+export const imgLikeDown = async (imgID, userID ) => { // 이미지의 라이크 수를 감소 시키기 위한 함수
+    return await axios
+    .post('/api/imglike/likedown', {imgID, userID})
+    .then(res => {
+        console.log(res);
+    })
+    .catch(err => {
+        console.error(err);
+    })
+} 

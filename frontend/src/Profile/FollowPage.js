@@ -47,9 +47,23 @@ class FollowPage extends Component {
     }
 
     fetchIDs = () => {
-        const count = this.state.count;
+        const { targetID, isFollow, count } = this.state;
         const start = count + this.state.start;
         this.setState({ start: start });
+        if(isFollow){
+            getFollowingSome(targetID, start, count).then(res => {
+                this.setState({
+                    countID: this.state.countID.concat(res.data)
+                })
+            });
+        }
+        else{
+            getFollowerSome(targetID, start, count).then(res => {
+                this.setState({
+                    countID: this.state.countID.concat(res.data)
+                })
+            });
+        }
     }
 
     setDatas = () => {
@@ -79,7 +93,7 @@ class FollowPage extends Component {
                                 <FollowProfile 
                                     id={printID}
                                     isMe={isMe}
-                                    isFollow={isMe ? false : isFollowInfo(id, printID)}
+                                    followTargetId={id}
                                     />
                             </li>
                     })}

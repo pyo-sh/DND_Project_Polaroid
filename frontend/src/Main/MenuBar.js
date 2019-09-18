@@ -11,10 +11,7 @@ class MenuBar extends Component {
     }
 
     componentDidMount(){
-        console.log(window.location.pathname);
         if(window.location.pathname.indexOf("search") < 0){
-
-            console.log("12");
             this.setState({search : ''});
         }
     }
@@ -51,7 +48,7 @@ class MenuBar extends Component {
                 <header className = "Menu">
                     <div className = "Menu-First">
                         <div className="Menu-Logo">
-                            <img className = "Logo" src = {require("../img/Logo.svg")} alt = ""></img>
+                            <img className = "Logo" src = 'https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo.svg' alt = ""></img>
                             <Link to="/"><span className="Menu-Title" onClick={this.handleState}>Polaroid</span></Link>
                         </div>
                         <form className ="Search-Form" onSubmit={this.onSubmit} method = "post">

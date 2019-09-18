@@ -19,7 +19,6 @@ export const editMyPage = async user => {
         nickname : user.name
     })
     .then(res => {
-        console.log("유저정보 업데이트 햇음");
         return res;
     })
     .catch(err => {
@@ -47,7 +46,6 @@ export const getAllFavorite = async userID => {
         userID
     })
     .then(res =>{
-        console.log(res);
         return res.data;
     })
 }

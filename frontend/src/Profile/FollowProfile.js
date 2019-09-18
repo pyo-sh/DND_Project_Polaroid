@@ -2,17 +2,24 @@ import React, {Component} from 'react';
 import './FollowProfile.css';
 import {withRouter} from 'react-router-dom';
 import { getAllInfo } from '../MyPage/MyPageFunction';
-import { getMyID, addFollow, deleteFollow } from './ProfileFunction';
+import { getMyID, addFollow, deleteFollow, isFollowInfo } from './ProfileFunction';
 import { Link } from 'react-router-dom';
 
 // 나인지 아닌지, 팔로우 기능을 추가해줘야 하는지 아닌지. 버튼 추가해주거나 홈페이지로 넘어가주거나,
 class FollowProfile extends Component{
     state={
+        // 정보를 받은상태인지 확인하는 거
+        // informationCheck = comPonentWillMount 에서 받는 follow버튼의 정보가 받아지면 true
+        informationCheck: false,
+        // informationCheck2 = getInfo 에서 받는 프로필의 정보가 전부 받아지면 true
+        informationCheck2: false,
         id: "",
         follow: true,
         isMe: false,
         // true : following, false : follower
-        isFollow: true,
+        isFollow: false,
+        // follow버튼의 출력을 알아내기 위해서 현재 로그인된 아이디를 상대 아이디로 받았다.
+        followTargetId: "",
         profile: {
             photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
             name: "",
@@ -21,13 +28,18 @@ class FollowProfile extends Component{
             grade: "일반"
         }
     }
-
+    // isFollowInfo는 targetID와 id를 비교해서 willmount에서 isFollow 값을 바꾼다.
     componentWillMount(){
-        const { id, isMe, isFollow } = this.props;
+        const { id, isMe, followTargetId } = this.props;
+        isFollowInfo(followTargetId, id).then(res => {
+            this.setState({
+                isFollow: res,
+                informationCheck: true
+            });
+        })
         this.setState({
             id: id,
             isMe: isMe,
-            isFollow: isFollow
         });
     }
     componentDidMount(){
@@ -38,6 +50,7 @@ class FollowProfile extends Component{
         const ID = this.state.id;
         getAllInfo(ID).then(res=> {
             this.setState({
+                informationCheck2: true,
                 profile: {
                     ...this.state.profile,
                     id : ID,
@@ -45,9 +58,10 @@ class FollowProfile extends Component{
                     about : res.introduce,
                     grade : res.grade,
                     // photo: res.photo,
-                    name: res.nickname,
+                    name: res.nickname
                 }
             })
+
         })
     }
 
@@ -70,11 +84,12 @@ class FollowProfile extends Component{
         }
     }
 
-    render(){
-        const { id, isMe, isFollow } = this.state;
-        const { photo, name } = this.state.profile;
-        return (
-            <div className = "FollowProfile">
+    renderProfile = () => {
+        const {informationCheck,informationCheck2} = this.state;
+        if(informationCheck && informationCheck2){
+            const { id, isMe, isFollow } = this.state;
+            const { photo, name } = this.state.profile;
+            return <div className = "FollowProfile">
                 <div className = "FollowProfile-Column">
                     <Link className= "FollowProfile-Column" to = {`/${id}`}>
                         <div className = "FollowProfile-ProfileImage" onClick = {() => this.props.history.push(`/Profile/${id}`)}>
@@ -96,7 +111,13 @@ class FollowProfile extends Component{
                     }
                 </div>
             </div>
-        );
+        }
+        else
+            return null;
+    }
+
+    render(){
+        return this.renderProfile();
     }
 }
 
