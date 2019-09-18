@@ -22,7 +22,7 @@ class ImageScreen extends Component {
   render(){
     return (
       <div className="Content">
-        <div className = "Content-Left">
+        <div className = "Content-Left" id = "imageLeft">
           <Image 
             // id = "1"
             // tags = {this.state.image[0].tags} 
@@ -37,7 +37,7 @@ class ImageScreen extends Component {
             // key = {this.state.image[0].id} 
             />
         </div>
-        <div className = "Content-Right">
+        <div className = "Content-Right" id = "imageRight">
           <ImageInfo 
             // registrant = {this.state.image[0].registrant}
             // paid = {this.state.image[0].paid}

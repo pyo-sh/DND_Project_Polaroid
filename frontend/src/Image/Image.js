@@ -15,51 +15,45 @@ const im = ["https://postfiles.pstatic.net/MjAxOTA3MzBfNyAg/MDAxNTY0NDkxMzU1MjYw
 "https://postfiles.pstatic.net/MjAxOTA4MDVfMjcy/MDAxNTY1MDExNDA0NDQ0.6HOnJFq9OjAMYWAZcLNX1a8okDNHPRLm0s0Y6djzHUEg.fOX-DQbLGo_rUjmP9kR2vNp_ZKd6S8UnaWdeqRqnPK4g.JPEG.she2325/jailam-rashad-1297005-unsplash.jpg?type=w966"];
 
 class Image extends Component {
-    state = {
-        userID : '',
-        imgID : '',
-    }
+    state = { visible : false };
+
     componentWillMount() {
-        const userID = this.getID();
-        const imgID = this.props.match.params.id;
-        this.setState({
-            userID,
-            imgID
+        const imgID = this.props.match.params.id
+        getImageInfo(imgID).then(result => {
+            const { imgWidth, imgHeight} = result;
+            this.setState({
+                imgWidth,
+                imgHeight,
+                visible : true
+            })
+            this.img.src = `https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${imgID}`;
+            
+            if((this.state.imgHeight / this.state.imgWidth) >= 0.75) 
+                this.img.style.cssText = 'max-height : 100%; width : auto !important;';
+            else this.img.style.cssText = 'max-width : 100%; height : auto !important;';
         })
     }
-    onload = (e) => {
-        console.dir(e.target);
-        if(e.target.src.includes('base64')) {
-            e.target.className = "MainImage";
-        }
-    }
-    getID = () => {
-        let token = '';
-        localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
-        const decode = jwt_decode(token);
-        const ID = decode.ID;
-        return ID;
-    }
-    render(){
-        // const {id, like, isLike, view, size, match} = this.props
-        const { imgID , userID } = this.state;
 
+    render(){
+        const {id, like, isLike, view, size} = this.props
+        const { imgWidth,imgHeight} = this.state;
+        
         return( 
         <div className ="Image-Page">
             <div className = "Image-Page-Column">
-                <img className = "Image-Page-MainImage" ref = {(c) => {this.img = c}}
-                /*onLoad={this.onload}*/
-                src={`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${imgID}`} alt = {imgID}/>
-                
-                     <div className ="Watermark">
-                        <div className = "Watermark-Logo" style = {{backgroundImage : `url('https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo_white.svg')`}}/> 
+                <div className = "Image-Page-MainImage-Column">
+                    <img className = "Image-Page-MainImage" ref = {(c) => {this.img = c}} onLoad = {this.onload}
+                    alt = {id}/>
+                    {this.state.visible && (
+                    <div className ="Watermark">
+                        <div className = "Watermark-Logo" style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/logo/Logo_white.svg)`}}/> 
                         <div className = "Watermark-Text">Polaroid</div>
-                    </div>
-                
+                    </div> )}
+                </div> 
             </div>    
-        <ImageUseInformation imgID = {imgID} userID = {userID}/>
-        <p className = "Relatied-Title Image-Column"> Related Image</p>
-        {/* <RelationImage id = {id}/> */}
+        <ImageUseInformation like = {like} isLike = {isLike} view = {view} size = {size} imgHeight = {imgHeight} imgWidth = {imgWidth}/>
+        <p className = "Relatied-Title Image-Page-Column"> Relatied Image</p>
+        {/*<RelationImage id = {id}/>*/}
         </div>
         )
     }
@@ -179,14 +173,13 @@ class ImageUseInformation extends Component {
     }
 
     render(){
-        
         let markname = this.state.isMarkClick ? "star" : "star outline"
-
         let likename = this.state.isLikeClick ? "heart" : "heart outline"
+        const { imgWidth, imgHeight} = this.props;
 
         return(
             <div className = "Image-Page-Column">
-            <p> {this.props.size} </p>
+            <p> {imgWidth +" x "+ imgHeight} </p>
             <div className = "Image-UseInforfmation">
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "Declaration" name = "warning circle" onClick={this.onClickDeclaration}/>
@@ -273,14 +266,14 @@ class ImageUseInformation extends Component {
 //     }
 
 //     render(){
-        
-//         return( 
-//             <div className = "Image-Column">
-//                 {this.render_Image()}
-//             </div>
-//         );
-//     }
-// }
+//        
+//        return( 
+//            <div className = "Image-Page-Column">
+//                {this.render_Image()}
+//            </div>
+//        );
+//    }
+//}
 
 
 export default withRouter(Image);

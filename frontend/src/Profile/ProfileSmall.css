@@ -68,6 +68,9 @@
     display: flex;
     position: relative;
     top : 13px;
+    cursor: pointer;
+    z-index: 9000;
+    outline: none;
 } 
 
 .ProfileSmall-Follow-Btn .Follow{
@@ -86,7 +89,6 @@
     font-size: 15px;
     font-weight: 700;
     text-align: center;
-    outline: none;
     transition: 0.5s;
 }
 

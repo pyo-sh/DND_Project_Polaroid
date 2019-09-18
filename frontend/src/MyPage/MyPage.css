@@ -4,6 +4,7 @@
     align-items: center;
     flex-direction: column;
 }
+
 .MyPage-MyFilm{
     display: inline-flex;
     justify-content: center;
@@ -11,7 +12,7 @@
 }
 
 .MyPage-MenuBar{
-    width: 960px;
+    width : 1050px;
     height: 100%;
     margin: auto;
     background: rgb(131, 131, 131, 50%);

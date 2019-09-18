@@ -1,8 +1,13 @@
 .Profile-Grade{
-    border-radius: 7px;
-    font-size: 5px;
-    color: white;
-    background : gray;
+    width: 70px;
+    height: 20px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    font-weight: 700;
+    color: black;
+    background : rgb(230,230,230);
     margin: 5px auto;
     margin-bottom: 0;
 }

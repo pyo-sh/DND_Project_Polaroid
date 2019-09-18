@@ -24,13 +24,13 @@
     }
 }
 
-@media screen and (max-width : 1250px){
+@media screen and (max-width : 1006px){
     .Photos-Grid li{
         width : 48%;
     }
 }
 
-@media screen and (max-width : 800px){
+@media screen and (max-width : 668px){
     .Photos-Grid li{
         width : 100%;
     }
