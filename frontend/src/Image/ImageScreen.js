@@ -2,12 +2,6 @@ import React, {Component} from 'react';
 import Image from './Image';
 import ImageInfo from './ImageInfo';
 
-const im = ["https://cdn.pixabay.com/photo/2018/02/08/22/27/flower-3140492__340.jpg",
-"https://img.freepik.com/free-vector/trendy-seamless-floral-pattern-vector-illustration_1305-2422.jpg?size=626&ext=jpg",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvNPtYLsC4TWqXnYrWT2nWAaJQjXWfcu0Qog4WUsBX3L6I8Vs5",
-"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTffdlwQgYF5gUQwbmt6aAcYmtuD7eeDcVAsB5XzsYP29zhpmmk"];
-
-
 class ImageScreen extends Component {
   state = { 
     payment : false

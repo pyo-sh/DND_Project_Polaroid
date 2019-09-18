@@ -42,10 +42,10 @@ class FollowProfile extends Component{
             isMe: isMe,
         });
     }
+    // state 값의 id가 있으므로, 정보를 불러들이는 getInfo 함수를 통해 정보를 받는다.
     componentDidMount(){
         this.getInfo();
     }
-
     getInfo = () => {
         const ID = this.state.id;
         getAllInfo(ID).then(res=> {
@@ -57,14 +57,15 @@ class FollowProfile extends Component{
                     name : res.nickname,
                     about : res.introduce,
                     grade : res.grade,
-                    // photo: res.photo,
-                    name: res.nickname
+                    // photo: res.photo
                 }
             })
-
         })
     }
 
+    // 팔로우 기능을 수행하기 위한 onClick함수이다.
+    // myID는 getMyID를 통해 가져오며, 유저가 로그인 하지 않았을 경우 null로 가져온다.
+    // 하지만 상위 컴포넌트인 FollowPage.js에서 로그인 하지 않았을 경우 isMe=true 값을 통해 follow버튼 실행 X
     handleClick = () => {
         const myID = getMyID();
         const { id, isFollow } = this.state;

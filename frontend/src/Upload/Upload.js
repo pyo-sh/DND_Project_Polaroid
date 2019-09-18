@@ -176,7 +176,7 @@ class Upload2 extends Component {
   render(){
     let {imgReulst} = this.state;
     let $imgNameUrl = null;
-    if(imgReulst) {$imgNameUrl = (<img src={imgReulst} onLoad={this.priviewOnload} ref={(c) => {this.preview = c}}/>)}
+    if(imgReulst) {$imgNameUrl = (<img src={imgReulst} onLoad={this.priviewOnload} ref={(c) => {this.preview = c}} alt=""/>)}
 
 
     else{$imgNameUrl = (<div className = "previewText">Image Preview</div>)}
