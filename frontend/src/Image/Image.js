@@ -103,7 +103,6 @@ class ImageUseInformation extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
         const {imgID, userID } = nextProps;
         this.setState({
             imgID ,
