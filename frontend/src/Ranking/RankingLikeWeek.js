@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './RankingLikeWeek.css';
 import './RankingLike.css';
 import './RankingFollowAll.css';
