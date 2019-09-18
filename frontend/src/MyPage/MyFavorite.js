@@ -67,6 +67,7 @@ class MyFavorite extends Component {
             });
         }
     }
+    // 폴더를 나열하게 해주는 버튼을 클릭하면 나오는 것.
     menuOnClick = (e) => {
         const { folderCheck } = this.state;
         if(folderCheck){
@@ -118,6 +119,7 @@ class MyFavorite extends Component {
                                 <div className="MyFavorite-File">{index + 1}. {folder.imgName}</div>
                             </Link>
                     }
+                    return null;
                 }
                 else
                     return null;

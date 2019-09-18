@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import SearchImage from './SearchImage';
 import SideContent from './SideContent';
-import Users from '../Profile/ProfileSmall';
+// 안 쓰는 구문 주석 처리.
+// import Users from '../Profile/ProfileSmall';
 import SearchUser from './SearchUser.js';
 import './ContentTop.css';
 
