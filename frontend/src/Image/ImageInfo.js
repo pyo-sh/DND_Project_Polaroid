@@ -147,6 +147,8 @@ class ImageInfo extends Component {
       payment, // 페이먼트, 필름
       film
     } = this.state;
+    console.log(registrant);
+    console.dir(registrant);
     return (
       <div className="ImageInfo">
         <Registrant userID={userID} />
