@@ -18,6 +18,7 @@
     padding: 15px 5px;
     position: absolute;
     margin: 20px;
+    z-index: 10;
 }
 
 .Declaration-Modal .Declaration-Title{

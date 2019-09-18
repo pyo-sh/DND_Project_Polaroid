@@ -1,12 +1,11 @@
 .ImageInfo{
-    border: 1px solid rgb(230, 230, 230);
-    border-radius: 5px;
+    border: 1px solid rgb(210, 210, 210);
     margin-top : 10px;
 }
 
 .ImageInfo-Column{
     display: flex;
-    padding: 10px;
+    padding: 10px 15px;
 }
 
 .ImageInfo-Column:nth-child(1){
@@ -54,13 +53,14 @@
 }
 
 .Follow-Btn .Follow{
-    color : rgb(86, 149, 243);
+    color : rgb(82, 195, 181);
 }
 
 .Follow-Btn button{
     background: none;
     color:  rgb(180, 180, 180);
     border : none;
+    outline: none;
     font-size: 15px;
     font-weight: 600;
     text-align: center;
@@ -72,9 +72,10 @@
 
 .Download button{
     color: white;
-    background:  rgb(86, 149, 243);
+    background:  rgb(82, 195, 181);
     width: 100%;
     height: 50px;
+    outline: none;
     border: none;
     border-radius: 5px;
     font-size: 20px;
@@ -83,13 +84,13 @@
 }
 
 .Download .Premium{
-    background:  rgb(181, 89, 243);
+    background:  rgb(221,163,228);
 }
 
 .ImageInfo-Column:last-child{
     flex-direction: column;
     background: rgb(240, 240, 240);
-    margin: 0 10px 10px 10px;
+    margin: 0 15px 10px 15px;
     padding: 10px 20px 10px 20px;
     border-radius: 5px;
 }

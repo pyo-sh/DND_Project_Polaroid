@@ -5,18 +5,26 @@
   }
   
   .Content-Left{
-    width: 1200px;
+    width: 1000px;
     height: 100%;
     margin: 10px;
   }
   
   .Content-Right{
-    width: 380px;
+    width: 200px;
     height: 100%;
-    padding-left : 50px;
+    padding-left : 20px;
     margin: 10px;
   }
   
+  #imageLeft{
+    width: 850px;
+  }
+
+  #imageRight{
+    width: 350px;
+  }
+
   @media screen and (max-width : 100%){
     .Content {
       display : flex;
@@ -31,6 +39,6 @@
       width: 100%;
     }
     .Content-Right{
-      width: 100%;
+      display : none;
     }
   }
