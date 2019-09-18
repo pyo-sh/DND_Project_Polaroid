@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import SearchImage from './SearchImage';
-import Photos from './Photos';
 import SideContent from './SideContent';
 import Users from '../Profile/ProfileSmall';
 import SearchUser from './SearchUser.js';

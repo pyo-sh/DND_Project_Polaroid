@@ -83,8 +83,17 @@
 .Mark-Items{
     height: 30px;
     display: flex;
-    justify-content: flex-start;
     padding: 5px;
+}
+
+.X{
+    visibility:hidden;
+    cursor: pointer;
+    color: rgb(100,100,100);
+}
+
+.Mark-Items:hover .X{
+    visibility:visible; 
 }
 
 .Icon-Folder{
