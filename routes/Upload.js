@@ -8,10 +8,11 @@ const cors = require('cors');
 const db = require('../database/db');
 const User = require('../models/User');
 
+
 Upload.post('/',cors(), (req, res) => { // 업로드 하는것.
     let s3 = new AWS.S3();
     const { imgName, imgType, category, tag, distribute,commercialAvailable,copyrightNotice,
-        noChange,visibility, imgHeight, imgWidth} = req.body.imageData;
+        noChange,visibility, imgHeight, imgWidth, userID } = req.body.imageData;
     const price = 100;
     let query = "Select MAX(imgID) as maxID from images";
     db.sequelize.query(query).then(([results, metadata]) => {
@@ -44,7 +45,7 @@ Upload.post('/',cors(), (req, res) => { // 업로드 하는것.
             image.create({
                 imgID,imgName, imgType, category, tag, distribute, price,
                 commercialAvailable, copyrightNotice, noChange, visibility,
-                imgUrl: returnData.url, imgWidth, imgHeight
+                imgUrl: returnData.url, imgWidth, imgHeight, userID
             })
             res.json({success:true, data:{returnData}});
         });

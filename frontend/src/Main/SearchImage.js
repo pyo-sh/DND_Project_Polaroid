@@ -5,9 +5,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';
 
-class Photos extends Component {
+class SearchImage extends Component {
     state = {
         images: [],
+        searchimages: [],
         count: 30, //한번에 사진 30개씩 부름
         start: 0,
         isMore : true
@@ -21,11 +22,11 @@ class Photos extends Component {
       //   })
       //   .catch(err => console.error(err))
       axios.get(`/api/images/getAllImagesTag?start=${start}&count=${count}`).then(res=>{
-        console.log(res.data);
         this.setState({images : res.data});
+        this.contrast();
       })
     }
-    
+
     fetchImages = () => {
       const count = this.state.count,
             start = count + this.state.start;
@@ -40,15 +41,26 @@ class Photos extends Component {
          
       //   })
       .catch(err => console.error(err))
-     }
+    }
     
+    contrast = () => {
+        let { search } = this.props;
+        let searchimages = this.state.images.filter(searchimage => {
+            let temp = searchimage.tag.split(',');
+            return temp.includes(search)
+        })
+        this.setState({
+            searchimages
+        })
+    }
+
     render() {
       const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
         maxWidth: (this.props.mypage ? 960 : 1500)
       });
 
         return (
-            <div className = "Photos">   
+            <div className = "Photos">  
                   {/* <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
                     <Grid className = "Photos-Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 395)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
                       {this.state.images.map((image, index) => (
@@ -62,7 +74,7 @@ class Photos extends Component {
                 </InfiniteScroll> */}
                 <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore} >
                     <Grid className = "Photos-Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 395)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
-                      {this.state.images.map((image) => (
+                        {this.state.searchimages.map((image) => (
                         <li key = {image.imgID} >
                             <Link to = {`/imagepage/${image.imgID}`}>
                               <img className = "Photos-photo" src={image.imgUrl} alt="이미지"/>
@@ -76,4 +88,4 @@ class Photos extends Component {
     }
   }
 
-export default Photos;
+export default SearchImage;

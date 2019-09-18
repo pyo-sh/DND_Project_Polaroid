@@ -51,7 +51,7 @@ app.use('/api/film', Film);
 app.use('/api/favorite', Favorite);
 app.use('/api/follow', Follow);
 app.use('/api/likeranking', LikeRanking);
-app.use('/api/upload2', Upload);
+app.use('/api/upload', Upload);
 app.use('/api/images', Images);
 app.post('/api/file/photos', (req, res) => {
   let photos = [];
