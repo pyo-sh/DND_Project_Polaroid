@@ -25,11 +25,11 @@ class Image extends Component {
                 imgHeight,
                 visible : true
             })
-            console.log(this.state.imgHeight / this.state.imgWidth);
             this.img.src = `https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${imgID}`;
-            if((this.state.imgHeight / this.state.imgWidth) >= 0.75)
+            
+            if((this.state.imgHeight / this.state.imgWidth) >= 0.75) 
                 this.img.style.cssText = 'max-height : 100%; width : auto !important;';
-            else   this.img.style.cssText = 'max-width : 100%; height : auto !important;';
+            else this.img.style.cssText = 'max-width : 100%; height : auto !important;';
         })
     }
 

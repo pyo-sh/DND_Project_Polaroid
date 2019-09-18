@@ -81,7 +81,7 @@ class Profile extends Component {
     render(){
         const {profileImg, name, id, about, following, follower, grade, checkProfile} = this.props;
         return(
-<div className="MyProfile">
+            <div className="MyProfile">
             <div className="MyProfile-Status">
                 <ProfilePhoto profileImg = {profileImg}/>
                 <MyProfileGrade name = {name} grade = {grade} checkProfile={checkProfile}/>
@@ -146,8 +146,10 @@ class Profile extends Component {
 // }
 class ProfilePhoto extends Component {
     state = {
-        profileImg : ''
+        profileImg : '',
+        visible : false
     }
+
     componentDidMount(){
         const {profileImg} = this.props
         this.setState({
@@ -158,14 +160,15 @@ class ProfilePhoto extends Component {
         const { profileImg } = nextProps
         setTimeout( () => {
             this.setState({
-                profileImg
+                profileImg,
+                visible : true
             })
         }, 1000)
     }
     render(){
         const { profileImg } = this.state;
         return(
-            <img className="MyProfile-Photo" src={profileImg} alt="Profile"/>
+            <img className="MyProfile-Photo" src={profileImg} style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg)`}} alt={this.state.visible ? '' : "Profile"}/>
         )
     }
 }
