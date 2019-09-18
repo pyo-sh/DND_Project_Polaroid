@@ -21,7 +21,7 @@ class FollowProfile extends Component{
         // follow버튼의 출력을 알아내기 위해서 현재 로그인된 아이디를 상대 아이디로 받았다.
         followTargetId: "",
         profile: {
-            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
+            profileImg: "",
             name: "",
             id: "",
             about: "",
@@ -53,11 +53,11 @@ class FollowProfile extends Component{
                 informationCheck2: true,
                 profile: {
                     ...this.state.profile,
+                    profileImg: res.profileImg,
                     id : ID,
                     name : res.nickname,
                     about : res.introduce,
                     grade : res.grade,
-                    // photo: res.photo
                 }
             })
         })
@@ -89,12 +89,12 @@ class FollowProfile extends Component{
         const {informationCheck,informationCheck2} = this.state;
         if(informationCheck && informationCheck2){
             const { id, isMe, isFollow } = this.state;
-            const { photo, name } = this.state.profile;
+            const { profileImg, name } = this.state.profile;
             return <div className = "FollowProfile">
                 <div className = "FollowProfile-Column">
                     <Link className= "FollowProfile-Column" to = {`/${id}`}>
                         <div className = "FollowProfile-ProfileImage" onClick = {() => this.props.history.push(`/Profile/${id}`)}>
-                            <ProfileImage photo = {photo} alt = {name}/>
+                            <ProfileImage profileImg = {profileImg} alt = {name}/>
                         </div>
                         <div className = "FollowProfile-Info">
                             <span className = "Nickname"> {name} </span>
@@ -122,10 +122,13 @@ class FollowProfile extends Component{
     }
 }
 
-function ProfileImage({photo, alt}){
+function ProfileImage({profileImg, alt}){
     return (
-        <img src = {photo ? photo : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y"} alt = {alt}></img>
-    ); // 프로필 사진이 없으면 검게 나오도록, 후에 사진 id로 대체하여 데이터랑 연결될 예정
+        <img 
+        src={profileImg}
+        alt={alt}
+        style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg)`}}/>
+    );
 }
 
 const FollowButton = ({ isMe, isFollow, handleClick}) => {
