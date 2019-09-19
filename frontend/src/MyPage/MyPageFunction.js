@@ -62,3 +62,16 @@ export const getBenefitMonth = async userID => { // 작가의 모든 월별 수�
         console.error(err);
     })
 }
+
+export const getAllFilmList = async userID => {
+    return await axios
+    .post('/api/film/getAllFilmList', {
+        userID
+    })
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}

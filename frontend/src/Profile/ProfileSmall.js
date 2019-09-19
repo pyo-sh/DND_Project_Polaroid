@@ -12,7 +12,7 @@ class ProfileSmall extends Component{
         // true : following, false : follower
         isFollow: true,
         profile: {
-            photo: 'https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg',
+            profileImg: "",
             name: "",
             about: "",
             grade: "일반"
@@ -39,7 +39,7 @@ class ProfileSmall extends Component{
             this.setState({
                 profile: {
                     ...this.state.profile,
-                    // photo: res.photo,
+                    profileImg: res.profileImg,
                     name: res.nickname,
                 }
             })
@@ -77,12 +77,12 @@ class ProfileSmall extends Component{
 
     render(){
         const { id, isMe, isFollow } = this.state;
-        const { photo, name } = this.state.profile;
+        const { profileImg, name } = this.state.profile;
         return (
             <div className = "ProfileSmall" onClick = {this.movePage}>
                 <div className = "ProfileSmall-Column">
                     <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/${id}`)}>
-                        <ProfileImage photo = {photo} alt = {name}/>
+                        <ProfileImage profileImg = {profileImg} alt = {name}/>
                     </div>
                     <div className = "ProfileSmall-Info">
                         <span className = "Nickname"> {name} </span>
@@ -107,9 +107,9 @@ class ProfileSmall extends Component{
 }
 
 
-function ProfileImage({photo, alt}){
+function ProfileImage({profileImg, alt}){
     return (
-        <img src = {photo ? photo : 'https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg'} alt = {alt}></img>
+        <img src = {profileImg ? profileImg : 'https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg'} alt = {alt}></img>
     ); // 프로필 사진이 없으면 검게 나오도록, 후에 사진 id로 대체하여 데이터랑 연결될 예정
 }
 
