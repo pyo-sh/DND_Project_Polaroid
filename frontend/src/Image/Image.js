@@ -5,8 +5,8 @@ import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
 import Declaration from './Declaration';
 import { withRouter, Link } from 'react-router-dom';
-import { getLikeCount , imgLikeUp, imgLikeDown, isGetLike } from './ImageFunction';
-import {getImageInfo } from './ImageFunction';
+import { getLikeCount , imgLikeUp, imgLikeDown, isGetLike, isFav } from './ImageFunction';
+import { getImageInfo } from './ImageFunction';
 import jwt_decode from 'jwt-decode';
 
 class Image extends Component {
@@ -105,6 +105,11 @@ class ImageUseInformation extends Component {
         isGetLike(imgID, userID).then(res => {
             this.setState({
                 isLikeClick : res
+            })
+        });
+        isFav(imgID, userID).then(res => {
+            this.setState({
+                isMarkClick : res
             })
         });
         getLikeCount(imgID).then(res => {

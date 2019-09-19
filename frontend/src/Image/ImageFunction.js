@@ -138,3 +138,14 @@ export const imgLikeDown = async (imgID, userID ) => { // 이미지의 라이크
         console.error(err);
     })
 } 
+
+export const isFav = async (imgID, userID) => { //즐겨찾기 한 이미지인지 아닌지 확인하기 위한 함수
+    return await axios
+    .post('/api/favorite/isFav', {imgID, userID})
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.error(err);
+    })
+} 

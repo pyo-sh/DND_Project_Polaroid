@@ -94,4 +94,17 @@ Favorite.post('/delFavorite', (req, res) => {
     })
 })
 
+Favorite.post('/isFav', (req, res) => { // 해당 유저한테 해당 이미지가 즐겨찾기 된 이미지인지 아닌지 알기 위한 함수.
+    const { userID, imgID } = req.body;
+    let query = `SELECT * FROM favorites WHERE favFolderNum IN (SELECT favFolderNum FROM favoriteFolders WHERE ID = "${userID}") AND ImgID = ${imgID};`
+    db.sequelize.query(query).then(([results, metadata]) => {  // 결과가 없으면 false 반환, 있으면 true 반환
+        if(results[0] === undefined){ // 결과가 없으면 [] 이 나와서 그 배열의 [0]이 없으면으로 설정했음
+            res.send(false);
+        }
+        else {  // 첫번째 배열이 있으면 true
+            res.send(true);
+        }
+    })
+})
+
 module.exports = Favorite;
