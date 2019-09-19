@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import SearchImage from './SearchImage';
 import SideContent from './SideContent';
 // 안 쓰는 구문 주석 처리.
 // import Users from '../Profile/ProfileSmall';
 import SearchUser from './SearchUser.js';
 import './ContentTop.css';
+import Photos from './Photos';
 
 class Search extends Component {
     state = { 
@@ -43,7 +43,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className = "Content" id = "content-top-search">
-                    <div className = "Content-Left">{this.state.searchList === "photos" ? <SearchImage search = {this.props.match.params.search} getPhotoCount={this.getPhotoCount} /> : <SearchUser id = {this.props.match.params.search} getUserCount = {this.getUserCount}/>}</div>
+                    <div className = "Content-Left">{this.state.searchList === "photos" ? <Photos search = {this.props.match.params.search} getPhotoCount={this.getPhotoCount}/>/*<SearchImage search = {this.props.match.params.search} getPhotoCount={this.getPhotoCount} /> */ : <SearchUser id = {this.props.match.params.search} getUserCount = {this.getUserCount}/>}</div>
                     <div className = "Content-Right"> <SideContent/> </div>
                 </div>
             </div>
