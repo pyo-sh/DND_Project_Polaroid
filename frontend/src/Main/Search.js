@@ -24,7 +24,7 @@ class Search extends Component {
     changeStatetoUsers = () => {
         this.setState({searchList : "users"});
     }
-    
+
     render(){
         const { photoCount } = this.state;
         return (
