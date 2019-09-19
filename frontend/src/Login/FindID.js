@@ -11,8 +11,11 @@ class FindID extends Component {
     const { email } = this.state;
     findId(email).then(res=>{
       this.props.history.push('/user/login');
+      if(!res)
+        alert('잘못된 이메일입니다 !');
+      else
+        alert('이메일을 확인해주세요!');
     })
-  
   }
 
   onChange = (e) => {
