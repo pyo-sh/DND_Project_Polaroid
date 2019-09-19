@@ -14,7 +14,10 @@ class FindPassword extends Component {
             email : this.state.email
         }
         findPassword(user).then(res => {   // 비밀번호찾기 이메일과 id를 서버로 보냄
-            console.log(res);
+            if(!res)
+                alert('잘못된 정보입니다! 다시 입력해주세요!');
+            else
+                alert('이메일을 확인해주세요!');
         });
     }
 

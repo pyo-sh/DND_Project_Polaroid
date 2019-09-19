@@ -29,10 +29,14 @@ class MyWithdrawal extends Component{
                     onChange={this.onChange}
                     />
                 <MyWithdrawalIncorrect failedID={this.state.failedID}/>
+               
                 <button 
                     onClick={this._Access} 
                     className="MyWithdrawal-Btn">
                     회원 탈퇴
+                </button>
+                <button className="MyProfile-Btn" onClick = {this.props.onClickCloseDrawal}>
+                취소
                 </button>
             </div>
         );

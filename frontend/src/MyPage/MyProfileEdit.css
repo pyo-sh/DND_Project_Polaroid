@@ -1,29 +1,28 @@
 .MyProfile-Edit{
-    margin: 30px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    padding: 30px;
-    background: white;
+    margin-bottom: 37px;
+    padding-top : 50px;
+    border : 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
+    margin-right: 37px;
 }
+
 .MyProfile-Edit-Secend{
-    border: 1px solid rgb(131, 131, 131, 80%);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
     border-bottom: none;
     background: none;
     display:flex;
     flex-wrap: wrap;
     align-items: center;
 }
-.MyProfile-Edit-Secend2{
-    border: 1px solid rgb(131, 131, 131, 80%);
-    background: none;
-    display:flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
+
+
 .MPEdit-Title{
-    width: 15%;
-    margin: 30px;
-    font-size: 20px;
+    width: 80px;
+    margin: 10px;
+    margin-left: 0;
+    font-size: 17px;
     font-weight: bold;
     color: black;
 
@@ -31,51 +30,76 @@
 }
 
 .MPEdit-Cell{
-    width:70%;
-    margin: 30px;
-    margin-left: 0;
+
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 }
 
+.MPEdit-Cell2{
+   
+    display: flex;
+    align-items: center;
+}
+
+.MPEdit-Cell2 input{
+    width: 300px;
+    height: 40px;
+    display: flex;
+    background: rgb(230,230,230);
+    border-radius: 5px;
+    border : none;
+    outline-color: rgb(82, 195, 181);
+    padding-top : 5px;
+    padding-left: 15px;
+}
+
 .MPEdit-Photo{
-    margin-right: 15px;
+    margin-bottom: 10px;
     width: 175px;
     height: 175px;
-
+    border : 1px solid rgb(210, 210, 210);
     border-radius: 50%;
-    border: 1px solid gray;
-    background: gray;
+    background-size: cover;
+    background-position: center;
 }
+
+.MPEdit-Photo img{
+    width: 100%;
+}
+
 .MPEdit-Photo-Edit{
     width:60%;
     display: flex;
     justify-content: space-around;
 }
+
+.MPEdit-Photo-Edit label{
+   padding : 5px;
+   background: rgb(230, 230, 230);
+   color : black;
+   border-radius: 5px;
+   font-weight: 600;
+}
+
+.MPEdit-Photo-Edit input[type="file"] {
+    display: none;
+  }
+  
 .MPEdit-Subtitle{
     width:87px;
     font-size: 17px;
     display: block;
 }
-.MPEdit-Photo-Input{
-    width: 200px;
-}
 
-.MPEdit-TdCell-Btn{
-    margin-left: 5px;
-    width: 90px;
-    height: 28px;
-    border: 0;
-    outline: 0;
-    font-size: 17px;
-    justify-self: end;
-}
-.MPEdit-TdCell-Input{
-    width: 150px;
-}
+
+
 .MPEdit-TdCell-Textarea{
-    width: 100%;
+    width: 300px;
+    border : 2px solid rgb(230, 230, 230);
+    border-radius: 5px;
+    outline-color: rgb(82, 195, 181);
 }
 
 .MyProfile-Edit-Btn{
