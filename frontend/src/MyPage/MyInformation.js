@@ -1,14 +1,11 @@
-import MyProfileEdit from './MyProfileEdit';
-import MyInformationMenu from './MyInformationMenu';
-import MyWithdrawal from './MyWithdrawal';
 import { checkPassword } from './MyPageFunction';
 import {withRouter} from 'react-router-dom';
-
 import React, { Component } from 'react';
+import MyProfileEdit from './MyProfileEdit'
+import './MyInformation.css';
 
 class MyInformation extends Component{
     state = {
-        selectMode: "기본",
         checkPW: false, // 임시
         id: '',
         password: '',
@@ -16,7 +13,7 @@ class MyInformation extends Component{
     }
     render(){
         return(
-            <div>
+            <div className="MyInformation">
                 {this._renderPage()}
             </div>
         );
@@ -31,40 +28,7 @@ class MyInformation extends Component{
             id: change.profile.id
         })
     }
-    _renderPage = () => {
-        const {selectMode} = this.state;
-        switch(selectMode) {
-            case "회원정보수정" : return <MyProfileEdit profile={this.props.profile} getInfo={this.props.getInfo} editOnClick={this.editOnClick}/>;
-            case "비밀번호변경" : this.props.history.push('/user/findpassword');
-                return null;
-            case "회원탈퇴" : return <MyWithdrawal id={this.props.profile.id}/>;
-            default : 
-                return <MyInformationMenu 
-                    profile={this.props.profile} 
-                    editOnClick={this.editOnClick} 
-                    checkPW={this.state.checkPW}
-                    checkOnClick={this.checkOnClick}
-                    getPassword={this.getPassword}
-                    isFailed={this.state.isFailed}
-                    />;
-        }
-    }
-    // SETTINGS 페이지의 출력화면을 결정하는 함수
-    editOnClick = (e) => {
-        const {selectMode, checkPW} = this.state;
-        if(checkPW){
-            if(selectMode === "기본"){
-                this.setState({
-                    selectMode: e.target.innerText
-                });
-            }
-            else{
-                this.setState({
-                    selectMode: "기본"
-                });
-            }
-        }
-    }
+  
     // 비밀번호가 맞는지 확인하는 함수
     checkOnClick = () => {
         const {id, password} = this.state;
@@ -90,6 +54,41 @@ class MyInformation extends Component{
             password: e.target.value
         })
     }
+
+    _renderPage = () => {
+        const checkPW = this.state.checkPW;
+        if(checkPW){
+            return <MyProfileEdit profile={this.props.profile} getInfo={this.props.getInfo} editOnClick={this.editOnClick}/>;
+        }
+        else{
+            return <MyInformationMenuInput
+                checkOnClick={this.checkOnClick}
+                getPassword={this.getPassword}
+                failedPW={this.state.failedPW}
+                />;
+        }
+    }
+}
+
+
+const MyInformationMenuInput = ({checkOnClick, getPassword, failedPW}) => {
+    return(
+        <div className="MyInformation-Pw">
+            <div className="MyInformation-Pw-Check">회원 비밀번호 확인</div>
+            <div className="MyInformation-Pw-Title">
+                <input onChange={getPassword} className="MyInformation-Pw-Input" type="password"/>
+                <button onClick={checkOnClick} className="MyInformation-Pw-Btn">확인</button>
+            </div>
+            <MyInformationIncorrect failedPW={failedPW}/>
+        </div>
+    );
+}
+
+const MyInformationIncorrect = ({failedPW}) => {
+    if(failedPW)
+        return <div className="MyInformation-Pw-Incorrect">비밀번호를 다시 입력하세요!</div>
+    else
+        return <div className="MyInformation-Pw-Incorrect"></div>
 }
 
 export default withRouter(MyInformation);

@@ -1,12 +1,4 @@
-.MyInformation-Menu{
-    display: flex;
 
-    margin: 30px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    padding: 30px;
-    background: white;
-}
 .MyInformation-Menu-Tabs{
     width: 27%;
     display: flex;
