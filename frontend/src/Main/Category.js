@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import CategoryImage from './CategoryImage';
+import Photos from './Photos';
 import SideContent from './SideContent';
 import './ContentTop.css';
 
 class Category extends Component {
+
+
     upperTitle(){
         let title = this.props.match.params.category;
         title = title.replace('-',' ');
@@ -41,7 +43,7 @@ class Category extends Component {
                     <p className = "Explanation">{this.explanation()}</p>
                 </div>
                 <div className = "Content" id = "content-top-category">
-                    <div className = "Content-Left"><CategoryImage category = {this.props.match.params.category}/></div>
+                    <div className = "Content-Left"><Photos category = {this.props.match.params.category} /></div>
                     <div className = "Content-Right"> <SideContent category = {this.props.match.params.category}/> </div>
                 </div>
             </div>

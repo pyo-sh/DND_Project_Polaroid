@@ -5,6 +5,7 @@ const follow = require('./follow');
 const image = require('./image');
 const imgLiked = require('./imgLiked');
 const imgDownload = require('./imgDownload');
+const filmUseList = require('./filmUseList');
 
 const User = db.sequelize.define(
     'user',
@@ -51,5 +52,6 @@ User.hasMany(follow, {foreignKey : 'followerID', sourceKey: 'ID'});
 User.hasMany(image, { foreignKey: 'imgID', sourceKey: 'ID'});
 User.hasMany(imgLiked, {foreignKey : 'userID', sourceKey: 'ID'});
 User.hasMany(imgDownload, {foreignKey : 'userID', sourceKey : 'ID'});
+User.hasMany(filmUseList, {foreignKey: 'userID', sourceKey: 'ID'});
 
 module.exports = User;

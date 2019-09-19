@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './MyPageBenefit.css';
 import BenefitChart from './BenefitChart';
+import UseChart from './UseChart';
 
 class MyPageBenefit extends Component {
     state = {
@@ -10,25 +11,25 @@ class MyPageBenefit extends Component {
         return (
             <div className = "Benefit-Page">
                 <div className="Benefit-Button">
-                    <BenefitButton className = "" title="주간 수익" BenefitOnClick={this.BenefitOnClick}/>
                     <BenefitButton className = "Benefit-Button-Selected" title="월간 수익" BenefitOnClick={this.BenefitOnClick}/>
+                    <BenefitButton className = "" title="월간 사용" BenefitOnClick={this.BenefitOnClick}/>
                 </div>
                 <div className="Benefit-Chart">
                     {this._setChart()}
                 </div>
-                <div className="Benefit-Value">
+                {/* <div className="Benefit-Value">
                     <div>업로드된 사진 : {}</div>
                     <div>다운로드 횟수 : </div>
                     <div>총 수익 : </div>
-                </div>
+                </div> */}
             </div>
         );
     }
     _setChart = () => {
         const type = this.state.benefitButton;
         switch(type){
-            case "월간 수익": return <BenefitChart Data={this.props.profile.benefit.monthData}/>;
-            case "주간 수익": return <BenefitChart Data={this.props.profile.benefit.weekData}/>;
+            case "월간 수익": return <BenefitChart Data={this.props.profile.benefit.monthData} type = "Benefit"/>;
+            case "월간 사용": return <UseChart Data={this.props.profile.benefit.monthUseData} type = "Use"/>;
             default: return null;
         }
     }
