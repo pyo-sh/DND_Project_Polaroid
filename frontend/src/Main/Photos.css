@@ -1,9 +1,10 @@
 .Photos{
-    margin-right: -10px;
     width: 100%;
+    margin : 0;
 }
 
 .Photos-Grid{
+    overflow: hidden;
     list-style: none;
     margin: 0;
 }

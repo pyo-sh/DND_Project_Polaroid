@@ -8,14 +8,14 @@
 }
 
 .MyProfile .MyProfile-Status{
-    width: 40%;
     height: 100%;
-
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    margin-right: 40px;
 }
+
 .MyProfile .MyProfile-Status .MyProfile-Photo{
     width: 170px;
     height: 170px;
@@ -27,40 +27,55 @@
 }
 
 .MyProfile .MyProfile-Columns{
+    position: relative;
     width: 500px;
     height: 100%;
-    margin: 3%;
+    padding-top : 40px;
+    
     position:relative;
 }
+
 .MyProfile .MyProfile-Columns .MyProfile-Private .MyProfile-Name{
-    font-size: 30px;
+    font-size: 40px;
+    margin-right: 10px;
 }
+
 .MyProfile .MyProfile-Columns .MyProfile-Private .MyProfile-Id{
     color: gray;
 }
 .MyProfile .MyProfile-Columns .MyProfile-About{
+    width: 400px;
     text-overflow: ellipsis;
     overflow: hidden;
-    margin: 10px 5px;
+    margin: 10px 0px 10px 0px;
 }
-.MyProfile .MyProfile-Columns .MyProfile-Service{
+
+.MyProfile-Service{
     width: 100%;
     position:absolute;
-    bottom: 15px; /*밑에 위치*/
+    bottom: 0px; /*밑에 위치*/
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-end;
+}
+
+.MyProfile-Service-Column{
     display: flex;
     justify-content: flex-end;
+    align-content: flex-end;
 }
-.MyProfile .MyProfile-Columns .MyProfile-Service .MyProfile-Following{
-    color: blue;
+
+.MyProfile .MyProfile-Columns .MyProfile-Service-Column .MyProfile-Following{
+    color: rgb(82, 195, 181);
     border: 0;
     outline: 0;
     font-size: 17px;
     background: none;
     cursor: pointer;
 }
-.MyProfile .MyProfile-Columns .MyProfile-Service .MyProfile-Follower{
+.MyProfile .MyProfile-Columns .MyProfile-Service-Column .MyProfile-Follower{
     color: gray;
-    margin-left: 5%;
+    margin-left: 5px;
     border: 0;
     outline: 0;
     font-size: 17px;

@@ -3,7 +3,6 @@ import MyProfile from './MyProfile';
 import MyPageMenuBar from './MyPageMenuBar';
 import MyPageBenefit from './MyPageBenefit';
 import MyInformation from './MyInformation';
-import MyFilmBtn from './MyFilmBtn';
 import Photos from '../Main/Photos';
 import MyFavorite from './MyFavorite';
 import { getAllInfo } from './MyPageFunction';
@@ -52,12 +51,14 @@ class MyPage extends Component {
             <div className="MyPage">
                 <div className="MyPage-MyFilm">
                     <MyProfile profile={profile}/>
-                    <MyFilmBtn className="MyPage-MyFilmBtn"></MyFilmBtn>
                 </div>
                 <div className="MyPage-MenuBar">
                     <MyPageMenuBar MenuOnClick={this.MenuOnClick}/>
+                </div>
+                <div className = "MyPage-Photos">
                     {this._SelectMenu()}
                 </div>
+                
             </div>
         );
     }
@@ -94,8 +95,8 @@ class MyPage extends Component {
     _SelectMenu = () => {
         const type = this.state.selectedMenu;
         switch(type) {
-            case "UPLOAD" : return <Photos mypage = {true}/>;
-            case "DOWNLOADED" : return <Photos mypage = {true}/>;
+            case "UPLOAD" : return <Photos/>;
+            case "DOWNLOADED" : return <Photos/>;
             case "LIKED" : return ;
             case "FAVORITE" : return <MyFavorite getID={this.getID}/>;
             case "BENEFIT" : 
