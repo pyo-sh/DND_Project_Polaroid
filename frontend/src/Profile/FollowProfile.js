@@ -21,7 +21,7 @@ class FollowProfile extends Component{
         // follow버튼의 출력을 알아내기 위해서 현재 로그인된 아이디를 상대 아이디로 받았다.
         followTargetId: "",
         profile: {
-            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
+            profileImg: "",
             name: "",
             id: "",
             about: "",
@@ -42,10 +42,10 @@ class FollowProfile extends Component{
             isMe: isMe,
         });
     }
+    // state 값의 id가 있으므로, 정보를 불러들이는 getInfo 함수를 통해 정보를 받는다.
     componentDidMount(){
         this.getInfo();
     }
-
     getInfo = () => {
         const ID = this.state.id;
         getAllInfo(ID).then(res=> {
@@ -53,18 +53,19 @@ class FollowProfile extends Component{
                 informationCheck2: true,
                 profile: {
                     ...this.state.profile,
+                    profileImg: res.profileImg,
                     id : ID,
                     name : res.nickname,
                     about : res.introduce,
                     grade : res.grade,
-                    // photo: res.photo,
-                    name: res.nickname
                 }
             })
-
         })
     }
 
+    // 팔로우 기능을 수행하기 위한 onClick함수이다.
+    // myID는 getMyID를 통해 가져오며, 유저가 로그인 하지 않았을 경우 null로 가져온다.
+    // 하지만 상위 컴포넌트인 FollowPage.js에서 로그인 하지 않았을 경우 isMe=true 값을 통해 follow버튼 실행 X
     handleClick = () => {
         const myID = getMyID();
         const { id, isFollow } = this.state;
@@ -88,12 +89,12 @@ class FollowProfile extends Component{
         const {informationCheck,informationCheck2} = this.state;
         if(informationCheck && informationCheck2){
             const { id, isMe, isFollow } = this.state;
-            const { photo, name } = this.state.profile;
+            const { profileImg, name } = this.state.profile;
             return <div className = "FollowProfile">
                 <div className = "FollowProfile-Column">
                     <Link className= "FollowProfile-Column" to = {`/${id}`}>
                         <div className = "FollowProfile-ProfileImage" onClick = {() => this.props.history.push(`/Profile/${id}`)}>
-                            <ProfileImage photo = {photo} alt = {name}/>
+                            <ProfileImage profileImg = {profileImg} alt = {name}/>
                         </div>
                         <div className = "FollowProfile-Info">
                             <span className = "Nickname"> {name} </span>
@@ -121,10 +122,13 @@ class FollowProfile extends Component{
     }
 }
 
-function ProfileImage({photo, alt}){
+function ProfileImage({profileImg, alt}){
     return (
-        <img src = {photo ? photo : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y"} alt = {alt}></img>
-    ); // 프로필 사진이 없으면 검게 나오도록, 후에 사진 id로 대체하여 데이터랑 연결될 예정
+        <img 
+        src={profileImg}
+        alt={alt}
+        style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg)`}}/>
+    );
 }
 
 const FollowButton = ({ isMe, isFollow, handleClick}) => {

@@ -29,6 +29,7 @@ class FolderList extends Component {
                 checked={checked}
                 key={favFolderNum}
                 onToggle={this.props.onToggle}
+                getAllFolder={this.props.getAllFolder}
                 />
             )
         )

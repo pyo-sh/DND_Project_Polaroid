@@ -172,6 +172,7 @@ class Mark extends Component {
                     folder={this.state.folder}
                     folderIcon={folderIcon}
                     onToggle={this.handleToggle}
+                    getAllFolder={this.getAllFolder}
                   />
                 </div>
               </div>

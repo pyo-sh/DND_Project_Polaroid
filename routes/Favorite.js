@@ -5,7 +5,7 @@ const favoriteFolder = require('../models/favoriteFolder');
 const favorite = require('../models/favorite');
 const db = require('../database/db');
 
-Favorite.post('/', (req, res) => {
+Favorite.post('/', (req, res) => { // 폴더 정보 모두 가져오기
     const ID = req.body.userID;
     favoriteFolder.findAll({
         where : {
@@ -33,7 +33,7 @@ Favorite.post('/addFolder', (req, res) => { // 코인 충전 했을 때 코인�
     })
 })
 
-Favorite.post('/addPhotoInFolder', (req, res) => {
+Favorite.post('/addPhotoInFolder', (req, res) => { // 폴더에 포토를 넣는것.
     const favFolderNum = req.body.info.folderNum;
     const imgID = req.body.info.imgID;
     favorite.create({
@@ -42,31 +42,7 @@ Favorite.post('/addPhotoInFolder', (req, res) => {
     })
 })
 
-
-// Favorite.post('/getAll', (req, res) => {
-//     const ID = req.body.ID;  // 아이디를 받아서 그 사람의 모든 폴더네임과 이미지네임을 출력해준다.
-//     favoriteFolder.findAll({attributes:['favFolderName'],
-//     include: [{model: favorite, attributes : ['favName']}], 
-//     where : {
-//         ID
-//     }})
-//     .then(folder => {
-//         res.json(folder);
-//     })
-// })
-
-// Favorite.post('/getAll2', (req, res) => {
-//     const ID = req.body.ID;  // 아이디를 받아서 그 사람의 모든 폴더네임과 이미지네임을 출력해준다.
-//     favorite.findAll({
-//     include: [{model: favoriteFolder}], 
-//     where : {
-//         ID
-//     }})
-//     .then(folder => {
-//         res.json(folder);
-//     })
-// })
-Favorite.post('/getAll',(req, res) => {
+Favorite.post('/getAll',(req, res) => { // 모든 폴더와 그 폴더네임들을 가져오는 함수.
     const { userID } = req.body
     let query = `SELECT a.favFolderNum, a.favFolderName, b.imgID, c.imgName FROM favoriteFolders a LEFT join favorites b ON a.favFolderNum = b.favFolderNum LEFT JOIN images c ON b.imgID = c.imgID  WHERE a.ID = "${userID}" ORDER BY favFolderNum`;
     db.sequelize.query(query).then(([results, metadata]) => {
@@ -75,7 +51,7 @@ Favorite.post('/getAll',(req, res) => {
 })
 
 
-Favorite.post('/delFavFolder', (req, res) => {
+Favorite.post('/delFavFolder', (req, res) => {  // 즐겨찾기 폴더를 삭제하는 함수
     const { favFolderNum } = req.body;
     favoriteFolder.destroy({
         where : {
@@ -84,12 +60,25 @@ Favorite.post('/delFavFolder', (req, res) => {
     })
 })
 
-Favorite.post('/delFavorite', (req, res) => {
+Favorite.post('/delFavorite', (req, res) => { // 즐겨찾기한 이미지를 삭제 하는 함수.
     const { favNumFolderNum, imgID }  = req.body;
     favorite.destroy({
         where: {
             favNumFolderNum,
             imgID
+        }
+    })
+})
+
+Favorite.post('/isFav', (req, res) => { // 해당 유저한테 해당 이미지가 즐겨찾기 된 이미지인지 아닌지 알기 위한 함수.
+    const { userID, imgID } = req.body;
+    let query = `SELECT * FROM favorites WHERE favFolderNum IN (SELECT favFolderNum FROM favoriteFolders WHERE ID = "${userID}") AND ImgID = ${imgID};`
+    db.sequelize.query(query).then(([results, metadata]) => {  // 결과가 없으면 false 반환, 있으면 true 반환
+        if(results[0] === undefined){ // 결과가 없으면 [] 이 나와서 그 배열의 [0]이 없으면으로 설정했음
+            res.send(false);
+        }
+        else {  // 첫번째 배열이 있으면 true
+            res.send(true);
         }
     })
 })

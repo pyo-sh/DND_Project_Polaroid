@@ -2,7 +2,7 @@ import './FollowPage.css';
 import React, { Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import FollowProfile from './FollowProfile';
-import { getMyID, getFollowingSome, getFollowerSome, isFollowInfo } from './ProfileFunction'
+import { getMyID, getFollowingSome, getFollowerSome } from './ProfileFunction'
 
 class FollowPage extends Component {
     state={
@@ -32,6 +32,11 @@ class FollowPage extends Component {
         const { targetID, isFollow, count, start } = this.state;
         if(isFollow){
             getFollowingSome(targetID, start, count).then(res => {
+                if(res.data.length !== 30){
+                    this.setState({
+                        isMore: false
+                    });
+                }
                 this.setState({
                     countID: this.state.countID.concat(res.data)
                 })
@@ -39,6 +44,11 @@ class FollowPage extends Component {
         }
         else{
             getFollowerSome(targetID, start, count).then(res => {
+                if(res.data.length !== 30){
+                    this.setState({
+                        isMore: false
+                    });
+                }
                 this.setState({
                     countID: this.state.countID.concat(res.data)
                 })
@@ -46,12 +56,18 @@ class FollowPage extends Component {
         }
     }
 
+    // 팔로잉이 30명이 넘을 경우, 다른 id들을 fetch 한다. 이때, 배열의 값 처럼 start를 올려주어야 한다.
     fetchIDs = () => {
         const { targetID, isFollow, count } = this.state;
         const start = count + this.state.start;
         this.setState({ start: start });
         if(isFollow){
             getFollowingSome(targetID, start, count).then(res => {
+                if(res.data.length !== 30){
+                    this.setState({
+                        isMore: false
+                    });
+                }
                 this.setState({
                     countID: this.state.countID.concat(res.data)
                 })
@@ -59,6 +75,11 @@ class FollowPage extends Component {
         }
         else{
             getFollowerSome(targetID, start, count).then(res => {
+                if(res.data.length !== 30){
+                    this.setState({
+                        isMore: false
+                    });
+                }
                 this.setState({
                     countID: this.state.countID.concat(res.data)
                 })
@@ -66,29 +87,22 @@ class FollowPage extends Component {
         }
     }
 
-    setDatas = () => {
-        
-    }
-
-    _renderFollow = () => {
-        
-    }
-
     render() {
-        const { id, isFollow } = this.state;
+        const { id, isFollow, countID, isMore } = this.state;
+        const idCheck = (id === null)
         return (
             <div className="FollowPage">
                 <div className="FollowPage-Top">
                     {isFollow===true ? "Following" : "Follower"}
                 </div>
                 <InfiniteScroll
-                    dataLength = {this.state.countID.length}
+                    dataLength = {countID.length}
                     next = {this.fetchIDs}
-                    hasMore = {this.state.isMore}
+                    hasMore = {isMore}
                     >
-                    {this.state.countID.map((list, index) => {
-                        const printID = isFollow===true ? list.followerID : list.followID;
-                        const isMe = printID === id;
+                    {countID.map((list, index) => {
+                        const printID = (isFollow===true ? list.followerID : list.followID);
+                        const isMe = (printID === id || idCheck);
                         return <li key = {index} >
                                 <FollowProfile 
                                     id={printID}

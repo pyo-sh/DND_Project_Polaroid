@@ -161,7 +161,6 @@ class ImageInfo extends Component {
   onClick = () => {
     if(localStorage.usertoken || sessionStorage.usertoken){
       this._getFilm(); // 토큰이 더 적으면 충전 하게 만들어야함(충전 하는 곳으로 가시겠습니까 정도?) 토큰이 같거나 더 많을 때 다운로드 받을 수 있게
-      this.downloadClick();
       this.props.handlePayment();
     }
     else {
@@ -197,28 +196,30 @@ class ImageInfo extends Component {
     const { informationCheck, informationCheck2 } = this.state;
     if(informationCheck && informationCheck2){
       const {
-        imgID,
-        imgName,
+        // 안쓰는 state 값들 주석 처리 합니다.
+        // imgID,
+        // imgName,
         imgType,
-        imgUrl,
+        // imgUrl,
         category,
         tag,
         distribute,
         price,
-        commercialAvailable,
-        copyrightNotice,
-        noChange,
-        visibility,
-        userID,
+        // commercialAvailable,
+        // copyrightNotice,
+        // noChange,
+        // visibility,
+        // userID,
         downCount,
         imgWidth,
         imgHeight,
         uploadDate,
-        payment, // 페이먼트, 필름
+   // 페이먼트, 필름
         film,
         userProfile,
         myID
       } = this.state;
+      const { payment } = this.props;
       return (
         <div className="ImageInfo">
           <Registrant userProfile={userProfile} myID={myID} followOnClick={this.followOnClick}/>
@@ -231,7 +232,9 @@ class ImageInfo extends Component {
           {payment ? (
             <Payment
               film={film}
+              price={price}
               handlePayment={this.props.handlePayment}
+              downloadClick={this.downloadClick}
               _minusFilm={this._minusFilm}
               commercialAvailable = "NotCommercialAvailable"
               copyrightNotice = "CopyrightNotice"
