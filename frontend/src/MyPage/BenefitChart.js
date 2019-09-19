@@ -30,9 +30,9 @@ class BenefitChart extends Component {
       x: "x",
       columns: [],
       names: {
-        data1: "사진 수",
-        data2: "다운로드 수",
-        data3: "수입"
+        data1: "업로드 사진",
+        data2: "다운로드",
+        data3: "총 수익"
       },
       axes: {
         data1: "y",
@@ -42,7 +42,12 @@ class BenefitChart extends Component {
       types: {
         data1: "bar",
         data2: "bar",
-        data3: "line"
+        data3: "area-spline"
+      },
+      colors: {
+        data1: "rgb(166, 237, 210)",
+        data2: "rgb(82, 185, 195)",
+        data3: "rgb(237, 141, 110)"
       }
     }
   }
@@ -64,7 +69,8 @@ class BenefitChart extends Component {
   render() {
     return <BillboardChart 
       data={this.state.Data}
-      axis={this.state.Axis}/>;
+      axis={this.state.Axis}
+      style={{width : "900px"}}/>;
   }
 }
 

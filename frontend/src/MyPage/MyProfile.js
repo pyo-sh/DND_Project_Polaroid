@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import LinesEllipsis from 'react-lines-ellipsis';
 import MyProfileGrade from './MyProfileGrade';
 import FollowBtn from '../Profile/FollowBtn';
+import MyFilmBtn from './MyFilmBtn';
 
 class MyProfile extends Component { // 보유 필름을 내가 추가해봤음.
     state = {
@@ -100,9 +101,12 @@ class Profile extends Component {
                         basedOn='letters'
                         />
                 </div>
-                <div className="MyProfile-Service">
-                    <FollowBtn targetID={id} followNum={following} isFollow={true}/>
-                    <FollowBtn targetID={id} followNum={follower} isFollow={false}/>
+                <div className = "MyProfile-Service">
+                    <div className="MyProfile-Service-Column">
+                        <FollowBtn targetID={id} followNum={following} isFollow={true}/>
+                        <FollowBtn targetID={id} followNum={follower} isFollow={false}/>
+                    </div>
+                    <MyFilmBtn className="MyPage-MyFilmBtn"/>
                 </div>
             </div>
         </div>

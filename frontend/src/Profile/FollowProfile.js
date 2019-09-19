@@ -93,7 +93,7 @@ class FollowProfile extends Component{
             return <div className = "FollowProfile">
                 <div className = "FollowProfile-Column">
                     <Link className= "FollowProfile-Column" to = {`/${id}`}>
-                        <div className = "FollowProfile-ProfileImage" onClick = {() => this.props.history.push(`/Profile/${id}`)}>
+                        <div className = "FollowProfile-ProfileImage" >
                             <ProfileImage profileImg = {profileImg} alt = {name}/>
                         </div>
                         <div className = "FollowProfile-Info">
