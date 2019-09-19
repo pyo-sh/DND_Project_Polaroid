@@ -239,7 +239,7 @@ class ImageInfo extends Component {
               {distribute === "free" ?  "Free Download": "Premium Download"}{" "}
             </button>
           </div>
-          {(payment && !distribute)? (
+          {(payment && (distribute !== "free"))? (
             <Payment
               film={film}
               price={price}
