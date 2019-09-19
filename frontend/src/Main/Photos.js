@@ -28,6 +28,7 @@ class Photos extends Component {
     }
     
     fetchImages = () => {
+      console.log("as");
       const count = this.state.count,
             start = count + this.state.start;
       this.setState({ start: start });
@@ -45,7 +46,11 @@ class Photos extends Component {
     
     render() {
       const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
+<<<<<<< HEAD
         maxWidth: (this.props.mypage ? 960 : 1500)
+=======
+        maxWidth: 1006
+>>>>>>> lee
       });
 
         return (

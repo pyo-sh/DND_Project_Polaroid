@@ -38,8 +38,8 @@ class MyFilm extends Component {
 
     render(){
         return(
-            <div className="MyFilm">
-                보유필름 :  
+            <div className="MyFilm" id = {this.props.mypage}>
+                보유필름 : 
                 <Link className = "Amount" to = "/film/charge"> {this.state.film ? this.state.film : "0"} </Link>
             </div>
         );
