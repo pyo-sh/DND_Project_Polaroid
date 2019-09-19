@@ -3,9 +3,15 @@ import './Payment.css';
 
 class Payment extends Component {
     state = { // 프라이스 불러오고 바꾸고 하는거 정해야함.
-        price : 100,
+        price : 0,
         authority : {},
         caution : {}
+    }
+    componentDidMount() {
+        const { price } = this.props
+        this.setState({
+            price
+        })
     }
 
     componentWillMount(){
@@ -30,9 +36,17 @@ class Payment extends Component {
 
     onDownClick = () => {
         // 다운 했을 때 모달 내려가면서 보유한 필름 깎여야함
-        this.props._minusFilm(this.state.price);
-        this.props.handlePayment();
-        alert('다운로드 되었습니다');
+        const { film } = this.props;
+        const { price } = this.state;
+        if(film > price ){
+            this.props._minusFilm(price);
+            this.props.downloadClick();
+            this.props.handlePayment();
+            alert('다운로드 되었습니다');
+        }
+        else {
+            alert('필름이 부족합니다. 필름을 충전해주세요')
+        }
     }
 
     onCancleClick = () => { 
