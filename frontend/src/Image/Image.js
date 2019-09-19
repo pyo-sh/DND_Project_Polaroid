@@ -6,7 +6,7 @@ import Mark from './Mark';
 import Declaration from './Declaration';
 import DeleteImage from './DeleteImage';
 import { withRouter, Link } from 'react-router-dom';
-import { getLikeCount , imgLikeUp, imgLikeDown, isGetLike, isFav } from './ImageFunction';
+import { getLikeCount , imgLikeUp, imgLikeDown, isGetLike, isFav, delMyImg } from './ImageFunction';
 import { getImageInfo } from './ImageFunction';
 import { getAllInfo } from '../MyPage/MyPageFunction';
 import jwt_decode from 'jwt-decode';
@@ -37,6 +37,10 @@ class Image extends Component {
       else
         this.img.style.cssText = "max-width : 100%; height : auto !important;";
     });
+  }
+
+  pushMypage = () => {
+      this.props.history.push('/mypage');
   }
 
   getID = () => {
@@ -77,7 +81,7 @@ class Image extends Component {
             )}
           </div>
         </div>
-        <ImageUseInformation userID={userID}  loginID={loginID} imgID={imgID} imgHeight={imgHeight} imgWidth={imgWidth} view={view} />
+        <ImageUseInformation userID={userID}  loginID={loginID} imgID={imgID} imgHeight={imgHeight} imgWidth={imgWidth} pushMypage={this.pushMypage} view={view} />
         <p className="Relatied-Title Image-Page-Column"> Related Image</p>
         {/*<RelationImage id = {id}/>*/}
       </div>
@@ -118,8 +122,6 @@ class ImageUseInformation extends Component {
             userID,
             loginID
         })
-        console.log(userID)
-        console.log(loginID)
 
         isGetLike(imgID, loginID).then(res => {
             this.setState({
@@ -177,10 +179,13 @@ class ImageUseInformation extends Component {
         })
     }
 
-    closeDelPopUp = () => {
+    closeDelPopUp = () => { // 이거 누르면 삭제 돼야 함.
+        const { imgID } = this.state;
+        delMyImg(imgID);
         this.setState({
             isDelPopUpOpen: false
         })
+        this.props.pushMypage();
     }
 
     clickMark = () =>{

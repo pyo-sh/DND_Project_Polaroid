@@ -162,7 +162,12 @@ export const isFav = async (imgID, userID) => { //즐겨찾기 한 이미지인�
     })
 } 
 
-export const delFavFolder = async favFolderNum => {
+export const delFavFolder = async favFolderNum => { // 폴더를 삭제 시키기 위함.
     return await axios
     .post('/api/favorite/delFavFolder', {favFolderNum})
+}
+
+export const delMyImg = async imgID => {
+    return await axios
+    .post('/api/images/delmyimg', {imgID})
 }

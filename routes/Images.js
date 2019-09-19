@@ -5,7 +5,7 @@ const db = require("../database/db");
 const image = require('../models/image');
 const imgDownload = require('../models/imgDownload');
 
-Images.get('/getAllImages', (req, res) => {
+Images.get('/getAllImages', (req, res) => { // 모든 이미지
     let {start, count} = req.query;
     let query = `SELECT imgID, imgName, imgUrl from images limit ${start}, ${count} `;
 
@@ -13,7 +13,7 @@ Images.get('/getAllImages', (req, res) => {
         res.json(results);
     })
 })
-Images.get('/getAllImagesTag', (req, res) => {
+Images.get('/getAllImagesTag', (req, res) => { // 모든 이미지를 태그와 함께
     let {start, count} = req.query;
     let query = `SELECT imgID, imgName, imgUrl, tag from images limit ${start}, ${count} `;
 
@@ -22,7 +22,7 @@ Images.get('/getAllImagesTag', (req, res) => {
     })
 })
 
-Images.get('/getAllImagesCategory', (req, res) => {
+Images.get('/getAllImagesCategory', (req, res) => {  // 모든 이미지를 카테고리와 함께
     let {start, count} = req.query;
     let query = `SELECT imgID, imgName, imgUrl, tag, category from images limit ${start}, ${count} `;
 
@@ -31,7 +31,7 @@ Images.get('/getAllImagesCategory', (req, res) => {
     })
 })
 
-Images.get('/getOneImg/:imgID', (req, res) => {
+Images.get('/getOneImg/:imgID', (req, res) => { // imgID의 정보를 가져오는것
     let { imgID } = req.params;
     image.findOne({
         where : {
@@ -42,7 +42,7 @@ Images.get('/getOneImg/:imgID', (req, res) => {
         res.send(img);
     })
 })
-Images.get('/getDownloads/:imgID', (req, res) => {
+Images.get('/getDownloads/:imgID', (req, res) => { // 다운로드 수를 가져오는것
     let { imgID } = req.params;
     
     let query = `SELECT COUNT(*) downCount FROM imgDownloads WHERE imgID = ${imgID}`;
@@ -52,7 +52,7 @@ Images.get('/getDownloads/:imgID', (req, res) => {
     })
 })
 
-Images.post('/plusDownUser', (req, res) => {
+Images.post('/plusDownUser', (req, res) => { // 다운받은 유저 수 올리는 것.
     const { imgID, userID, price } = req.body;
     imgDownload.findOne({
         where : {
@@ -84,7 +84,7 @@ Images.post('/isDownImage', (req, res) => { // 다운 받은 이미지인가? �
     })
 })
 
-Images.post('/getBenefitMonth', (req, res) => {
+Images.post('/getBenefitMonth', (req, res) => { // 달별 수익을 보는 것.
     const { userID } = req.body;
     let query = `
     SELECT imgCount, downCount, sumFilm, uploadMonth Month FROM 
@@ -98,12 +98,22 @@ Images.post('/getBenefitMonth', (req, res) => {
     })
 })
 
-Images.post('/upImageView', (req, res) => {
+Images.post('/upImageView', (req, res) => { // 이미지 뷰 수를 올리는 것
     const { imgID }= req.body;
 
     image.update({
         view : Sequelize.literal('view +' + 1)
     },{
+        where : {
+            imgID
+        }
+    })
+})
+
+Images.post('/delmyimg', (req , res) => { // 나의 이미지를 지우는 것.
+    const { imgID } = req.body;
+
+    image.destroy({
         where : {
             imgID
         }
