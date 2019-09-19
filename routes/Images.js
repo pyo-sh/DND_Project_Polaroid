@@ -42,6 +42,23 @@ Images.get('/getOneImg/:imgID', (req, res) => { // imgID의 정보를 가져오�
         res.send(img);
     })
 })
+
+Images.get('/getMyDownImg/:userID', (req, res) => {
+    let { userID } = req.params;
+
+    imgDownload.findAll({
+        where :{
+            userID
+        }
+    })
+    .then(result => {
+        res.send(result)
+    })
+    .catch(err=>{
+        console.error(err);
+    })
+})
+
 Images.get('/getDownloads/:imgID', (req, res) => { // 다운로드 수를 가져오는것
     let { imgID } = req.params;
     

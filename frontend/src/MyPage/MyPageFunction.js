@@ -63,7 +63,7 @@ export const getBenefitMonth = async userID => { // 작가의 모든 월별 수�
     })
 }
 
-export const getAllFilmList = async userID => {
+export const getAllFilmList = async userID => { // 모든 필름 사용 내역을 가져다줌
     return await axios
     .post('/api/film/getAllFilmList', {
         userID
@@ -75,3 +75,15 @@ export const getAllFilmList = async userID => {
         console.error(err);
     })
 }
+
+export const getMyDownImg = async userID => { // 유저아이디를 받아서 그 유저가 다운 받음 이미지를 다 가져오는것.
+    return await axios
+    .get(`/api/images/getMyDownImg/:${userID}`)
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
+
