@@ -38,7 +38,8 @@ class MyPage extends Component {
                 ]
             },
             // 마이프로필인지 다른사람프로필인지 확인하는 boolean
-            checkProfile: true
+            checkProfile: true,
+            isSubmenuOPen : false
         }
     }
     // 렌더링이 되고 난 후 getInfo를 실행 시키면서 db에 있는 해당 아이디의 정보들을 가지고 와서 setState 시킴
@@ -102,7 +103,7 @@ class MyPage extends Component {
             case "UPLOAD" : return <Photos/>;
             case "DOWNLOADED" : return <Photos/>;
             case "LIKED" : return ;
-            case "FAVORITE" : return <MyFavorite getID={this.getID}/>;
+            case "FAVORITE" : return <MyFavorite getID={this.getID} isOpen = {true}/>;
             case "BENEFIT" : 
                 return <MyPageBenefit 
                     profile={this.state.profile}
@@ -112,7 +113,7 @@ class MyPage extends Component {
                     profile={this.state.profile} 
                     getInfo={this.getInfo}
                     />;
-            default : return <div className="loading-screen"></div>;
+            default : ;
         }
     }
     // 메뉴바 버튼을 눌렀을 때 state의 값을 버튼의 innerText로 바꾸고 버튼의 이펙트 효과를 만들기 위해 클릭안한 버튼을 제외한 클릭된 버튼의 className을 "MyPage-Menu-Selected" 으로 설정.
