@@ -1,13 +1,13 @@
 .MyFavorite-Buttons{
     position: relative;
     z-index: 30;
-    width: 160px;
+    width: 175px;
     border-radius: 8px;
-    left: 480px;
+    left: 525px;
 }
 .MyFavorite-Fake-Button{
     position: absolute;
-    width: 160px;
+    width: 175px;
     padding: 16px 20px;
     border: none;
     outline: none;
@@ -39,7 +39,7 @@
 .MyFavorite-Folder-Open{
     overflow: hidden;
 }
-.MyFavorite-Folder-Open button{
+.MyFavorite-Buttons .MyFavorite-Folder-Open button{
     padding: 0 26px;
     height: 0px;
     color: none;
@@ -49,7 +49,7 @@
     border: none;
     outline: none;
 }
-.MyFavorite-Folder-Close button{
+.MyFavorite-Buttons .MyFavorite-Folder-Close button{
     padding: 16px 26px;
     text-align: start;
     transition: 0.3s;
@@ -96,4 +96,61 @@
 .MyFavorite-File{
     margin: 15px;
     font-size: 15px;
+}
+.MyFavorite-Window-Buttons{
+    height: 55px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.MyFavorite-Folder-AddBefore{
+    margin-left: 330px;
+    height: 40px;
+    border: none;
+    outline: none;
+}
+.MyFavorite-Folder-Delete{
+    height: 40px;
+    border: none;
+    outline: none;
+    margin-left: auto;
+}
+
+.MyFavorite-Add-Folder{
+    width: 400px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+.MyFavorit-New-Folder{
+    border: none;
+    outline:none;
+    width: 170px;
+    font-weight: 600;
+}
+.MyFavorite-Confirm-Area{
+    right: 0;
+    margin-left: auto;
+}
+.MyFavorite-Cancel{
+    background: none;
+    font-size: 13px;
+    color: gray;
+    cursor: pointer;
+    border-radius: 0 0 10px 10px;
+    border: none;
+    outline: none;
+}
+.MyFavorite-Confirm{
+    background: none;
+    color: rgb(82, 195, 181);
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 0 0 10px 10px;
+    border: none;
+    outline: none;
+}
+
+.MyFavorite-Photo-Delete{
+
 }
