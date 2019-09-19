@@ -404,7 +404,7 @@ users.post("/findid", (req, res) => {
   });
 });
 
-users.get('/getAllUsers', (req, res) => {
+users.get('/getAllUsers', (req, res) => { // 모든 유저 가져오기
     User.findAll({
         attributes : ["ID"]
     })

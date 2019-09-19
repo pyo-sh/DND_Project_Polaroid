@@ -43,18 +43,14 @@ Images.get('/getOneImg/:imgID', (req, res) => { // imgID의 정보를 가져오�
     })
 })
 
-Images.get('/getMyDownImg/:userID', (req, res) => {
+Images.get('/getMyDownImg/:userID', (req, res) => { // 다운로드 받은 이미지를 가져오는 것.
     let { userID } = req.params;
 
-    imgDownload.findAll({
-        where :{
-            userID
-        }
+    let query = `SELECT imgID, imgUrl FROM images WHERE imgID IN (SELECT imgID FROM imgDownloads WHERE userID = "${userID}")`;
+    db.sequelize.query(query).then(([results, metaData]) => {
+        res.send(results);
     })
-    .then(result => {
-        res.send(result)
-    })
-    .catch(err=>{
+    .catch(err => {
         console.error(err);
     })
 })
