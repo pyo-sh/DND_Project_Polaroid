@@ -199,7 +199,6 @@ class MyFavorite extends Component {
         if(folder !== null) {
             folderFile = favoriteFolder.map((res, index) => {
                 if(folder[nowPage-1].favFolderNum === res.favFolderNum){
-                    console.dir(res);
                     if(res.imgID !== null){
                         return <Link to = {`/imagepage/${res.imgID}`} key={index+1}>
                                 <div className="MyFavorite-File">{index + 1}. {res.imgName}</div>

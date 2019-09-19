@@ -3,16 +3,18 @@
     z-index: 30;
     width: 175px;
     border-radius: 8px;
-    left: 525px;
+    left: 520px;
+    top: -39px;
 }
 .MyFavorite-Fake-Button{
     position: absolute;
     width: 175px;
+    height: 45px;
     padding: 16px 20px;
     border: none;
     outline: none;
     background: none;
-    top: -35px;
+    top: -45px;
 }
 .MyFavorite-Fake-Button:before{
     content: "";
@@ -26,7 +28,7 @@
     border-left:    14px solid  transparent;
     /* 삼각형 다만들고 위치 조정 */
     left: 20px;
-    top: 35px;
+    top: 45px;
     transform: rotate(180deg);
 }
 #MyFavorite-Folders{
@@ -149,8 +151,4 @@
     border-radius: 0 0 10px 10px;
     border: none;
     outline: none;
-}
-
-.MyFavorite-Photo-Delete{
-
 }
