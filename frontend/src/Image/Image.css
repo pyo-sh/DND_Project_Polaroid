@@ -85,6 +85,11 @@
    cursor: pointer;
 }
 
+.Icon-Trash{
+    color:gray;
+    cursor: pointer;
+}
+
 .Relatied-Title{
     font-size: 30px;
     font-weight: 600;

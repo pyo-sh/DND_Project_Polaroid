@@ -36,11 +36,9 @@ class Photos extends Component {
         outputType : "home"
       })
       axios.get(`/api/images/getAllImagesCategory?start=${start}&count=${count}`).then(res=>{
-        console.log(res.data);
         this.setState({images : res.data});
         this.searchContrast();
         this.cateContrast();
-        console.log(this.state);
       })
     }
 
