@@ -5,9 +5,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';
 
-class Photos extends Component {
+class CategoryImage extends Component {
     state = {
         images: [],
+        categoryimages: [],
         count: 30, //한번에 사진 30개씩 부름
         start: 0,
         isMore : true
@@ -21,18 +22,24 @@ class Photos extends Component {
       //   })
       //   .catch(err => console.error(err))
       axios.get(`/api/images/getAllImagesCategory?start=${start}&count=${count}`).then(res=>{
-        console.log(res.data);
         this.setState({images : res.data});
+        console.log(this.props.category);
+        this.contrast();
       })
     }
-    
+
+    componentDidUpdate(prevProps, prevState) {
+      if(prevProps.category !== this.props.category){
+        this.contrast();
+      }
+    }
+
     fetchImages = () => {
-      console.log("as");
       const count = this.state.count,
             start = count + this.state.start;
       this.setState({ start: start });
       
-      axios.get(`/api/images/getAllImagesTag?start=${start}&count=${count}`)
+      axios.get(`/api/images/getAllImagesCategory?start=${start}&count=${count}`)
       .then(res=>{
         this.setState({ images: this.state.images.concat(res.data)}) // 이즈 모얼인가 뭐 해줘야함.
       })
@@ -41,15 +48,24 @@ class Photos extends Component {
          
       //   })
       .catch(err => console.error(err))
-     }
+    }
     
+    contrast = () => {
+        let { category } = this.props;
+        let categoryimages = this.state.images.filter(categoryimage => categoryimage.category.includes(category))
+        this.setState({
+            categoryimages
+        })
+        console.log(categoryimages)
+    }
+
     render() {
       const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
-        maxWidth: 1006
+        maxWidth: (this.props.mypage ? 960 : 1500)
       });
 
         return (
-            <div className = "Photos">   
+            <div className = "Photos">  
                   {/* <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore}>
                     <Grid className = "Photos-Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 395)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
                       {this.state.images.map((image, index) => (
@@ -62,8 +78,8 @@ class Photos extends Component {
                     </Grid>
                 </InfiniteScroll> */}
                 <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore} >
-                    <Grid className = "Photos-Grid" component="ul" columnWidth={330} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
-                      {this.state.images.map((image) => (
+                    <Grid className = "Photos-Grid" component="ul" columnWidth={(this.props.mypage ? 310 : 395)} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
+                        {this.state.categoryimages.map((image) => (
                         <li key = {image.imgID} >
                             <Link to = {`/imagepage/${image.imgID}`}>
                               <img className = "Photos-photo" src={image.imgUrl} alt="이미지"/>
@@ -77,4 +93,4 @@ class Photos extends Component {
     }
   }
 
-export default Photos;
+export default CategoryImage;
