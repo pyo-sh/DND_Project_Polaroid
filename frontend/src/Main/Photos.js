@@ -20,14 +20,17 @@ class Photos extends Component {
       //     this.setState({ images: response.data.photos })
       //   })
       //   .catch(err => console.error(err))
+<<<<<<< HEAD
       axios.get(`/api/images/getAllImagesCategory?start=${start}&count=${count}`).then(res=>{
         console.log(res.data);
+=======
+      axios.get(`/api/images/getAllImagesTag?start=${start}&count=${count}`).then(res=>{
+>>>>>>> mun
         this.setState({images : res.data});
       })
     }
     
     fetchImages = () => {
-      console.log("as");
       const count = this.state.count,
             start = count + this.state.start;
       this.setState({ start: start });

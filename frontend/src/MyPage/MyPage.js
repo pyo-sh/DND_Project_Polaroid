@@ -5,7 +5,7 @@ import MyPageBenefit from './MyPageBenefit';
 import MyInformation from './MyInformation';
 import Photos from '../Main/Photos';
 import MyFavorite from './MyFavorite';
-import { getAllInfo } from './MyPageFunction';
+import { getAllInfo, getBenefitMonth, getAllFilmList } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
 import React, { Component } from 'react';
 
@@ -25,16 +25,10 @@ class MyPage extends Component {
             film : 0,
             benefit: {
                 monthData: [
-                    ["x", "2019-01-01", "2019-02-01", "2019-03-01", "2019-04-01", "2019-05-01", "2019-06-01", "2019-07-01", "2019-08-01", "2019-09-01", "2019-10-01", "2019-11-01", "2019-12-01"],
-                    ["data1", 10, 20, 30, 40, 50, 60, 0, 0, 0, 0, 0, 0],
-                    ["data2", 15, 25, 35, 45, 55, 65, 0, 0, 0, 0, 0, 0],
-                    ["data3", 20, 30, 40, 50, 60, 70, 0, 0 ,0, 0, 0, 0]
+    
                 ],
-                weekData: [
-                    ["x", "2018-01-01", "2018-01-08", "2018-01-15", "2018-01-22", "2018-01-29", "2018-01-31"],
-                    ["data1", 10, 20, 30, 40, 1],
-                    ["data2", 15, 25, 35, 45, 5],
-                    ["data3", 20, 30, 40, 50, 10]
+                monthUseData: [
+             
                 ]
             },
             // 마이프로필인지 다른사람프로필인지 확인하는 boolean
@@ -43,27 +37,12 @@ class MyPage extends Component {
         }
     }
     // 렌더링이 되고 난 후 getInfo를 실행 시키면서 db에 있는 해당 아이디의 정보들을 가지고 와서 setState 시킴
-    componentDidMount(){
+      componentDidMount(){
         this.getInfo();
+        this.getMonthBenefit();
+        this.getMonthUseFilm();
     }
-    render() {
-        const {profile} = this.state;
-        return (
-            <div className="MyPage">
-                <div className="MyPage-MyFilm">
-                    <MyProfile profile={profile}/>
-                </div>
-                <div className="MyPage-MenuBar">
-                    <MyPageMenuBar MenuOnClick={this.MenuOnClick}/>
-                </div>
-                <div className = "MyPage-Photos">
-                    {this._SelectMenu()}
-                </div>
-                
-            </div>
-        );
-    }
-    getID = () => {
+    getID = () => { // 아이디 가져오기
         let token = '';
         localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
         if(token === null)
@@ -72,7 +51,7 @@ class MyPage extends Component {
         const ID = decode.ID;
         return ID;
     }
-    getInfo = () => {
+    getInfo = () => {  // 유저 정보 가져오기
         const ID = this.getID();
         if(ID){
                    // console.log(ID); // 아이디를 콘솔창에서 알아보기 위함
@@ -95,6 +74,42 @@ class MyPage extends Component {
             console.error(err);
         })
         }
+    }
+    getMonthBenefit = () => { // 월 별 데이터 가져오기 달 수익.
+        const ID = this.getID();
+        getBenefitMonth(ID)
+        .then(res => {
+            this.setState({
+                profile:{
+                    ...this.state.profile,
+                    benefit:{
+                        ...this.state.profile.benefit,
+                        monthData : res  // 수익
+                    }
+                }
+            })
+        })
+        .catch(err => {
+            console.error(err);
+        })
+    }
+    getMonthUseFilm = () => { // 월 별 사용 데이터 가져오기  사용//
+        const ID = this.getID();
+        getAllFilmList(ID)
+        .then(res => {
+            this.setState({
+                profile:{
+                    ...this.state.profile,
+                    benefit:{
+                        ...this.state.profile.benefit,
+                        monthUseData : res // 사용.
+                    }
+                }
+            })
+        })
+        .catch(err => {
+            console.error(err);
+        })
     }
     // 메뉴바를 눌러서 버튼의 innerText 값을 받아서 state를 바꾸면 반환하는 페이지가 바뀌는 형식이다.
     _SelectMenu = () => {
@@ -131,6 +146,23 @@ class MyPage extends Component {
             })
         }
         return null;
+    }
+    render() {
+        const {profile} = this.state;
+        return (
+            <div className="MyPage">
+                <div className="MyPage-MyFilm">
+                    <MyProfile profile={profile}/>
+                </div>
+                <div className="MyPage-MenuBar">
+                    <MyPageMenuBar MenuOnClick={this.MenuOnClick}/>
+                </div>
+                <div className = "MyPage-Photos">
+                    {this._SelectMenu()}
+                </div>
+                
+            </div>
+        );
     }
 }
 
