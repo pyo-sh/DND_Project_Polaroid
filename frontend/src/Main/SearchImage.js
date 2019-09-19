@@ -52,7 +52,7 @@ class SearchImage extends Component {
         this.setState({
             searchimages
         })
-        console.log(searchimages)
+        this.props.getPhotoCount(searchimages.length)
     }
 
     render() {

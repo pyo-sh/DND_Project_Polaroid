@@ -29,7 +29,7 @@ class IDPage extends Component {
         const myID = getMyID();
         this.upperTitle();
         this.setState({
-            myID: myID
+            myID
         });
     }
     // 처음 클래스를 불러오고 render 후에 변경하는 정보들 (필요한 state값이 바뀐걸 받아서 정보 처리)
@@ -39,6 +39,12 @@ class IDPage extends Component {
             this.checkIsFollow();
     }
 
+    async componentDidUpdate(prevProps, prevState) {
+        if(prevProps.location.pathname !== this.props.location.pathname){
+           await this.upperTitle()
+            this.getInfo();
+        }
+    }
     // 상대방의 아이디를 알아내는 작업
     upperTitle(){
         let title = this.props.match.params.id;
@@ -46,7 +52,8 @@ class IDPage extends Component {
         this.setState({
             ...this.state,
             titleName: title
-        });
+        })
+        return null;
     }
 
     //upperTitle로 아이디를 알아내서 정보를 받아오는 함수 (상대방의 프로필 정보)
