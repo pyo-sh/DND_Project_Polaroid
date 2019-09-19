@@ -9,7 +9,7 @@ class MyInformation extends Component{
         checkPW: false, // 임시
         id: '',
         password: '',
-        isFailed: false
+        failedPW : false
     }
     render(){
         return(
@@ -44,7 +44,7 @@ class MyInformation extends Component{
             }
             else
                 this.setState({
-                    isFailed: true
+                    failedPW: true
                 });
         })
     }
@@ -74,12 +74,16 @@ class MyInformation extends Component{
 const MyInformationMenuInput = ({checkOnClick, getPassword, failedPW}) => {
     return(
         <div className="MyInformation-Pw">
-            <div className="MyInformation-Pw-Check">회원 비밀번호 확인</div>
-            <div className="MyInformation-Pw-Title">
-                <input onChange={getPassword} className="MyInformation-Pw-Input" type="password"/>
-                <button onClick={checkOnClick} className="MyInformation-Pw-Btn">확인</button>
+            <div className="MyInformation-Pw-Column">
+                <h4 className = "MyInformation-Pw-Title">비밀번호</h4>
+                <div className = "MyInformation-Pw-Box">
+                    <input onChange={getPassword} className="MyInformation-Pw-Input" type="password" />
+                    <button onClick={checkOnClick} className="MyInformation-Pw-Btn">확인</button>
+                </div>
             </div>
-            <MyInformationIncorrect failedPW={failedPW}/>
+            <div className="MyInformation-Pw-Column">
+                <MyInformationIncorrect failedPW={failedPW}/>
+            </div>
         </div>
     );
 }

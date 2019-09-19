@@ -87,7 +87,6 @@ class MyProfileEdit extends Component {
     });
   }
   
-
   // 없어도 될듯
   // componentDidUpdate(prevProps, prevState) {
   //     if(prevProps.profile.about !== this.props.profile.about){
@@ -97,6 +96,7 @@ class MyProfileEdit extends Component {
   //         })
   //     }
   // }
+
   onSubmit = e => {
     e.preventDefault();
     const { id, name, about } = this.state;
@@ -164,20 +164,21 @@ const MPE = ({ onSubmit, profile, imgResult, img, handleFileChange, onChange, na
   return(
     <div className="MyProfile-Edit">
           <form onSubmit={onSubmit}>
+      
+            <div className="MyProfile-Edit-Secend">
+              <MPEditPhoto
+                profileImg={profile.profileImg}
+                imgResult={imgResult}
+                img={img}
+                handleFileChange={handleFileChange}
+              />
+            </div>
+            <div className="MyProfile-Edit-Secend">
+              <div className="MPEdit-Title">닉네임</div>
+              <MPEditInput name="name" onChange={onChange} value={name} />
+            </div>
+          
           <div className="MyProfile-Edit-Secend">
-            <div className="MPEdit-Title">프로필 사진</div>
-            <MPEditPhoto
-              profileImg={profile.profileImg}
-              imgResult={imgResult}
-              img={img}
-              handleFileChange={handleFileChange}
-            />
-          </div>
-          <div className="MyProfile-Edit-Secend">
-            <div className="MPEdit-Title">닉네임</div>
-            <MPEditInput name="name" onChange={onChange} value={name} />
-          </div>
-          <div className="MyProfile-Edit-Secend2">
             <div className="MPEdit-Title">설명</div>
             <MPEditTextarea
               name="about"
@@ -218,30 +219,29 @@ class MPEditPhoto extends Component {
 
   render() {
     return(
-    <div className="MPEdit-Cell">
-    {/* <img className="MPEdit-Photo" src={photo} alt="Profile" /> */}
-    {this.state.imgResult ? 
-    <img className="MPEdit-Photo" src={this.state.imgResult} alt="Profile" /> :      
-    <img className="MPEdit-Photo" src={this.props.profileImg} alt="Profile"/> }
-  
-    <div className="MPEdit-Subtitle">사진 업로드</div>
-    <div className="MPEdit-Photo-Edit">
-      <input className="MPEdit-Photo-Input" type="file" onChange = {this.handleFileChange} />{" "}
-      {/*파일 업로드 프리뷰 나오게 만들고 그걸 넣음.*/}
-    </div>
-  </div>)
+      <div className="MPEdit-Cell">
+      {/* <img className="MPEdit-Photo" src={photo} alt="Profile" /> */}
+        {this.state.imgResult ? 
+        <img className="MPEdit-Photo" src={this.state.imgResult} style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg)`}} alt='' /> :      
+        <img className="MPEdit-Photo" src={this.props.profileImg} style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg)`}} alt=''/> }
+
+        <div className="MPEdit-Photo-Edit">
+          <label for="imgFile">파일 등록</label> 
+          <input id="imgFile" type="file" name="img" onChange = {this.props.handleFileChange} />{" "}
+          {/*파일 업로드 프리뷰 나오게 만들고 그걸 넣음.*/}
+        </div>
+      </div>)
   }
 }
 
 const MPEditInput = ({name, onChange, value}) => {
     return(
-        <div className = "MPEdit-Cell">
+        <div className = "MPEdit-Cell2">
             <input 
             className = "MPEdit-TdCell-Input"
             name = {name} 
             onChange = {onChange} 
             value = {value}></input>
-            <button className = "MPEdit-TdCell-Btn">중복확인</button>
         </div>
     );
 };
