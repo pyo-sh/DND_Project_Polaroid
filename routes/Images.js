@@ -99,4 +99,13 @@ Images.post('/getBenefitMonth', (req, res) => {
     })
 })
 
+Images.get('/getAllImagesUser', (req, res) => {
+    let {start, count} = req.query;
+    let query = `SELECT imgID, imgUrl, userID from images limit ${start}, ${count} `;
+
+    db.sequelize.query(query).then(([results, metadata]) => {
+        res.json(results);
+    })
+})
+
 module.exports = Images;

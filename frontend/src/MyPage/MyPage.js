@@ -3,13 +3,12 @@ import MyProfile from './MyProfile';
 import MyPageMenuBar from './MyPageMenuBar';
 import MyPageBenefit from './MyPageBenefit';
 import MyInformation from './MyInformation';
-import Photos from '../Main/Photos';
 import MyFavorite from './MyFavorite';
 import { getAllInfo, getBenefitMonth, getAllFilmList } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
 import React, { Component } from 'react';
-
-// import ProfileSmall from './ProfileSmall';
+import MyPagePhotos from './MyPagePhotos';
+import Photos from '../Main/Photos';
 
 class MyPage extends Component {
     state ={ // grade 는 안하고 있네 지금 2019.09.17 db에서
@@ -113,9 +112,10 @@ class MyPage extends Component {
     }
     // 메뉴바를 눌러서 버튼의 innerText 값을 받아서 state를 바꾸면 반환하는 페이지가 바뀌는 형식이다.
     _SelectMenu = () => {
+        const id = this.getID();
         const type = this.state.selectedMenu;
         switch(type) {
-            case "UPLOAD" : return <Photos/>;
+            case "UPLOAD" : return <MyPagePhotos id={id} outputType={type}/>;
             case "DOWNLOADED" : return <Photos/>;
             case "LIKED" : return ;
             case "FAVORITE" : return <MyFavorite getID={this.getID} isOpen = {true}/>;
