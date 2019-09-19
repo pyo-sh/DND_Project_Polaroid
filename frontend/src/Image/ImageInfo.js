@@ -204,7 +204,7 @@ class ImageInfo extends Component {
         category,
         tag,
         distribute,
-        // price,
+        price,
         // commercialAvailable,
         // copyrightNotice,
         // noChange,
