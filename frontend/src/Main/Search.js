@@ -10,11 +10,11 @@ class Search extends Component {
     state = { 
         searchList : "photos",
         photoCount : 0,
-        userCount : 0
+        userCount : 0,
     };
-    getPhotoCount = (photoCount) => {
+    getPhotoCount = (length) => {
         this.setState({
-            photoCount
+            photoCount : length
         })
     }
     getUserCount = (userCount) => {
@@ -43,7 +43,9 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className = "Content" id = "content-top-search">
-                    <div className = "Content-Left">{this.state.searchList === "photos" ? <Photos search = {this.props.match.params.search} getPhotoCount={this.getPhotoCount}/>/*<SearchImage search = {this.props.match.params.search} getPhotoCount={this.getPhotoCount} /> */ : <SearchUser id = {this.props.match.params.search} getUserCount = {this.getUserCount}/>}</div>
+                    <div className = "Content-Left">
+                        <Photos search = {this.props.match.params.search} getPhotoCount = {this.getPhotoCount} getUserCount = {this.getUserCount}/>
+                    </div>
                     <div className = "Content-Right"> <SideContent/> </div>
                 </div>
             </div>
