@@ -52,7 +52,6 @@ class SearchImage extends Component {
         this.setState({
             searchimages
         })
-        console.log(searchimages)
     }
 
     render() {

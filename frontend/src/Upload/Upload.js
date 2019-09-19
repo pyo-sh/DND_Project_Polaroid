@@ -155,7 +155,7 @@ class Upload2 extends Component {
           let signedRequest = returnData.signedRequest;
           let imgUrl = returnData.url;
           this.setState({imgUrl});
-
+          
           let options = {
               headers : {
                   'Content-Type' : imgType
@@ -179,7 +179,10 @@ class Upload2 extends Component {
     if(imgReulst) {$imgNameUrl = (<img src={imgReulst} onLoad={this.priviewOnload} ref={(c) => {this.preview = c}}/>)}
 
 
-    else{$imgNameUrl = (<div className = "previewText">Image Preview</div>)}
+    // else{$imgNameUrl = (<div className = "previewText">Image Preview</div>)}
+    else{$imgNameUrl = ( <> <label for="imgFile">preview image</label> 
+    <input id="imgFile" type="file" name="img" file={this.state.img} /* value={this.state.fileName} */ onChange={this.handleFileChange}/></>)}
+
 
     return (
       <div className="Upload">
@@ -189,12 +192,15 @@ class Upload2 extends Component {
           <form onSubmit={this.handleFormSubmit}>
             <div>
               <div className = "previewComponent">
-                <div className="imgPreview">{$imgNameUrl}</div>
+                {/* <label for="imgFile">preview image</label> 
+                <input id="imgFile" type="file" name="img" file={this.state.img}  onChange={this.handleFileChange}/>
+                <div className="imgPreview">{$imgNameUrl}</div> */}
+                {$imgNameUrl}
               </div>
-                <input className="imageBtn" type="file" name="img" file={this.state.img} /* value={this.state.fileName} */ onChange={this.handleFileChange}/>
+                {/*<input className="imageBtn" type="file" name="img" file={this.state.img} value={this.state.fileName} onChange={this.handleFileChange}/> */}
             </div>
               <div className="CatTag">
-                <div className="CatTagCategory">카테고리
+              <div className="CatTagCategory">카테고리
                   <select className='categoryDropBox' name="category" value={this.state.category} onChange={this.handleCateValueChange}>
                     {options.map(item => (
                       <option key={item.value} value={item.value} >

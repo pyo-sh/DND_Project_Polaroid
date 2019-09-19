@@ -22,6 +22,7 @@ class Photos extends Component {
       //   .catch(err => console.error(err))
       axios.get(`/api/images/getAllImagesTag?start=${start}&count=${count}`).then(res=>{
         this.setState({images : res.data});
+        console.log(res.data);
       })
     }
     
