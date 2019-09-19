@@ -26,6 +26,11 @@ class SearchImage extends Component {
         this.contrast();
       })
     }
+    componentDidUpdate(prevProps, prevState) {
+      if(prevProps.search !== this.props.search){
+        this.contrast();
+      }
+    }
 
     fetchImages = () => {
       const count = this.state.count,
