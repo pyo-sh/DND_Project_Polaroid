@@ -149,3 +149,8 @@ export const isFav = async (imgID, userID) => { //즐겨찾기 한 이미지인�
         console.error(err);
     })
 } 
+
+export const delFavFolder = async favFolderNum => {
+    return await axios
+    .post('/api/favorite/delFavFolder', {favFolderNum})
+}
