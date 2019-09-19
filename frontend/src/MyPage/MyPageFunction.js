@@ -49,3 +49,16 @@ export const getAllFavorite = async userID => {
         return res.data;
     })
 }
+
+export const getBenefitMonth = async userID => { // 작가의 모든 월별 수익들을 가지고 올꺼임
+    return await axios
+    .post('/api/images/getBenefitMonth', {
+        userID
+    })
+    .then(res => {
+        return res.data;
+    })
+    .catch(err=> {
+        console.error(err);
+    })
+}

@@ -83,17 +83,29 @@ export const getDownCount = async imgID => { //다운 카운트 가져오는거
 }
 
 
-export const plusDownUser = async (imgID, userID) => { // 다운수 증가
+export const plusDownUser = async (imgID, userID, price) => { // 다운수 증가
     return await axios
     .post(`/api/images/plusDownUser`,{
         imgID,
-        userID
+        userID,
+        price
     })
 }
 
-// 다운 수 감소 어디감?
+export const isDownImage = async (imgID, userID ) => {
+    return await axios
+    .post('/api/images/isDownImage', {
+        imgID, userID
+    })
+    .then(res => {
+        return res.data
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
 
-// export const is
+// 다운 수 감소 어디감? 다운수를 감소 시킬수가 있나? 다운 취소..?
 
 export const getLikeCount = async imgID => { // imgID로 img의 좋아요 개수를 가지고옴
     return await axios

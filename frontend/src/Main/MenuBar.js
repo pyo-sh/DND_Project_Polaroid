@@ -68,62 +68,62 @@ class MenuBar extends Component {
                                         <Link className = "Sub-Item" to = "/category/monthly" onClick={this.handleState}>Monthly</Link>
                                     </div>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/wallpaper" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Wallpaper" onClick={this.handleState}>
                                         Wallpaper
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/nature" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Nature" onClick={this.handleState}>
                                         Nature
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/fashion" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Fashion" onClick={this.handleState}>
                                         Fashion
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/illustration" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Illustration" onClick={this.handleState}>
                                         Illustration
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/art-Works" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Art-Works" onClick={this.handleState}>
                                         Art Works
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/people" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/People" onClick={this.handleState}>
                                         People
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/patterns" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Patterns" onClick={this.handleState}>
                                         Patterns
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/architecture" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Architecture" onClick={this.handleState}>
                                         Architecture
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/business" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Business" onClick={this.handleState}>
                                         Business
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/animals" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Animals" onClick={this.handleState}>
                                         Animals
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/travel" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Travel" onClick={this.handleState}>
                                         Travel
                                     </Link>
                                 </Dropdown.Item>
                                 <Dropdown.Item>
-                                    <Link className = "Link" to = "/category/food" onClick={this.handleState}>
+                                    <Link className = "Link" to = "/category/Food" onClick={this.handleState}>
                                         Food
                                     </Link>
                                 </Dropdown.Item>

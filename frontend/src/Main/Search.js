@@ -37,7 +37,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className = "Content" id = "content-top-search">
-                    <div className = "Content-Left">{this.state.searchList === "photos" ? <SearchImage search = {this.props.match.params.search} getPhotoCount={this.getPhotoCount} /> : <SearchUser/>}</div>
+                    <div className = "Content-Left">{this.state.searchList === "photos" ? <SearchImage search = {this.props.match.params.search} getPhotoCount={this.getPhotoCount} /> : <SearchUser id = {this.props.match.params.search}/>}</div>
                     <div className = "Content-Right"> <SideContent/> </div>
                 </div>
             </div>

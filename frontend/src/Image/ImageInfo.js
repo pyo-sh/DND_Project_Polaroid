@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import { withRouter } from 'react-router-dom';
 import AWS from 'aws-sdk';
 import {awsconfig} from '../Upload/awsconfig';
-import {getImageInfo, getDownCount, plusDownUser } from './ImageFunction';
+import {getImageInfo, getDownCount, plusDownUser, isDownImage } from './ImageFunction';
 import { getAllInfo } from '../MyPage/MyPageFunction';
 import { getMyID, addFollow, deleteFollow, isFollowInfo } from '../Profile/ProfileFunction';
 
@@ -38,7 +38,8 @@ class ImageInfo extends Component {
     film : 0,
     userProfile: {},
     // 현재 로그인이 안됐으면 myID 아래의 thisID 가 null
-    myID: {}
+    myID: {},
+    isDown : '',
   };
 
   componentWillMount() {
@@ -106,6 +107,11 @@ class ImageInfo extends Component {
             }
           });
         })
+        isDownImage(imgID, myID).then(res=>{
+          this.setState({
+            isDown : res
+          })
+        })
     })
   }
 
@@ -136,7 +142,7 @@ class ImageInfo extends Component {
     minusFilm(info);
   };
 
-  downloadClick = () => {  // S3로부터 다운로드 받게함. 그리고 imgDownloads 테이블에 추가해서 카운트가 하나 늘어나게함.
+  downloadClick = (price) => {  // S3로부터 다운로드 받게함. 그리고 imgDownloads 테이블에 추가해서 카운트가 하나 늘어나게함.
     let {imgID, imgName, imgUrl} = this.state;
     let urlArray = imgUrl.split("/")
     let bucket = urlArray[2]
@@ -155,7 +161,7 @@ class ImageInfo extends Component {
       document.body.appendChild(link);
       link.click();
       const userID = this.getID();
-      plusDownUser(imgID, userID);
+      plusDownUser(imgID, userID, price);
     })}
 
   onClick = () => {
@@ -236,6 +242,7 @@ class ImageInfo extends Component {
               handlePayment={this.props.handlePayment}
               downloadClick={this.downloadClick}
               _minusFilm={this._minusFilm}
+              isDown = {this.state.isDown}
               commercialAvailable = "NotCommercialAvailable"
               copyrightNotice = "CopyrightNotice"
               noChange = "NoChange"

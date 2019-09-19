@@ -26,7 +26,7 @@ class SearchImage extends Component {
         this.contrast();
       })
     }
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps, prevState) { // 서치 값이 달라지면 다시 contrast 하게
       if(prevProps.search !== this.props.search){
         this.contrast();
       }

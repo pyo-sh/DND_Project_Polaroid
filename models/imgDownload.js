@@ -12,6 +12,9 @@ const imgDownload = db.sequelize.define(
             type: Sequelize.STRING,
             primaryKey: true,
         },
+        filmQnty : {
+            type: Sequelize.INTEGER
+        },
         downDate: {
             type : Sequelize.DATE,
         }

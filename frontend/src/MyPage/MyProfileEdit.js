@@ -99,7 +99,7 @@ class MyProfileEdit extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { id, name, about } = this.state;
+    const { id, name, about, img } = this.state;
     //   console.log(id, name, about);
     const user = {
       id,
@@ -113,7 +113,10 @@ class MyProfileEdit extends Component {
         return res;
       })
       .catch(err => console.error(err));
-    this.updateProfileImg();
+    if(img){  // 이미지 있을때만 변경 할 수 있게.
+      this.updateProfileImg();
+    }
+    this.props.editOnClick();
     
   }
   onChange = e => {
