@@ -4,9 +4,11 @@ import './Image.css';
 import {Icon} from 'semantic-ui-react';
 import Mark from './Mark';
 import Declaration from './Declaration';
+import DeleteImage from './DeleteImage';
 import { withRouter, Link } from 'react-router-dom';
 import { getLikeCount , imgLikeUp, imgLikeDown, isGetLike, isFav } from './ImageFunction';
 import { getImageInfo } from './ImageFunction';
+import { getAllInfo } from '../MyPage/MyPageFunction';
 import jwt_decode from 'jwt-decode';
 
 class Image extends Component {
@@ -15,17 +17,19 @@ class Image extends Component {
 
   componentWillMount() {
     const imgID = this.props.match.params.id;
-    const userID = this.getID();
+    const loginID = this.getID();
     getImageInfo(imgID).then(result => {
-      const { imgWidth, imgHeight, view } = result;
+      const { imgWidth, imgHeight, view, userID } = result;
       this.setState({
         imgID,
         imgWidth,
         imgHeight,
         visible: true,
-        userID,
-        view
+        userID,//사진 올린 유저 ID
+        view, 
+        loginID     //현재 로그인 유저 ID
       });
+     
       this.img.src = `https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${imgID}`;
 
       if (this.state.imgHeight / this.state.imgWidth >= 0.75)
@@ -47,7 +51,7 @@ class Image extends Component {
   };
 
   render() {
-    const { userID, imgID, imgWidth, imgHeight, view } = this.state;
+    const { userID, imgID, imgWidth, imgHeight, view, loginID } = this.state;
     return (
       <div className="Image-Page">
         <div className="Image-Page-Column">
@@ -73,7 +77,7 @@ class Image extends Component {
             )}
           </div>
         </div>
-        <ImageUseInformation userID={userID} imgID={imgID} imgHeight={imgHeight} imgWidth={imgWidth} view={view} />
+        <ImageUseInformation userID={userID}  loginID={loginID} imgID={imgID} imgHeight={imgHeight} imgWidth={imgWidth} view={view} />
         <p className="Relatied-Title Image-Page-Column"> Related Image</p>
         {/*<RelationImage id = {id}/>*/}
       </div>
@@ -90,25 +94,39 @@ class ImageUseInformation extends Component {
     state = {
         imgID : "",
         userID : "",
+        loginID : "",
         isMarkPopUpOpen: false,
         isMarkClick: false,
         isDecPopUpOpen: false,
+        isDelPopUpOpen: false,
         isLikeClick: false,
-        like: 0
+        like: 0,
+        userProfile: {}
     }
 
+    /*componentWillMount(){
+        const imgID = this.props.match.params.id
+        getImageInfo(imgID).then(result => {
+        const {userID} = result;
+        
+    }*/
+    
     componentWillReceiveProps(nextProps) {
-        const {imgID, userID } = nextProps;
+        const {imgID, userID, loginID } = nextProps;
         this.setState({
             imgID ,
-            userID 
+            userID,
+            loginID
         })
-        isGetLike(imgID, userID).then(res => {
+        console.log(userID)
+        console.log(loginID)
+
+        isGetLike(imgID, loginID).then(res => {
             this.setState({
                 isLikeClick : res
             })
         });
-        isFav(imgID, userID).then(res => {
+        isFav(imgID, loginID).then(res => {
             this.setState({
                 isMarkClick : res
             })
@@ -152,7 +170,19 @@ class ImageUseInformation extends Component {
             isDecPopUpOpen: false
         })
     }
-    
+
+    openDelPopUp = () => {
+        this.setState({
+            isDelPopUpOpen: true
+        })
+    }
+
+    closeDelPopUp = () => {
+        this.setState({
+            isDelPopUpOpen: false
+        })
+    }
+
     clickMark = () =>{
         this.setState({
             isMarkClick: true
@@ -167,8 +197,8 @@ class ImageUseInformation extends Component {
     }
 
     clickLike = () =>{ // 좋아요 되게 만들어야함.
-        const { userID, imgID } = this.state;
-        imgLikeUp(imgID, userID).then(res => {
+        const { loginID, imgID } = this.state;
+        imgLikeUp(imgID, loginID).then(res => {
             getLikeCount(imgID).then(res => {
                 this.setState({
                     isLikeClick: true,
@@ -180,8 +210,8 @@ class ImageUseInformation extends Component {
     }
 
     reclickLike = () => {  // 좋아요 사라지게 만들어야함.
-        const { userID, imgID } = this.state;
-        imgLikeDown(imgID, userID).then(res => {
+        const { loginID, imgID } = this.state;
+        imgLikeDown(imgID, loginID).then(res => {
             getLikeCount(imgID).then(res => {
                 this.setState({
                     isLikeClick: false,
@@ -191,8 +221,21 @@ class ImageUseInformation extends Component {
         })
     }
 
+    deleteOn = () =>{
+        return(
+        <div className = "Image-UseInforfmation-Item" onClick={this.onClickDelete}>
+        <Icon className = "Icon-Trash" name = "trash"/>
+        <DeleteImage isOpen={this.state.isDelPopUpOpen} close={this.closeDelPopUp} />
+        </div>
+        )
+    }
+
     onClickDeclaration = () => {
         this.state.isDecPopUpOpen ? this.closeDecPopUp() : this.openDecPopUp()
+    }
+
+    onClickDelete = () => {
+        this.state.isDelPopUpOpen ? this.closeDelPopUp() : this.openDelPopUp()
     }
 
     onClickMark = () => {
@@ -205,14 +248,18 @@ class ImageUseInformation extends Component {
     }
 
     render(){
+        const {userID, loginID} = this.state
         let markname = this.state.isMarkClick ? "star" : "star outline"
         let likename = this.state.isLikeClick ? "heart" : "heart outline"
+        let _delete = (loginID === userID) ? this.deleteOn() : "" //userID와 loginID가 같으면 삭제 버튼 나오게
         const { imgWidth, imgHeight, view} = this.props;
-
         return(
             <div className = "Image-Page-Column">
             <p> {imgWidth +" x "+ imgHeight} </p>
             <div className = "Image-UseInforfmation">
+                <div className = "Image-UseInforfmation-Item" onClick={this.onClickDelete}>
+                    {_delete}
+                </div>
                 <div className = "Image-UseInforfmation-Item">
                     <Icon className = "Declaration" name = "warning circle" onClick={this.onClickDeclaration}/>
                     <Declaration isOpen={this.state.isDecPopUpOpen} close={this.closeDecPopUp} />
@@ -251,6 +298,7 @@ class ImageUseInformation extends Component {
                     <Icon className = "Icon-View " name = "eye"/>
                     {this.props.view}
                 </div>
+                
             </div>
             </div>
         )
