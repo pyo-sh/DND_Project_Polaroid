@@ -35,7 +35,9 @@ class SignUp extends Component {
                 email: email,
             }
             register(user).then(res => {
-                if(res) {
+                if(!res) alert('아이디가 중복되었습니다.')
+                else{
+                    alert('회원가입 성공!')
                     this.props.history.push(`/user/login`)
                 }
             })

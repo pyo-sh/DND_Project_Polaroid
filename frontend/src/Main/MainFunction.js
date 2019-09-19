@@ -11,6 +11,11 @@ export const getAllUser = async () => {
     })
 }
 
+export const upImageView = async imgID => {
+    return await axios
+    .post('/api/images/upImageView',{imgID})
+}
+
 export const register = async newUser => {
     return await axios
     .post('/api/user/register', {

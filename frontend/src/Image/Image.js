@@ -17,13 +17,14 @@ class Image extends Component {
     const imgID = this.props.match.params.id;
     const userID = this.getID();
     getImageInfo(imgID).then(result => {
-      const { imgWidth, imgHeight } = result;
+      const { imgWidth, imgHeight, view } = result;
       this.setState({
         imgID,
         imgWidth,
         imgHeight,
         visible: true,
-        userID
+        userID,
+        view
       });
       this.img.src = `https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${imgID}`;
 
@@ -46,7 +47,7 @@ class Image extends Component {
   };
 
   render() {
-    const { userID, imgID, imgWidth, imgHeight } = this.state;
+    const { userID, imgID, imgWidth, imgHeight, view } = this.state;
     return (
       <div className="Image-Page">
         <div className="Image-Page-Column">
@@ -72,7 +73,7 @@ class Image extends Component {
             )}
           </div>
         </div>
-        <ImageUseInformation userID={userID} imgID={imgID} imgHeight={imgHeight} imgWidth={imgWidth} />
+        <ImageUseInformation userID={userID} imgID={imgID} imgHeight={imgHeight} imgWidth={imgWidth} view={view} />
         <p className="Relatied-Title Image-Page-Column"> Related Image</p>
         {/*<RelationImage id = {id}/>*/}
       </div>
@@ -206,7 +207,7 @@ class ImageUseInformation extends Component {
     render(){
         let markname = this.state.isMarkClick ? "star" : "star outline"
         let likename = this.state.isLikeClick ? "heart" : "heart outline"
-        const { imgWidth, imgHeight} = this.props;
+        const { imgWidth, imgHeight, view} = this.props;
 
         return(
             <div className = "Image-Page-Column">

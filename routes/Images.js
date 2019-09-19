@@ -32,7 +32,6 @@ Images.get('/getAllImagesCategory', (req, res) => {
 })
 
 Images.get('/getOneImg/:imgID', (req, res) => {
-    console.log(req.params)
     let { imgID } = req.params;
     image.findOne({
         where : {
@@ -96,6 +95,18 @@ Images.post('/getBenefitMonth', (req, res) => {
 
     db.sequelize.query(query).then(([results, metaData]) => {
         res.send(results);
+    })
+})
+
+Images.post('/upImageView', (req, res) => {
+    const { imgID }= req.body;
+
+    image.update({
+        view : Sequelize.literal('view +' + 1)
+    },{
+        where : {
+            imgID
+        }
     })
 })
 

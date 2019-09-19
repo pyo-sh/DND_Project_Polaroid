@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';
 import { withRouter } from 'react-router-dom';
+import { upImageView } from './MainFunction'
 
 class Photos extends Component {
     state = {
@@ -91,6 +92,10 @@ class Photos extends Component {
           categoryimages
       })
     }
+    
+    onClick = (imgID) => {
+      upImageView(imgID)
+    }
    
     render() {
       const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
@@ -105,7 +110,7 @@ class Photos extends Component {
                     {outputType === "home" ?  
                         this.state.images.map((image) => (
                               <li key = {image.imgID} >
-                                  <Link to = {`/imagepage/${image.imgID}`}>
+                                  <Link to = {`/imagepage/${image.imgID}`} onClick={() => this.onClick(image.imgID)}>
                                     <img className = "Photos-photo" src={image.imgUrl} alt="이미지"/>
                                   </Link>
                               </li>
@@ -113,14 +118,14 @@ class Photos extends Component {
                         (outputType === "search" ? 
                         this.state.searchimages.map((image) => (
                           <li key = {image.imgID} >
-                              <Link to = {`/imagepage/${image.imgID}`}>
+                              <Link to = {`/imagepage/${image.imgID}`} onClick={() => this.onClick(image.imgID)}>
                                 <img className = "Photos-photo" src={image.imgUrl} alt="이미지"/>
                               </Link>
                           </li>
                         )) : 
                         this.state.categoryimages.map((image) => (
                           <li key = {image.imgID} >
-                              <Link to = {`/imagepage/${image.imgID}`}>
+                              <Link to = {`/imagepage/${image.imgID}`} onClick={() => this.onClick(image.imgID)}>
                                 <img className = "Photos-photo" src={image.imgUrl} alt="이미지"/>
                               </Link>
                           </li>
