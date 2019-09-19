@@ -171,7 +171,6 @@ class ProfilePhoto extends Component {
     }
     render(){
         const { profileImg } = this.state;
-        console.log(profileImg);
         return(
             <img className="MyProfile-Photo" src={profileImg} style = {{backgroundImage : `url(https://poloapp.s3.ap-northeast-2.amazonaws.com/profile/User.svg)`}} alt={this.state.visible ? '' : "Profile"}/>
         )
