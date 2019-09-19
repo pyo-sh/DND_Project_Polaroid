@@ -115,6 +115,15 @@ Images.post('/getBenefitMonth', (req, res) => { // 달별 수익을 보는 것.
     })
 })
 
+
+Images.get('/getAllImagesUser', (req, res) => {
+    let {start, count} = req.query;
+    let query = `SELECT imgID, imgUrl, userID from images limit ${start}, ${count} `;
+
+    db.sequelize.query(query).then(([results, metadata]) => {
+        res.json(results);
+    })
+})
 Images.post('/upImageView', (req, res) => { // 이미지 뷰 수를 올리는 것
     const { imgID }= req.body;
 
@@ -135,6 +144,6 @@ Images.post('/delmyimg', (req , res) => { // 나의 이미지를 지우는 것.
             imgID
         }
     })
-})
+});
 
 module.exports = Images;
