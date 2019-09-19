@@ -58,7 +58,7 @@ class MyInformation extends Component{
     _renderPage = () => {
         const checkPW = this.state.checkPW;
         if(checkPW){
-            return <MyProfileEdit profile={this.props.profile} getInfo={this.props.getInfo} editOnClick={this.editOnClick}/>;
+            return <MyProfileEdit profile={this.props.profile} getInfo={this.props.getInfo}/>;
         }
         else{
             return <MyInformationMenuInput
