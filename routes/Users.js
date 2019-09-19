@@ -404,4 +404,16 @@ users.post("/findid", (req, res) => {
     }
   });
 });
+
+users.get('/getAllUsers', (req, res) => {
+    User.findAll({
+        attributes : ["ID"]
+    })
+    .then(result => {
+        res.send(result);
+    })
+    .catch(err => {
+        console.error(err);
+    })
+})
 module.exports = users;

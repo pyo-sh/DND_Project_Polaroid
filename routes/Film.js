@@ -12,7 +12,6 @@ Film.get('/:userID', (req, res) => {
         }
     })
     .then(user => {
-        console.log(user.film);
         res.json(user.film);
     })
 })

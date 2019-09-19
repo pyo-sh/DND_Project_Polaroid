@@ -12,7 +12,7 @@ class IDPage extends Component {
         isMe: false, // myID == titleName 일때 true
         isFollow: false, // 내가 이사람을 팔로우 하고 있는지
         profile: {
-            photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpcD70ii8eGYvUp53zPMZk3eziEr1iC16nEZLEtyXOE7kdOO7y",
+            profileImg: "",
             name: "",
             id: "",
             about: "",
@@ -68,7 +68,8 @@ class IDPage extends Component {
                     about : res.introduce,
                     following: res.follow,
                     follower : res.follower,
-                    grade : res.grade
+                    grade : res.grade,
+                    profileImg: res.profileImg
                 }
             })
         })

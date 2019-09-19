@@ -79,7 +79,6 @@ Upload.post("/profileUpdate", cors(), async (req, res) => {
             ID: id
         }
     }).then(user => {
-        console.log(user);
         user.update({
             profileImg : returnData.url
         })
