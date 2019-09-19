@@ -2,7 +2,7 @@ import './MyFilm.css';
 import { getAllInfo } from '../MyPage/MyPageFunction';
 import jwt_decode from 'jwt-decode';
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class MyFilm extends Component {
     state = {
@@ -22,6 +22,11 @@ class MyFilm extends Component {
     componentDidMount(){
         if(localStorage.usertoken || sessionStorage.usertoken){
             this.getInfo();
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps.location.pathname.includes("charge") && this.props.location.pathname.includes("mypage")){
+            this.getInfo()
         }
     }
     getInfo = () => {
@@ -46,4 +51,4 @@ class MyFilm extends Component {
     }
 }
 
-export default MyFilm;
+export default withRouter(MyFilm);

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import './Photos.css';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';
+import { withRouter } from 'react-router-dom';
 
 class Photos extends Component {
     state = {
@@ -15,14 +16,8 @@ class Photos extends Component {
         isMore : true,
         outputType : 'home'
       };
-    
     componentDidMount() {
       const { count, start } = this.state;
-      // axios.get(`/api/file/photos`,{count,start})
-      //   .then(response => {
-      //     this.setState({ images: response.data.photos })
-      //   })
-      //   .catch(err => console.error(err))
       if(this.props.location.pathname.includes("category")){
         this.setState({
           outputType : "category"
@@ -35,16 +30,24 @@ class Photos extends Component {
       else this.setState({
         outputType : "home"
       })
+      
+     
       axios.get(`/api/images/getAllImagesCategory?start=${start}&count=${count}`).then(res=>{
-        console.log(res.data);
         this.setState({images : res.data});
-        this.searchContrast();
-        this.cateContrast();
-        console.log(this.state);
+        if(this.props.search){
+          this.searchContrast();
+        }
+        if(this.props.category){
+          this.cateContrast();
+        }
       })
     }
-
     componentDidUpdate(prevProps, prevState) { // 서치 값이 달라지면 다시 contrast 하게
+      if(prevProps.outputType !== this.props.outputType) {
+        this.setState({
+          outputType : this.props.outputType
+        })
+      }
       if(prevProps.search !== this.props.search){
         this.searchContrast();
       } else if(prevProps.category !== this.props.category){
@@ -77,7 +80,8 @@ class Photos extends Component {
       this.setState({
           searchimages
       })
-      this.props.getPhotoCount(searchimages.length)
+      let legnth = searchimages.length
+      this.props.getPhotoCount(legnth)
     }
 
     cateContrast = () => {
@@ -86,7 +90,6 @@ class Photos extends Component {
       this.setState({
           categoryimages
       })
-      console.log(categoryimages)
     }
    
     render() {
