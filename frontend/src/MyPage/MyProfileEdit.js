@@ -3,6 +3,7 @@ import './MyProfileEdit.css';
 import React, { Component } from 'react';
 import axios from 'axios';
 import MyWithdrawal from './MyWithdrawal';
+import { ResetPwd } from '../Login/UserFunctions';
 
 // /* 현재 작업해야 할 것
 //     내 정보란
@@ -25,7 +26,10 @@ class MyProfileEdit extends Component {
     imgResult: null,
     img: null,
     imgType: "",
-    isOpen : false
+    isOpen : false,
+    pw: "",
+    pwCheck: "",
+    pwCheckBoolean: true
   };
 
   updateProfileImg =  () => {
@@ -99,7 +103,7 @@ class MyProfileEdit extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const { id, name, about, img } = this.state;
+    const { id, name, about, img, pw, pwCheck } = this.state;
     //   console.log(id, name, about);
     const user = {
       id,
@@ -116,8 +120,26 @@ class MyProfileEdit extends Component {
     if(img){  // 이미지 있을때만 변경 할 수 있게.
       this.updateProfileImg();
     }
-    this.props.editOnClick();
-    
+    if(pw.trim() !== ""){
+      if(pw === pwCheck){
+        const user2 = {
+          userID: id,
+          PASSWORD: pw
+        }
+        ResetPwd(user2).then(_=> {
+          this.setState({
+            pw: "",
+            pwCheck: "",
+            pwCheckBoolean: true
+          })
+        })
+      }
+      else{
+        this.setState({
+          pwCheckBoolean: false
+        })
+      }
+    }
   }
   onChange = e => {
     this.setState({
@@ -163,40 +185,58 @@ class MyProfileEdit extends Component {
   }
 }
 
-const MPE = ({ onSubmit, profile, imgResult, img, handleFileChange, onChange, name, about, onClickOpenDrawal }) =>{
+const MPE = ({ onSubmit, profile, imgResult, img, handleFileChange, onChange, name, about, onClickOpenDrawal, pw, pwCheck }) =>{
   return(
     <div className="MyProfile-Edit">
-          <form onSubmit={onSubmit}>
-      
-            <div className="MyProfile-Edit-Secend">
-              <MPEditPhoto
-                profileImg={profile.profileImg}
-                imgResult={imgResult}
-                img={img}
-                handleFileChange={handleFileChange}
-              />
-            </div>
-            <div className="MyProfile-Edit-Secend">
-              <div className="MPEdit-Title">닉네임</div>
-              <MPEditInput name="name" onChange={onChange} value={name} />
-            </div>
-          
-          <div className="MyProfile-Edit-Secend">
-            <div className="MPEdit-Title">설명</div>
+      <form onSubmit={onSubmit}>
+        <div className="MyProfile-Edit-Secend">
+          <MPEditPhoto
+            profileImg={profile.profileImg}
+            imgResult={imgResult}
+            img={img}
+            handleFileChange={handleFileChange}
+          />
+        </div>
+        <div className="MyProfile-Edit-Secend">
+          <div className="MPEdit-Title">닉네임</div>
+          <MPEditInput name="name" onChange={onChange} value={name} />
+        </div>
+        <div className="MyProfile-Edit-Secend">
+          <div className="MPEdit-Title">설명</div>
             <MPEditTextarea
               name="about"
               onChange={onChange}
               value={about}
             />
           </div>
-          <button className="MyProfile-Btn" onClick = {onClickOpenDrawal}>
-            회원탈퇴
-          </button>
-          <button type="submit" className="MyProfile-Edit-Btn">
-            수정
-          </button>
-        </form>
+        <button className="MyProfile-Btn" onClick = {onClickOpenDrawal}>
+          회원탈퇴
+        </button>
+        <button type="submit" className="MyProfile-Edit-Btn">
+          수정
+        </button>
+      </form>
+      <div className="MyProfile-Edit-Secend">
+        <div className="MPEdit-Title">비밀번호</div>
+        <div className="MPEdit-Cell2">
+          <input 
+            className="MPEdit-TdCell-Input"
+            name = "pw"
+            onChange = {onChange}
+            type="password"
+            value={pw}></input>
+        </div>
+        <div className="MPEdit-Title">비밀번호 확인</div>
+        <div className="MPEdit-Cell2">
+          <input 
+            className="MPEdit-TdCell-Input"
+            name = "pwCheck"
+            onChange = {onChange}
+            type="password"
+            value={pwCheck}></input>
+        </div>
       </div>
+    </div>
   );
 }
 
@@ -242,7 +282,7 @@ const MPEditInput = ({name, onChange, value}) => {
         <div className = "MPEdit-Cell2">
             <input 
             className = "MPEdit-TdCell-Input"
-            name = {name} 
+            name = {name}
             onChange = {onChange} 
             value = {value}></input>
         </div>
