@@ -1,7 +1,7 @@
 .ProfileSmall{
     position: relative;
     background : white;
-    width: 31.5%;
+    width: 48%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -112,7 +112,7 @@
 
 @media screen and (max-width : 800px){
     .Profile-Small{
-        flex : 50%;
+        flex : 48%;
     }
 }
 @media screen and (max-width : 600px){

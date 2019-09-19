@@ -45,15 +45,15 @@ const GradeModal = ({ isOpen, close, name, grade }) => {
                     <div className="Grade-Modal-Overlay" onClick={close} />
                     <div className="Grade-Modal">
                         <h3 className="Grade-Title">{name}님의 등급은 {grade}입니다.</h3>
-                        <div className="Grade-Content">
-                            <p>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel tempora nulla, non molestiae dicta ducimus. Et unde laborum eveniet ex quod doloribus quae, aliquam beatae atque, vero assumenda rem quo?
-                            </p>
+                        <div className = "Grade-Content">
+                            <div className="Grade-Content-Column">
+                                <p><h4>VIP 작가</h4>는 폴라로이드 내에서 검증된 작가로, 일반 작가에 비해 적은 수수료를 지불합니다.</p>
+                            </div>
+                            VIP 작가에 도전하시겠습니까?
                         </div>
-                        <h3 className="Grade-Title">등급변환을 신청하시겠습니까?</h3>
                         <div className="Grade-Button-Wrap">
-                            <button className="Grade-Button1" onClick={close}>CANCEL</button>
-                            <button className="Grade-Button2" onClick={close}>CONFIRM</button>
+                            <button className="Grade-Button-Confirm" onClick={close}>신청</button>
+                            <button className="Grade-Button-Cancel" onClick={close}>취소</button>
                         </div>
                     </div>
                 </React.Fragment>

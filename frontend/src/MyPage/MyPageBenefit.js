@@ -8,7 +8,7 @@ class MyPageBenefit extends Component {
     }
     render() {
         return (
-            <div>
+            <div className = "Benefit-Page">
                 <div className="Benefit-Button">
                     <BenefitButton className = "" title="주간 수익" BenefitOnClick={this.BenefitOnClick}/>
                     <BenefitButton className = "Benefit-Button-Selected" title="월간 수익" BenefitOnClick={this.BenefitOnClick}/>
@@ -20,10 +20,6 @@ class MyPageBenefit extends Component {
                     <div>업로드된 사진 : {}</div>
                     <div>다운로드 횟수 : </div>
                     <div>총 수익 : </div>
-                </div>
-                <div className="Benefit-Detail">
-                    세부사항
-
                 </div>
             </div>
         );
