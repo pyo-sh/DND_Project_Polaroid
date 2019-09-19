@@ -49,6 +49,10 @@ const image = db.sequelize.define(
         imgHeight : {
             type : Sequelize.INTEGER
         },
+        view : {
+            type : Sequelize.INTEGER,
+            defaultValue : 0
+        },  
         userID : {
             type : Sequelize.STRING
         },

@@ -116,7 +116,6 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                         ID: req.body.ID,
                     },
                 }).then(user => {
-                    console.log(user);
                     if(!user){
                         bcrypt.hash(req.body.PASSWORD, 10, (err,hash) => {
                             userData.PASSWORD = hash;
@@ -135,7 +134,7 @@ users.post('/register', (req, res, next) => {   // 유저 등록
                             })
                     } else {
                          console.log('유저가 이미 있따?');
-                         res.json({error: 'User already exist'})
+                         res.send({error: 'User already exist'})
                     }
                 })
             })
