@@ -103,8 +103,9 @@ class MyFavorite extends Component {
     }
 
     // 현재 폴더의 안에있는 사진을 삭제하게 하기
-    photoDeleteOnClick = () => {
-        const { folder, nowPage, ID } = this.state;
+    photoDeleteOnClick = (e) => {
+        const {ID} = this.state;
+        // e.target.key의 imgID를 와 id를 통해 삭제할 예정
         this.getFolderList(ID);
     }
 

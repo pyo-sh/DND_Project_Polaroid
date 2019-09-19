@@ -8,7 +8,6 @@ import { getAllInfo, getBenefitMonth, getAllFilmList } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
 import React, { Component } from 'react';
 import MyPagePhotos from './MyPagePhotos';
-import Photos from '../Main/Photos';
 
 class MyPage extends Component {
     state ={ // grade 는 안하고 있네 지금 2019.09.17 db에서
@@ -116,8 +115,8 @@ class MyPage extends Component {
         const type = this.state.selectedMenu;
         switch(type) {
             case "UPLOAD" : return <MyPagePhotos id={id} outputType={type}/>;
-            case "DOWNLOADED" : return <Photos/>;
-            case "LIKED" : return ;
+            case "DOWNLOADED" : return <MyPagePhotos id={id} outputType={type}/>;
+            case "LIKED" : return <MyPagePhotos id={id} outputType={type}/>;
             case "FAVORITE" : return <MyFavorite getID={this.getID} isOpen = {true}/>;
             case "BENEFIT" : 
                 return <MyPageBenefit 
