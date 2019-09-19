@@ -95,6 +95,7 @@ class FollowPage extends Component {
                 <div className="FollowPage-Top">
                     {isFollow===true ? "Following" : "Follower"}
                 </div>
+                <div className = "FollowPage-Bottom">
                 <InfiniteScroll
                     dataLength = {countID.length}
                     next = {this.fetchIDs}
@@ -111,7 +112,7 @@ class FollowPage extends Component {
                                     />
                             </li>
                     })}
-                </InfiniteScroll>
+                </InfiniteScroll></div>
             </div>
         );
     }

@@ -24,11 +24,11 @@ class ResetPassword extends Component {
                 PASSWORD : this.state.PASSWORD
             }
             ResetPwd(user);
-            alert('password가 바꼈습니다.');
+            alert('비밀번호가 성공적으로 변경되었습니다!');
             this.props.history.push('/user/login');
         }
         else {
-            console.log('에러입니다!');
+            alert('비밀번호와 비밀번호 확인이 다릅니다. 확인해주세요.');
         }
     }
     render() {

@@ -1,6 +1,7 @@
 .MyProfile-Edit{
     margin-bottom: 37px;
     padding-top : 50px;
+    padding-bottom : 40px;
     border : 1px solid rgb(210, 210, 210);
     border-radius: 5px;
     margin-right: 37px;
@@ -17,20 +18,45 @@
     align-items: center;
 }
 
+#pwCheck{
+    margin-top : 0;
+}
+
+
+.MyProfile-Edit-Box{
+    position: relative;
+    top: -30px; 
+}
+
+.MyProfile-Edit-Secend2{
+    position: relative;
+    top : 140px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MyProfile-Edit-Secend3{
+    position: relative;
+    top: -20px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .MPEdit-Title{
     width: 80px;
     margin: 10px;
     margin-left: 0;
-    font-size: 17px;
+    font-size: 15px;
+    line-height: 17px;
     font-weight: bold;
     color: black;
-
     align-self: flex-start
 }
 
 .MPEdit-Cell{
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -38,7 +64,6 @@
 }
 
 .MPEdit-Cell2{
-   
     display: flex;
     align-items: center;
 }
@@ -93,23 +118,31 @@
     display: block;
 }
 
-
-
 .MPEdit-TdCell-Textarea{
     width: 300px;
+    padding : 10px 0 0 10px;
     border : 2px solid rgb(230, 230, 230);
     border-radius: 5px;
     outline-color: rgb(82, 195, 181);
 }
 
-.MyProfile-Edit-Btn{
-    position: relative;
-    left: 85%;
-    margin: 10px;
-
+.MyProfile-Open-Btn{
     width: 90px;
     height: 28px;
     border: 0;
+    border-radius: 5px;
+    outline: 0;
+    font-size: 17px;
+    margin-left : 200px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.MyProfile-Edit-Btn{
+    width: 85px;
+    height: 28px;
+    border: 0;
+    border-radius: 5px;
     outline: 0;
     font-size: 17px;
 

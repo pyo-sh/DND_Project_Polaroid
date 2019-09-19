@@ -95,7 +95,7 @@ class Profile extends Component {
                 <div className="MyProfile-About">
                     <LinesEllipsis
                         text={about}
-                        maxLine='5'
+                        maxLine='4'
                         ellipsis=' ...'
                         trimRight
                         basedOn='letters'
