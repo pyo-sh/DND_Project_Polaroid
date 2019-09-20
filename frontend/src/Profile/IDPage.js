@@ -85,18 +85,17 @@ class IDPage extends Component {
     // 이 페이지가 나에 대한 페이지라면, 팔로우 버튼을 없애야 하므로 boolean 설정
     checkMyself = () => {
         const { myID, titleName } = this.state;
-        if(myID === titleName || myID === null){ // 마이 아이디가 titlename이거나 널이면 isme가 트루??? 폴스여야 되는게 아ㅣㄴㄴ가
+        if(myID === titleName || myID === null){
             this.setState({
-                isMe: false
+                isMe: true
             });
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
     // 팔로우 중인지 아닌지를 알아보는 boolean isFollow 설정
     checkIsFollow = () => {
         const { myID, titleName } = this.state;
-         
                 isFollowInfo(myID, titleName).then(res => {
                     if(res)
                         this.setState({

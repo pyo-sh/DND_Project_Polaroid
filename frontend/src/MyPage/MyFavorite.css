@@ -64,17 +64,13 @@
 }
 
 .MyFavorite-Window{
-    width: 90%;
     background: white;
-    margin: 15px 50px;
-    padding: 5px;
+    position: relative;
+    top : -15px;
 }
 
 .MyFavorite-Files{
-    margin: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    display: inline-block;
 }
 .MyFavorite-File{
     margin: 15px;
@@ -86,8 +82,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
-    top : -45px;
-    left : 40px;
+    padding-right: 39px;
 }
 
 .MyFavorite-Folder-AddBefore{
