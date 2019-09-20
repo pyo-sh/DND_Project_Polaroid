@@ -1,44 +1,42 @@
-.Upload{
-  height: 1300px;
-  position: relative;
-}
-
-.Frame {
-  position: absolute;
-  height: 1000px;
-  width:1000px;
-  left: 15%;
-  margin-top: 100px;
-  background-color: #E2E2E2;
-}
-
 .Letter{
-  width : 1000px;
-  height : 26px;
+  width : 1070px;
   font-size: 40px;
   font-weight: bold;
   text-align: left;
-  background-color: #FFFFFF;
+  margin-top: 50px;
 }
 
-.Frame-in{
-  text-align: left;
-  margin-left: 70px;
+.Frame {
+  width:1070px;
+  margin-top: 20px;
+  border: 1x solid rgb(230, 230, 230);
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgb(180, 180, 180);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .previewComponent {
-  margin-top: 50px;
-  width: 860px;
+  margin-top: 40px;
+  width: 1000px;
   height: 500px;
-  background-color: #FFFFFF;
+  background-color: rgb(240, 240, 240);
+  border-radius: 10px;
   overflow: hidden;
   line-height: 500px;
 }
 
 .previewComponent label{
-  background-color: #FFFFFF;
-  padding: 500px 300px;  
-  margin-left: 100px;
+  display: block;
+  width: 1000px;
+  color: rgb(150, 150, 150);
+  background-color: none;
+  font-size: 27px;
+  font-weight: 600;
+  text-align: center;
+    z-index: 5;
 }
 
 .previewComponent input[type="file"] {
@@ -52,26 +50,18 @@
   border: 0;
 }
 
-.Upload-img{
-  width: 100%;
+.Upload-Photo{
+  position: relative;
+  width : 100%; 
+  top : 50%;
+  transform: translateY(-50%);
 }
 
-.imgPreview{
-  font-size: 20px;
-  text-align: center;
-  line-height: 500px;
-  widows: 100%;
-  height:100%;
-  z-index: 1;
-}
-
-.imageBtn{
-  text-align: center;
-  margin: 5px 15px;
-}
-
-.CatTag{
+.Upload-Column{
+  width: 800px;
   display: flex;
+  justify-content: flex-start;
+  margin-top : 15px;
 }
 
 .CatTagCategory{
@@ -80,30 +70,50 @@
   margin-top: 30px;
 }
 
-.categoryDropBox{
+.Upload-Title{
+    margin: 6px 13px 6px 0;
+    font-size: 15px;
+    line-height: 17px;
+    font-weight: bold;
+    color: black;
+    align-self: flex-start
+  }
+
+.CategoryDropBox{
   font-size: 15px;
   margin-left: 10px;
-  height:30px;
+  padding-left: 15px;
+  height: 30px;
   width: 300px;
+  border : 1px solid rgb(210, 210, 210);
+  border-radius: 5px;
+  outline: none;
 }
 
-.Tag{
+.Upload-Tag{
+  display: flex;
   font-size: 20px;
   margin-top: 30px;
   margin-left: 50px;
 }
 
+
 .TagInput{
-  margin-left: 10px;
-  height:30px;
   width: 300px;
+  height: 30px;
+  display: flex;
+  background: rgb(230,230,230);
+  border-radius: 5px;
+  border : none;
+  outline-color: rgb(82, 195, 181);
+  padding-left: 15px;
+  font-size: 14px;
 }
 
 .TagExpl{
   font-size: 13px;
-  margin-left: 500px;
-  margin-top: 10px;
-  color: #808080;
+  margin-left: 5px;
+  color: rgb(180, 180, 180);
 }
 
 .Price{
@@ -114,64 +124,74 @@
 }
 
 .PriceInput{
-  margin-left: 50px;
-  height:27px;
-  width: 250px;
-}
-
-.Visible{
-  display: inline;
-}
-
-.Distribute{
+  width: 300px;
+  height: 30px;
   display: flex;
-  font-size: 17px;
-  margin-top: 20px;
-  margin-bottom: 15px;
+  background: rgb(230,230,230);
+  border-radius: 5px;
+  border : none;
+  outline-color: rgb(82, 195, 181);
+  padding-left: 17px;
+  margin-left: 37px;
 }
 
-.charge{
-  margin-left:100px;
+.Upload-Column .free{
+  margin-right : 5px;
+  justify-content: space-between;
 }
 
-.Copyright{
+.Upload-Column .charge{
+  margin-right : 5px;
+  margin-left : 25px;
+  justify-content: space-between;
+}
+
+.Upload-Coulmn-inputRadio{
+  font-size: 15px;
+  margin : 5px 25px 10px 5px;
+}
+
+.Upload-Copyright{
   display: flex;
-  font-size: 17px;
-  margin-top: 20px;
-  margin-left: 30px;
+  margin-top : 5px;
+  margin-left: 21px;
 }
 
-.CopyrightNotice{
-  margin-left:100px;
+.Upload-Copyright input{
+  margin : 4px 5px 0 0;
 }
 
-.Change{
-  margin-left:100px;
+.Upload-Coulmn-inputCheckbox{
+  margin-right : 20px;
 }
 
-.Visibility{
-  display: flex;
-  font-size: 17px;
-  margin-top: 20px;
-}
-
-.private{
-  margin-left:130px;
-}
 
 .uploadBtn{
   font-size: 20px;
-  padding: .3rem 1rem;
-  line-height: 1.25rem;
-  background-color: #666;
+  font-weight: 700;
+  background-color: rgb(82, 195, 181);
   width: 120px;
   height: 50px;
-  margin-left: 43%;
-  margin-top:40px;
-  border-radius: 5px/5px;
+  border-radius: 10px;
   color: white;
   text-align: center;
   cursor: pointer;
-  border: 0;
-  outline:0;
+  border: none;
+  outline: none;
+  margin : 35px 0 35px 0;
+}
+
+.Unvisible{
+  display: none;
+}
+.Visible{
+  width: 600px;
+  display: block;
+  padding : 10px 25px 25px 25px;
+  margin-right: 50px;
+  border : 1px solid rgb(210, 210, 210);
+}
+
+#private{
+  margin-left: 65px;
 }
