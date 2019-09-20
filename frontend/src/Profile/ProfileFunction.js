@@ -80,6 +80,7 @@ export const getMyID = () => {
   if(token === null){
     return null;
   }
+  console.log(token);
   const decode = jwt_decode(token);
   const ID = decode.ID;
   return ID;

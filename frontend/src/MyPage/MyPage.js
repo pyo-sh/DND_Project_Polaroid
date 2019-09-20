@@ -8,6 +8,7 @@ import { getAllInfo, getBenefitMonth, getAllFilmList } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
 import React, { Component } from 'react';
 import MyPagePhotos from './MyPagePhotos';
+import { withRouter } from 'react-router-dom'
 
 class MyPage extends Component {
     state ={ // grade 는 안하고 있네 지금 2019.09.17 db에서
@@ -36,6 +37,10 @@ class MyPage extends Component {
     }
     // 렌더링이 되고 난 후 getInfo를 실행 시키면서 db에 있는 해당 아이디의 정보들을 가지고 와서 setState 시킴
       componentDidMount(){
+        if(!localStorage.usertoken && !sessionStorage.usertoken){ //둘다 토큰이 없으면
+            alert('로그인을 해주세요!'); // 마이페이지에 들어가지 못하게 한다.
+            this.props.history.push('/')
+        }
         this.getInfo();
         this.getMonthBenefit();
         this.getMonthUseFilm();
@@ -165,4 +170,4 @@ class MyPage extends Component {
     }
 }
 
-export default MyPage;
+export default withRouter(MyPage);
