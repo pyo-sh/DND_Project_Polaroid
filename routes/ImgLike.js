@@ -56,5 +56,17 @@ ImgLike.post('/likedown', (req, res) => { // 이미지라이크 db에 row를 des
     })
 })
 
+ImgLike.get('/getMyLikeImg/:userID', (req, res) => { // 유저 아이디로 좋아요 누른 이미지들 가지고 옴.
+    let { userID } = req.params;
+
+    let query = `SELECT imgID, imgUrl FROM images WHERE imgID IN (SELECT imgID FROM imgLikeds WHERE userID = "${userID}") ;
+    `
+    db.sequelize.query(query).then(([results, metadata]) => {
+        res.send(results);
+    })
+    .catch(err=>{
+        console.error(err);
+    })
+})
 
 module.exports = ImgLike;

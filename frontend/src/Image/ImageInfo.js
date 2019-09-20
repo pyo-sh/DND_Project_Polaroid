@@ -85,6 +85,7 @@ class ImageInfo extends Component {
           }
         })
       })
+      
       // 나의 아이디를 토큰으로 받는다. 토큰이 null이면 id도 null
       const myID = getMyID();
       if(myID === userID || myID === null)

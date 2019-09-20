@@ -9,6 +9,7 @@ export const addFollow = async (userID, targetID) => {
   return await axios
   .post('/api/Follow/addFollow', {info})
   .then(res => {
+    console.log(res, " 애드 할떄")
     return res;
   })
   .catch(err => {
@@ -23,6 +24,7 @@ export const deleteFollow = async (userID, targetID) => {
     followerID: targetID
   })
   .then(res => {
+    console.log(res, "델 할떄")
     return res;
   })
   .catch(err => {
@@ -49,8 +51,6 @@ export const getFollowerInfo = async userID => {
     followerID: userID
   })
   .then(res => {
-    console.log("팔로워의 res는")
-    console.log(res);
     return res;
   })
   .catch(err => {
@@ -66,10 +66,13 @@ export const isFollowInfo = async (userID, targetID) =>{
   })
   .then(res => {
     let isFollow;
-    if(res.data === null)
+    if(res.data === null){
       isFollow = false;
-    else
+    }
+    else{
       isFollow = true;
+    }
+
     return isFollow;
   })
 }
@@ -77,8 +80,9 @@ export const isFollowInfo = async (userID, targetID) =>{
 export const getMyID = () => {
   let token = '';
   localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
-  if(token === null)
+  if(token === null){
     return null;
+  }
   const decode = jwt_decode(token);
   const ID = decode.ID;
   return ID;
@@ -111,5 +115,17 @@ export const getFollowerSome = async (userID, start, count) => {
   })
   .catch(err => {
       console.log(err);
+  })
+}
+
+export const getUserUpImg = async userID => {
+  return await axios
+  .get(`/api/images/getUserUpImg/${userID}`)
+  .then(res => {
+    console.log(res)
+    return res.data;
+  })
+  .catch(err => {
+    console.error(err);
   })
 }

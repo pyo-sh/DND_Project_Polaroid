@@ -3,13 +3,12 @@ import MyProfile from './MyProfile';
 import MyPageMenuBar from './MyPageMenuBar';
 import MyPageBenefit from './MyPageBenefit';
 import MyInformation from './MyInformation';
-import Photos from '../Main/Photos';
 import MyFavorite from './MyFavorite';
 import { getAllInfo, getBenefitMonth, getAllFilmList } from './MyPageFunction';
 import jwt_decode from 'jwt-decode';
 import React, { Component } from 'react';
-
-// import ProfileSmall from './ProfileSmall';
+import MyPagePhotos from './MyPagePhotos';
+import { withRouter } from 'react-router-dom'
 
 class MyPage extends Component {
     state ={ // grade 는 안하고 있네 지금 2019.09.17 db에서
@@ -38,6 +37,10 @@ class MyPage extends Component {
     }
     // 렌더링이 되고 난 후 getInfo를 실행 시키면서 db에 있는 해당 아이디의 정보들을 가지고 와서 setState 시킴
       componentDidMount(){
+        if(!localStorage.usertoken && !sessionStorage.usertoken){ //둘다 토큰이 없으면
+            alert('로그인을 해주세요!'); // 마이페이지에 들어가지 못하게 한다.
+            this.props.history.push('/')
+        }
         this.getInfo();
         this.getMonthBenefit();
         this.getMonthUseFilm();
@@ -113,11 +116,12 @@ class MyPage extends Component {
     }
     // 메뉴바를 눌러서 버튼의 innerText 값을 받아서 state를 바꾸면 반환하는 페이지가 바뀌는 형식이다.
     _SelectMenu = () => {
+        const id = this.getID();
         const type = this.state.selectedMenu;
         switch(type) {
-            case "UPLOAD" : return <Photos/>;
-            case "DOWNLOADED" : return <Photos/>;
-            case "LIKED" : return ;
+            case "UPLOAD" : return <MyPagePhotos id={id} outputType={type}/>;
+            case "DOWNLOADED" : return <MyPagePhotos id={id} outputType={type}/>;
+            case "LIKED" : return <MyPagePhotos id={id} outputType={type}/>;
             case "FAVORITE" : return <MyFavorite getID={this.getID} isOpen = {true}/>;
             case "BENEFIT" : 
                 return <MyPageBenefit 
@@ -166,4 +170,4 @@ class MyPage extends Component {
     }
 }
 
-export default MyPage;
+export default withRouter(MyPage);

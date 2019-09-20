@@ -9,7 +9,6 @@ export const register = async newUser => {
         nickname : newUser.nickname,
     })
     .then(res => {
-        console.log("Registered")
         return res.data;
     })
     .catch(err => {

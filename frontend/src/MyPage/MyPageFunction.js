@@ -40,7 +40,7 @@ export const checkPassword = async user => {
     })
 }
 
-export const getAllFavorite = async userID => {
+export const getAllFavorite = async userID => {    //모든 폴더와 그 폴더네임, url 들을 가져오는 함수.
     return await axios
     .post('/api/favorite/getAll', {
         userID
@@ -63,7 +63,7 @@ export const getBenefitMonth = async userID => { // 작가의 모든 월별 수�
     })
 }
 
-export const getAllFilmList = async userID => {
+export const getAllFilmList = async userID => { // 모든 필름 사용 내역을 가져다줌
     return await axios
     .post('/api/film/getAllFilmList', {
         userID
@@ -74,4 +74,31 @@ export const getAllFilmList = async userID => {
     .catch(err => {
         console.error(err);
     })
+}
+
+export const getMyDownImg = async userID => { // 유저아이디를 받아서 그 유저가 다운 받음 이미지를 다 가져오는것.
+    return await axios
+    .get(`/api/images/getMyDownImg/${userID}`)
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
+
+export const getMyLikeImg = async userID => { // 유저아이디를 받아서 그 유저가 다운 받음 이미지를 다 가져오는것.
+    return await axios
+    .get(`/api/imgLike/getMyLikeImg/${userID}`)
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
+
+export const delFavImg = async (favFolderNum, imgID) => {  // favFolderNum이랑 imgID를 매개변수로 받아서 폴더 밑의 이미지를 삭제한다.
+    return await axios
+    .post(`/api/favorite/delfavorite`, {favFolderNum, imgID})
 }

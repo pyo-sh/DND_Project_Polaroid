@@ -7,7 +7,7 @@ export const getRanking = async () => {
         return res.data;
     })
     .catch(err => {
-        console.log(err);
+        console.error(err);
     })
 }
 
@@ -18,7 +18,7 @@ export const getLikeWeekRanking = async () => {
         return res.data;
     })
     .catch(err => {
-        console.log(err);
+        console.error(err);
     })
 }
 export const getLikeMonthRanking = async () => {
@@ -28,6 +28,17 @@ export const getLikeMonthRanking = async () => {
         return res.data;
     })
     .catch(err => {
-        console.log(err);
+        console.error(err);
+    })
+}
+
+export const getLikeDailyRanking = async () => {
+    return await axios
+    .get('/api/likeranking/daily')
+    .then(res => {
+        return res.data;
+    })
+    .catch(err => {
+        console.error(err);
     })
 }

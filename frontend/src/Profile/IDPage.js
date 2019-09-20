@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './IDPage.css';
 import MyProfile from '../MyPage/MyProfile';
-import Photos from '../Main/Photos';
+import MyPagePhotos from '../MyPage/MyPagePhotos';
 import { getAllInfo } from '../MyPage/MyPageFunction';
 import { getMyID, isFollowInfo, addFollow, deleteFollow } from './ProfileFunction';
 
@@ -48,7 +48,8 @@ class IDPage extends Component {
     // 상대방의 아이디를 알아내는 작업
     upperTitle(){
         let title = this.props.match.params.id;
-        title = title.replace('-',' ');
+        // title = title.replace('-',' ');  이건 왜하는거지
+   
         this.setState({
             ...this.state,
             titleName: title
@@ -84,27 +85,29 @@ class IDPage extends Component {
     // 이 페이지가 나에 대한 페이지라면, 팔로우 버튼을 없애야 하므로 boolean 설정
     checkMyself = () => {
         const { myID, titleName } = this.state;
-        if(myID === titleName || myID === null){
+        if(myID === titleName || myID === null){ // 마이 아이디가 titlename이거나 널이면 isme가 트루??? 폴스여야 되는게 아ㅣㄴㄴ가
             this.setState({
-                isMe: true
+                isMe: false
             });
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
     // 팔로우 중인지 아닌지를 알아보는 boolean isFollow 설정
     checkIsFollow = () => {
         const { myID, titleName } = this.state;
-        isFollowInfo(myID, titleName).then(res => {
-            if(res)
-                this.setState({
-                    isFollow: true
+         
+                isFollowInfo(myID, titleName).then(res => {
+                    if(res)
+                        this.setState({
+                            isFollow: true
+                        })
+                    else
+                        this.setState({
+                            isFollow: false
+                        })
                 })
-            else
-                this.setState({
-                    isFollow: false
-                })
-        })
+    
     }
 
     // 팔로우 버튼을 눌렀을 때 실행
@@ -125,7 +128,7 @@ class IDPage extends Component {
     }
 
     render() {
-        const { profile, isMe, isFollow } = this.state;
+        const { profile, titleName, isMe, isFollow } = this.state
         return (
             <div className="IDPage">
                 <div className="IDPage-Profile">
@@ -140,7 +143,7 @@ class IDPage extends Component {
                     </div>
                 </div>
                 <div className="IDPage-Photo">
-                    <Photos mypage = {true}/>
+                    {(titleName.trim()!=="") ? <MyPagePhotos id={titleName} outputType={"UPLOAD"}/> : null}
                 </div>
             </div>
         );

@@ -42,9 +42,11 @@ Favorite.post('/addPhotoInFolder', (req, res) => { // 폴더에 포토를 넣는
     })
 })
 
-Favorite.post('/getAll',(req, res) => { // 모든 폴더와 그 폴더네임들을 가져오는 함수.
+Favorite.post('/getAll',(req, res) => { // 모든 폴더와 그 폴더네임, url 들을 가져오는 함수.
     const { userID } = req.body
-    let query = `SELECT a.favFolderNum, a.favFolderName, b.imgID, c.imgName FROM favoriteFolders a LEFT join favorites b ON a.favFolderNum = b.favFolderNum LEFT JOIN images c ON b.imgID = c.imgID  WHERE a.ID = "${userID}" ORDER BY favFolderNum`;
+    let query = `
+    SELECT a.favFolderNum, a.favFolderName, b.imgID, c.imgName, c.imgUrl FROM favoriteFolders a LEFT join favorites b ON a.favFolderNum = b.favFolderNum 
+LEFT JOIN images c ON b.imgID = c.imgID  WHERE a.ID = "${userID}" ORDER BY favFolderNum`;
     db.sequelize.query(query).then(([results, metadata]) => {
         res.send(results)
     })
@@ -61,10 +63,10 @@ Favorite.post('/delFavFolder', (req, res) => {  // 즐겨찾기 폴더를 삭제
 })
 
 Favorite.post('/delFavorite', (req, res) => { // 즐겨찾기한 이미지를 삭제 하는 함수.
-    const { favNumFolderNum, imgID }  = req.body;
+    const { favFolderNum, imgID }  = req.body;
     favorite.destroy({
         where: {
-            favNumFolderNum,
+            favFolderNum,
             imgID
         }
     })

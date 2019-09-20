@@ -17,9 +17,9 @@ class Search extends Component {
             photoCount : length
         })
     }
-    getUserCount = (userCount) => {
+    getUserCount = (userlength) => {
         this.setState({
-            userCount
+            userCount : userlength
         })
     }
 
@@ -38,13 +38,13 @@ class Search extends Component {
                 <div className = "Content-Top-Information">
                     <div className = "Title">{this.props.match.params.search}</div>
                     <div className = "Content-Top-Result">
-                        <div className = {"Result-Photos" + ((this.state.searchList === "photos") ? " Color" : "")} onClick = {this.changeStatetoPhotos}> {photoCount} Photos </div>
-                        <div className = {"Result-Users" + ((this.state.searchList === "users") ? " Color" : "")} onClick = {this.changeStatetoUsers}> {userCount} Users </div>
+                        <div className = {"Result-Photos" + ((this.state.searchList === "photos") ? " Color" : "")} onClick = {this.changeStatetoPhotos}> {this.state.searchList === "photos" ? photoCount : ""}  Photos </div>
+                        <div className = {"Result-Users" + ((this.state.searchList === "users") ? " Color" : "")} onClick = {this.changeStatetoUsers}> {this.state.searchList === "users" ? userCount : ""} Users </div>
                     </div>
                 </div>
                 <div className = "Content" id = "content-top-search">
                     <div className = "Content-Left">
-                        <Photos search = {this.props.match.params.search} getPhotoCount = {this.getPhotoCount} getUserCount = {this.getUserCount}/>
+                        {this.state.searchList === "photos" ? <Photos search = {this.props.match.params.search} getPhotoCount = {this.getPhotoCount} /> : <SearchUser id = {this.props.match.params.search}  getUserCount = {this.getUserCount} />}
                     </div>
                     <div className = "Content-Right"> <SideContent/> </div>
                 </div>
