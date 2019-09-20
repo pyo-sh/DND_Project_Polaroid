@@ -2,18 +2,25 @@ import React, {Component} from 'react';
 import './ProfileSmall.css';
 import {withRouter} from 'react-router-dom';
 import { getAllInfo } from '../MyPage/MyPageFunction';
-import { getMyID, addFollow, deleteFollow } from './ProfileFunction';
+import { getMyID, addFollow, deleteFollow, isFollowInfo } from './ProfileFunction';
 
 // 나인지 아닌지, 팔로우 기능을 추가해줘야 하는지 아닌지. 버튼 추가해주거나 홈페이지로 넘어가주거나,
 class ProfileSmall extends Component{
     state={
+        // informationCheck = comPonentWillMount 에서 받는 follow버튼의 정보가 받아지면 true
+        informationCheck: false,
+        // informationCheck2 = getInfo 에서 받는 프로필의 정보가 전부 받아지면 true
+        informationCheck2: false,
         id: "",
+        follow: true,
         isMe: false,
         // true : following, false : follower
         isFollow: true,
+        followTargetId: "",
         profile: {
             profileImg: "",
             name: "",
+            id: "",
             about: "",
             grade: "일반"
         },
@@ -21,25 +28,52 @@ class ProfileSmall extends Component{
     };
 
     componentWillMount(){
-        const { id, isMe, isFollow } = this.props;
+        const { id, isMe, followTargetId } = this.props;
+        isFollowInfo(followTargetId, id).then(res => {
+            this.setState({
+                isFollow: res,
+                informationCheck: true
+            });
+        })
         this.setState({
             id: id,
             isMe: isMe,
-            isFollow: isFollow
         });
+        console.log(this.state.informationCheck)
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+        const { id, isMe, isFollow } = this.props;
+        await this.setState({
+            id,
+            isMe,
+            isFollow
+        });
         this.getInfo();
+        console.log(isFollow)
+    }
+
+    async componentDidUpdate(prevProps) {
+        if(prevProps.id !== this.props.id){
+            const { id, isMe, isFollow } = this.props;
+            await this.setState({
+                id,
+                isMe,
+                isFollow
+            });
+            this.getInfo();
+        }
     }
 
     getInfo = () => {
         const ID = this.state.id;
         getAllInfo(ID).then(res=> {
             this.setState({
+                informationCheck2: true,
                 profile: {
                     ...this.state.profile,
                     profileImg: res.profileImg,
+                    id: ID,
                     name: res.nickname,
                 }
             })
@@ -47,6 +81,7 @@ class ProfileSmall extends Component{
         .catch(err => {
             console.error(err);
         })
+        console.log(this.state.informationCheck2)
     }
 
     handleClick = () => {
@@ -75,37 +110,45 @@ class ProfileSmall extends Component{
             this.props.history.push(`/${this.state.id}`);
     }
 
-    render(){
-        const { id, isMe, isFollow } = this.state;
-        const { profileImg, name } = this.state.profile;
-        return (
-            <div className = "ProfileSmall" onClick = {this.movePage}>
-                <div className = "ProfileSmall-Column">
-                    <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/${id}`)}>
-                        <ProfileImage profileImg = {profileImg} alt = {name}/>
-                    </div>
-                    <div className = "ProfileSmall-Info">
-                        <span className = "Nickname"> {name} </span>
-                        <span className = "Id"> {"@" + id} </span>
-                        { isFollow != null &&
-                        <div className = "ProfileSmall-Follow-Btn">
-                            <FollowButton
-                                isMe = {isMe}
-                                isFollow = {isFollow}
-                                handleClick = {this.handleClick}
-                                />
+    renderProfile = () => {
+        // const {informationCheck,informationCheck2} = this.state;
+        // if(informationCheck && informationCheck2){
+            const { id, isMe, isFollow } = this.state;
+            const { profileImg, name } = this.state.profile;
+            return (
+                <div className = "ProfileSmall" onClick = {this.movePage}>
+                    <div className = "ProfileSmall-Column">
+                        <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/${id}`)}>
+                            <ProfileImage profileImg = {profileImg} alt = {name}/>
                         </div>
-                    }
+                        <div className = "ProfileSmall-Info">
+                            <span className = "Nickname"> {name} </span>
+                            <span className = "Id"> {"@" + id} </span>
+                            { isFollow != null &&
+                            <div className = "ProfileSmall-Follow-Btn">
+                                <FollowButton
+                                    isMe = {isMe}
+                                    isFollow = {isFollow}
+                                    handleClick = {this.handleClick}
+                                    />
+                            </div>
+                        }
+                        </div>
                     </div>
+                    <div className = "ProfileSmall-Column">
+                        {this.state.images.map((image, index) => <UserImage image = {image} key = {index}/>)}
+                    </div> 
                 </div>
-                 <div className = "ProfileSmall-Column">
-                    {this.state.images.map((image, index) => <UserImage image = {image} key = {index}/>)}
-                </div> 
-            </div>
-        );
+            );
+        }
+    //     else 
+    //         return null;
+    // }
+
+    render() {
+        return this.renderProfile();
     }
 }
-
 
 function ProfileImage({profileImg, alt}){
     return (

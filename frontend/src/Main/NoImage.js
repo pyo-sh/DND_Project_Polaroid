@@ -6,8 +6,8 @@ class NoImage extends Component {
         return(
             <div className = "NoImage-Background">
                 <div className = "NoImage-Content">
-                    <Icon name = "search" className = "NoImage-Search" />
-                    <div>검색 결과가 없습니다.</div>
+                    <Icon name = "search" size='massive'/>
+                    <div className = "NoImage-Search">검색 결과가 없습니다.</div>
                 </div>
             </div>
         )
