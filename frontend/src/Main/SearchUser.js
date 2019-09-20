@@ -6,7 +6,7 @@ import './ContentTop.css';
 import { getAllUser } from './MainFunction';
 import { getAllInfo } from '../MyPage/MyPageFunction';
 import { getMyID, addFollow, deleteFollow, isFollowInfo } from '../Profile/ProfileFunction';
-
+import './NoImage.css'
 
 class SearchUser extends Component {
     state = {
@@ -109,10 +109,10 @@ class SearchUser extends Component {
     } 
 
     render() {
-        let {noUser, isFollow} = this.state
-        let userID = this.state.profile.id
+        let {noUser} = this.state
+        
         return ( 
-        <div className = "Search-User">
+        <>
             {noUser ? 
             
             <NoImage /> 
@@ -124,7 +124,7 @@ class SearchUser extends Component {
                 console.log(this.getID())
                 console.log(Object.values(ids).toString() === this.getID())*/   
             }
-        </div> );
+        </> );
     }
 }
  
