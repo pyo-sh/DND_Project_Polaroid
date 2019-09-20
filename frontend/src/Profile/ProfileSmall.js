@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './ProfileSmall.css';
 import {withRouter} from 'react-router-dom';
 import { getAllInfo } from '../MyPage/MyPageFunction';
-import { getMyID, addFollow, deleteFollow, isFollowInfo } from './ProfileFunction';
+import { getMyID, addFollow, deleteFollow, isFollowInfo,  getUserUpImg } from './ProfileFunction';
+
 
 // 나인지 아닌지, 팔로우 기능을 추가해줘야 하는지 아닌지. 버튼 추가해주거나 홈페이지로 넘어가주거나,
 class ProfileSmall extends Component{
@@ -24,7 +25,7 @@ class ProfileSmall extends Component{
             about: "",
             grade: "일반"
         },
-        images : ["photo1.jpg", "photo2.jpg", "photo3.jpg"]
+        images : []
     };
 
     componentWillMount(){
@@ -42,16 +43,22 @@ class ProfileSmall extends Component{
         console.log(this.state.informationCheck)
     }
 
+<<<<<<< frontend/src/Profile/ProfileSmall.js
     async componentDidMount(){
-        const { id, isMe, isFollow } = this.props;
+        const {  isMe, isFollow } = this.props;
+        const { id } = this.state
         await this.setState({
             id,
             isMe,
             isFollow
         });
         this.getInfo();
-        console.log(isFollow)
-    }
+         getUserUpImg(id).then(res => {
+            this.setState({
+                images : res
+            })
+        })
+     }
 
     async componentDidUpdate(prevProps) {
         if(prevProps.id !== this.props.id){
@@ -63,6 +70,7 @@ class ProfileSmall extends Component{
             });
             this.getInfo();
         }
+
     }
 
     getInfo = () => {
@@ -158,7 +166,7 @@ function ProfileImage({profileImg, alt}){
 
 function UserImage({image}){
      return(  // 이미지 아이디받아서 이미지 아이디 따라 나오게 만들어야지.
-        <div className = "UserImage" style = {{ backgroundImage : `url('https://poloapp.s3.ap-northeast-2.amazonaws.com/image/10')`}} />
+        <div className = "UserImage" style = {{ backgroundImage : `url(${image.imgUrl})`}} />
      );
  }
 

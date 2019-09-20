@@ -13,11 +13,14 @@ class MyFilm extends Component {
     componentWillMount(){
         let token = '';
         localStorage.usertoken ? token = localStorage.getItem('usertoken') : token = sessionStorage.getItem('usertoken');
-        const decode = jwt_decode(token);
-        const id = decode.ID;
-        this.setState({
-            id: id
-        });
+        if(token === null) return 
+        else {
+            const decode = jwt_decode(token);
+            const id = decode.ID;
+            this.setState({
+                id: id
+            });
+        }
     }
     componentDidMount(){
         if(localStorage.usertoken || sessionStorage.usertoken){
