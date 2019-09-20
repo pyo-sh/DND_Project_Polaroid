@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getAllFavorite } from './MyPageFunction';
 import './MyFavorite.css';
-import { Link } from 'react-router-dom';
+import MyPagePhotos from './MyPagePhotos';
 import { getFolder, addFolder, delFavFolder } from '../Image/ImageFunction';
 
 class MyFavorite extends Component {
@@ -110,6 +110,7 @@ class MyFavorite extends Component {
     photoDeleteOnClick = (e) => {
         const {ID} = this.state;
         // e.target.key의 imgID를 와 id를 통해 삭제할 예정
+        console.dir(e.target);
         this.getFolderList(ID);
     }
 
@@ -198,16 +199,20 @@ class MyFavorite extends Component {
         </React.Fragment>
     }
 
+
     _renderFolder = (favoriteFolder, nowPage) => {
-        const { folder } = this.state;
-        let folderFile = '';
+        const { ID, folder } = this.state;
+        let photoList = [];
         if(folder !== null) {
-            folderFile = favoriteFolder.map((res, index) => {
+            favoriteFolder.map((res, index) => {
                 if(folder[nowPage-1].favFolderNum === res.favFolderNum){
                     if(res.imgID !== null){
-                        return <Link to = {`/imagepage/${res.imgID}`} key={index+1}>
-                                <div className="MyFavorite-File">{index + 1}. {res.imgName}</div>
-                            </Link>
+                        const list = {
+                            favFolderNum: res.favFolderNum,
+                            imgID: res.imgID,
+                            imgUrl: res.imgUrl
+                        }
+                        photoList = photoList.concat(list);
                     }
                     return null;
                 }
@@ -217,7 +222,7 @@ class MyFavorite extends Component {
         }
         return (
             <div className="MyFavorite-Files">
-                {folderFile}
+                <MyPagePhotos id={ID} outputType={"FAVORITE"} photoList={photoList} photoDeleteOnClick={this.photoDeleteOnClick}/>;
             </div>
         );
     }
