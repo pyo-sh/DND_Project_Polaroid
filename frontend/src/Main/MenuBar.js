@@ -54,7 +54,6 @@ class MenuBar extends Component {
                         <form className ="Search-Form" onSubmit={this.onSubmit} method = "post">
                             <Icon className = "Icon-Search" name="search" size="large"/>
                             <input className = "Search-Input" type = "text" value = {this.state.search} onChange={this.onChange}/>
-                            <Icon className = "Icon-Fliter" name="sliders horizontal"size="large" style={{marginLeft:"10px"}}/>
                         </form>
                     </div>
 

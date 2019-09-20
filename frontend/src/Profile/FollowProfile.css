@@ -82,4 +82,5 @@
     font-weight: 700;
     text-align: center;
     transition: 0.5s;
+    cursor: pointer;
 }
