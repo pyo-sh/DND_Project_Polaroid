@@ -29,7 +29,7 @@ class MyProfileEdit extends Component {
     isOpen : false,
     pw: "",
     pwCheck: "",
-    pwCheckBoolean: true
+    pwCheckBoolean: ""
   };
 
   updateProfileImg =  () => {
@@ -100,7 +100,7 @@ class MyProfileEdit extends Component {
   //         })
   //     }
   // }
-
+  
   onSubmit = e => {
     e.preventDefault();
     const { id, name, about, img, pw, pwCheck } = this.state;
@@ -122,11 +122,22 @@ class MyProfileEdit extends Component {
     }
     if(pw.trim() !== ""){
       if(pw === pwCheck){
-        const user2 = {
-          userID: id,
-          PASSWORD: pw
+        alert('비밀번호가 성공적으로 변경되었습니다!')
+        const user = {id, name, about },
+              userPw = {userID: id,PASSWORD: pw};
+
+        editMyPage(user)
+          .then(res => {
+            // 에딧 페이지 후
+            this.props.getInfo();
+            return res;
+          })
+          .catch(err => console.error(err));
+
+        if(img){  // 이미지 있을때만 변경 할 수 있게.
+          this.updateProfileImg();
         }
-        ResetPwd(user2).then(_=> {
+        ResetPwd(userPw).then(_=> {
           this.setState({
             pw: "",
             pwCheck: "",
@@ -134,7 +145,9 @@ class MyProfileEdit extends Component {
           })
         })
       }
+
       else{
+        console.log(this.state.pwCheckBoolean);
         this.setState({
           pwCheckBoolean: false
         })
@@ -174,6 +187,7 @@ class MyProfileEdit extends Component {
         name = {this.state.name}
         about = {this.state.about}
         onClickOpenDrawal = {this.onClickOpenDrawal}
+        pwCheckBoolean = {this.state.pwCheckBoolean}
         />
     }
   }
@@ -185,7 +199,7 @@ class MyProfileEdit extends Component {
   }
 }
 
-const MPE = ({ onSubmit, profile, imgResult, img, handleFileChange, onChange, name, about, onClickOpenDrawal, pw, pwCheck }) =>{
+const MPE = ({ onSubmit, profile, imgResult, img, handleFileChange, onChange, name, about, onClickOpenDrawal, pw, pwCheck, pwCheckBoolean }) =>{
   return(
     <div className="MyProfile-Edit">
       <form onSubmit={onSubmit}>
@@ -209,13 +223,12 @@ const MPE = ({ onSubmit, profile, imgResult, img, handleFileChange, onChange, na
               value={about}
             />
           </div>
-        <button className="MyProfile-Btn" onClick = {onClickOpenDrawal}>
-          회원탈퇴
-        </button>
-        <button type="submit" className="MyProfile-Edit-Btn">
-          수정
-        </button>
+        <div className="MyProfile-Edit-Secend2">
+          <button className="MyProfile-Open-Btn" onClick = {onClickOpenDrawal}> 회원탈퇴 </button>
+          <button type="submit" className="MyProfile-Edit-Btn"> 수정 </button>
+        </div>
       </form>
+      <div className = "MyProfile-Edit-Box">
       <div className="MyProfile-Edit-Secend">
         <div className="MPEdit-Title">비밀번호</div>
         <div className="MPEdit-Cell2">
@@ -226,7 +239,9 @@ const MPE = ({ onSubmit, profile, imgResult, img, handleFileChange, onChange, na
             type="password"
             value={pw}></input>
         </div>
-        <div className="MPEdit-Title">비밀번호 확인</div>
+      </div>
+      <div className="MyProfile-Edit-Secend">
+        <div className="MPEdit-Title" id = "pwCheck">비밀번호 <br/>확인</div>
         <div className="MPEdit-Cell2">
           <input 
             className="MPEdit-TdCell-Input"
@@ -236,8 +251,20 @@ const MPE = ({ onSubmit, profile, imgResult, img, handleFileChange, onChange, na
             value={pwCheck}></input>
         </div>
       </div>
-    </div>
+        <div className="MyProfile-Edit-Secend3">
+          <MyInformationIncorrect failedPW={pwCheckBoolean}/>
+        </div>
+        </div>
+      </div>
+    
   );
+}
+
+const MyInformationIncorrect = ({failedPW}) => {
+  if(failedPW === false)
+      return <div className="MyInformation-Pw-Incorrect">비밀번호를 다시 입력하세요!</div>
+  else
+      return <div className="MyInformation-Pw-Incorrect"></div>
 }
 
 class MPEditPhoto extends Component {

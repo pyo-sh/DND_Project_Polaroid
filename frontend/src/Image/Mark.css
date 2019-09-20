@@ -87,9 +87,10 @@
 }
 
 .X{
+    margin-left : 5px;
     visibility:hidden;
     cursor: pointer;
-    color: rgb(100,100,100);
+    color: white;
 }
 
 .Mark-Items:hover .X{
@@ -101,10 +102,15 @@
 }
 
 .Mark-Items-Item{
-    margin-left : 3px;
+    display: flex;
+    justify-content: flex-start;
+    margin-left : 5px;
     font-size : 12px;
 }
 
+.Mark-Items-Item-Title{
+    margin-right : 5px;
+}
 
 .Check-Mark {
     color:white;

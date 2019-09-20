@@ -1,28 +1,44 @@
 .MyWithdrawal{
-    margin: 30px;
-    margin-top: 15px;
+    height: 350px;
     margin-bottom: 15px;
-    padding: 30px;
     background: white;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+.MyWithdrawal-Title{
+    margin-bottom : 30px; 
+}
+
 .MyWithdrawal-P{
     margin: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     word-break: keep-all;
 }
+
 .MyWithdrawal-Input{
-    margin: 5px;
+    width: 350px;
+    height: 40px;
+    display: flex;
+    background: rgb(230,230,230);
+    border-radius: 40px;
+    border : none;
+    outline :  none;
+    padding-top : 5px;
+    padding-left: 15px;
 }
+
+.MyWithdrawal-Btn-Box{
+    display: flex;
+}
+
 .MyWithdrawal-Btn{
     cursor: pointer;
     width: 90px;
     height: 28px;
     margin: 7px;
+    border-radius: 5px;
     border: 0;
     outline: 0;
     font-size: 17px;

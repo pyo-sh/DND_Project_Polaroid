@@ -60,18 +60,21 @@ class IDPage extends Component {
     getInfo = () => {
         const ID = this.state.titleName;
         getAllInfo(ID).then(res=> {
-            this.setState({
-                profile: {
-                    ...this.state.profile,
-                    id : ID,
-                    name : res.nickname,
-                    about : res.introduce,
-                    following: res.follow,
-                    follower : res.follower,
-                    grade : res.grade,
-                    profileImg: res.profileImg
-                }
-            })
+            if(res){
+                this.setState({
+                    profile: {
+                        ...this.state.profile,
+                        id : ID,
+                        name : res.nickname,
+                        about : res.introduce,
+                        following: res.follow,
+                        follower : res.follower,
+                        grade : res.grade,
+                        profileImg: res.profileImg
+                    }
+                })
+            }
+
         })
         .catch(err => {
             console.error(err);
@@ -136,7 +139,6 @@ class IDPage extends Component {
                             />
                     </div>
                 </div>
-                <div className="IDPage-Title">UPLOADED PHOTOS</div>
                 <div className="IDPage-Photo">
                     <Photos mypage = {true}/>
                 </div>
