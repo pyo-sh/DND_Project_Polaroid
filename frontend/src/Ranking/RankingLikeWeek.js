@@ -1,14 +1,22 @@
 import React from 'react';
-import './RankingLikeWeek.css';
 import './RankingLike.css';
 import './RankingFollowAll.css';
+import {Link} from 'react-router-dom';
 
 const RankingLikeWeek = ({weekLikeRanking}) => {
     return(
         <ol className = "Ranking-Box-Text">
             {weekLikeRanking.map((data, index) =>{
-                return <li key={data.imgID} className="Ranking-Box-Ranking">{data.imgName}   좋아요 :{data.count}</li>
-            })}
+                return (
+                    <Link to = {`/imagepage/${data.imgID}`}>
+                        <li key={data.imgID} className="Ranking-Box-Ranking">
+                            <img src = {`https://poloapp.s3.ap-northeast-2.amazonaws.com/image/${data.imgID}`}  alt = ''/> 
+                            <div className = "Ranking-Id">{'@' + data.userID}</div>
+                       </li>
+                    </Link>
+                    );
+                }
+            )}
         </ol>
     )
 }

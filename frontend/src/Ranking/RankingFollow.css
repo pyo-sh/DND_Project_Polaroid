@@ -1,9 +1,19 @@
 
 .Ranking-Box-Left{
+    width: 100px;
     text-align: center;
-    height:20px;
-    margin-top: 3px;
-    margin-left: 3px;
+    height:25px;
+    padding-top: 3px;
+    padding-left: 3px;
+    font-size: 15px;
+}
+
+.Ranking-Box-Right{
+    width: 100px;
+    text-align: center;
+    height:25px;
+    padding-top: 3px;
+    padding-left: 3px;
     font-size: 15px;
 }
 
