@@ -46,6 +46,7 @@ class FollowProfile extends Component{
     componentDidMount(){
         this.getInfo();
     }
+
     getInfo = () => {
         const ID = this.state.id;
         getAllInfo(ID).then(res=> {
