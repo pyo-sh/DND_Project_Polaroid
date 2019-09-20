@@ -43,7 +43,6 @@ class ProfileSmall extends Component{
         console.log(this.state.informationCheck)
     }
 
-<<<<<<< frontend/src/Profile/ProfileSmall.js
     async componentDidMount(){
         const {  isMe, isFollow } = this.props;
         const { id } = this.state
