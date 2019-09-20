@@ -82,7 +82,7 @@ class Image extends Component {
           </div>
         </div>
         <ImageUseInformation userID={userID}  loginID={loginID} imgID={imgID} imgHeight={imgHeight} imgWidth={imgWidth} pushMypage={this.pushMypage} view={view} />
-        <p className="Relatied-Title Image-Page-Column"> Related Image</p>
+                {/*<p className="Relatied-Title Image-Page-Column"> Related Image</p>*/}
         {/*<RelationImage id = {id}/>*/}
       </div>
     );

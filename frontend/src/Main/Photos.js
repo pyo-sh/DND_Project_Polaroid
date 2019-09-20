@@ -28,16 +28,33 @@ class Photos extends Component {
           this.setState({
             outputType : "category"
           })
+          axios.get(`/api/images/getAllImagesCategory?start=${start}&count=100`).then(res=>{
+            this.setState({images : res.data});
+            if(this.props.search){
+              this.searchContrast();
+            }
+            if(this.props.category){
+              this.cateContrast();
+            }
+          })
       }else if(this.props.location.pathname.includes("search")){
         this.setState({
           outputType: "search"
         })
+        axios.get(`/api/images/getAllImagesCategory?start=${start}&count=100`).then(res=>{
+          this.setState({images : res.data});
+          if(this.props.search){
+            this.searchContrast();
+          }
+          if(this.props.category){
+            this.cateContrast();
+          }
+        })
       }
-      else this.setState({
+      else {
+        this.setState({
         outputType : "home"
       })
-      
-     
       axios.get(`/api/images/getAllImagesCategory?start=${start}&count=${count}`).then(res=>{
         this.setState({images : res.data});
         if(this.props.search){
@@ -47,6 +64,10 @@ class Photos extends Component {
           this.cateContrast();
         }
       })
+    }
+      
+     
+   
     }
 
     componentDidUpdate(prevProps, prevState) { // 서치 값이 달라지면 다시 contrast 하게
@@ -92,6 +113,7 @@ class Photos extends Component {
 
      searchContrast = () => {
       let { search } = this.props;
+      console.log(this.state.images)
       let searchimages = this.state.images.filter(searchimage => {
           let temp = searchimage.tag.split(',');
           return temp.includes(search)
@@ -99,6 +121,7 @@ class Photos extends Component {
       this.setState({
           searchimages
       })
+      console.log(searchimages)
       let legnth = searchimages.length
       this.props.getPhotoCount(legnth)
       if(legnth === 0){
