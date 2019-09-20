@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import MyWithdrawal from './MyWithdrawal';
 import { ResetPwd } from '../Login/UserFunctions';
+import { withRouter } from 'react-router-dom';
 
 // /* 현재 작업해야 할 것
 //     내 정보란
@@ -113,6 +114,7 @@ class MyProfileEdit extends Component {
     editMyPage(user)
       .then(res => {
         // 에딧 페이지 후
+        alert('수정이 성공적으로 완료되었습니다!');
         this.props.getInfo();
         return res;
       })
@@ -122,7 +124,6 @@ class MyProfileEdit extends Component {
     }
     if(pw.trim() !== ""){
       if(pw === pwCheck){
-        alert('비밀번호가 성공적으로 변경되었습니다!')
         const user = {id, name, about },
               userPw = {userID: id,PASSWORD: pw};
 
@@ -142,7 +143,8 @@ class MyProfileEdit extends Component {
             pw: "",
             pwCheck: "",
             pwCheckBoolean: true
-          })
+          });
+           alert('비밀번호가 성공적으로 변경되었습니다!');
         })
       }
 
@@ -328,4 +330,4 @@ const MPEditTextarea = ({name, onChange, value}) => {
     );
 };
 
-export default MyProfileEdit;
+export default withRouter(MyProfileEdit);
