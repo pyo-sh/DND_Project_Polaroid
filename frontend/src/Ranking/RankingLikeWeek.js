@@ -1,6 +1,5 @@
 import React from 'react';
 import './RankingLike.css';
-import './RankingFollowAll.css';
 import {Link} from 'react-router-dom';
 
 const RankingLikeWeek = ({weekLikeRanking}) => {

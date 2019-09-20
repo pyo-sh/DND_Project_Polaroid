@@ -14,11 +14,15 @@ Ranking.get('/', (req, res) => {
             const parseUser = JSON.parse(rankUser);
             let array = [];
             parseUser.forEach(user => {
+                  const userId = user.ID;
                   const userNickname = user.nickname;
                   const userfollower = user.follower; 
+                  const userProfileImg = user.profileImg;
                   const userInfo = {
-                      userNickname,
-                      userfollower
+                    userId,
+                    userProfileImg,
+                    userNickname,
+                    userfollower
                   }
                   array = [...array, userInfo];
             })
