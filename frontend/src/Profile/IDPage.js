@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './IDPage.css';
 import MyProfile from '../MyPage/MyProfile';
-import Photos from '../Main/Photos';
+import MyPagePhotos from '../MyPage/MyPagePhotos';
 import { getAllInfo } from '../MyPage/MyPageFunction';
 import { getMyID, isFollowInfo, addFollow, deleteFollow } from './ProfileFunction';
 
@@ -125,7 +125,8 @@ class IDPage extends Component {
     }
 
     render() {
-        const { profile, isMe, isFollow } = this.state;
+        const { profile, titleName, isMe, isFollow } = this.state;
+        console.log(titleName);
         return (
             <div className="IDPage">
                 <div className="IDPage-Profile">
@@ -140,7 +141,7 @@ class IDPage extends Component {
                     </div>
                 </div>
                 <div className="IDPage-Photo">
-                    <Photos mypage = {true}/>
+                    {(titleName.trim()!=="") ? <MyPagePhotos id={titleName} outputType={"UPLOAD"}/> : null}
                 </div>
             </div>
         );
