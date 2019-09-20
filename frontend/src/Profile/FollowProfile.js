@@ -67,22 +67,27 @@ class FollowProfile extends Component{
     // 팔로우 기능을 수행하기 위한 onClick함수이다.
     // myID는 getMyID를 통해 가져오며, 유저가 로그인 하지 않았을 경우 null로 가져온다.
     // 하지만 상위 컴포넌트인 FollowPage.js에서 로그인 하지 않았을 경우 isMe=true 값을 통해 follow버튼 실행 X
-    handleClick = () => {
+    handleClick = (e) => {
         const myID = getMyID();
         const { id, isFollow } = this.state;
-        if(isFollow){
-            deleteFollow( myID, id ).then(_=>{
-                this.setState({
-                    isFollow: !isFollow
+        if(e.target.nodeName === "BUTTON"){
+            if(isFollow){
+                deleteFollow( myID, id ).then(_=>{
+                    this.setState({
+                        isFollow: !isFollow
+                    });
                 });
-            });
+            }
+            else{
+                addFollow( myID, id ).then(_=>{
+                    this.setState({
+                        isFollow: !isFollow
+                    });
+                });
+            }
         }
         else{
-            addFollow( myID, id ).then(_=>{
-                this.setState({
-                    isFollow: !isFollow
-                });
-            });
+            this.props.history.push(`/${id}`);
         }
     }
 
@@ -98,7 +103,7 @@ class FollowProfile extends Component{
         if(informationCheck && informationCheck2){
             const { id, isMe, isFollow } = this.state;
             const { profileImg, name } = this.state.profile;
-            return <div className = "FollowProfile">
+            return <div className = "FollowProfile" onClick={this.handleClick}>
                 <div className = "FollowProfile-Column">
                     <div className = "FollowProfile-ProfileImage" >
                         <ProfileImage profileImg = {profileImg} alt = {name}/>
@@ -106,7 +111,6 @@ class FollowProfile extends Component{
                     <div className = "FollowProfile-Info">
                         <span className = "Nickname"> {name} </span>
                         <span className = "Id"> {"@" + id} </span>
-                   
                     {isFollow != null &&
                     <div className = "FollowProfile-Follow-Btn">
                         <FollowButton

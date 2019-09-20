@@ -34,7 +34,7 @@ class MyPagePhotos extends Component {
             });
             this.settingsUpdate(id, outputType);
         }
-        else if(listLength !== prevProps.listLength){
+        else if(listLength !== prevProps.listLength || prevProps.id !== id){
             this.settingsUpdate(id, outputType);
         }
     }
@@ -49,6 +49,8 @@ class MyPagePhotos extends Component {
             case "LIKED" : this.setLiked(id, outputType);
                 return ;
             case "FAVORITE" : this.setFavorite(outputType);
+                return ;
+            case "OTHERUPLOAD" : this.setUpload(id, outputType);
                 return ;
             default: return null;
         }
@@ -129,7 +131,7 @@ class MyPagePhotos extends Component {
         const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true}), {
             maxWidth: 1006
         });
-        if(outputType === "UPLOAD" || outputType === "DOWNLOADED" || outputType === "LIKED")
+        if(outputType === "UPLOAD" || outputType === "DOWNLOADED" || outputType === "LIKED" || outputType === "OTHERUPLOAD")
             return <InfiniteScroll dataLength = {countImages.length} next = {this.fetchImages} hasMore = {isMore}>
                 <Grid className = "MyPagePhotos-Grid" component="ul" columnWidth={330} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
                     {countImages.map((image) => (

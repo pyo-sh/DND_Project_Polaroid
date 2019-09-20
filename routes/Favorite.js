@@ -70,6 +70,12 @@ Favorite.post('/delFavorite', (req, res) => { // 즐겨찾기한 이미지를 �
             imgID
         }
     })
+    .then(_=>{
+        res.send("삭제 성공!");
+    })
+    .catch(err => {
+        console.log(err);
+    })
 })
 
 Favorite.post('/isFav', (req, res) => { // 해당 유저한테 해당 이미지가 즐겨찾기 된 이미지인지 아닌지 알기 위한 함수.
