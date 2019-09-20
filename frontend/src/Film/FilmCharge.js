@@ -65,7 +65,7 @@ class FilmCharge extends Component {
               </div>
             </div>
             <div className = "Charge-Input-Count">
-              <p>충전할 필름 갯수</p>
+              <p>충전 필름</p>
               <input
                 className="Charge-Input"
                 placeholder="개수"
@@ -73,7 +73,8 @@ class FilmCharge extends Component {
                 onChange={this.onChange}
               />
             </div>
-            <div>
+            <span className = "Film-Span">결제금액 : <p>{money}</p>원</span>
+            <div className = "Film-Agree">
               <input
                 type="checkBox"
                 name="agree"
@@ -82,9 +83,8 @@ class FilmCharge extends Component {
               />
               <div>동의</div>
             </div>
-            <span>{money}원</span>
             <button className="Charge-Button" type="submit">
-              충전!
+              충전
             </button>
           </form>
         </div>

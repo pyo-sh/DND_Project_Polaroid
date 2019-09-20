@@ -8,16 +8,10 @@ const RankingFollow = ({allFollowRanking}) => {
     return(
         <div className = "Ranking-Box">
             <div className = "Ranking-Title">
-                <i className="followbtn fas fa-camera-retro"/>
-                인기 작가
+                총 팔로워 랭킹
             </div>
             
             <div className="Ranking-Box-Like">
-                <div className = "Ranking-Box-Menu">
-                    <div className = "Ranking-Box-Left">
-                        총 팔로워 랭킹
-                    </div>
-                </div>  
                 <RankingFollowAll allFollowRanking={allFollowRanking} />
             </div>     
         </div>
