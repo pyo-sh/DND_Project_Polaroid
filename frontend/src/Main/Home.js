@@ -6,15 +6,15 @@ import './Home.css';
 
 class Home extends Component {
     state = {
-        tag : ["하늘", "동물", "배경"],
+        // tag : ["하늘", "동물", "배경"],
         ranking : [],
     }
 
     render() {
-        const { tag } = this.state;
+        // const { tag } = this.state;
         return (
             <div >
-                <MainBanner tag={tag} />
+                <MainBanner />
                 <div className="Content">
                     <div className = "Content-Left"><Photos /></div>
                     <div className = "Content-Right"> <SideContent/></div>

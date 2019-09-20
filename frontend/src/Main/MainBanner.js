@@ -33,7 +33,7 @@ class MainBanner extends Component {
     }
 
     render() {
-        const {tag} = this.props;
+        // const {tag} = this.props;
         return (
             <div className = "Main-Banner">
                 <img className="Main-Banner-Img" src={require(`../img/banner/banner${number}.jpg`)} alt = ""></img>
@@ -45,9 +45,9 @@ class MainBanner extends Component {
                         <Icon className = "Icon-Search" name="search" size="large" onClick = {this.onSubmit}/>
                     </form>
                 </div>
-                <span className = "Main-Banner-Tag">자주 찾는 태그 : {tag.map((v,index) => {
+                {/* <span className = "Main-Banner-Tag">자주 찾는 태그 : {tag.map((v,index) => {
                     return <span key = {index}><a href="https://www.naver.com">{v}</a> </span>
-                })} </span>
+                })} </span> */}
             </div>
         );
     }
