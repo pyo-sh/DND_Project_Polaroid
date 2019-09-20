@@ -110,6 +110,7 @@ class SearchUser extends Component {
 
     render() {
         let {noUser, isFollow} = this.state
+        let userID = this.state.profile.id
         return ( 
         <div className = "Search-User">
             {noUser ? 
@@ -118,7 +119,7 @@ class SearchUser extends Component {
             
             :
 
-            this.state.searchids.map(ids => <Users id = {ids.ID} isMe = {ids.ID === this.getID()} isFollow = {isFollow}/>)
+            this.state.searchids.map(ids => <Users targetID = {ids.ID} userID = {this.getID()} isMe = {ids.ID === this.getID()}/>)
                 /*console.log(typeof(Object.values(ids).toString()))
                 console.log(this.getID())
                 console.log(Object.values(ids).toString() === this.getID())*/   
