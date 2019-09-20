@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NoImage from './NoImage';
 import './Photos.css';
 import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -8,15 +9,18 @@ import { withRouter } from 'react-router-dom';
 import { upImageView } from './MainFunction'
 
 class Photos extends Component {
-    state = {
+    
+  state = {
         images: [],
         searchimages: [],
         categoryimages: [],
+        noImage: false, //true일 경우 이미지 없음
         count: 30, //한번에 사진 30개씩 부름
         start: 0,
         isMore : true,
         outputType : 'home'
-      };
+    };
+
     componentDidMount() {
       const { count, start } = this.state;
       if(this.props.location.pathname.includes("category")){
@@ -43,6 +47,7 @@ class Photos extends Component {
         }
       })
     }
+
     componentDidUpdate(prevProps, prevState) { // 서치 값이 달라지면 다시 contrast 하게
       if(prevProps.outputType !== this.props.outputType) {
         this.setState({
@@ -81,9 +86,25 @@ class Photos extends Component {
       this.setState({
           searchimages
       })
+      console.log(searchimages)
       let legnth = searchimages.length
       this.props.getPhotoCount(legnth)
+      console.log(legnth === 0)
+      if(legnth === 0){
+        this.setState({noImage: true})
+      }else{
+        this.setState({noImage: false})
+      }
+      console.log(this.state.noImage)
     }
+
+    /*noImages = () => {
+      if(this.state.legnth === 0){
+        this.setState({noImage: !this.state.noImage})
+      }
+      return this.state.noImage;
+      
+    }*/
 
     cateContrast = () => {
       let { category } = this.props;
@@ -98,14 +119,14 @@ class Photos extends Component {
     }
    
     render() {
-      const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {
-        maxWidth: 1006
-      });
-      const {outputType} = this.state
 
+      const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true }), {maxWidth: 1006 });
+
+      const {outputType, noImage} = this.state
+     
         return (
-            <div className = "Photos">   
-                <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore} >
+            <div className = "Photos">   {noImage ? <NoImage /> :
+            <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore} >
                     <Grid className = "Photos-Grid" component="ul" columnWidth={330} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
                     {outputType === "home" ?  
                         this.state.images.map((image) => (
@@ -116,6 +137,7 @@ class Photos extends Component {
                               </li>
                         ))  :
                         (outputType === "search" ? 
+                          //searchI
                         this.state.searchimages.map((image) => (
                           <li key = {image.imgID} >
                               <Link to = {`/imagepage/${image.imgID}`} onClick={() => this.onClick(image.imgID)}>
@@ -132,10 +154,10 @@ class Photos extends Component {
                         )))}
                       
                     </Grid>
-                </InfiniteScroll>
+                </InfiniteScroll> }
+                
             </div>
         );
-    }
-  }
-
+      }
+    }   
 export default withRouter(Photos);
