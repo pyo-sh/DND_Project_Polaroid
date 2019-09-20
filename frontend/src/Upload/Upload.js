@@ -55,7 +55,7 @@ class Upload2 extends Component {
 
     // 아닐 경우 경고창 뜨게함
     else{
-      alert("다 체크해!")
+      alert("체크항목이 모자랍니다.")
     }
   };
 
@@ -109,11 +109,11 @@ class Upload2 extends Component {
       cateCheck: true
     })
   }
-  priviewOnload = () => { // 사진 업로드 했을 때 프리뷰 로딩 끝나고 나면 실행 되는 함수, 로드 되고 나서 가로 세로를 받아서 state에 저장
-    const { width , height } = this.preview
+  priviewOnload = (e) => { // 사진 업로드 했을 때 프리뷰 로딩 끝나고 나면 실행 되는 함수, 로드 되고 나서 가로 세로를 받아서 state에 저장
+    const { naturalWidth , naturalHeight } = this.preview
     this.setState({
-      imgWidth : width,
-      imgHeight : height
+      imgWidth : naturalWidth,
+      imgHeight : naturalHeight
     })
   }
 
@@ -176,21 +176,18 @@ class Upload2 extends Component {
   render(){
     let {imgReulst} = this.state;
     let $imgNameUrl = null;
-    if(imgReulst) {$imgNameUrl = (<img src={imgReulst} onLoad={this.priviewOnload} ref={(c) => {this.preview = c}} alt=""/>)}
-
-
+    if(imgReulst) {
+      $imgNameUrl = (<img className = "Upload-Photo" src = {imgReulst} onLoad={this.priviewOnload} ref={(c) => this.preview = c} alt=""/>)
+    }
     // else{$imgNameUrl = (<div className = "previewText">Image Preview</div>)}
-    else{$imgNameUrl = ( <> <label for="imgFile">preview image</label> 
-    <input id="imgFile" type="file" name="img" file={this.state.img} /* value={this.state.fileName} */ onChange={this.handleFileChange}/></>)}
+    else{$imgNameUrl = ( <> <label for="imgFile">클릭하여 이미지를 등록하세요.</label> 
+    <input id="imgFile" type="file" nawme="img" file={this.state.img} /* value={this.state.fileName} */ onChange={this.handleFileChange}/></>)}
 
 
     return (
-      <div className="Upload">
-        <div className="Frame">
+      <div className="Content" id = 'upload'>
           <div className="Letter">UPLOAD</div>
-          <div className="Frame-in">
-          <form onSubmit={this.handleFormSubmit}>
-            <div>
+          <form className="Frame" onSubmit={this.handleFormSubmit}>
               <div className = "previewComponent">
                 {/* <label for="imgFile">preview image</label> 
                 <input id="imgFile" type="file" name="img" file={this.state.img}  onChange={this.handleFileChange}/>
@@ -198,43 +195,69 @@ class Upload2 extends Component {
                 {$imgNameUrl}
               </div>
                 {/*<input className="imageBtn" type="file" name="img" file={this.state.img} value={this.state.fileName} onChange={this.handleFileChange}/> */}
-            </div>
-              <div className="CatTag">
-              <div className="CatTagCategory">카테고리
-                  <select className='categoryDropBox' name="category" value={this.state.category} onChange={this.handleCateValueChange}>
-                    {options.map(item => (
-                      <option key={item.value} value={item.value} >
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
+            
+              <div className="Upload-Column">
+                <div className="CatTagCategory">
+                  <div className = "Upload-Title">카테고리</div>
+                  <select className='CategoryDropBox' name="category" value={this.state.category} onChange={this.handleCateValueChange}>
+                      {options.map(item => (
+                        <option key={item.value} value={item.value} >
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
                 </div>
-                <div className="Tag">태그
-                  <input className="TagInput" type="text" name="tag" value={this.state.tag} onChange={this.handleValueChange} placeholder="쉼표로 구분"></input>
+                      
+                <div className="Upload-Tag">
+                  <div className = "Upload-Title"> 태그</div>
+                  <div className = "Upload-Tag-Column">
+                    <input className="TagInput" type="text" name="tag" value={this.state.tag} onChange={this.handleValueChange} placeholder="쉼표로 구분"></input>
+                    <div className="TagExpl">태그를 5개 이하로 작성하시오</div>
+                  </div>
                 </div>
               </div>
-              <div className="TagExpl">5개 이하</div>
-              <div className="Distribute">
-                <input className="free" type='radio' name='distribute' value="free" onChange={this.handleDisValueChange} />무료배포
-                <input className="charge" type='radio' name='distribute' value="charge" onChange={this.handleDisValueChange}/>유료배포
+
+              <div className="Upload-Column">
+                <div className = "Upload-Title">배포 형태</div>
+                <div className = "Upload-Coulmn-inputRadio">
+                  <input className="free" type='radio' name='distribute' value="free" onChange={this.handleDisValueChange} />무료배포
+                </div>
+                <div className = "Upload-Coulmn-inputRadio">
+                  <input className="charge" type='radio' name='distribute' value="charge" onChange={this.handleDisValueChange}/>유료배포
+                </div>
               </div>
-              <div className={"Price" + (this.state.distribute === 'charge' ? " Visible" : "")}>가격
-                <input className="PriceInput" type="text" name="price" value={this.state.price} onChange={this.handleValueChange}></input>
+              <div className = {(this.state.distribute === 'charge' ? " Visible" : " Unvisible")}>
+                <div className = "Upload-Column">
+                  <div className = "Upload-Title">가격</div>
+                  <input className="PriceInput" type="text" name="price" value={this.state.price} onChange={this.handleValueChange} placeholder="필름기준, 필름 1장은 1000원입니다."></input>
+                </div>
+                <div className="Upload-Column">
+                  <div className = "Upload-Title">저작권</div>
+                  <div className = "Upload-Copyright">
+                    <div className = "Upload-Coulmn-inputCheckbox">
+                      <input className="CommercialAvailable" type='checkbox' name='commercialAvailable' value='NotCommercialAvailable' onChange={this.handleCpValueChange}/>상업적 이용 불가
+                    </div>
+                    <div className = "Upload-Coulmn-inputCheckbox">
+                      <input className="CopyrightNotice" type='checkbox' name='copyrightNotice' value='CopyrightNotice' onChange={this.handleCpValueChange}/>저작권 표시
+                    </div>
+                    <div className = "Upload-Coulmn-inputCheckbox">
+                      <input className="Change" type='checkbox' name='noChange' value='NoChange' onChange={this.handleCpValueChange}/>변경금지
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="Copyright">
-                <input className="CommercialAvailable" type='checkbox' name='commercialAvailable' value='NotCommercialAvailable' onChange={this.handleCpValueChange}/>상업적 이용 불가
-                <input className="CopyrightNotice" type='checkbox' name='copyrightNotice' value='CopyrightNotice' onChange={this.handleCpValueChange}/>저작권 표시
-                <input className="Change" type='checkbox' name='noChange' value='NoChange' onChange={this.handleCpValueChange}/>변경금지
-              </div>
-              <div className="Visibility">
-                <input className="public" type='radio' name='visibility' value='public' onChange={this.handleVisValueChange}/>공개
-                <input className="private" type='radio' name='visibility' value='private' onChange={this.handleVisValueChange}/>비공개
+              <div className="Upload-Column">
+                <div className = "Upload-Title">공개 여부</div>
+                <div className = "Upload-Coulmn-inputRadio">
+                  <input className="public" type='radio' name='visibility' value='public' onChange={this.handleVisValueChange}/>공개
+                </div>
+                <div className = "Upload-Coulmn-inputRadio" id = 'private'> 
+                  <input className="private" type='radio' name='visibility' value='private' onChange={this.handleVisValueChange}/>비공개
+                </div>
               </div>
               <button className="uploadBtn" type="submit" onClick={this.handleFormSubmit}>UPLOAD</button>
             </form>
           </div>
-        </div>
-      </div>
     );
   }
 }

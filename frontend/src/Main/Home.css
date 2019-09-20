@@ -25,6 +25,13 @@
     width: 350px;
   }
 
+  #upload{
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom : 50px;
+  }
+  
   @media screen and (max-width : 100%){
     .Content {
       display : flex;
