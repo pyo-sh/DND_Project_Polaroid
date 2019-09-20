@@ -231,6 +231,7 @@ class ImageInfo extends Component {
         myID
       } = this.state;
       const { payment } = this.props;
+      console.log(tag)
       return (
         <div className="ImageInfo">
           <Registrant userProfile={userProfile} myID={myID} followOnClick={this.followOnClick}/>
@@ -286,6 +287,7 @@ class ImageInfo extends Component {
           </div>
         </div>
       );
+     
     }
     else{
       return <React.Fragment></React.Fragment>;

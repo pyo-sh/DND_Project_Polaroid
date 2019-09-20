@@ -46,7 +46,7 @@ class Payment extends Component {
             alert('다운로드 되었습니다');
         }
         else {
-            if(film > price ){
+            if(film >= price ){
                 this.props._minusFilm(price);
                 this.props.downloadClick(price);
                 this.props.handlePayment();
