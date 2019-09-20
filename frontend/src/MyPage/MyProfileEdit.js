@@ -147,7 +147,6 @@ class MyProfileEdit extends Component {
       }
 
       else{
-        console.log(this.state.pwCheckBoolean);
         this.setState({
           pwCheckBoolean: false
         })
@@ -161,7 +160,6 @@ class MyProfileEdit extends Component {
   };
 
   onClickOpenDrawal = () => {
-    console.log('12');
     this.setState({
       isOpen : true
      })
