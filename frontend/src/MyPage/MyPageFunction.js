@@ -40,7 +40,7 @@ export const checkPassword = async user => {
     })
 }
 
-export const getAllFavorite = async userID => {
+export const getAllFavorite = async userID => {    //모든 폴더와 그 폴더네임, url 들을 가져오는 함수.
     return await axios
     .post('/api/favorite/getAll', {
         userID
