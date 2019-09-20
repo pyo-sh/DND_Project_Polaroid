@@ -27,14 +27,22 @@ class MyPagePhotos extends Component {
         this.settingsUpdate(id, outputType);
     }
     componentDidUpdate(prevProps, prevState) {
-        const { id, outputType } = this.props;
+        const { id, outputType, photoList } = this.props;
         if(prevProps.outputType !== outputType) {
             this.setState({
                 outputType : "home"
             });
-            this.settingsUpdate(id, outputType)
+            this.settingsUpdate(id, outputType);
+        }
+        else if(prevProps.photoList !== photoList){
+            this.setState({
+                outputType : "home"
+            });
+            this.settingsUpdate(id, outputType);
         }
     }
+
+    // set 관련 함수 = 모든 데이터가 들어오지 않았을 때, 처음 데이터 세팅
     settingsUpdate = ( id, outputType ) => {
         switch(outputType){
             case "UPLOAD" : this.setUpload(id, outputType);
@@ -43,7 +51,8 @@ class MyPagePhotos extends Component {
                 return ;
             case "LIKED" : this.setLiked(id, outputType);
                 return ;
-            case "FAVORITE" : return null;
+            case "FAVORITE" : this.setFavorite(outputType);
+                return ;
             default: return null;
         }
     }
@@ -97,24 +106,25 @@ class MyPagePhotos extends Component {
         });
     }
     setFavorite = (outputType) => {
-        const {image} = this.props;
+        const { photoList } = this.props;
+        console.dir(photoList);
         let isMore = true;
-        if(image.length <= 30)
+        if(photoList.length <= 30)
             isMore = false;
         this.setState({
-            images: image,
-            countImages: image.slice(0,30),
+            images: photoList,
+            countImages: photoList.slice(0,30),
             start: 30,
             isMore : isMore,
             outputType : outputType
         });
     }
 
+    // fetch관련 함수 = 셋팅된 데이터를 토대로 다른 이미지를 load 하는것
     fetchUpload = () => {
         const id = this.props.id;
         let { images, countImages, start, count, isMore } = this.state;
         axios.get(`/api/images/getAllImagesUser?start=${start}&count=${count}`).then(res => {
-            // 받아온 이미지의 배열 길이가 30 이 아니면 더이상 불러올 필요가 없지.
             if(res.data.length !== 30){
                 isMore = false;
             }
@@ -152,7 +162,6 @@ class MyPagePhotos extends Component {
         const Grid = makeResponsive(measureItems(CSSGrid, {measureImages :  true}), {
             maxWidth: 1006
         });
-        // favorite 들어오면 outputType === "UPLOAD" "DOWNLOADED" "LIKED"로 바꾸어야
         if(outputType === "UPLOAD" || outputType === "DOWNLOADED" || outputType === "LIKED")
             return <InfiniteScroll dataLength = {countImages.length} next = {(outputType === "UPLOAD") ? this.fetchUpload : this.fetchImages} hasMore = {isMore}>
                 <Grid className = "MyPagePhotos-Grid" component="ul" columnWidth={330} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
@@ -171,9 +180,9 @@ class MyPagePhotos extends Component {
                     {countImages.map((image) => (
                         <li key = {image.imgID}>
                             <div className="MyPagePhotos-Grid-Delete">
-                                <Icon className = "MyPagePhotos-Grid-Delete-Btn" name = "x" onClick={null} />
+                                <Icon className = "MyPagePhotos-Grid-Delete-Btn" name = "x" onClick={this.props.photoDeleteOnClick} />
                                 <Link to = {`/imagepage/${image.imgID}`}>
-                                    <img className = "MyPagePhotos-photo" src={image.imgUrl} alt="이미지"/>
+                                    <img className = "MyPagePhotos-photo" src={image.imgUrl} alt={image.imgID}/>
                                 </Link>
                             </div>
                         </li>
