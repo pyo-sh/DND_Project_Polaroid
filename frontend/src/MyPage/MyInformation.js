@@ -55,37 +55,35 @@ class MyInformation extends Component{
         })
     }
 
+    handleEnter = (e) => {
+        if(e.charCode === 13){
+            console.log('asd');
+            this.checkOnClick();
+       }
+    }
+
     _renderPage = () => {
         const checkPW = this.state.checkPW;
         if(checkPW){
             return <MyProfileEdit profile={this.props.profile} getInfo={this.props.getInfo}/>;
         }
         else{
-            return <MyInformationMenuInput
-                checkOnClick={this.checkOnClick}
-                getPassword={this.getPassword}
-                failedPW={this.state.failedPW}
-                />;
+            return (
+                <div className="MyInformation-Pw">
+                    <div className="MyInformation-Pw-Column">
+                        <h4 className = "MyInformation-Pw-Title">비밀번호</h4>
+                        <div className = "MyInformation-Pw-Box">
+                            <input onChange={this.getPassword} className="MyInformation-Pw-Input" type="password" onKeyPress= {this.handleEnter}/>
+                            <button type = "submit" onClick={this.checkOnClick} className="MyInformation-Pw-Btn">확인</button>
+                        </div>
+                    </div>
+                    <div className="MyInformation-Pw-Column">
+                        <MyInformationIncorrect failedPW={this.state.failedPW}/>
+                    </div>
+                </div>
+            );
         }
     }
-}
-
-
-const MyInformationMenuInput = ({checkOnClick, getPassword, failedPW}) => {
-    return(
-        <div className="MyInformation-Pw">
-            <div className="MyInformation-Pw-Column">
-                <h4 className = "MyInformation-Pw-Title">비밀번호</h4>
-                <div className = "MyInformation-Pw-Box">
-                    <input onChange={getPassword} className="MyInformation-Pw-Input" type="password" />
-                    <button onClick={checkOnClick} className="MyInformation-Pw-Btn">확인</button>
-                </div>
-            </div>
-            <div className="MyInformation-Pw-Column">
-                <MyInformationIncorrect failedPW={failedPW}/>
-            </div>
-        </div>
-    );
 }
 
 const MyInformationIncorrect = ({failedPW}) => {
