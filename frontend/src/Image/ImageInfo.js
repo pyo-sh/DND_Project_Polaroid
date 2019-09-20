@@ -169,6 +169,10 @@ class ImageInfo extends Component {
     if(localStorage.usertoken || sessionStorage.usertoken){
       this._getFilm(); // 토큰이 더 적으면 충전 하게 만들어야함(충전 하는 곳으로 가시겠습니까 정도?) 토큰이 같거나 더 많을 때 다운로드 받을 수 있게
       this.props.handlePayment();
+        if(this.state.distribute === "free"){
+          this.downloadClick(0);
+          alert('다운로드 되었습니다');
+        }
     }
     else {
       alert('로그인을 해주세요');
@@ -236,7 +240,7 @@ class ImageInfo extends Component {
               {distribute === "free" ?  "Free Download": "Premium Download"}{" "}
             </button>
           </div>
-          {payment ? (
+          {(payment && (distribute !== "free"))? (
             <Payment
               film={film}
               price={price}

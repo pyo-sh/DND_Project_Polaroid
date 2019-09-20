@@ -1,35 +1,20 @@
 .MyFavorite-Buttons{
     position: relative;
     z-index: 30;
-    width: 175px;
+    width: 178px;
     border-radius: 8px;
-    left: 520px;
-    top: -39px;
+    left: 495px;
+    top: -43px;
 }
 .MyFavorite-Fake-Button{
     position: absolute;
     width: 175px;
     height: 45px;
-    padding: 16px 20px;
+    
     border: none;
     outline: none;
     background: none;
     top: -45px;
-}
-.MyFavorite-Fake-Button:before{
-    content: "";
-    position: absolute;
-    /* 삼각형으로 만들기~~!!!! */
-    width: 0px;
-    height: 0px;
-    border-top:     7px solid none;
-    border-bottom:  14px solid rgb(131, 131, 131, 50%);
-    border-right:   14px solid transparent;
-    border-left:    14px solid  transparent;
-    /* 삼각형 다만들고 위치 조정 */
-    left: 20px;
-    top: 45px;
-    transform: rotate(180deg);
 }
 #MyFavorite-Folders{
     display: flex;
@@ -37,6 +22,7 @@
     background: none;
     max-height: 0;
 }
+
 /* MyFavorite-Folder-Open와 MyFavorite-Folder-Close는 겹치는 부분은 같이 바꿔줘야 한다. */
 .MyFavorite-Folder-Open{
     overflow: hidden;
@@ -52,34 +38,29 @@
     outline: none;
 }
 .MyFavorite-Buttons .MyFavorite-Folder-Close button{
-    padding: 16px 26px;
+    box-shadow: 0 5px 4px rgb(200, 200, 200);
+    padding: 16px 24px;
     text-align: start;
     transition: 0.3s;
-    font-size: 14px;
-    margin: 1px 0;
+    font-size: 15px;
+    color : rgb(100, 100, 100);
+    background: rgb(240, 240, 240);
     position: relative;
-    border: none;
+    border: 1px solid rgb(200, 200, 200);
+    border-bottom: none;
+    border-top : none;
     outline: none;
 }
-.MyFavorite-Folder-Close button:before{
-    content: "";
-    position: absolute;
-    width: 7px;
-    height: 100%;
-    background: black;
-    top: 0;
-    left: 0;
-    transition: 0.3s;
-    opacity: 0;
+
+
+.MyFavorite-Buttons .MyFavorite-Folder-Close button:last-child{
+    border-bottom: 1px solid rgb(200, 200, 200);
+    border-radius: 0 0 5px 5px;
 }
-.MyFavorite-Folder-Close button:hover:before{
-    opacity: 1;
-}
-.MyFavorite-Selected-Button{
-    color: black;
-}
-.MyFavorite-Unselected-Button{
-    color: white;
+
+.MyFavorite-Folder-Close button:hover{
+    background: rgb(220, 220, 220);
+    font-weight: 700;
 }
 
 .MyFavorite-Window{
@@ -100,55 +81,77 @@
     font-size: 15px;
 }
 .MyFavorite-Window-Buttons{
+    position: relative;
     height: 55px;
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: flex-start;
+    top : -45px;
+    left : 40px;
 }
+
 .MyFavorite-Folder-AddBefore{
     margin-left: 330px;
-    height: 40px;
+    height: 35px;
     border: none;
     outline: none;
+    color: rgb(100, 100, 100);
+    background: rgb(230, 230, 230);
+    border-radius: 5px;
 }
 .MyFavorite-Folder-Delete{
-    height: 40px;
+    height: 35px;
     border: none;
     outline: none;
-    margin-left: auto;
+    margin-left: 10px;
+    color: rgb(100, 100, 100);
+    background: rgb(230, 230, 230);
+    border-radius: 5px;
 }
 
 .MyFavorite-Add-Folder{
-    width: 400px;
-    height: 50px;
+    width: 260px;
+    height: 35px;
     display: flex;
     align-items: center;
+    color: rgb(100, 100, 100);
+    background: rgb(230, 230, 230);
+    border-radius: 5px;
 }
+
 .MyFavorit-New-Folder{
     border: none;
+    border-radius: 5px;
     outline:none;
-    width: 170px;
-    font-weight: 600;
+    width: 175px;
+    height: 25px;
+    margin-left : 5px;
+    padding-left: 7px;
 }
+
 .MyFavorite-Confirm-Area{
     right: 0;
-    margin-left: auto;
+    margin-left : auto;
 }
+
 .MyFavorite-Cancel{
+    padding : 0;
+    margin-right: 8px;
     background: none;
     font-size: 13px;
     color: gray;
     cursor: pointer;
-    border-radius: 0 0 10px 10px;
     border: none;
     outline: none;
 }
+
 .MyFavorite-Confirm{
+    padding : 0;
+    margin-right: 8px;
     background: none;
     color: rgb(82, 195, 181);
     font-size: 13px;
     cursor: pointer;
-    border-radius: 0 0 10px 10px;
     border: none;
     outline: none;
 }

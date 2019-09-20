@@ -85,6 +85,13 @@ class FollowProfile extends Component{
         }
     }
 
+    movePage = (e) => {
+        e.preventDefault();
+
+        if(e.target.nodeName !== 'BUTTON')
+            this.props.history.push(`/${this.state.id}`);
+    }
+
     renderProfile = () => {
         const {informationCheck,informationCheck2} = this.state;
         if(informationCheck && informationCheck2){
@@ -92,24 +99,23 @@ class FollowProfile extends Component{
             const { profileImg, name } = this.state.profile;
             return <div className = "FollowProfile">
                 <div className = "FollowProfile-Column">
-                    <Link className= "FollowProfile-Column" to = {`/${id}`}>
-                        <div className = "FollowProfile-ProfileImage" >
-                            <ProfileImage profileImg = {profileImg} alt = {name}/>
-                        </div>
-                        <div className = "FollowProfile-Info">
-                            <span className = "Nickname"> {name} </span>
-                            <span className = "Id"> {"@" + id} </span>
-                        </div>
-                    </Link>
-                    { isFollow != null &&
-                        <div className = "FollowProfile-Follow-Btn">
-                            <FollowButton
-                                isMe = {isMe}
-                                isFollow = {isFollow}
-                                handleClick = {this.handleClick}
-                                />
-                        </div>
-                    }
+                    <div className = "FollowProfile-ProfileImage" >
+                        <ProfileImage profileImg = {profileImg} alt = {name}/>
+                    </div>
+                    <div className = "FollowProfile-Info">
+                        <span className = "Nickname"> {name} </span>
+                        <span className = "Id"> {"@" + id} </span>
+                   
+                    {isFollow != null &&
+                    <div className = "FollowProfile-Follow-Btn">
+                        <FollowButton
+                            isMe = {isMe}
+                            isFollow = {isFollow}
+                            handleClick = {this.handleClick}
+                            />
+                            
+                    </div>
+                    } </div>
                 </div>
             </div>
         }

@@ -17,7 +17,8 @@ class MyFavorite extends Component {
 
         input: "",
         clickFolder: false,
-        clickAddFolder: false
+        clickAddFolder: false,
+        folderCheck : false
     }
     // 지금 자신의 아이디를 가져온 뒤, favorite 폴더를 불러온다.
     componentWillMount() {
@@ -60,7 +61,7 @@ class MyFavorite extends Component {
     }
 
     // 폴더를 클릭 했을 때 발생하는 이벤트.
-    favOnClick = (e) => {
+    favOnClick = (e) => {       
         if(e.target.className==="MyFavorite-Selected-Button"){}
         else{
             let children = [...e.target.parentNode.children];
@@ -69,9 +70,11 @@ class MyFavorite extends Component {
                 return null;
             })
             e.target.className="MyFavorite-Selected-Button";
+            console.log(e.target.innerText);
             this.setState({
                 nowPage: parseInt(e.target.innerText)
             });
+            this.menuOnClick();
         }
     }
     // 폴더를 나열하게 해주는 버튼을 클릭하면 나오는 것.
@@ -93,6 +96,7 @@ class MyFavorite extends Component {
         const { folder, nowPage, ID } = this.state;
         delFavFolder(folder[nowPage-1].favFolderNum);
         this.getFolderList(ID);
+        alert("현재 폴더를 삭제합니다.")
     }
     // 현재 폴더 삭제 버튼 나오게 하기
     renderMenuDeleteBtn = () => {
@@ -256,8 +260,8 @@ const AddNewFolder = ({value, onChange, onClickConfirm, closeNewFolder}) => {
                     onChange={onChange}
                 />
                 <div className="MyFavorite-Confirm-Area">
-                    <button className="MyFavorite-Cancel" onClick={closeNewFolder}>취소</button>
                     <button className="MyFavorite-Confirm" onClick={onClickConfirm}>확인</button>
+                    <button className="MyFavorite-Cancel" onClick={closeNewFolder}>취소</button>
                 </div>     
             </form>
         </div>
