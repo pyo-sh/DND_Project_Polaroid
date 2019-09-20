@@ -26,7 +26,7 @@ LikeRanking.get("/month", (req, res) => {
   if (month < 10) {
     month = "0" + month;
   }
-  let query = `SELECT a.imgID , b.imgName, b.imgUrl, COUNT(*) AS count, SUBSTRING(likeDate, 1,7) AS month FROM imgLikeds a, images b
+  let query = `SELECT a.imgID , b.imgName, b.imgUrl, b.userID, COUNT(*) AS count, SUBSTRING(likeDate, 1,7) AS month FROM imgLikeds a, images b
   WHERE  a.imgID = b.imgID  and SUBSTRING(likeDate,1,7) = "${year}-${month}" GROUP BY imgID ORDER BY COUNT(*) DESC, imgName LIMIT 5;`;
 
   db.sequelize.query(query).then(([results, metadata]) => {
@@ -108,7 +108,7 @@ LikeRanking.get("/week", (req, res) => {
   if (startMonth < 10) {
     startMonth = "0" + startMonth;
   }
-  let query = `SELECT a.imgID, b.imgName, b.imgUrl, COUNT(*) AS count FROM imgLikeds a, images b 
+  let query = `SELECT a.imgID, b.imgName, b.imgUrl, b.userID, COUNT(*) AS count FROM imgLikeds a, images b 
   WHERE a.imgID = b.imgID AND substring(likeDate,1,10) BETWEEN "${startYear}-${startMonth}-${startday}" AND "${year}-${month}-${today}" GROUP BY imgid ORDER BY COUNT(*) DESC, imgName LIMIT 5;`;
 
   db.sequelize.query(query).then(([results, metadata]) => {
@@ -135,7 +135,7 @@ LikeRanking.get("/daily", (req, res) => {
   if (day < 10) {
     day = "0" + day;
   }
-  let query = `SELECT a.imgID, b.imgName, b.imgUrl, COUNT(*) AS COUNT, SUBSTRING(likeDate,9,2) AS DAY FROM imgLikeds a, images b 
+  let query = `SELECT a.imgID, b.imgName, b.imgUrl, b.userID, COUNT(*) AS COUNT, SUBSTRING(likeDate,9,2) AS DAY FROM imgLikeds a, images b 
     WHERE a.imgID = b.imgID AND substring(likeDate,9,2) = ${day} GROUP BY a.imgID, likeDate order by COUNT(*) DESC LIMIT 5;`;
 
   db.sequelize.query(query).then(([results, metadata]) => {

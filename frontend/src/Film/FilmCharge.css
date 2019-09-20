@@ -31,15 +31,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border : 1px solid rgb(180, 180, 180);
+    border : 1px solid rgb(230, 230, 230);
     border-radius: 7px;
-    background:rgb(230,230,230);
     padding: 35px;
     margin-top : 30px;
+    box-shadow: 0 0 5px rgb(200, 200, 200);
 }
 
 .Charge-Contents{
-    margin: 10px;
+    margin-bottom: 25px;
     font-size: 17px;
 }
 
@@ -54,20 +54,62 @@
 }
 
 
+.Charge-Input-Count{
+    display: flex;
+    align-items: center;
+}
+
+.Charge-Input-Count p {
+    margin-top : 5px;
+    margin-bottom: 0;
+    margin-right : 5px;
+}
+
 .Charge-Input{
     width: 250px;
-    height: 25px;
-    display: block;
-    border : none;
-    border-radius: 5px;
+    height: 35px;
+    border: none;
     outline: none;
-    padding-left: 10px;
+    padding-left: 15px;
+    background: rgb(230,230,230);
+    border-radius: 55px;
 }
 
 .Charge-Button{
-    justify-self: flex-start;
-    border: none;
-    border-radius: 10px;
-    margin-top: 5px;
-    outline:none;
+    position: relative;
+    right: 0;
+    margin-left: 266px;
+    text-align: center;
+    font-size: 16px;
+    background-color: rgb(82, 195, 181);
+    color: white;  
+    border-radius: 5px;
+    width: 50px;
+    height: 30px;
+    border-radius: 5px;
+    border : none;
+     outline : none;
+     margin-top : 5px;
+    margin-bottom: 10px;
+}
+
+.Film-Span{
+    display: flex;
+    justify-content: flex-end;
+    margin-top : 5px;
+}
+.Film-Span p{
+    display: inline;
+    color : rgb(82, 195, 181);
+    margin : 0 5px;
+}
+.Film-Agree{
+    display: flex;
+    justify-content: flex-end;
+    margin-top : 25px;
+}
+
+.Film-Agree input{
+    margin-top: 3px;
+    margin-right: 5px;
 }
