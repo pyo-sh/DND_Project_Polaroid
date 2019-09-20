@@ -219,7 +219,7 @@ class ImageInfo extends Component {
         commercialAvailable,
         copyrightNotice,
         noChange,
-        visibility,
+        // visibility,
         // userID,
         downCount,
         imgWidth,

@@ -216,8 +216,8 @@ class MyFavorite extends Component {
                         }
                         photoList = photoList.concat(list);
                     }
-                    return null;
                 }
+                return null;
             })
         }
         return (

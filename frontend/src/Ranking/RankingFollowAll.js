@@ -7,8 +7,8 @@ const RankingFollowAll = ({allFollowRanking}) => {
         <ol className = "Ranking-Box-Text">
           {allFollowRanking.map((user, index) => {
               return (
-                <Link to = {`/${user.userId}`}>
-                    <li key={user.imgID} className="Ranking-Box-Ranking">
+                <Link to = {`/${user.userId}`} key={user.imgID}>
+                    <li className="Ranking-Box-Ranking">
                         <img src = {user.userProfileImg}  alt = ''/> 
                         <div className = "Ranking-Id">{user.userNickname}</div>
                    </li>

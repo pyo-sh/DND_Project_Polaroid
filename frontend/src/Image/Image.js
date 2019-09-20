@@ -8,7 +8,7 @@ import DeleteImage from './DeleteImage';
 import { withRouter, Link } from 'react-router-dom';
 import { getLikeCount , imgLikeUp, imgLikeDown, isGetLike, isFav, delMyImg } from './ImageFunction';
 import { getImageInfo } from './ImageFunction';
-import { getAllInfo } from '../MyPage/MyPageFunction';
+// import { getAllInfo } from '../MyPage/MyPageFunction';
 import jwt_decode from 'jwt-decode';
 
 class Image extends Component {
@@ -257,7 +257,7 @@ class ImageUseInformation extends Component {
         let markname = this.state.isMarkClick ? "star" : "star outline"
         let likename = this.state.isLikeClick ? "heart" : "heart outline"
         let _delete = (loginID === userID) ? this.deleteOn() : "" //userID와 loginID가 같으면 삭제 버튼 나오게
-        const { imgWidth, imgHeight, view} = this.props;
+        const { imgWidth, imgHeight} = this.props;
         return(
             <div className = "Image-Page-Column">
             <p> {imgWidth +" x "+ imgHeight} </p>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './MyPagePhotos.css';
-import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
 import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';

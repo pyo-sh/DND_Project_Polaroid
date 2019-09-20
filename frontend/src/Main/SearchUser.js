@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 import './ContentTop.css';
 import { getAllUser } from './MainFunction';
 import { getAllInfo } from '../MyPage/MyPageFunction';
-import { getMyID, addFollow, deleteFollow, isFollowInfo } from '../Profile/ProfileFunction';
+import { getMyID, addFollow, deleteFollow } from '../Profile/ProfileFunction';
 import './NoImage.css'
 
 class SearchUser extends Component {

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './ProfileSmall.css';
 import {withRouter} from 'react-router-dom';
 import { getAllInfo } from '../MyPage/MyPageFunction';
-import { getMyID, addFollow, deleteFollow, isFollowInfo,  getUserUpImg } from './ProfileFunction';
+import { addFollow, deleteFollow, isFollowInfo,  getUserUpImg } from './ProfileFunction';
 
 
 // 나인지 아닌지, 팔로우 기능을 추가해줘야 하는지 아닌지. 버튼 추가해주거나 홈페이지로 넘어가주거나,
