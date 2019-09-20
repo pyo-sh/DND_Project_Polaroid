@@ -216,10 +216,10 @@ class ImageInfo extends Component {
         tag,
         distribute,
         price,
-        // commercialAvailable,
-        // copyrightNotice,
-        // noChange,
-        // visibility,
+        commercialAvailable,
+        copyrightNotice,
+        noChange,
+        visibility,
         // userID,
         downCount,
         imgWidth,
@@ -248,9 +248,9 @@ class ImageInfo extends Component {
               downloadClick={this.downloadClick}
               _minusFilm={this._minusFilm}
               isDown = {this.state.isDown}
-              commercialAvailable = "NotCommercialAvailable"
-              copyrightNotice = "CopyrightNotice"
-              noChange = "NoChange"
+              commercialAvailable = {commercialAvailable}
+              copyrightNotice = {copyrightNotice}
+              noChange = {noChange}
             />
           ) : null}
           <div className="ImageInfo-Column">

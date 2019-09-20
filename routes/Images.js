@@ -142,9 +142,17 @@ Images.post('/delmyimg', (req , res) => { // 나의 이미지를 지우는 것.
     })
 });
 
-Images.get('/getUserUpImg/:userID', (req, res) => { // 유저아이디를 받아서 그 유저가 업로드한 사진 아이디와 url을 받아옴
+Images.get('/getUserUpImg/:userID', (req, res) => { // 유저아이디를 받아서 그 유저가 업로드한 최근 사진 아이디와 url을 받아옴(3개)
     const { userID } = req.params;
     let query = `SELECT imgID, imgUrl FROM images WHERE userID = "${userID}" ORDER BY uploadDate desc LIMIT 3;`
+    db.sequelize.query(query).then(([results, metaData]) => {
+        res.send(results);
+    })
+})
+
+Images.get('/getUserAllUpImg/:userID', (req, res) => { // 유저아이디를 받아서 그 유저가 업로드한 사진 아이디와 url을 전부가져옴
+    const { userID } = req.params;
+    let query = `SELECT imgID, imgUrl FROM images WHERE userID = "${userID}";`
     db.sequelize.query(query).then(([results, metaData]) => {
         res.send(results);
     })
