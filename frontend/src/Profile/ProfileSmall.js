@@ -68,6 +68,11 @@ class ProfileSmall extends Component{
                 isFollow
             });
             this.getInfo();
+            getUserUpImg(id).then(res => {
+                this.setState({
+                    images : res
+                })
+            })
         }
 
     }
