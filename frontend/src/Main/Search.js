@@ -17,9 +17,9 @@ class Search extends Component {
             photoCount : length
         })
     }
-    getUserCount = (userCount) => {
+    getUserCount = (userlength) => {
         this.setState({
-            userCount
+            userCount : userlength
         })
     }
 
@@ -38,8 +38,8 @@ class Search extends Component {
                 <div className = "Content-Top-Information">
                     <div className = "Title">{this.props.match.params.search}</div>
                     <div className = "Content-Top-Result">
-                        <div className = {"Result-Photos" + ((this.state.searchList === "photos") ? " Color" : "")} onClick = {this.changeStatetoPhotos}> {photoCount} Photos </div>
-                        <div className = {"Result-Users" + ((this.state.searchList === "users") ? " Color" : "")} onClick = {this.changeStatetoUsers}> {userCount} Users </div>
+                        <div className = {"Result-Photos" + ((this.state.searchList === "photos") ? " Color" : "")} onClick = {this.changeStatetoPhotos}> {this.state.searchList === "photos" ? photoCount : ""}  Photos </div>
+                        <div className = {"Result-Users" + ((this.state.searchList === "users") ? " Color" : "")} onClick = {this.changeStatetoUsers}> {this.state.searchList === "users" ? userCount : ""} Users </div>
                     </div>
                 </div>
                 <div className = "Content" id = "content-top-search">
