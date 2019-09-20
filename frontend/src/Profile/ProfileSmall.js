@@ -12,7 +12,8 @@ class ProfileSmall extends Component{
         informationCheck: false,
         // informationCheck2 = getInfo 에서 받는 프로필의 정보가 전부 받아지면 true
         informationCheck2: false,
-        id: "",
+        userID: "", //내 아이디
+        targetID: "",//상대방 아이디
         follow: true,
         isMe: false,
         // true : following, false : follower
@@ -28,31 +29,20 @@ class ProfileSmall extends Component{
         images : []
     };
 
-    componentWillMount(){
-        const { id, isMe, followTargetId } = this.props;
-        isFollowInfo(followTargetId, id).then(res => {
-            this.setState({
-                isFollow: res,
-                informationCheck: true
-            });
-        })
-        this.setState({
-            id: id,
-            isMe: isMe,
-        });
-        console.log(this.state.informationCheck)
-    }
 
     async componentDidMount(){
-        const {  isMe, isFollow } = this.props;
-        const { id } = this.state
-        await this.setState({
-            id,
-            isMe,
-            isFollow
-        });
+        const { targetID, isMe, userID } = this.props;
+        await isFollowInfo(userID, targetID).then(res => {
+            this.setState({
+                isFollow: res,
+                informationCheck: true,
+                userID,
+                targetID,
+                isMe,
+            });
+        })
         this.getInfo();
-         getUserUpImg(id).then(res => {
+         getUserUpImg(targetID).then(res => {
             this.setState({
                 images : res
             })
@@ -60,15 +50,14 @@ class ProfileSmall extends Component{
      }
 
     async componentDidUpdate(prevProps) {
-        if(prevProps.id !== this.props.id){
-            const { id, isMe, isFollow } = this.props;
+        if(prevProps.targetID !== this.props.targetID){
+            const { targetID, isMe } = this.props;
             await this.setState({
-                id,
+                targetID,
                 isMe,
-                isFollow
             });
             this.getInfo();
-            getUserUpImg(id).then(res => {
+            getUserUpImg(targetID).then(res => {
                 this.setState({
                     images : res
                 })
@@ -78,7 +67,7 @@ class ProfileSmall extends Component{
     }
 
     getInfo = () => {
-        const ID = this.state.id;
+        const ID = this.state.targetID;
         getAllInfo(ID).then(res=> {
             this.setState({
                 informationCheck2: true,
@@ -93,23 +82,22 @@ class ProfileSmall extends Component{
         .catch(err => {
             console.error(err);
         })
-        console.log(this.state.informationCheck2)
     }
 
     handleClick = () => {
-        const myID = getMyID();
-        const { id, isFollow } = this.state;
+        const { targetID, isFollow , userID} = this.state;
+        console.log(this.state);
         if(isFollow){
-            deleteFollow( myID, id ).then(_=>{
+            deleteFollow( userID, targetID ).then(_=>{
                 this.setState({
-                    isFollow: !isFollow
+                    isFollow: false
                 });
             });
         }
         else{
-            addFollow( myID, id ).then(_=>{
+            addFollow( userID, targetID ).then(_=>{
                 this.setState({
-                    isFollow: !isFollow
+                    isFollow: true
                 });
             });
         }
@@ -119,23 +107,23 @@ class ProfileSmall extends Component{
         e.preventDefault();
 
         if(e.target.nodeName !== 'BUTTON')
-            this.props.history.push(`/${this.state.id}`);
+            this.props.history.push(`/${this.state.targetID}`);
     }
 
     renderProfile = () => {
         // const {informationCheck,informationCheck2} = this.state;
         // if(informationCheck && informationCheck2){
-            const { id, isMe, isFollow } = this.state;
+            const { targetID, isMe, isFollow } = this.state;
             const { profileImg, name } = this.state.profile;
             return (
                 <div className = "ProfileSmall" onClick = {this.movePage}>
                     <div className = "ProfileSmall-Column">
-                        <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/${id}`)}>
+                        <div className = "ProfileSmall-ProfileImage" onClick = {() => this.props.history.push(`/${targetID}`)}>
                             <ProfileImage profileImg = {profileImg} alt = {name}/>
                         </div>
                         <div className = "ProfileSmall-Info">
                             <span className = "Nickname"> {name} </span>
-                            <span className = "Id"> {"@" + id} </span>
+                            <span className = "Id"> {"@" + targetID} </span>
                             { isFollow != null &&
                             <div className = "ProfileSmall-Follow-Btn">
                                 <FollowButton
