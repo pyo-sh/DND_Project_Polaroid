@@ -9,6 +9,7 @@ export const addFollow = async (userID, targetID) => {
   return await axios
   .post('/api/Follow/addFollow', {info})
   .then(res => {
+    console.log(res, " 애드 할떄")
     return res;
   })
   .catch(err => {
@@ -23,6 +24,7 @@ export const deleteFollow = async (userID, targetID) => {
     followerID: targetID
   })
   .then(res => {
+    console.log(res, "델 할떄")
     return res;
   })
   .catch(err => {
@@ -64,10 +66,13 @@ export const isFollowInfo = async (userID, targetID) =>{
   })
   .then(res => {
     let isFollow;
-    if(res.data === null)
+    if(res.data === null){
       isFollow = false;
-    else
+    }
+    else{
       isFollow = true;
+    }
+
     return isFollow;
   })
 }
@@ -117,6 +122,7 @@ export const getUserUpImg = async userID => {
   return await axios
   .get(`/api/images/getUserUpImg/${userID}`)
   .then(res => {
+    console.log(res)
     return res.data;
   })
   .catch(err => {
