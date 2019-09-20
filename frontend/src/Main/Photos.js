@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { CSSGrid, measureItems, makeResponsive,layout } from 'react-stonecutter';
 import { withRouter } from 'react-router-dom';
 import { upImageView } from './MainFunction'
+import { getLikeDailyRanking, getLikeWeekRanking, getLikeMonthRanking } from '../Ranking/RakingFunction';
 
 class Photos extends Component {
     
@@ -24,9 +25,9 @@ class Photos extends Component {
     componentDidMount() {
       const { count, start } = this.state;
       if(this.props.location.pathname.includes("category")){
-        this.setState({
-          outputType : "category"
-        })
+          this.setState({
+            outputType : "category"
+          })
       }else if(this.props.location.pathname.includes("search")){
         this.setState({
           outputType: "search"
@@ -57,7 +58,19 @@ class Photos extends Component {
       if(prevProps.search !== this.props.search){
         this.searchContrast();
       } else if(prevProps.category !== this.props.category){
-        this.cateContrast();
+        let { category } = this.props;
+        if(category === "daily"){
+          this.rankingContrast(category);
+        }
+        else if(category === "weekly") {
+          this.rankingContrast(category);
+        }
+        else if(category === "monthly") {
+          this.rankingContrast(category);
+        }
+        else {
+          this.cateContrast();
+        }
       }
     }
 
@@ -86,16 +99,13 @@ class Photos extends Component {
       this.setState({
           searchimages
       })
-      console.log(searchimages)
       let legnth = searchimages.length
       this.props.getPhotoCount(legnth)
-      console.log(legnth === 0)
       if(legnth === 0){
         this.setState({noImage: true})
       }else{
         this.setState({noImage: false})
       }
-      console.log(this.state.noImage)
     }
 
     /*noImages = () => {
@@ -105,7 +115,30 @@ class Photos extends Component {
       return this.state.noImage;
       
     }*/
+    // getLikeDailyRanking, getLikeWeekRanking, getLikeMonthRanking
 
+    rankingContrast = (rankType) => { // 랭크 타입에 따라 바꾸는 categoryimages
+      if(rankType === "daily"){
+        getLikeDailyRanking().then(res => {
+          this.setState({
+            categoryimages : res
+          })
+        })
+      }else if(rankType === "weekly"){
+        getLikeWeekRanking().then(res => {
+          this.setState({
+            categoryimages : res
+          })
+        })
+      }else {
+        getLikeMonthRanking().then(res => {
+          this.setState({
+            categoryimages : res
+          })
+        })
+      }
+
+    }
     cateContrast = () => {
       let { category } = this.props;
       let categoryimages = this.state.images.filter(categoryimage => categoryimage.category.includes(category))
