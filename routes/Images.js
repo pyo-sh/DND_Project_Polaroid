@@ -112,7 +112,7 @@ Images.post('/getBenefitMonth', (req, res) => { // 달별 수익을 보는 것.
 })
 
 
-Images.get('/getAllImagesUser', (req, res) => {
+Images.get('/getAllImagesUser', (req, res) => { // 모든 이미지 아이디와 url과 유저 아이디를 start 부터 count까지
     let {start, count} = req.query;
     let query = `SELECT imgID, imgUrl, userID from images limit ${start}, ${count} `;
 
@@ -142,7 +142,7 @@ Images.post('/delmyimg', (req , res) => { // 나의 이미지를 지우는 것.
     })
 });
 
-Images.get('/getUserUpImg/:userID', (req, res) => {
+Images.get('/getUserUpImg/:userID', (req, res) => { // 유저아이디를 받아서 그 유저가 업로드한 사진 아이디와 url을 받아옴
     const { userID } = req.params;
     let query = `SELECT imgID, imgUrl FROM images WHERE userID = "${userID}" ORDER BY uploadDate desc LIMIT 3;`
     db.sequelize.query(query).then(([results, metaData]) => {

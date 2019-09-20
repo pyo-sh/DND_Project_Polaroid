@@ -97,3 +97,8 @@ export const getMyLikeImg = async userID => { // 유저아이디를 받아서 �
         console.error(err);
     })
 }
+
+export const delFavImg = async (favFolderNum, imgID) => {  // favFolderNum이랑 imgID를 매개변수로 받아서 폴더 밑의 이미지를 삭제한다.
+    return await axios
+    .post(`/api/favorite/delfavorite`, {favFolderNum, imgID})
+}

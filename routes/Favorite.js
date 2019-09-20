@@ -63,10 +63,10 @@ Favorite.post('/delFavFolder', (req, res) => {  // 즐겨찾기 폴더를 삭제
 })
 
 Favorite.post('/delFavorite', (req, res) => { // 즐겨찾기한 이미지를 삭제 하는 함수.
-    const { favNumFolderNum, imgID }  = req.body;
+    const { favFolderNum, imgID }  = req.body;
     favorite.destroy({
         where: {
-            favNumFolderNum,
+            favFolderNum,
             imgID
         }
     })
