@@ -87,9 +87,9 @@ export const getMyDownImg = async userID => { // 유저아이디를 받아서 �
     })
 }
 
-export const getMyLikeImg = async userID => { // 유저 아이디를 받아서 그 유저가 좋아요 누른 이미지를 다 가져오는것.
+export const getMyLikeImg = async userID => { // 유저아이디를 받아서 그 유저가 다운 받음 이미지를 다 가져오는것.
     return await axios
-    .get(`/api/getMyLikeImg/${userID}`)
+    .get(`/api/imgLike/getMyLikeImg/${userID}`)
     .then(res => {
         return res.data;
     })
@@ -97,4 +97,3 @@ export const getMyLikeImg = async userID => { // 유저 아이디를 받아서 �
         console.error(err);
     })
 }
-
