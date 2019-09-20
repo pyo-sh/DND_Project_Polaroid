@@ -49,8 +49,6 @@ export const getFollowerInfo = async userID => {
     followerID: userID
   })
   .then(res => {
-    console.log("팔로워의 res는")
-    console.log(res);
     return res;
   })
   .catch(err => {
@@ -80,7 +78,6 @@ export const getMyID = () => {
   if(token === null){
     return null;
   }
-  console.log(token);
   const decode = jwt_decode(token);
   const ID = decode.ID;
   return ID;
@@ -113,5 +110,16 @@ export const getFollowerSome = async (userID, start, count) => {
   })
   .catch(err => {
       console.log(err);
+  })
+}
+
+export const getUserUpImg = async userID => {
+  return await axios
+  .get(`/api/images/getUserUpImg/${userID}`)
+  .then(res => {
+    return res.data;
+  })
+  .catch(err => {
+    console.error(err);
   })
 }

@@ -142,4 +142,12 @@ Images.post('/delmyimg', (req , res) => { // 나의 이미지를 지우는 것.
     })
 });
 
+Images.get('/getUserUpImg/:userID', (req, res) => {
+    const { userID } = req.params;
+    let query = `SELECT imgID, imgUrl FROM images WHERE userID = "${userID}" ORDER BY uploadDate desc LIMIT 3;`
+    db.sequelize.query(query).then(([results, metaData]) => {
+        res.send(results);
+    })
+})
+
 module.exports = Images;
