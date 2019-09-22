@@ -11,6 +11,8 @@ import { getAllInfo } from '../MyPage/MyPageFunction';
 import { getMyID, addFollow, deleteFollow, isFollowInfo } from '../Profile/ProfileFunction';
 
 const s3 = new AWS.S3({accessKeyId:awsconfig.accessKeyId, secretAccessKey : awsconfig.secretAccessKey});
+AWS.config.update({region: awsconfig.region})
+
 class ImageInfo extends Component {
   state = {
     // informationCheck = componentWillMount, 사진의 주인 프로파일이 다 받아졌을 때 true
@@ -30,8 +32,8 @@ class ImageInfo extends Component {
     commercialAvailable: '',
     copyrightNotice : '',
     noChange : '',
-    visibility : '',
-    imgHeight : '',
+    visibility : 0,
+    imgHeight : 0,
     imgWidth : '',
     userID : '',
     uploadDate : '',
@@ -153,6 +155,8 @@ class ImageInfo extends Component {
     let Key = `${urlArray[3]}/${urlArray[4]}`;
     let params = {Bucket: realBucket, Key: Key}
     s3.getObject(params, (err, data) => {
+      console.log(data);
+      console.log(err);
       let blob=new Blob([data.Body], {type: data.ContentType});
       let link=document.createElement('a');
       const url=window.URL.createObjectURL(blob);

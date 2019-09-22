@@ -1,10 +1,8 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const fs = require('fs');
 const port = process.env.PORT || 5000;
 
-// const https = require('https');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const Users = require('./routes/Users');
@@ -17,13 +15,7 @@ const LikeRanking = require('./routes/LikeRanking');
 const Upload = require('./routes/Upload');
 const Images = require('./routes/Images');
 const ImgLike = require('./routes/ImgLike');
-// const AWS = require("aws-sdk");
-// AWS.config.loadFromPath(__dirname+ "/config/awsconfig.json");
 
-// const optionsForHTTPS = {
-//     key: fs.readFileSync('config/key.pem','utf8'),
-//     cert: fs.readFileSync('config/server.crt','utf8'),
-// }  // https 해제.
 app.use(cors());
 
 require('./config/passport');
@@ -54,6 +46,15 @@ app.use('/api/likeranking', LikeRanking);
 app.use('/api/upload', Upload);
 app.use('/api/images', Images);
 app.use('/api/imglike', ImgLike);
+
+
+// const path = require('path'); // 배포시 추가.
+// app.use(express.static('frontend/build'));   
+
+// app.get('*', cors(), (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'frontend', 'build','index.html'));
+// })
+
 
 app.listen(port, () => {
     console.log(`welcome ${port}`);

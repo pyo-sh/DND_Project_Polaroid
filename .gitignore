@@ -7,7 +7,7 @@
 .pnp.js
 /frontend/node_modules
 /frontend/src/Upload/awsconfig.js
-
+/routes/google.js
 # testing
 /coverage
 
