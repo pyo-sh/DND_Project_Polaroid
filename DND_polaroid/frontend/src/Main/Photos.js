@@ -185,7 +185,7 @@ class Photos extends Component {
             <InfiniteScroll dataLength = {this.state.images.length} next = {this.fetchImages} hasMore = {this.state.isMore} >
                     <Grid className = "Photos-Grid" component="ul" columnWidth={330} gutterWidth = {5} gutterHeight = {5} layout = {layout.pinterest} duration = {0}>
                     {outputType === "home" ?  
-                        this.state.images.map((image) => (
+                        Array.isArray(this.state.images) && this.state.images.map((image) => (
                               <li key = {image.imgID} >
                                   <Link to = {`/imagepage/${image.imgID}`} onClick={() => this.onClick(image.imgID)}>
                                     <img className = "Photos-photo" src={image.imgUrl} alt="이미지"/>
@@ -194,14 +194,14 @@ class Photos extends Component {
                         ))  :
                         (outputType === "search" ? 
                           //searchI
-                        this.state.searchimages.map((image) => (
+                        Array.isArray(this.state.searchimages) && this.state.searchimages.map((image) => (
                           <li key = {image.imgID} >
                               <Link to = {`/imagepage/${image.imgID}`} onClick={() => this.onClick(image.imgID)}>
                                 <img className = "Photos-photo" src={image.imgUrl} alt="이미지"/>
                               </Link>
                           </li>
                         )) : 
-                        this.state.categoryimages.map((image) => (
+                        Array.isArray(this.state.categoryimages) && this.state.categoryimages.map((image) => (
                           <li key = {image.imgID} >
                               <Link to = {`/imagepage/${image.imgID}`} onClick={() => this.onClick(image.imgID)}>
                                 <img className = "Photos-photo" src={image.imgUrl} alt="이미지"/>
