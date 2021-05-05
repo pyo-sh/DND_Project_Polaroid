@@ -29,7 +29,7 @@ class Photos extends Component {
             outputType : "category"
           })
           axios.get(`/api/images/getAllImagesCategory?start=${start}&count=100`).then(res=>{
-            this.setState({images : res.data});
+            this.setState({images : res.data || []});
             if(this.props.search){
               this.searchContrast();
             }
@@ -42,7 +42,7 @@ class Photos extends Component {
           outputType: "search"
         })
         axios.get(`/api/images/getAllImagesCategory?start=${start}&count=100`).then(res=>{
-          this.setState({images : res.data});
+          this.setState({images : res.data || []});
           if(this.props.search){
             this.searchContrast();
           }
@@ -56,7 +56,7 @@ class Photos extends Component {
         outputType : "home"
       })
       axios.get(`/api/images/getAllImagesCategory?start=${start}&count=${count}`).then(res=>{
-        this.setState({images : res.data});
+        this.setState({images : res.data || []});
         if(this.props.search){
           this.searchContrast();
         }
@@ -144,19 +144,19 @@ class Photos extends Component {
       if(rankType === "daily"){
         getLikeDailyRanking().then(res => {
           this.setState({
-            categoryimages : res
+            categoryimages : res || []
           })
         })
       }else if(rankType === "weekly"){
         getLikeWeekRanking().then(res => {
           this.setState({
-            categoryimages : res
+            categoryimages : res || []
           })
         })
       }else {
         getLikeMonthRanking().then(res => {
           this.setState({
-            categoryimages : res
+            categoryimages : res || []
           })
         })
       }
