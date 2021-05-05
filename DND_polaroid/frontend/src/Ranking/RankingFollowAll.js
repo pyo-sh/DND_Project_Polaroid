@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 const RankingFollowAll = ({allFollowRanking}) => {
     return(
         <ol className = "Ranking-Box-Text">
-          {allFollowRanking.map((user, index) => {
+          {Array.isArray(allFollowRanking) && allFollowRanking.map((user, index) => {
               return (
                 <Link to = {`/${user.userId}`} key={user.userId}>
                     <li className="Ranking-Box-Ranking">
