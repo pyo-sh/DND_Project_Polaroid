@@ -11,17 +11,17 @@ class SideContent extends Component {
         getRanking()
         .then(res => {
             this.setState({
-                allFollowRanking: res
+                allFollowRanking: res || []
             })
         })
         getLikeMonthRanking().then(res=> {
             this.setState({
-                monthLikeRanking : res
+                monthLikeRanking : res || []
             })
         })
         getLikeWeekRanking().then(res=> {
             this.setState({
-                weekLikeRanking : res
+                weekLikeRanking : res || []
             })
         })
     }
