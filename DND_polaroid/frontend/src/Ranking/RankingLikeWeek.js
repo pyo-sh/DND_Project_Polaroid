@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 const RankingLikeWeek = ({weekLikeRanking}) => {
     return(
         <ol className = "Ranking-Box-Text">
-            {weekLikeRanking.map((data, index) =>{
+            {Array.isArray(weekLikeRanking) && weekLikeRanking.map((data, index) =>{
                 return (
                     <Link to = {`/imagepage/${data.imgID}`}  key={data.imgID}>
                         <li className="Ranking-Box-Ranking">
