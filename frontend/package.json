@@ -13,6 +13,7 @@
 	"dependencies": {
 		"axios": "^0.19.0",
 		"count-files": "^2.6.2",
+		"dotenv": "^16.0.0",
 		"jwt-decode": "^2.2.0",
 		"react": "^16.8.6",
 		"react-billboardjs": "^1.5.3",
